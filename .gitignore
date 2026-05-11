@@ -1,6 +1,13 @@
-
 .env
 
-env/
-
 node_modules/
+**/node_modules/
+
+__pycache__/
+**/__pycache__/
+*.pyc
+ai-service/env/
+
+backend/uploads/
+
+creds.md

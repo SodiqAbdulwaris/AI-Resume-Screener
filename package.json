@@ -7,7 +7,7 @@
     "install:all": "npm install --prefix backend && npm install --prefix frontend && pip install -r ai-service/requirements.txt",
     "backend": "npm run dev --prefix backend",
     "frontend": "npm start --prefix frontend",
-    "ai": "python -m uvicorn app.main:app --reload --app-dir ai-service",
+    "ai": "python -m uvicorn main:app --reload --app-dir ai-service",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\" \"npm run ai\""
   },
   "repository": {
@@ -24,5 +24,8 @@
   "homepage": "https://github.com/SodiqAbdulwaris/AI-Resume-Screener#readme",
   "devDependencies": {
     "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "mongodb": "^7.2.0"
   }
 }
