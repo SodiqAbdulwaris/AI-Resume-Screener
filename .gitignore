@@ -1,13 +1,14 @@
 .env
 
 node_modules/
-**/node_modules/
 
+extras/
+
+.qodo/
 __pycache__/
-**/__pycache__/
 *.pyc
 ai-service/env/
+ai-service/tests/
+ai-service/extras/
 
 backend/uploads/
-
-creds.md
