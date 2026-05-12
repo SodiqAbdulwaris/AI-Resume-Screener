@@ -1,17 +1,18 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
-import os
+from typing import Optional
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
     # Database
     MONGO_URI: str
 
-    # Auth
-    JWT_SECRET: str
-    JWT_EXPIRES_IN: str = '7d'
-
-    # Ports
-    BACKEND_PORT: int = 5000
+   # Ports
     AI_SERVICE_PORT: int = 8000
 
     # Service URLs
@@ -19,11 +20,16 @@ class Settings(BaseSettings):
 
     # File upload
     MAX_FILE_SIZE_MB: int = 5
+    
+    # AI Model
+    EMBEDDING_MODEL: str = 'all-MiniLM-L6-v2'
+    HF_TOKEN:str
 
-    class Config:
-        # Points to the root .env, one level above ai-service/
-        env_file = '.env'
-        env_file_encoding = 'utf-8'
+    # AI parser fallback
+    PARSER_AI_ENABLED: bool = False
+    PARSER_AI_URL: Optional[str] = None
+    PARSER_AI_API_KEY: Optional[str] = None
+    PARSER_AI_TIMEOUT_SECONDS: float = 20.0
 
 @lru_cache()  # only reads and validates once, reuses after
 def get_settings() -> Settings:
