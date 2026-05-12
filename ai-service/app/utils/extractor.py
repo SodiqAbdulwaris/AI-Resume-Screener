@@ -25,10 +25,10 @@ def extract_pdf_text(file_bytes: bytes) -> str:
 
             text = text.strip()
 
-            # Hook point for OCR fallback (future)
+            # OCR for later
             if not text:
                 logger.warning("Empty PDF text detected. OCR fallback needed.")
-                # TODO: OCR fallback using pytesseract + image conversion
+                # use pytesseract and image conversion for OCR later
 
             return text
 
