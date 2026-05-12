@@ -14,6 +14,13 @@ class UnsupportedFileTypeError(AppException):
             error_code="UNSUPPORTED_FILE_TYPE"
         )
 
+class FileTooLargeError(AppException):
+    def __init__(self, filename: str, size_mb: float, max_mb: float):
+        super().__init__(
+            message=f"File '{filename}' exceeds the maximum allowed size of {max_mb}MB (uploaded: {size_mb}MB)",
+            error_code="FILE_TOO_LARGE"
+        )
+
 
 class EmptyResumeError(AppException):
     def __init__(self):
