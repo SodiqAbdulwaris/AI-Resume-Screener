@@ -3,9 +3,10 @@ from fastapi import APIRouter, UploadFile, File
 from app.schemas.resume import ParsedCandidate
 from app.services.parser_service import parse_resume_service
 from app.core.exceptions import FileTooLargeError
-from app.config.settings import settings
+from app.config.settings import get_settings
 
 router = APIRouter()
+settings = get_settings()
 
 @router.post("/parse", response_model=ParsedCandidate)
 async def parse_resume(file: UploadFile = File(...)):
