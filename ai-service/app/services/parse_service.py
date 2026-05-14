@@ -1,10 +1,9 @@
+import re
+
 from fastapi import UploadFile
 
-from app.core.exceptions import (
-    AppException,
-    EmptyResumeError,
-    ResumeParsingError,
-)
+from app.config.parser_config import DEGREE_PATTERNS
+from app.core.exceptions import AppException, EmptyResumeError, ResumeParsingError
 from app.core.logger import logger
 from app.parsers.certification_parser import parse_certifications
 from app.parsers.contact_parser import parse_contact
@@ -29,13 +28,10 @@ async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
     with log_time("parse_resume_service"):
         try:
             logger.info("Starting resume parsing pipeline")
-
             raw_text = extract_text_from_file(file)
             if not raw_text or not raw_text.strip():
                 raise EmptyResumeError()
-
             return parse_resume_text(raw_text)
-
         except AppException:
             raise
         except Exception as exc:
@@ -44,28 +40,21 @@ async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
 
 
 def parse_resume_text(raw_text: str) -> ParsedCandidate:
-    parsed = {
-        "raw_text": raw_text,
-    }
     sections = split_into_sections(raw_text)
 
     contact_input = sections["contact"] or "\n".join(
         line for line in raw_text.splitlines()[:10] if line.strip()
     )
 
-    parsed.update({
-        **parse_contact(contact_input),
-        "skills": parse_skills(sections["skills"]),
-        "projects": parse_projects(sections["projects"]),
-        "education": parse_education(sections["education"]),
-        "experience": parse_experience(sections["experience"]),
-        "certifications": parse_certifications(sections["certifications"]),
-    })
+    contact = parse_contact(contact_input)
 
-    normalized = normalize_all_fields(parsed)
-    cleaned = cleanup_empty_values(normalized)
+    education_data = parse_education(sections["education"])
+    education_entries = education_data.get("entries", [])
+    highest_raw = education_data.get("highest_raw")
 
-    experience_data = cleaned.get("experience") or {}
+    education_level = highest_raw or get_education_level(raw_text)
+
+    experience_data = parse_experience(sections["experience"])
     experience_entries = [
         ExperienceEntry(
             role=entry.get("role"),
@@ -84,6 +73,20 @@ def parse_resume_text(raw_text: str) -> ParsedCandidate:
         if experience_data
         else None
     )
+
+    parsed = {
+        "raw_text": raw_text,
+        **contact,
+        "skills": parse_skills(sections["skills"]),
+        "projects": parse_projects(sections["projects"]),
+        "education": education_entries,
+        "education_level": education_level,
+        "experience": experience_data,
+        "certifications": parse_certifications(sections["certifications"]),
+    }
+
+    normalized = normalize_all_fields(parsed)
+    cleaned = cleanup_empty_values(normalized)
 
     candidate = ParsedCandidate(
         full_name=cleaned.get("full_name"),
@@ -104,13 +107,30 @@ def parse_resume_text(raw_text: str) -> ParsedCandidate:
             if isinstance(entry, dict)
         ],
         certifications=cleaned.get("certifications", []),
-        raw_text=parsed.get("raw_text"),
+        raw_text=raw_text,
     )
+
     if candidate.experience is not None:
         candidate.years_experience = candidate.experience.total_years
 
     logger.info("Resume parsing completed successfully")
     return candidate
+
+
+def get_education_level(raw_text: str) -> str | None:
+    lowered = raw_text.lower()
+    highest_rank = -1
+    highest_level = None
+
+    for level, pattern in DEGREE_PATTERNS:
+        if re.search(pattern, lowered, re.IGNORECASE):
+            from app.config.parser_config import DEGREE_HIERARCHY
+            rank = DEGREE_HIERARCHY.get(level, -1)
+            if rank > highest_rank:
+                highest_rank = rank
+                highest_level = level
+
+    return highest_level
 
 
 def cleanup_empty_values(payload: dict) -> dict:
@@ -138,7 +158,6 @@ def cleanup_empty_values(payload: dict) -> dict:
             if nested_dict:
                 cleaned[key] = nested_dict
             continue
-
         cleaned[key] = value
 
     return cleaned

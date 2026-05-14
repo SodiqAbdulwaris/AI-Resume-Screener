@@ -1,54 +1,29 @@
 import re
 
+from app.config.parser_config import SECTION_KEYS, SECTION_ALIASES
 
-SECTION_KEYS = (
-    "contact",
-    "skills",
-    "education",
-    "experience",
-    "projects",
-    "certifications",
-    "other",
+
+# Matches markdown headings
+_MARKDOWN_HEADING = re.compile(r"^#{1,6}\s+")
+
+_HEADING_PATTERN = re.compile(
+    r"^(?P<title>[A-Za-z][A-Za-z0-9 &/()\-]{1,55})(?::)?\s*$"
 )
 
-SECTION_ALIASES = {
-    "contact": "contact",
-    "personal details": "contact",
-    "personal information": "contact",
-    "contact details": "contact",
-    "skills": "skills",
-    "technical skills": "skills",
-    "key skills": "skills",
-    "core competencies": "skills",
-    "competencies": "skills",
-    "education": "education",
-    "academic background": "education",
-    "academic qualifications": "education",
-    "experience": "experience",
-    "work experience": "experience",
-    "professional experience": "experience",
-    "employment history": "experience",
-    "career history": "experience",
-    "projects": "projects",
-    "personal projects": "projects",
-    "selected projects": "projects",
-    "certifications": "certifications",
-    "certificates": "certifications",
-    "licenses": "certifications",
-    "licences": "certifications",
-}
-
-HEADING_PATTERN = re.compile(r"^(?P<title>[A-Za-z][A-Za-z &/\-]{1,50})(?::)?$")
+# Lines that look like headings but are content.
+_FALSE_HEADING_PATTERN = re.compile(
+    r"\b(and|responsibilities|contributions|achievements|including|such as)\b",
+    re.IGNORECASE,
+)
 
 
 def split_into_sections(text: str) -> dict[str, str]:
     sections = {key: "" for key in SECTION_KEYS}
-    lines = [line.rstrip() for line in text.splitlines()]
-
-    current_section = "other"
     buffers = {key: [] for key in SECTION_KEYS}
 
-    for raw_line in lines:
+    current_section = "other"
+
+    for raw_line in text.splitlines():
         line = raw_line.strip()
         if not line:
             continue
@@ -67,9 +42,16 @@ def split_into_sections(text: str) -> dict[str, str]:
 
 
 def classify_heading(line: str) -> str | None:
-    match = HEADING_PATTERN.match(line)
+    cleaned = _MARKDOWN_HEADING.sub("", line).strip()
+
+    match = _HEADING_PATTERN.match(cleaned)
     if not match:
         return None
 
-    normalized = re.sub(r"\s+", " ", match.group("title").lower()).strip()
+    title = match.group("title").strip()
+
+    if _FALSE_HEADING_PATTERN.search(title):
+        return None
+
+    normalized = re.sub(r"\s+", " ", title.lower()).strip()
     return SECTION_ALIASES.get(normalized)

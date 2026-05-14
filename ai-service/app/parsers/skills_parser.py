@@ -1,26 +1,43 @@
 import re
+
+from app.config.parser_config import SKILL_STOP_WORDS as STOP_WORDS
+from app.config.parser_config import SKILL_SKIP_TOKENS as SKIP_TOKENS
+
 SKILL_SPLIT_PATTERN = re.compile(r",")
-SKILL_LABEL_PATTERN = re.compile(
-    r"^(skills|technical skills|core competencies|technologies)\s*:?\s*",
+
+SKILL_SECTION_HEADER_PATTERN = re.compile(
+    r"^(skills|technical skills|core competencies|technologies|areas of expertise)\s*:?\s*$",
     re.IGNORECASE,
 )
+
+INLINE_LABEL_PATTERN = re.compile(
+    r"^([A-Za-z0-9&/()\-\s]{1,40}?)\s*:\s*",
+)
+
 LABEL_PREFIXES = {
-    "languages",
-    "frameworks & libraries",
-    "frameworks",
-    "libraries",
-    "tools",
+    "languages", "other", "tools", "frameworks", "libraries",
+    "frameworks & libraries", "architecture", "design",
     "architecture & design",
-    "architecture",
-    "design",
-    "other",
+    "frontend", "backend", "databases", "database",
+    "web", "mobile",
+    "devops", "cloud", "cloud platforms", "containers & orchestration",
+    "containers", "orchestration", "infrastructure as code",
+    "ci/cd", "monitoring & observability", "monitoring", "observability",
+    "networking", "security",
+    "primary", "secondary", "tertiary",
+    "testing", "test",
+    "scripting", "scripting languages",
+    "ml frameworks", "ml/dl", "ml / dl",
+    "data tools", "data", "big data",
+    "nlp", "mlops",
+    "offensive security", "defensive / soc", "defensive",
+    "cloud security", "devsecops", "forensics",
+    "soft skills", "concepts", "version control",
+    "ios frameworks", "cross-platform", "tooling",
+    "observability tools",
+    "tools & devops", "tools & technologies",
 }
-STOP_WORDS = {"and", "or", "the", "with", "using", "a", "an"}
-SKIP_TOKENS = {
-    "google docs", "google sheets", "google slides",
-    "sheets", "slides", "powerbi", "power bi",
-    "microsoft word", "microsoft excel"
-}
+
 
 
 def parse_skills(section_text: str) -> list[str]:
@@ -32,43 +49,69 @@ def parse_skills(section_text: str) -> list[str]:
         if not stripped:
             continue
 
-        stripped = SKILL_LABEL_PATTERN.sub("", stripped)
-        stripped = strip_inline_label(stripped)
-        parts = [part.strip() for part in SKILL_SPLIT_PATTERN.split(stripped)]
+        if SKILL_SECTION_HEADER_PATTERN.match(stripped):
+            continue
 
-        if len(parts) == 1 and parts[0] == stripped and stripped.startswith(("-", "*")):
-            parts = [stripped.lstrip("-* ").strip()]
+        
+        sub_lines = split_collapsed_categories(stripped)
 
-        for part in parts:
-            normalized = normalize_skill_token(part)
-            if normalized and normalized not in seen:
-                seen.add(normalized)
-                raw_skills.append(normalized)
+        for sub_line in sub_lines:
+            sub_line = strip_leading_label(sub_line)
+            if not sub_line:
+                continue
+
+            parts = [p.strip() for p in SKILL_SPLIT_PATTERN.split(sub_line)]
+
+            for part in parts:
+                part = strip_leading_label(part)
+                normalized = normalize_skill_token(part)
+                if normalized and normalized not in seen:
+                    seen.add(normalized)
+                    raw_skills.append(normalized)
 
     return sorted(raw_skills)
 
 
-def strip_inline_label(value: str) -> str:
+def split_collapsed_categories(line: str) -> list[str]:
+
+    boundary = re.compile(
+        r"(?<=[a-z0-9\s,)])\s+(?=[A-Z][A-Za-z&/()\-]*(?:\s+[A-Z][A-Za-z&/()\-]*){0,3}\s*:)"
+    )
+    parts = boundary.split(line)
+    return [p.strip() for p in parts if p.strip()]
+
+
+def strip_leading_label(value: str) -> str:
+
     if ":" not in value:
         return value
 
-    prefix, remainder = value.split(":", 1)
-    normalized_prefix = re.sub(r"\s+", " ", prefix.strip().lower())
+    match = INLINE_LABEL_PATTERN.match(value)
+    if not match:
+        return value
 
-    if normalized_prefix in LABEL_PREFIXES or len(prefix.strip().split()) < 4:
-        return remainder.strip()
+    prefix = match.group(1).strip().lower()
+    prefix = re.sub(r"\s+", " ", prefix)
+
+    if prefix in LABEL_PREFIXES:
+        remainder = value[match.end():].strip()
+        return remainder
 
     return value
 
 
 def normalize_skill_token(value: str) -> str | None:
     cleaned = value.strip().lower()
-    cleaned = re.sub(r"^[\-\u2022*]+\s*", "", cleaned)
+    cleaned = re.sub(r"^[\-\u2022*▪·]+\s*", "", cleaned)
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" .:;|")
 
     if len(cleaned) <= 1:
         return None
-    if cleaned in STOP_WORDS or cleaned in SKIP_TOKENS:
+    if cleaned in STOP_WORDS:
+        return None
+    if cleaned in SKIP_TOKENS:
+        return None
+    if len(cleaned.split()) > 6:
         return None
 
     return cleaned

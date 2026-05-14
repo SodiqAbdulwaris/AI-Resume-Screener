@@ -1,81 +1,73 @@
 import re
 
-DEGREE_PATTERNS = [
-    ("phd", r"\b(phd|doctorate)\b"),
-    ("master", r"\b(master|msc|mba|meng|m\.sc|m\.eng)\b"),
-    ("bachelor", r"\b(bachelor|bsc|beng|b\.sc|b\.eng|hnd)\b"),
-    ("olevel", r"\b(a-level|o-level|waec|neco|ssce)\b"),
-]
+from app.config.parser_config import DEGREE_PATTERNS, DEGREE_HIERARCHY
+
+
 DATE_RANGE_PATTERN = re.compile(
     r"(?P<start>\d{4})\s*[-–]\s*(?P<end>\d{4}|present|in progress|ongoing|current)",
     re.IGNORECASE,
 )
 YEAR_PATTERN = re.compile(r"\b(19|20)\d{2}\b")
 GPA_PATTERN = re.compile(
-    r"\b(\d+(?:\.\d+)?/\d+(?:\.\d+)?|\d+(?:\.\d+)?%|first class)\b",
+    r"\b(\d+(?:\.\d+)?/\d+(?:\.\d+)?|\d+(?:\.\d+)?%)\b",
     re.IGNORECASE,
 )
-STATUS_PATTERN = re.compile(r"\b(in progress|on hold|present|ongoing|current)\b", re.IGNORECASE)
-BULLET_PREFIX_PATTERN = re.compile(r"^\s*[o\-•*]\b|^\s*[•*\-]\s*")
-COURSEWORK_HINT_PATTERN = re.compile(r"\b(coursework|relevant|gpa|grade)\b", re.IGNORECASE)
+STATUS_PATTERN = re.compile(
+    r"\b(in progress|on hold|present|ongoing|current)\b",
+    re.IGNORECASE,
+)
+BULLET_PREFIX_PATTERN = re.compile(r"^\s*[•*\-]\s*")
 TRAILING_DECORATION_PATTERN = re.compile(
     r"\s*(?:\d{4}\s*[-–]\s*(?:\d{4}|in progress|on hold|present|ongoing|current).*)$",
     re.IGNORECASE,
 )
 
+SKIP_LINE_PREFIXES = re.compile(
+    r"^(dissertation|thesis|note|advisor|supervisor|relevant coursework|coursework"
+    r"|gpa|cgpa|grade|graduated|honours|honors|concentration|major|minor)\s*[:\-]?",
+    re.IGNORECASE,
+)
+
+CLASSIFICATION_PATTERN = re.compile(
+    r"\b(first class|second class|upper division|lower division|with distinction"
+    r"|cum laude|magna cum laude|summa cum laude|pass|merit|distinction"
+    r"|second class upper|second class lower)\b",
+    re.IGNORECASE,
+)
+
+INSTITUTION_KEYWORDS = re.compile(
+    r"\b(university|université|universität|college|institute|institution"
+    r"|school|academy|polytechnic|faculty|department)\b",
+    re.IGNORECASE,
+)
+
+LOCATION_ONLY_PATTERN = re.compile(
+    r"^[A-Za-z\s]+,\s*[A-Za-z\s]+$"
+)
+
 
 def parse_education(section_text: str) -> dict:
     lines = [line.strip() for line in section_text.splitlines() if line.strip()]
+
+    blocks = split_into_blocks(lines)
+
     entries = []
-    current_entry: dict | None = None
-    current_entry_line_count = 0
     highest_rank = -1
     highest_raw = None
 
-    for line in lines:
-        if looks_like_institution(line):
-            if current_entry is not None:
-                entries.append(current_entry)
-            current_entry = {
-                "institution": clean_institution_name(line),
-                "degree": None,
-                "start_year": None,
-                "end_year": None,
-                "gpa": None,
-            }
-            current_entry_line_count = 0
+    for block in blocks:
+        entry = parse_block(block)
+        if entry is None:
             continue
 
-        if current_entry is None:
-            continue
+        entries.append(entry)
 
-        current_entry_line_count += 1
-
-        degree_match = detect_degree(line)
-        if degree_match and current_entry["degree"] is None:
-            current_entry["degree"] = extract_degree_label(line)
-            rank = degree_rank(degree_match)
+        degree_level = degree_level(entry.get("degree") or "")
+        if degree_level is not None:
+            rank = degree_rank(degree_level)
             if rank > highest_rank:
                 highest_rank = rank
-                highest_raw = degree_match
-        elif current_entry["degree"] is None and current_entry_line_count == 1:
-            fallback_degree = extract_fallback_degree(line)
-            if fallback_degree:
-                current_entry["degree"] = fallback_degree
-
-        if current_entry["gpa"] is None:
-            gpa_match = GPA_PATTERN.search(line)
-            if gpa_match:
-                current_entry["gpa"] = gpa_match.group(1)
-
-        start_year, end_year = detect_years(line)
-        if start_year is not None and current_entry["start_year"] is None:
-            current_entry["start_year"] = start_year
-        if end_year is not None or contains_open_ended_marker(line):
-            current_entry["end_year"] = end_year
-
-    if current_entry is not None:
-        entries.append(current_entry)
+                highest_raw = degree_level
 
     return {
         "entries": entries,
@@ -83,99 +75,159 @@ def parse_education(section_text: str) -> dict:
     }
 
 
-def looks_like_institution(line: str) -> bool:
-    lowered = line.lower()
-    stripped = line.strip()
-    if len(stripped) <= 1 or re.fullmatch(r"[\W_]+", stripped):
-        return False
-    if BULLET_PREFIX_PATTERN.match(stripped):
-        return False
-    if COURSEWORK_HINT_PATTERN.search(lowered):
-        return False
-    if STATUS_PATTERN.search(stripped):
-        return False
-    if len(stripped) > 60:
-        return False
-    if stripped.count(",") > 2:
-        return False
-    if detect_degree(line):
-        return False
-    if DATE_RANGE_PATTERN.search(line) or GPA_PATTERN.search(line):
-        return False
-    if YEAR_PATTERN.search(line):
-        return False
-    return bool(line) and len(line.split()) <= 8 and not lowered.startswith(("gpa", "cgpa"))
+# splits sets of lines into blocks to later be processed
+def split_into_blocks(lines: list[str]) -> list[list[str]]:
+    blocks: list[list[str]] = []
+    current: list[str] = []
+
+    for line in lines:
+        is_degree = is_degree_line(line)
+        is_institution = is_institution_line(line)
+
+        if current and (is_degree or is_institution):
+            current_has_degree = any(is_degree_line(l) for l in current)
+            current_has_institution = any(is_institution_line(l) for l in current)
+
+            if is_degree and current_has_degree:
+                blocks.append(current)
+                current = []
+            elif is_institution and current_has_institution and not current_has_degree:
+                blocks.append(current)
+                current = []
+
+        current.append(line)
+
+    if current:
+        blocks.append(current)
+
+    return blocks
 
 
-def detect_degree(line: str) -> str | None:
+# parse lines and return dict to add to API response
+def parse_block(lines: list[str]) -> dict | None:
+    degree_line: str | None = None
+    institution_line: str | None = None
+    start_year: int | None = None
+    end_year: int | None = None
+    gpa: str | None = None
+
+    for line in lines:
+        # Always skip noise lines first
+        if is_noise_line(line):
+            continue
+
+        if DATE_RANGE_PATTERN.search(line) or (YEAR_PATTERN.search(line) and not is_institution_line(line)):
+            s, e = edu_years(line)
+            if s is not None and start_year is None:
+                start_year = s
+            if e is not None or contains_open_ended_marker(line):
+                end_year = e
+
+            if gpa is None:
+                gpa_match = GPA_PATTERN.search(line)
+                if gpa_match:
+                    gpa = gpa_match.group(1)
+            continue
+
+        if is_degree_line(line) and degree_line is None:
+            degree_line = line
+            continue
+
+        if is_institution_line(line) and institution_line is None:
+            institution_line = line
+            continue
+
+        if gpa is None:
+            gpa_match = GPA_PATTERN.search(line)
+            if gpa_match:
+                gpa = gpa_match.group(1)
+
+    if degree_line is None and institution_line is None:
+        return None
+
+    return {
+        "institution": clean_institution_name(institution_line) if institution_line else None,
+        "degree": extract_edu_degree_label(degree_line) if degree_line else None,
+        "start_year": start_year,
+        "end_year": end_year,
+        "gpa": gpa,
+    }
+
+
+# get what line we're on
+def is_noise_line(line: str) -> bool:
+    if BULLET_PREFIX_PATTERN.match(line):
+        return True
+    if SKIP_LINE_PREFIXES.match(line):
+        return True
+    if CLASSIFICATION_PATTERN.search(line):
+        return True
+    return False
+
+
+def is_degree_line(line: str) -> bool:
+    return degree_level(line) is not None
+
+
+def is_institution_line(line: str) -> bool:
+    if is_noise_line(line):
+        return False
+    if is_degree_line(line):
+        return False
+    if DATE_RANGE_PATTERN.search(line):
+        return False
+    if GPA_PATTERN.search(line) and not INSTITUTION_KEYWORDS.search(line):
+        return False
+
+    if INSTITUTION_KEYWORDS.search(line):
+        return True
+
+    return False
+
+
+# clean extracted text
+def clean_institution_name(line: str) -> str:
+    cleaned = TRAILING_DECORATION_PATTERN.sub("", line).strip()
+
+    if "," in cleaned:
+        institution = cleaned.split(",", 1)[0].strip()
+    else:
+        institution = cleaned.strip()
+
+    return institution
+
+
+def extract_edu_degree_label(line: str) -> str:
+    cleaned = BULLET_PREFIX_PATTERN.sub("", line).strip()
+    cleaned = GPA_PATTERN.sub("", cleaned)
+    cleaned = TRAILING_DECORATION_PATTERN.sub("", cleaned)
+    cleaned = STATUS_PATTERN.sub("", cleaned)
+    cleaned = re.sub(r"\b(19|20)\d{2}\b", "", cleaned)
+    cleaned = re.sub(r"\(\s*\)", "", cleaned)
+    cleaned = re.sub(
+        r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\b",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    )
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,;-–—()")
+    return cleaned
+
+
+# Field extraction helpers
+def degree_level(line: str) -> str | None:
     lowered = line.lower()
     for degree_name, pattern in DEGREE_PATTERNS:
-        if re.search(pattern, lowered):
+        if re.search(pattern, lowered, re.IGNORECASE):
             return degree_name
     return None
 
 
-def extract_degree_label(line: str) -> str:
-    stripped = BULLET_PREFIX_PATTERN.sub("", line).strip()
-    stripped = GPA_PATTERN.sub("", stripped)
-    stripped = TRAILING_DECORATION_PATTERN.sub("", stripped)
-    stripped = STATUS_PATTERN.sub("", stripped)
-    stripped = re.sub(r"\b(19|20)\d{2}\b", "", stripped)
-    stripped = re.sub(r'\(\s*\)', '', stripped).strip()
-    stripped = re.sub(r"\s+", " ", stripped).strip(" ,;-")
-    stripped = re.sub(r'[\s(]*\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\b.*$', '', stripped, flags=re.IGNORECASE).strip()
-    stripped = re.sub(r'\(\s*\)', '', stripped).strip()
-    return stripped
-
-
-def extract_fallback_degree(line: str) -> str | None:
-    stripped = line.strip()
-    if not stripped:
-        return None
-    if len(stripped) >= 120:
-        return None
-    if BULLET_PREFIX_PATTERN.match(stripped):
-        return None
-    lowered = stripped.lower()
-    if any(token in lowered for token in ["coursework", "relevant", "gpa"]):
-        return None
-    if DATE_RANGE_PATTERN.fullmatch(stripped) or YEAR_PATTERN.fullmatch(stripped):
-        return None
-
-    cleaned = extract_degree_label(stripped)
-    return cleaned or None
-
-def clean_institution_name(line: str) -> str:
-    stripped = re.sub(r'\s+[A-Z][a-z]+$', '', line).strip()
-    if "," not in stripped:
-        # run strip again in case comma removal exposed a city
-        return re.sub(r'\s+[A-Z][a-z]+$', '', stripped).strip()
-
-    head, tail = stripped.split(",", 1)
-    tail = tail.strip()
-    if not tail:
-        # strip trailing city from head too
-        return re.sub(r'\s+[A-Z][a-z]+$', '', head).strip()
-    if len(tail.split()) >= 4:
-        return stripped
-    if any(char.isdigit() for char in tail):
-        return stripped
-    if detect_degree(tail):
-        return stripped
-
-    return re.sub(r'\s+[A-Z][a-z]+$', '', head).strip()
-
 def degree_rank(value: str) -> int:
-    hierarchy = {
-        "olevel": 0,
-        "bachelor": 1,
-        "master": 2,
-        "phd": 3,
-    }
-    return hierarchy.get(value, -1)
+    return DEGREE_HIERARCHY.get(value, -1)
 
 
-def detect_years(line: str) -> tuple[int | None, int | None]:
+def edu_years(line: str) -> tuple[int | None, int | None]:
     range_match = DATE_RANGE_PATTERN.search(line)
     if range_match:
         start_year = int(range_match.group("start"))
@@ -183,7 +235,7 @@ def detect_years(line: str) -> tuple[int | None, int | None]:
         end_year = None if contains_open_ended_marker(end_text) else int(end_text)
         return start_year, end_year
 
-    years = [int(match.group(0)) for match in YEAR_PATTERN.finditer(line)]
+    years = [int(m.group(0)) for m in YEAR_PATTERN.finditer(line)]
     if len(years) >= 2:
         return years[0], years[1]
     if len(years) == 1:
@@ -192,4 +244,6 @@ def detect_years(line: str) -> tuple[int | None, int | None]:
 
 
 def contains_open_ended_marker(value: str) -> bool:
-    return bool(re.search(r"\b(present|in progress|ongoing|current)\b", value, re.IGNORECASE))
+    return bool(
+        re.search(r"\b(present|in progress|ongoing|current)\b", value, re.IGNORECASE)
+    )
