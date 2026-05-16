@@ -1,4 +1,11 @@
-# Central config for all parsers.
+# Central config file for parsers
+
+# Job titles
+JOB_TITLE_HINTS: frozenset[str] = frozenset({
+    "engineer", "developer", "manager", "analyst", "designer",
+    "scientist", "consultant", "specialist", "intern", "director",
+    "architect", "officer", "lead", "head", "senior", "junior",
+})
 
 # Section keys
 SECTION_KEYS: tuple[str] = (
@@ -114,6 +121,44 @@ EXPERIENCE_ROLE_KEYWORDS: frozenset[str] = frozenset({
     "executive", "president", "founder", "co-founder",
     "devops", "sre", "penetration", "tester", "accountant",
     "intern", "internship",
+})
+
+# Project tech keywords
+PROJECT_TECHNOLOGIES: frozenset[str] = frozenset({
+    "python", "fastapi", "flask", "django", "sqlalchemy", "pydantic",
+    "node", "nodejs", "express", "graphql", "rest", "grpc",
+    "java", "spring", "kotlin", "go", "rust", "c++", "c#",
+    "react", "vue", "angular", "nextjs", "svelte",
+    "html", "css", "javascript", "typescript", "tailwind",
+    "swift", "swiftui", "uikit", "flutter", "dart", "react native",
+    "postgresql", "mysql", "sqlite", "mongodb", "redis",
+    "supabase", "firebase", "dynamodb", "cassandra",
+    "docker", "kubernetes", "terraform", "ansible", "helm",
+    "aws", "gcp", "azure", "vercel", "heroku", "nginx",
+    "github actions", "gitlab ci", "jenkins", "argocd",
+    "pandas", "numpy", "scikit-learn", "tensorflow", "pytorch",
+    "langchain", "faiss", "hugging face", "spark", "airflow",
+    "jwt", "oauth", "rbac", "websocket", "kafka", "celery",
+    "git", "github", "gitlab", "postman", "figma",
+    "stripe", "paystack", "twilio",
+})
+
+# Certificate issuers
+CERT_ISSUER_KEYWORDS: frozenset[str] = frozenset({
+    "aws", "amazon", "azure", "microsoft", "google", "gcp",
+    "oracle", "ibm", "alibaba",
+    "hashicorp", "kubernetes", "cka", "ckad", "cks", "linux foundation",
+    "redhat", "red hat",
+    "comptia", "ec-council", "ceh", "cissp", "cism", "giac", "offensive security",
+    "oscp", "isc2", "(isc)²",
+    "cisco", "ccna", "ccnp", "juniper",
+    "tensorflow", "databricks", "snowflake", "tableau", "sas",
+    "pmi", "pmp", "prince2", "scrum", "agile", "safe",
+    "coursera", "udemy", "udacity", "edx", "pluralsight",
+    "linkedin learning", "deeplearning.ai", "freecodecamp",
+    "apple", "android", "google play",
+    "certified", "certificate", "certification", "professional",
+    "associate", "specialist", "expert", "foundation",
 })
 
 # Degree classification — lowest to highest.

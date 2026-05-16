@@ -62,12 +62,12 @@ def parse_education(section_text: str) -> dict:
 
         entries.append(entry)
 
-        degree_level = degree_level(entry.get("degree") or "")
-        if degree_level is not None:
-            rank = degree_rank(degree_level)
+        detected_level = degree_level(entry.get("degree") or "")
+        if detected_level is not None:
+            rank = degree_rank(detected_level)
             if rank > highest_rank:
                 highest_rank = rank
-                highest_raw = degree_level
+                highest_raw = detected_level
 
     return {
         "entries": entries,
@@ -75,7 +75,6 @@ def parse_education(section_text: str) -> dict:
     }
 
 
-# splits sets of lines into blocks to later be processed
 def split_into_blocks(lines: list[str]) -> list[list[str]]:
     blocks: list[list[str]] = []
     current: list[str] = []
@@ -103,7 +102,6 @@ def split_into_blocks(lines: list[str]) -> list[list[str]]:
     return blocks
 
 
-# parse lines and return dict to add to API response
 def parse_block(lines: list[str]) -> dict | None:
     degree_line: str | None = None
     institution_line: str | None = None
@@ -112,22 +110,23 @@ def parse_block(lines: list[str]) -> dict | None:
     gpa: str | None = None
 
     for line in lines:
-        # Always skip noise lines first
         if is_noise_line(line):
             continue
 
-        if DATE_RANGE_PATTERN.search(line) or (YEAR_PATTERN.search(line) and not is_institution_line(line)):
+        has_date = DATE_RANGE_PATTERN.search(line) or (
+            YEAR_PATTERN.search(line) and not is_institution_line(line)
+        )
+
+        if has_date:
             s, e = edu_years(line)
             if s is not None and start_year is None:
                 start_year = s
             if e is not None or contains_open_ended_marker(line):
                 end_year = e
-
             if gpa is None:
                 gpa_match = GPA_PATTERN.search(line)
                 if gpa_match:
                     gpa = gpa_match.group(1)
-            continue
 
         if is_degree_line(line) and degree_line is None:
             degree_line = line
@@ -137,13 +136,16 @@ def parse_block(lines: list[str]) -> dict | None:
             institution_line = line
             continue
 
-        if gpa is None:
+        if not has_date and gpa is None:
             gpa_match = GPA_PATTERN.search(line)
             if gpa_match:
                 gpa = gpa_match.group(1)
 
     if degree_line is None and institution_line is None:
         return None
+
+    if degree_line is not None and institution_line is None:
+        institution_line = extract_institution_from_degree_line(degree_line)
 
     return {
         "institution": clean_institution_name(institution_line) if institution_line else None,
@@ -153,8 +155,15 @@ def parse_block(lines: list[str]) -> dict | None:
         "gpa": gpa,
     }
 
+def extract_institution_from_degree_line(line: str) -> str | None:
+    inst_match = INSTITUTION_KEYWORDS.search(line)
+    if not inst_match:
+        return None
+    institution_fragment = line[inst_match.start():]
+    institution_fragment = TRAILING_DECORATION_PATTERN.sub("", institution_fragment).strip()
+    return institution_fragment
 
-# get what line we're on
+
 def is_noise_line(line: str) -> bool:
     if BULLET_PREFIX_PATTERN.match(line):
         return True
@@ -178,22 +187,17 @@ def is_institution_line(line: str) -> bool:
         return False
     if GPA_PATTERN.search(line) and not INSTITUTION_KEYWORDS.search(line):
         return False
-
     if INSTITUTION_KEYWORDS.search(line):
         return True
-
     return False
 
 
-# clean extracted text
 def clean_institution_name(line: str) -> str:
     cleaned = TRAILING_DECORATION_PATTERN.sub("", line).strip()
-
     if "," in cleaned:
         institution = cleaned.split(",", 1)[0].strip()
     else:
         institution = cleaned.strip()
-
     return institution
 
 
@@ -210,11 +214,13 @@ def extract_edu_degree_label(line: str) -> str:
         cleaned,
         flags=re.IGNORECASE,
     )
+    inst_match = INSTITUTION_KEYWORDS.search(cleaned)
+    if inst_match:
+        cleaned = cleaned[:inst_match.start()]
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,;-–—()")
     return cleaned
 
 
-# Field extraction helpers
 def degree_level(line: str) -> str | None:
     lowered = line.lower()
     for degree_name, pattern in DEGREE_PATTERNS:

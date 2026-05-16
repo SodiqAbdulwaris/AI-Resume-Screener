@@ -5,7 +5,6 @@ from app.config.parser_config import EXPERIENCE_ROLE_KEYWORDS
 
 current_year = datetime.now().year
 
-
 MONTHS = r"(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*"
 
 DATE_RANGE_PATTERN = re.compile(
@@ -19,7 +18,6 @@ MONTH_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
-
 ROLE_COMPANY_SEPARATOR = re.compile(r"\s+[—–|·]\s+")
 
 BULLET_LINE_PATTERN = re.compile(r"^\s*[•\-*▪·]\s*")
@@ -31,9 +29,17 @@ COMPANY_KEYWORDS = re.compile(
     re.IGNORECASE,
 )
 
+_TRAILING_LOCATION = re.compile(
+    r",\s*[A-Za-z][A-Za-z\s]+(?:,\s*[A-Za-z][A-Za-z\s]+)?\s*$"
+)
+
 
 def parse_experience(section_text: str) -> dict:
-    lines = [line.strip() for line in section_text.splitlines() if line.strip()]
+    lines = [
+        line.strip().replace("\u200b", "").replace("\u200c", "").replace("\u200d", "").replace("\ufeff", "")
+        for line in section_text.splitlines()
+        if line.strip()
+    ]
 
     blocks = split_into_blocks(lines)
 
@@ -70,11 +76,18 @@ def split_into_blocks(lines: list[str]) -> list[list[str]]:
 
     for line in lines:
         has_date = bool(DATE_RANGE_PATTERN.search(line))
+        is_header = not has_date and bool(try_split_role_and_company(line)[0])
 
-        if has_date and block_has_date(current):
-            # Current block is complete — start a new one
-            blocks.append(current)
-            current = []
+        if current:
+            if has_date and block_has_date(current):
+                # New date seen and current block already has one — start new block
+                blocks.append(current)
+                current = []
+            elif is_header and (block_has_date(current) or block_has_header(current)):
+                # New role/company header seen and current block already has content
+                # that looks like a job entry — start new block
+                blocks.append(current)
+                current = []
 
         current.append(line)
 
@@ -88,13 +101,23 @@ def block_has_date(block: list[str]) -> bool:
     return any(DATE_RANGE_PATTERN.search(line) for line in block)
 
 
-# Extract role, company, start year, end year
-def _parse_block(lines: list[str]) -> dict | None:
+def block_has_header(block: list[str]) -> bool:
+    return any(bool(try_split_role_and_company(line)[0]) for line in block)
 
+def block_has_date(block: list[str]) -> bool:
+    return any(DATE_RANGE_PATTERN.search(line) for line in block)
+
+
+def _parse_block(lines: list[str]) -> dict | None:
+    
+    
+    
     role: str | None = None
     company: str | None = None
     start_year: int | None = None
     end_year: int | None = None
+    
+    # print(f"[DEBUG] block lines: {lines}")
 
     for line in lines:
         if BULLET_LINE_PATTERN.match(line):
@@ -108,12 +131,12 @@ def _parse_block(lines: list[str]) -> dict | None:
                 start_year, end_year = parse_range(line)
 
             text_before_date = line[:date_match.start()].strip()
-            if text_before_date and role is None:
-                extracted = extract_role_and_company_from_text(text_before_date)
-                if extracted[0]:
-                    role = extracted[0]
-                if extracted[1] and company is None:
-                    company = extracted[1]
+            if text_before_date and (role is None or company is None):
+                extracted_role, extracted_company = extract_role_and_company_from_text(text_before_date)
+                if extracted_role and role is None:
+                    role = extracted_role
+                if extracted_company and company is None:
+                    company = extracted_company
             continue
 
         if role is None or company is None:
@@ -135,6 +158,7 @@ def _parse_block(lines: list[str]) -> dict | None:
 
     if start_year is None:
         return None
+    
 
     return {
         "role": clean_role(role) if role else None,
@@ -186,20 +210,32 @@ def is_company_line(line: str) -> bool:
     return False
 
 
-
 def try_split_role_and_company(line: str) -> tuple[str | None, str | None]:
+    # Handle explicit separator
     sep_match = ROLE_COMPANY_SEPARATOR.search(line)
     if sep_match:
         left = line[:sep_match.start()].strip()
         right = line[sep_match.end():].strip()
-        company = right.split(",")[0].strip() if right else None
+        right_no_loc = _TRAILING_LOCATION.sub("", right).strip()
+        company_candidate = right_no_loc.split(",")[0].strip() if right_no_loc else None
         if is_role_line(left):
-            return left, company
+            return left, company_candidate
         if is_role_line(right.split(",")[0]):
             return right.split(",")[0].strip(), left
         return None, None
 
-    return None, None
+    # Strip trailing location first, then scan every split point from left to right,
+    line_no_loc = _TRAILING_LOCATION.sub("", line).strip()
+    words_no_loc = line_no_loc.split()
+
+    best_split: tuple[str | None, str | None] = (None, None)
+    for split_at in range(2, len(words_no_loc)):
+        role_candidate = " ".join(words_no_loc[:split_at])
+        company_candidate = " ".join(words_no_loc[split_at:]).strip("(),.")
+        if is_role_line(role_candidate) and company_candidate:
+            best_split = (role_candidate, company_candidate or None)
+
+    return best_split
 
 
 def extract_role_and_company_from_text(text: str) -> tuple[str | None, str | None]:
@@ -216,7 +252,6 @@ def extract_role_and_company_from_text(text: str) -> tuple[str | None, str | Non
     return None, None
 
 
-
 def clean_role(value: str) -> str:
     cleaned = value.strip()
     cleaned = ROLE_COMPANY_SEPARATOR.split(cleaned)[0].strip()
@@ -230,7 +265,6 @@ def clean_company(value: str) -> str:
         cleaned = cleaned.split(",")[0].strip()
     cleaned = cleaned.strip(".,;:—–-()")
     return cleaned
-
 
 
 def calculate_years_of_experience(entries: list[dict]) -> float:

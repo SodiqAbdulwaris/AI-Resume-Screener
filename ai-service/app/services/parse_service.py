@@ -35,11 +35,16 @@ async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
         except AppException:
             raise
         except Exception as exc:
+            import traceback
+            traceback.print_exc()
             logger.error("Resume parsing pipeline failed", exc_info=True)
             raise ResumeParsingError(str(exc))
+        
 
 
 def parse_resume_text(raw_text: str) -> ParsedCandidate:
+    raw_text = raw_text.replace("\u200b", "").replace("\u200c", "").replace("\u200d", "").replace("\ufeff", "")
+    
     sections = split_into_sections(raw_text)
 
     contact_input = sections["contact"] or "\n".join(
