@@ -1,4 +1,3 @@
-# app/routers/parse.py
 from fastapi import APIRouter, File, UploadFile
 
 from app.config.settings import get_settings
