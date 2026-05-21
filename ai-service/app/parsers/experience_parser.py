@@ -47,7 +47,7 @@ def parse_experience(section_text: str) -> dict:
     seen_signatures: set[tuple] = set()
 
     for block in blocks:
-        entry = _parse_block(block)
+        entry = parse_block(block)
         if entry is None:
             continue
 
@@ -76,8 +76,19 @@ def split_into_blocks(lines: list[str]) -> list[list[str]]:
 
     for line in lines:
         has_date = bool(DATE_RANGE_PATTERN.search(line))
-        is_header = not has_date and bool(try_split_role_and_company(line)[0])
+        
+        has_date = bool(DATE_RANGE_PATTERN.search(line))
+    
+        if not has_date:
+            if BULLET_LINE_PATTERN.match(line):
+                current.append(line)
+                continue
+            if _is_description_line(line):
+                current.append(line)
+                continue
 
+        is_header = not has_date and bool(try_split_role_and_company(line)[0])
+        
         if current:
             if has_date and block_has_date(current):
                 # New date seen and current block already has one — start new block
@@ -108,7 +119,7 @@ def block_has_date(block: list[str]) -> bool:
     return any(DATE_RANGE_PATTERN.search(line) for line in block)
 
 
-def _parse_block(lines: list[str]) -> dict | None:
+def parse_block(lines: list[str]) -> dict | None:
     
     
     
@@ -117,19 +128,15 @@ def _parse_block(lines: list[str]) -> dict | None:
     start_year: int | None = None
     end_year: int | None = None
     
-    # print(f"[DEBUG] block lines: {lines}")
 
     for line in lines:
         if BULLET_LINE_PATTERN.match(line):
-            continue
-        if _is_description_line(line):
             continue
 
         date_match = DATE_RANGE_PATTERN.search(line)
         if date_match:
             if start_year is None:
                 start_year, end_year = parse_range(line)
-
             text_before_date = line[:date_match.start()].strip()
             if text_before_date and (role is None or company is None):
                 extracted_role, extracted_company = extract_role_and_company_from_text(text_before_date)
@@ -137,6 +144,9 @@ def _parse_block(lines: list[str]) -> dict | None:
                     role = extracted_role
                 if extracted_company and company is None:
                     company = extracted_company
+            continue
+
+        if _is_description_line(line):
             continue
 
         if role is None or company is None:
@@ -155,7 +165,6 @@ def _parse_block(lines: list[str]) -> dict | None:
         if company is None and is_company_line(line):
             company = line
             continue
-
     if start_year is None:
         return None
     
@@ -229,6 +238,8 @@ def try_split_role_and_company(line: str) -> tuple[str | None, str | None]:
     words_no_loc = line_no_loc.split()
 
     best_split: tuple[str | None, str | None] = (None, None)
+    if len(words_no_loc) < 3:
+        return (None, None)
     for split_at in range(2, len(words_no_loc)):
         role_candidate = " ".join(words_no_loc[:split_at])
         company_candidate = " ".join(words_no_loc[split_at:]).strip("(),.")
@@ -264,6 +275,8 @@ def clean_company(value: str) -> str:
     if "," in cleaned:
         cleaned = cleaned.split(",")[0].strip()
     cleaned = cleaned.strip(".,;:—–-()")
+    if cleaned.endswith("(") or (cleaned.count("(") > cleaned.count(")")):
+        cleaned = cleaned[:cleaned.rfind("(")].strip()
     return cleaned
 
 

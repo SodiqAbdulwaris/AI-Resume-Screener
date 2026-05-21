@@ -20,11 +20,6 @@ HONORIFIC_PATTERN = re.compile(
 
 CONTACT_SEPARATOR_PATTERN = re.compile(r"\s*[|·•]\s*")
 
-
-
-_CONTACT_LINE_LIMIT = 6
-
-
 def parse_contact(section_text: str) -> dict:
     all_lines = [
         line.strip(" -|").replace("\u200b", "").replace("\u200c", "").replace("\u200d", "").replace("\ufeff", "")
@@ -32,7 +27,7 @@ def parse_contact(section_text: str) -> dict:
         if line.strip()
     ]
 
-    contact_lines = all_lines[:_CONTACT_LINE_LIMIT]
+    contact_lines = all_lines
 
     result = {
         "full_name": None,

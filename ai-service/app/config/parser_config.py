@@ -73,7 +73,11 @@ SECTION_ALIASES: dict[str, str] = {
     "internship": "experience",         
     "internships": "experience",
     "prior career": "experience",       
-    "software development experience": "experience", 
+    "software development experience": "experience",
+    "prior career": "experience",
+    "prior experience": "experience",
+    "previous experience": "experience",
+    "work history": "experience",
 
     # Projects
     "projects": "projects",
@@ -84,6 +88,7 @@ SECTION_ALIASES: dict[str, str] = {
     "key projects": "projects",
     "open source": "projects",
     "portfolio": "projects",
+    "capstone project": "projects",
 
     # Certifications
     "certifications": "certifications",

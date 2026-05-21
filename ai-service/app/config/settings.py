@@ -25,7 +25,7 @@ class Settings(BaseSettings):
 
     # Embedding model
     EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"
-    MODEL_CACHE_DIR: str = "./models"
+    MODEL_CACHE_DIR: str = "app/embedding-models"
     
     HF_TOKEN: Optional[str] = None
 

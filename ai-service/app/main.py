@@ -16,7 +16,11 @@ settings = get_settings()
 logger = logging.getLogger(__name__)
 
 if settings.HF_TOKEN:
-    login(token=settings.HF_TOKEN)
+    try:
+        login(token=settings.HF_TOKEN)
+    except Exception as exc:
+        print("Error:", exc)
+        
 
 
 @asynccontextmanager

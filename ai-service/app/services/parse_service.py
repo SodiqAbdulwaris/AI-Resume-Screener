@@ -22,6 +22,7 @@ from app.utils.extractor import extract_text_from_file
 from app.utils.normalization import normalize_all_fields
 from app.utils.section_splitter import split_into_sections
 from app.utils.timing import log_time
+from app.utils.pre_processor import preprocess
 
 
 async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
@@ -43,21 +44,16 @@ async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
 
 
 def parse_resume_text(raw_text: str) -> ParsedCandidate:
-    raw_text = raw_text.replace("\u200b", "").replace("\u200c", "").replace("\u200d", "").replace("\ufeff", "")
-    
-    sections = split_into_sections(raw_text)
+    marked_text, clean_text = preprocess(raw_text)
+    sections = split_into_sections(marked_text)
 
-    contact_input = sections["contact"] or "\n".join(
-        line for line in raw_text.splitlines()[:10] if line.strip()
-    )
-
-    contact = parse_contact(contact_input)
+    contact = parse_contact(sections["contact"])
 
     education_data = parse_education(sections["education"])
+    
     education_entries = education_data.get("entries", [])
     highest_raw = education_data.get("highest_raw")
-
-    education_level = highest_raw or get_education_level(raw_text)
+    education_level = highest_raw or get_education_level(clean_text)
 
     experience_data = parse_experience(sections["experience"])
     experience_entries = [
@@ -80,7 +76,7 @@ def parse_resume_text(raw_text: str) -> ParsedCandidate:
     )
 
     parsed = {
-        "raw_text": raw_text,
+        "raw_text": clean_text,
         **contact,
         "skills": parse_skills(sections["skills"]),
         "projects": parse_projects(sections["projects"]),
@@ -112,7 +108,7 @@ def parse_resume_text(raw_text: str) -> ParsedCandidate:
             if isinstance(entry, dict)
         ],
         certifications=cleaned.get("certifications", []),
-        raw_text=raw_text,
+        raw_text=clean_text,
     )
 
     if candidate.experience is not None:
