@@ -12,7 +12,7 @@ settings = get_settings()
 
 async def maybe_parse_resume_with_ai(
     raw_text: str,
-    sections: dict[str, dict[str, Any]],
+    sections: dict[str, str],
     heuristic_candidate: ParsedCandidate,
     fallback_reasons: list[str],
 ) -> ParsedCandidate | None:

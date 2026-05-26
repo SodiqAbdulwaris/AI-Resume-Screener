@@ -1,10 +1,9 @@
 import re
 from datetime import datetime
-
 from app.config.parser_config import EXPERIENCE_ROLE_KEYWORDS
 
-current_year = datetime.now().year
 
+current_year = datetime.now().year
 MONTHS = r"(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*"
 
 DATE_RANGE_PATTERN = re.compile(
@@ -13,14 +12,18 @@ DATE_RANGE_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
-MONTH_PATTERN = re.compile(
-    r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)\b",
+ROLE_AT_COMPANY_PATTERN = re.compile(r"^(?P<role>.+?)\s+at\s+(?P<company>.+)$", re.IGNORECASE)
+ROLE_COMPANY_SEPARATOR = re.compile(r"\s+[—–\-|·]\s+")
+BULLET_LINE_PATTERN = re.compile(r"^\s*[•\-*▪·]\s*")
+
+DESCRIPTION_STARTERS = re.compile(
+    r"^(built|design(?:ed)?|develop(?:ed)?|led|manage(?:d)?|implemented|created|worked"
+    r"|collaborated|maintained|improved|reduced|increased|migrated"
+    r"|integrated|automated|delivered|deployed|established|conducted"
+    r"|performed|produced|wrote|architected|launched|owned|drove"
+    r"|contributed|fix(?:ed)?|supervised)\b",
     re.IGNORECASE,
 )
-
-ROLE_COMPANY_SEPARATOR = re.compile(r"\s+[—–|·]\s+")
-
-BULLET_LINE_PATTERN = re.compile(r"^\s*[•\-*▪·]\s*")
 
 COMPANY_KEYWORDS = re.compile(
     r"\b(ltd|limited|inc|llc|gmbh|plc|corp|corporation|group|bank|health"
@@ -29,38 +32,24 @@ COMPANY_KEYWORDS = re.compile(
     re.IGNORECASE,
 )
 
-_TRAILING_LOCATION = re.compile(
-    r",\s*[A-Za-z][A-Za-z\s]+(?:,\s*[A-Za-z][A-Za-z\s]+)?\s*$"
-)
-
 
 def parse_experience(section_text: str) -> dict:
-    lines = [
-        line.strip().replace("\u200b", "").replace("\u200c", "").replace("\u200d", "").replace("\ufeff", "")
-        for line in section_text.splitlines()
-        if line.strip()
-    ]
-
+    lines = clean_lines(section_text)
     blocks = split_into_blocks(lines)
 
     entries = []
-    seen_signatures: set[tuple] = set()
+    seen = set()
 
     for block in blocks:
         entry = parse_block(block)
-        if entry is None:
+        if not entry:
             continue
 
-        signature = (
-            entry["role"],
-            entry["company"],
-            entry["start_year"],
-            entry["end_year"],
-        )
-        if signature in seen_signatures:
+        sig = (entry["role"], entry["company"], entry["start_year"], entry["end_year"])
+        if sig in seen:
             continue
 
-        seen_signatures.add(signature)
+        seen.add(sig)
         entries.append(entry)
 
     return {
@@ -70,35 +59,31 @@ def parse_experience(section_text: str) -> dict:
 
 
 
+def clean_lines(text: str) -> list[str]:
+    return [
+        line.strip().replace("\u200b", "").replace("\u200c", "").replace("\u200d", "").replace("\ufeff", "")
+        for line in text.splitlines()
+        if line.strip()
+    ]
+
+
+
 def split_into_blocks(lines: list[str]) -> list[list[str]]:
-    blocks: list[list[str]] = []
-    current: list[str] = []
+    blocks, current = [], []
 
     for line in lines:
-        has_date = bool(DATE_RANGE_PATTERN.search(line))
-        
-        has_date = bool(DATE_RANGE_PATTERN.search(line))
-    
-        if not has_date:
-            if BULLET_LINE_PATTERN.match(line):
-                current.append(line)
-                continue
-            if _is_description_line(line):
-                current.append(line)
-                continue
+        kind = classify_line(line)
 
-        is_header = not has_date and bool(try_split_role_and_company(line)[0])
-        
-        if current:
-            if has_date and block_has_date(current):
-                # New date seen and current block already has one — start new block
-                blocks.append(current)
-                current = []
-            elif is_header and (block_has_date(current) or block_has_header(current)):
-                # New role/company header seen and current block already has content
-                # that looks like a job entry — start new block
-                blocks.append(current)
-                current = []
+        is_date = kind == "date"
+        is_header = kind in {"role_header", "company_header", "inline_header"}
+
+        if current and is_date and block_has_date(current):
+            blocks.append(current)
+            current = []
+
+        elif current and is_header and should_split(current, kind):
+            blocks.append(current)
+            current = []
 
         current.append(line)
 
@@ -109,65 +94,82 @@ def split_into_blocks(lines: list[str]) -> list[list[str]]:
 
 
 def block_has_date(block: list[str]) -> bool:
-    return any(DATE_RANGE_PATTERN.search(line) for line in block)
+    return any(DATE_RANGE_PATTERN.search(l) for l in block)
 
 
-def block_has_header(block: list[str]) -> bool:
-    return any(bool(try_split_role_and_company(line)[0]) for line in block)
+def should_split(current: list[str], new_kind: str) -> bool:
+    if block_has_date(current):
+        return True
+    if new_kind == "inline_header":
+        return True
 
-def block_has_date(block: list[str]) -> bool:
-    return any(DATE_RANGE_PATTERN.search(line) for line in block)
+    # Fix: Prevent cross-block bleed if an entire candidate pair has already been found
+    has_role = any(classify_line(l) == "role_header" for l in current)
+    has_company = any(classify_line(l) == "company_header" for l in current)
+    if has_role and has_company:
+        return True
+
+    return any(classify_line(l) == new_kind for l in current)
+
 
 
 def parse_block(lines: list[str]) -> dict | None:
-    
-    
-    
-    role: str | None = None
-    company: str | None = None
-    start_year: int | None = None
-    end_year: int | None = None
-    
+    role_candidates = []
+    company_candidates = []
+    start_year = None
+    end_year = None
+    has_date = False
 
     for line in lines:
-        if BULLET_LINE_PATTERN.match(line):
+        kind = classify_line(line)
+
+        if kind == "bullet":
             continue
 
-        date_match = DATE_RANGE_PATTERN.search(line)
-        if date_match:
+        # DATE HANDLING (Fix: Harvests tokens from both left and right flanks safely)
+        match = DATE_RANGE_PATTERN.search(line)
+        if match:
+            has_date = True
+
             if start_year is None:
                 start_year, end_year = parse_range(line)
-            text_before_date = line[:date_match.start()].strip()
-            if text_before_date and (role is None or company is None):
-                extracted_role, extracted_company = extract_role_and_company_from_text(text_before_date)
-                if extracted_role and role is None:
-                    role = extracted_role
-                if extracted_company and company is None:
-                    company = extracted_company
+
+            left_text = line[:match.start()].strip()
+            right_text = line[match.end():].strip()
+
+            for text in (left_text, right_text):
+                if text:
+                    r, c = extract_role_company(text)
+                    if r: role_candidates.append(r)
+                    if c: company_candidates.append(c)
             continue
 
-        if _is_description_line(line):
+        # INLINE PARSE
+        r, c = try_split_role_company(line)
+        if r or c:
+            if r: role_candidates.append(r)
+            if c: company_candidates.append(c)
             continue
 
-        if role is None or company is None:
-            split_role, split_company = try_split_role_and_company(line)
-            if split_role and role is None:
-                role = split_role
-            if split_company and company is None:
-                company = split_company
-            if split_role or split_company:
-                continue
-
-        if role is None and is_role_line(line):
-            role = line
+        # FALLBACK CLASSIFICATION
+        if is_role_line(line):
+            role_candidates.append(line)
             continue
 
-        if company is None and is_company_line(line):
-            company = line
+        if is_company_line(line):
+            company_candidates.append(line)
             continue
-    if start_year is None:
+
+    role = best(role_candidates, is_role_line)
+    company = best(company_candidates, is_company_line)
+
+    # safety swap fix
+    if role and company:
+        if is_company_line(role) and not is_company_line(company):
+            role, company = company, role
+
+    if not has_date and start_year is None:
         return None
-    
 
     return {
         "role": clean_role(role) if role else None,
@@ -177,124 +179,147 @@ def parse_block(lines: list[str]) -> dict | None:
     }
 
 
-def _is_description_line(line: str) -> bool:
-    words = line.split()
-    if len(words) > 10:
-        return True
-    description_starters = re.compile(
-        r"^(built|designed|developed|led|managed|implemented|created|worked"
-        r"|collaborated|maintained|improved|reduced|increased|migrated"
-        r"|integrated|automated|delivered|deployed|established|conducted"
-        r"|performed|produced|wrote|architected|launched|owned|drove)\b",
-        re.IGNORECASE,
-    )
-    if description_starters.match(line):
-        return True
-    return False
+# SELECTION
+def best(candidates: list[str], validator) -> str | None:
+    if not candidates:
+        return None
+
+    def score(x: str):
+        return (
+            int(validator(x)),
+            int(len(x.split()) <= 5),
+            int(role_ends_with_keyword(x) if validator == is_role_line else 0),
+            -len(x.split()),
+        )
+
+    return max(candidates, key=score)
 
 
-def is_role_line(line: str) -> bool:
+# CLASSIFICATION
+
+def classify_line(line: str) -> str:
     if DATE_RANGE_PATTERN.search(line):
+        return "date"
+    if BULLET_LINE_PATTERN.match(line):
+        return "bullet"
+
+    # Fix: Run contextual header checks before checking generic description token lengths
+    kind = detect_header_kind(line)
+    if kind:
+        return f"{kind}_header"
+
+    if is_description(line):
+        return "description"
+
+    return "other"
+
+
+def detect_header_kind(line: str) -> str | None:
+    r, c = try_split_role_company(line)
+    if r and c:
+        return "inline"
+    if is_role_line(line):
+        return "role"
+    if is_company_line(line):
+        return "company"
+    return None
+
+
+def is_description(line: str) -> bool:
+    return len(line.split()) > 10 or bool(DESCRIPTION_STARTERS.match(line))
+
+
+# ROLE / COMPANY DETECTION
+def is_role_line(line: str) -> bool:
+    if DATE_RANGE_PATTERN.search(line) or len(line.split()) > 8 or DESCRIPTION_STARTERS.match(line):
         return False
-    if len(line.split()) > 8:
-        return False
-    lowered = line.lower()
-    return any(keyword in lowered for keyword in EXPERIENCE_ROLE_KEYWORDS)
+
+    text = line.lower()
+    return any(k in text for k in EXPERIENCE_ROLE_KEYWORDS)
 
 
 def is_company_line(line: str) -> bool:
-    if DATE_RANGE_PATTERN.search(line):
+    if DATE_RANGE_PATTERN.search(line) or len(line.split()) > 8 or is_role_line(line):
         return False
-    if len(line.split()) > 8:
-        return False
-    if is_role_line(line):
-        return False
+
     if COMPANY_KEYWORDS.search(line):
         return True
-    words = line.split()
+
+    words = [w.strip("()[]{}.,;:") for w in line.split() if w.strip("()[]{}.,;:")]
     if 1 <= len(words) <= 6:
-        title_case_words = sum(1 for w in words if w and w[0].isupper())
-        if title_case_words >= len(words) * 0.6:
-            return True
+        return (sum(1 for w in words if w and w[0].isupper()) / len(words)) >= 0.6
+
     return False
 
 
-def try_split_role_and_company(line: str) -> tuple[str | None, str | None]:
-    # Handle explicit separator
-    sep_match = ROLE_COMPANY_SEPARATOR.search(line)
-    if sep_match:
-        left = line[:sep_match.start()].strip()
-        right = line[sep_match.end():].strip()
-        right_no_loc = _TRAILING_LOCATION.sub("", right).strip()
-        company_candidate = right_no_loc.split(",")[0].strip() if right_no_loc else None
+def role_ends_with_keyword(value: str) -> bool:
+    words = value.lower().split()
+    return bool(words) and words[-1] in EXPERIENCE_ROLE_KEYWORDS
+
+
+# SPLITTING HELPERS
+def try_split_role_company(line: str) -> tuple[str | None, str | None]:
+    line = line.strip(" |·—–-")
+
+    match = ROLE_AT_COMPANY_PATTERN.match(line)
+    if match:
+        r = match.group("role").strip()
+        c = match.group("company").strip()
+        if is_role_line(r) and is_company_line(c):
+            return r, c
+
+    sep = ROLE_COMPANY_SEPARATOR.search(line)
+    if sep:
+        left = line[:sep.start()].strip()
+        right = line[sep.end():].strip()
+
+        # Fix: Trust structural separator tokens to guide fallback extraction paths
         if is_role_line(left):
-            return left, company_candidate
-        if is_role_line(right.split(",")[0]):
-            return right.split(",")[0].strip(), left
-        return None, None
-
-    # Strip trailing location first, then scan every split point from left to right,
-    line_no_loc = _TRAILING_LOCATION.sub("", line).strip()
-    words_no_loc = line_no_loc.split()
-
-    best_split: tuple[str | None, str | None] = (None, None)
-    if len(words_no_loc) < 3:
-        return (None, None)
-    for split_at in range(2, len(words_no_loc)):
-        role_candidate = " ".join(words_no_loc[:split_at])
-        company_candidate = " ".join(words_no_loc[split_at:]).strip("(),.")
-        if is_role_line(role_candidate) and company_candidate:
-            best_split = (role_candidate, company_candidate or None)
-
-    return best_split
-
-
-def extract_role_and_company_from_text(text: str) -> tuple[str | None, str | None]:
-    if not text:
-        return None, None
-
-    role, company = try_split_role_and_company(text)
-    if role:
-        return role, company
-
-    if is_role_line(text):
-        return text, None
+            return left, right
+        if is_role_line(right):
+            return right, left
 
     return None, None
 
 
+def extract_role_company(text: str) -> tuple[str | None, str | None]:
+    if not text:
+        return None, None
+
+    r, c = try_split_role_company(text)
+    if r or c:
+        return r, c
+
+    if is_role_line(text):
+        return text, None
+
+    if is_company_line(text):
+        return None, text
+
+    return None, None
+
+
+# CLEANERS
 def clean_role(value: str) -> str:
-    cleaned = value.strip()
-    cleaned = ROLE_COMPANY_SEPARATOR.split(cleaned)[0].strip()
-    cleaned = cleaned.strip(".,;:—–-")
-    return cleaned
+    v = ROLE_COMPANY_SEPARATOR.split(value.strip())[0]
+    return v.strip(".,;:—–-").strip()
 
 
 def clean_company(value: str) -> str:
-    cleaned = value.strip()
-    if "," in cleaned:
-        cleaned = cleaned.split(",")[0].strip()
-    cleaned = cleaned.strip(".,;:—–-()")
-    if cleaned.endswith("(") or (cleaned.count("(") > cleaned.count(")")):
-        cleaned = cleaned[:cleaned.rfind("(")].strip()
-    return cleaned
+    v = re.sub(r"^at\s+", "", value.strip(), flags=re.I)
+    v = v.split(",")[0]
+    return v.strip(".,;:—–-()").strip()
 
 
+# EXPERIENCE CALCULATION
 def calculate_years_of_experience(entries: list[dict]) -> float:
-    ranges: list[tuple[int, int]] = []
-    has_open_range = False
-
-    for exp in entries:
-        start_year = exp.get("start_year")
-        end_year = exp.get("end_year")
-        if start_year is None:
+    ranges = []
+    for e in entries:
+        s = e.get("start_year")
+        t = e.get("end_year") or current_year
+        if s is None:
             continue
-        if end_year is None:
-            end_year = current_year
-            has_open_range = True
-        start = min(start_year, end_year)
-        end = max(start_year, end_year)
-        ranges.append((start, end))
+        ranges.append((min(s, t), max(s, t)))
 
     if not ranges:
         return 0.0
@@ -302,37 +327,31 @@ def calculate_years_of_experience(entries: list[dict]) -> float:
     ranges.sort()
     merged = [ranges[0]]
 
-    for start, end in ranges[1:]:
-        last_start, last_end = merged[-1]
-        if start <= last_end:
-            merged[-1] = (last_start, max(last_end, end))
+    for s, e in ranges[1:]:
+        ps, pe = merged[-1]
+        if s <= pe + 1:
+            merged[-1] = (ps, max(pe, e))
         else:
-            merged.append((start, end))
+            merged.append((s, e))
 
-    total = sum(end - start for start, end in merged)
-
-    if total == 0.0 and has_open_range:
-        return 0.5
-
-    return max(float(total), 0.0)
+    return float(sum((e - s) + 1 for s, e in merged))
 
 
+# DATE PARSING
 def parse_range(value: str) -> tuple[int | None, int | None]:
-    match = DATE_RANGE_PATTERN.search(value)
-    if not match:
+    m = DATE_RANGE_PATTERN.search(value)
+    if not m:
         return None, None
-    return parse_year(match.group("start")), parse_year(match.group("end"))
+    return parse_year(m.group("start")), parse_year(m.group("end"))
 
 
 def parse_year(value: str) -> int | None:
-    lowered = value.strip().lower()
-    if lowered in {"present", "current", "ongoing", "in progress"}:
+    if not value:
         return None
-    year_match = re.search(r"(\d{4})", lowered)
-    return int(year_match.group(1)) if year_match else None
 
+    v = value.lower().strip()
+    if v in {"present", "current", "ongoing", "in progress"}:
+        return None
 
-def contains_open_ended_marker(value: str) -> bool:
-    return bool(
-        re.search(r"\b(present|in progress|ongoing|current)\b", value, re.IGNORECASE)
-    )
+    m = re.search(r"\d{4}", v)
+    return int(m.group()) if m else None

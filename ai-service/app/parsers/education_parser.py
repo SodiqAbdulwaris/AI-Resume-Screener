@@ -110,11 +110,14 @@ def parse_block(lines: list[str]) -> dict | None:
     gpa: str | None = None
 
     for line in lines:
-        if is_noise_line(line):
+        degree_candidate = is_degree_line(line)
+        institution_candidate = is_institution_line(line)
+
+        if is_noise_line(line) and not degree_candidate and not institution_candidate:
             continue
 
         has_date = DATE_RANGE_PATTERN.search(line) or (
-            YEAR_PATTERN.search(line) and not is_institution_line(line)
+            YEAR_PATTERN.search(line) and not institution_candidate
         )
 
         if has_date:
@@ -128,13 +131,16 @@ def parse_block(lines: list[str]) -> dict | None:
                 if gpa_match:
                     gpa = gpa_match.group(1)
 
-        if is_degree_line(line) and degree_line is None:
+        if degree_candidate and degree_line is None:
             degree_line = line
-            continue
+            degree_start, degree_end = edu_years(line)
+            if degree_start is not None:
+                start_year = degree_start
+            if degree_end is not None or contains_open_ended_marker(line):
+                end_year = degree_end
 
-        if is_institution_line(line) and institution_line is None:
+        if institution_candidate and institution_line is None:
             institution_line = line
-            continue
 
         if not has_date and gpa is None:
             gpa_match = GPA_PATTERN.search(line)
@@ -159,7 +165,14 @@ def extract_institution_from_degree_line(line: str) -> str | None:
     inst_match = INSTITUTION_KEYWORDS.search(line)
     if not inst_match:
         return None
-    institution_fragment = line[inst_match.start():]
+    
+    cut = inst_match.start()
+    preceding = line[:cut].rstrip()
+    prefix_match = re.search(r'(\b[A-Z][a-z]+)\s*$', preceding)
+    if prefix_match:
+        cut = prefix_match.start()
+    
+    institution_fragment = line[cut:]
     institution_fragment = TRAILING_DECORATION_PATTERN.sub("", institution_fragment).strip()
     return institution_fragment
 
@@ -217,6 +230,7 @@ def extract_edu_degree_label(line: str) -> str:
     inst_match = INSTITUTION_KEYWORDS.search(cleaned)
     if inst_match:
         cleaned = cleaned[:inst_match.start()]
+        cleaned = re.sub(r'\s+[A-Z][a-z]+$', '', cleaned).strip()
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,;-–—()")
     return cleaned
 

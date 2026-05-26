@@ -1,4 +1,3 @@
-
 def build_explanations(
     candidate,
     matched_skills: list[str],
@@ -10,34 +9,34 @@ def build_explanations(
 ) -> list[str]:
     reasons = []
 
-    # Skills
-    if matched_skills:
-        reasons.append(f"Matched skills: {', '.join(sorted(matched_skills))}")
-    if missing_skills:
-        reasons.append(f"Missing required skills: {', '.join(sorted(missing_skills))}")
-
+    # Skills Evaluation (Grouped context)
     if skills_score >= 0.8:
-        reasons.append("Strong skills match for the role")
+        reasons.append("Demonstrates a strong skills match for the role")
     elif skills_score < 0.5:
-        reasons.append("Weak skills alignment with job requirements")
+        reasons.append("Shows weak skills alignment with the job requirements")
+        
+    if matched_skills:
+        reasons.append(f"possesses key skills like {', '.join(sorted(matched_skills))}")
+    if missing_skills:
+        reasons.append(f"is missing requested skills such as {', '.join(sorted(missing_skills))}")
 
     # Experience
     if experience_score == 1.0:
-        reasons.append("Meets or exceeds required experience")
+        reasons.append("meets or exceeds the required experience")
     elif experience_score < 0.7:
-        reasons.append("Below required experience level")
+        reasons.append("falls below the required experience level")
 
     # Semantic
     if semantic_score >= 0.8:
-        reasons.append("High semantic similarity to job description")
+        reasons.append("has a background highly relevant to the job description")
     elif semantic_score < 0.5:
-        reasons.append("Low relevance to job role based on description")
+        reasons.append("shows low contextual relevance to the role")
 
     # Education
     if education_score == 1.0:
-        reasons.append("Meets education requirement")
+        reasons.append("satisfies the education requirements")
     elif education_score < 0.7:
-        reasons.append("Does not fully meet education requirement")
+        reasons.append("does not fully meet the requested education level")
 
     return reasons
 
@@ -50,23 +49,23 @@ def generate_readable_summary(
     name = full_name or "The candidate"
 
     if total_score >= 0.8:
-        performance = "a strong match for the role"
+        performance = "a strong match"
     elif total_score >= 0.6:
-        performance = "a moderate match for the role"
+        performance = "a moderate match"
     else:
-        performance = "a weak match for the role"
+        performance = "a weak match"
 
-    summary = (
-        f"{name} is {performance} "
-        f"(overall score: {round(total_score, 2)})."
-    )
+    summary = f"{name} is {performance} for the role (overall score: {round(total_score, 2)})."
 
     if not reasons:
-        summary += " No detailed reasoning available."
-        return summary
+        return summary + " No detailed reasoning available."
 
-    top_reasons = reasons[:5]
-    reason_text = ". ".join(r.rstrip(".") for r in top_reasons) + "."
-    summary += f" {reason_text}"
+    # Capitalize the first letter of each reason and join them smoothly
+    formatted_reasons = [
+        reason[0].upper() + reason[1:] + "." 
+        for reason in reasons
+    ]
+    
+    summary += " " + " ".join(formatted_reasons)
 
     return summary

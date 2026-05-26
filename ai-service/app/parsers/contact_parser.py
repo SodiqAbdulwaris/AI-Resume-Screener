@@ -5,13 +5,26 @@ from app.config.parser_config import JOB_TITLE_HINTS
 EMAIL_PATTERN = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 PHONE_PATTERN = re.compile(r"(?:\+?\d[\d()\-\s]{8,}\d)")
 URL_PATTERN = re.compile(r"(https?://|www\.|linkedin\.com|github\.com)", re.IGNORECASE)
-
+DOMAIN_PATTERN = re.compile(r"\b(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}\b")
 
 LOCATION_PATTERN = re.compile(
     r"^[A-Za-z][A-Za-z .'\-]+(?:,\s*[A-Za-z][A-Za-z .'\-]+){1,3}$"
 )
+STATE_LOCATION_PATTERN = re.compile(
+    r"^[A-Za-z][A-Za-z .'\-]+,\s*[A-Z]{2}$"
+)
+REMOTE_LOCATION_PATTERN = re.compile(
+    r"^[A-Za-z][A-Za-z .'\-]+(?:,\s*[A-Za-z][A-Za-z .'\-]+)?\s*[|/]\s*(?:remote|hybrid)$",
+    re.IGNORECASE,
+)
+
+TRAILING_SOCIAL = re.compile(
+    r'\s*\b(github|blog|linkedin|portfolio|website|twitter|gitlab)\s*:.*$',
+    re.IGNORECASE,
+)
 
 _LOCATION_LABEL = re.compile(r"^\s*location\s*:\s*", re.IGNORECASE)
+HEADLINE_SEPARATOR_PATTERN = re.compile(r"\s+[—–\-|]\s+")
 
 HONORIFIC_PATTERN = re.compile(
     r"^(dr\.?|mr\.?|mrs\.?|ms\.?|miss\.?|prof\.?|rev\.?|eng\.?)\s+",
@@ -57,6 +70,15 @@ def parse_contact(section_text: str) -> dict:
 def extract_location(line: str) -> str | None:
     line = _LOCATION_LABEL.sub("", line).strip()
     line = line.strip("\u200b\u200c\u200d\ufeff")
+    line = TRAILING_SOCIAL.sub("", line).strip(" -|·•,")
+    line = EMAIL_PATTERN.sub(" ", line)
+    line = PHONE_PATTERN.sub(" ", line)
+    line = URL_PATTERN.sub(" ", line)
+    line = DOMAIN_PATTERN.sub(" ", line)
+    line = re.sub(r"\s{2,}", " ", line).strip(" -|·•,")
+
+    if is_location(line):
+        return line
 
     segments = CONTACT_SEPARATOR_PATTERN.split(line)
     if len(segments) == 1:
@@ -73,6 +95,7 @@ def extract_location(line: str) -> str | None:
 
 def is_location(text: str) -> bool:
     text = text.strip("\u200b\u200c\u200d\ufeff")
+    text = TRAILING_SOCIAL.sub("", text).strip()
     if not text:
         return False
     if EMAIL_PATTERN.search(text):
@@ -81,20 +104,30 @@ def is_location(text: str) -> bool:
         return False
     if URL_PATTERN.search(text):
         return False
-    if any(char.isdigit() for char in text):
+    if DOMAIN_PATTERN.search(text):
+        return False
+    if any(char.isdigit() for char in text) and not STATE_LOCATION_PATTERN.match(text.strip()):
         return False
     lowered = text.lower()
-    if any(title in lowered for title in JOB_TITLE_HINTS):
+    if REMOTE_LOCATION_PATTERN.match(text.strip()):
+        return True
+    if any(title in lowered for title in JOB_TITLE_HINTS) and not any(
+        marker in lowered for marker in ("remote", "hybrid")
+    ):
         return False
-    return bool(LOCATION_PATTERN.match(text.strip()))
+    return bool(
+        LOCATION_PATTERN.match(text.strip())
+        or STATE_LOCATION_PATTERN.match(text.strip())
+    )
 
 
 def extract_best_name(lines: list[str]) -> str | None:
     candidates = []
     for line in lines[:5]:
+        candidate = extract_name_candidate(line)
         if not looks_like_name(line):
             continue
-        candidates.append(line)
+        candidates.append(candidate)
 
     if not candidates:
         return None
@@ -106,6 +139,7 @@ def extract_best_name(lines: list[str]) -> str | None:
 
 
 def looks_like_name(line: str) -> bool:
+    line = extract_name_candidate(line)
     words = line.split()
 
     if not words or len(words) > 5:
@@ -126,6 +160,20 @@ def looks_like_name(line: str) -> bool:
 
 
 def name_score(line: str) -> tuple[int, int]:
+    line = extract_name_candidate(line)
     words = line.split()
     capitalised = sum(1 for w in words if w[:1].isupper())
     return (capitalised, -len(words))
+
+
+def extract_name_candidate(line: str) -> str:
+    stripped = line.strip()
+    parts = HEADLINE_SEPARATOR_PATTERN.split(stripped, maxsplit=1)
+    if len(parts) == 2 and looks_like_headline(parts[1]):
+        return parts[0].strip()
+    return stripped
+
+
+def looks_like_headline(text: str) -> bool:
+    lowered = text.lower()
+    return any(keyword in lowered for keyword in JOB_TITLE_HINTS)

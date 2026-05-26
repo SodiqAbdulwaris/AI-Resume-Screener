@@ -71,6 +71,12 @@ def clean_cert_name(value: str) -> str:
             cleaned = parts[0].strip()
 
     cleaned = _YEAR_PATTERN.sub("", cleaned)
+    cleaned = re.sub(
+        r"\(\s*part qualified.*?\)",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    )
     cleaned = _STATUS_PATTERN.sub("", cleaned)
     cleaned = re.sub(r"\(\s*\)", "", cleaned)
     cleaned = cleaned.strip(" .,;:—–-")

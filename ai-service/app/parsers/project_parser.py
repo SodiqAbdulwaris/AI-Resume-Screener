@@ -1,42 +1,59 @@
 import re
+from typing import List, Dict, Tuple, Optional
 
 from app.config.parser_config import PROJECT_TECHNOLOGIES
 
-_TOKEN_SPLIT = re.compile(r"[,|]+")
-_PROSE_SIGNAL = re.compile(
-    r"\b(the|and|or|for|with|using|that|this|which|built|deployed"
-    r"|integrated|manages|allows|provides|generates|handles)\b",
+
+BULLET_PREFIX = re.compile(r"^\s*[•\-*▪·]\s*")
+STATUS_SUFFIX = re.compile(
+    r"\s*\((?:in progress|android|on hold|ongoing|current|production|side project)\)\s*$",
     re.IGNORECASE,
 )
-_BULLET_PREFIX = re.compile(r"^\s*[•\-*▪·]\s*")
-_STATUS_SUFFIX = re.compile(
-    r"\s*\((?:in progress|android|on hold|ongoing|current)\)\s*$",
+
+PARENTHETICAL_LABEL = re.compile(
+    r"\s*\((?:in progress|android|on hold|ongoing|current|production|side project|open source)\)",
     re.IGNORECASE,
 )
-_INLINE_TECH_SEPARATOR = re.compile(r"\s*[—–|]\s*")
-_TECH_LINE_LABEL = re.compile(r"^\s*(?:technologies|tech|stack)\s*:\s*", re.IGNORECASE)
+
+INLINE_TECH_SEPARATOR = re.compile(r"\s*[—–|]\s*")
+TECH_LABEL = re.compile(
+    r"^\s*(technologies|tech|stack)\s*:\s*", 
+    re.IGNORECASE,
+    )
+
+METRIC_LINE = re.compile(
+    r"\b\d[\d,]*\s*(downloads|users|installs|stars)\b", 
+    re.IGNORECASE,
+    )
+
+PROSE_SIGNAL = re.compile(
+    r"\b(built|developed|deployed|integrated|implemented|designed|managed|using|with|for)\b",
+    re.IGNORECASE,
+)
+
+TOKEN_SPLIT = re.compile(
+    r"\s*,\s*|\s*\|\s*"
+    )
 
 
-def parse_projects(section_text: str) -> list[dict]:
-    lines = [line.strip() for line in section_text.splitlines() if line.strip()]
+TECH_REGEX = {
+    tech: re.compile(rf"\b{re.escape(tech)}\b", re.IGNORECASE)
+    for tech in PROJECT_TECHNOLOGIES
+}
+
+
+def parse_projects(section_text: str) -> List[Dict]:
+    lines = [l.strip() for l in section_text.splitlines() if l.strip()]
     if not lines:
         return []
 
     blocks = split_into_blocks(lines)
-    projects = []
 
-    for block in blocks:
-        name, inline_tech_line = extract_name_and_inline_tech(block)
-        technologies = extract_technologies(block, inline_tech_line)
-        if name or technologies:
-            projects.append({"name": name, "technologies": technologies})
-
-    return projects
+    return [parse_block(block) for block in blocks if block]
 
 
-def split_into_blocks(lines: list[str]) -> list[list[str]]:
-    blocks: list[list[str]] = []
-    current: list[str] = []
+def split_into_blocks(lines: List[str]) -> List[List[str]]:
+    blocks, current = [], []
 
     for line in lines:
         if is_project_heading(line) and current:
@@ -51,108 +68,148 @@ def split_into_blocks(lines: list[str]) -> list[list[str]]:
 
 
 def is_project_heading(line: str) -> bool:
-    stripped = _BULLET_PREFIX.sub("", line).strip()
-    if not stripped or not stripped[0].isupper():
+    cleaned = clean_line(line)
+    if not cleaned:
         return False
-    if _TECH_LINE_LABEL.match(stripped):
+    if TECH_LABEL.match(cleaned):
         return False
-    if is_tech_stack_line(stripped):
+    if PROSE_SIGNAL.search(cleaned) and not INLINE_TECH_SEPARATOR.search(cleaned):
         return False
-
-    prose_match = _PROSE_SIGNAL.search(stripped)
-    if prose_match:
-        if prose_match.start() < 40:
-            return False
-        return True
-
-    if len(stripped.split()) > 8:
-        return False
-
     return True
 
 
-def extract_name_and_inline_tech(block: list[str]) -> tuple[str | None, str | None]:
-    if not block:
-        return None, None
+def parse_block(block: List[str]) -> Dict:
+    title, inline_tech = extract_title(block[0])
 
-    raw = _BULLET_PREFIX.sub("", block[0]).strip()
-    raw = _STATUS_SUFFIX.sub("", raw).strip()
+    techs = set()
+    if inline_tech:
+        techs.update(split_tech(inline_tech))
 
-    # Handle explicit separator
-    sep_match = _INLINE_TECH_SEPARATOR.search(raw)
-    if sep_match:
-        left = raw[:sep_match.start()].strip()
-        right = raw[sep_match.end():].strip()
-        if right and is_tech_stack_line(right):
-            return left or None, right
-        return raw or None, None
+    for line in block[1:]: # Skip [0], it's already handled
+        kind, cleaned = classify(line)
+        if kind == "tech":
+            techs.update(split_tech(cleaned))
+        elif kind == "unknown":
+            techs.update(match_known_tech(cleaned))
 
-    # Trim trailing prose description first, then scan for the split point where
-    prose_match = _PROSE_SIGNAL.search(raw)
-    if prose_match:
-        trimmed = raw[:prose_match.start()].strip(" ,")
-    else:
-        trimmed = raw
+    return {
+        "name": title,
+        "technologies": sorted(techs)
+    }
 
-    words = trimmed.split()
-    for i in range(2, len(words)):
-        name_candidate = " ".join(words[:i]).strip(" ,")
-        remainder = " ".join(words[i:]).strip()
-        if remainder and is_tech_stack_line(remainder):
-            return name_candidate or None, remainder
+def classify(line: str) -> Tuple[str, str]:
+    cleaned = clean_line(line)
 
-    return raw or None, None
+    if METRIC_LINE.search(cleaned):
+        return "metric", cleaned
+
+    if is_tech_line(cleaned):
+        return "tech", cleaned
+
+    if TECH_LABEL.match(cleaned):
+        return "tech", cleaned
+
+    return "unknown", cleaned
 
 
-def extract_technologies(block: list[str], inline_tech_line: str | None) -> list[str]:
-    matched: set[str] = set()
+def is_tech_line(line: str) -> bool:
+    cleaned = TECH_LABEL.sub("", line).strip()
 
-    if inline_tech_line:
-        matched.update(split_tech_list_into_tokens(inline_tech_line))
+    if not TOKEN_SPLIT.search(cleaned):
+        return False
 
-    for line in block[1:]:
-        cleaned = _BULLET_PREFIX.sub("", line).strip()
-        if not cleaned:
+    if PROSE_SIGNAL.search(cleaned):
+        return False
+
+    tokens = [t for t in TOKEN_SPLIT.split(cleaned) if t.strip()]
+    return bool(tokens) and all(len(t.split()) <= 5 for t in tokens)
+
+
+def extract_title(line: str) -> Tuple[Optional[str], Optional[str]]:
+    cleaned = clean_line(line)
+    cleaned = STATUS_SUFFIX.sub("", cleaned).strip()
+
+    if INLINE_TECH_SEPARATOR.search(cleaned):
+        left, right = split_inline(cleaned)
+        if is_tech_line(right) and not METRIC_LINE.search(right):  # ← add metric guard
+            return clean_title(left), right
+
+    match = TECH_LABEL.search(cleaned)
+    if match:
+        return clean_title(cleaned[:match.start()]), cleaned[match.start():]
+
+    return extract_inline_stack(cleaned)
+
+def split_inline(text: str) -> Tuple[str, str]:
+    parts = INLINE_TECH_SEPARATOR.split(text, maxsplit=1)
+    return (parts[0].strip(), parts[1].strip()) if len(parts) == 2 else (text, "")
+
+def extract_inline_stack(raw: str) -> Tuple[Optional[str], Optional[str]]:
+    cleaned = PARENTHETICAL_LABEL.sub("", raw).strip()
+    words = cleaned.split()
+
+    for i in range(1, len(words)):
+        candidate = " ".join(words[i:])
+
+        if "," not in candidate:
             continue
 
-        cleaned = _TECH_LINE_LABEL.sub("", cleaned).strip()
-        if not cleaned:
+        # first token before the first comma must be short (1-2 words max)
+        first_token = candidate.split(",")[0].strip()
+        if len(first_token.split()) > 2:
             continue
 
-        if is_tech_stack_line(cleaned):
-            matched.update(split_tech_list_into_tokens(cleaned))
-        else:
-            matched.update(identify_technology_names(cleaned))
+        tokens = [t.strip() for t in TOKEN_SPLIT.split(candidate) if t.strip()]
+        if not tokens:
+            continue
 
-    return sorted(matched)
+        valid = []
+        for token in tokens:
+            token_clean = token.lower()
+            if PROSE_SIGNAL.search(token_clean):
+                break
+            if match_known_tech(token_clean) or len(token.split()) <= 3:
+                valid.append(token_clean)
+            else:
+                break
+            
+        
 
+        if valid:
+            title = " ".join(words[:i]).strip()
+            return clean_title(title), ", ".join(valid)
 
-def is_tech_stack_line(line: str) -> bool:
-    stripped = _TECH_LINE_LABEL.sub("", line).strip()
-    if not _TOKEN_SPLIT.search(stripped):
-        return False
-    if _PROSE_SIGNAL.search(stripped):
-        return False
-    tokens = [t.strip() for t in _TOKEN_SPLIT.split(stripped) if t.strip()]
-    if not tokens:
-        return False
-    return all(len(t.split()) <= 3 for t in tokens)
+    return clean_title(cleaned), None
 
-
-def split_tech_list_into_tokens(line: str) -> list[str]:
-    cleaned = _TECH_LINE_LABEL.sub("", line).strip()
-    tokens = []
-    for raw in _TOKEN_SPLIT.split(cleaned):
-        token = raw.strip(" .:;\"'()/").lower()
-        if token and len(token) > 1 and not token.isdigit():
-            tokens.append(token)
-    return tokens
+def clean_title(text: str) -> str:
+    text = BULLET_PREFIX.sub("", text).strip()
+    text = STATUS_SUFFIX.sub("", text).strip()
+    return re.sub(r"[\s|—–-]+$", "", text).strip() or None
 
 
-def identify_technology_names(line: str) -> list[str]:
+
+def split_tech(line: str) -> List[str]:
+    cleaned = TECH_LABEL.sub("", line).strip()        
+    
+        
+    return [
+        t.strip(" .:;\"'()/").lower()
+        for t in TOKEN_SPLIT.split(cleaned)
+        if t
+        and not t.isdigit()
+        and not METRIC_LINE.search(t)
+    ]
+
+
+def match_known_tech(line: str) -> List[str]:
     matched = []
-    lowered = line.lower()
-    for tech in PROJECT_TECHNOLOGIES:
-        if re.search(rf"\b{re.escape(tech)}\b", lowered):
+
+    for tech, pattern in TECH_REGEX.items():
+        if pattern.search(line):
             matched.append(tech)
+
     return matched
+
+
+def clean_line(line: str) -> str:
+    return BULLET_PREFIX.sub("", line).strip()

@@ -144,7 +144,7 @@ PROJECT_TECHNOLOGIES: frozenset[str] = frozenset({
     "pandas", "numpy", "scikit-learn", "tensorflow", "pytorch",
     "langchain", "faiss", "hugging face", "spark", "airflow",
     "jwt", "oauth", "rbac", "websocket", "kafka", "celery",
-    "git", "github", "gitlab", "postman", "figma",
+    "git", "gitlab", "postman", "figma",
     "stripe", "paystack", "twilio",
 })
 

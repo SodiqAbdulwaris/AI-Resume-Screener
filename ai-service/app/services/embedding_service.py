@@ -1,30 +1,34 @@
 import logging
 from pathlib import Path
-
+import numpy as np
 from fastapi import Request
-from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
 logger = logging.getLogger(__name__)
 
-
 class EmbeddingService:
-    def __init__(self, model: SentenceTransformer) -> None:
+    def __init__(self, model: SentenceTransformer):
         self._model = model
 
-    def generate_embedding(self, text: str) -> list[float]:
+    def generate_embedding(self, text: str) -> np.ndarray:
         if not text or not text.strip():
             raise ValueError("Cannot generate embedding for empty text.")
-        vector = self._model.encode(text, normalize_embeddings=True)
-        return vector.tolist()
+        text = self._normalize(text)
+        return self._model.encode(text, normalize_embeddings=True)
 
-    def calculate_similarity(
-        self,
-        vec1: list[float],
-        vec2: list[float],
-    ) -> float:
-        raw = cosine_similarity([vec1], [vec2])
-        return float(max(0.0, min(1.0, raw[0][0])))
+    def generate_batch_embeddings(self, texts: list[str]) -> np.ndarray:
+        if not texts:
+            return np.array([])
+        texts = [self._normalize(t) for t in texts]
+        return self._model.encode(texts, normalize_embeddings=True)
+
+    def calculate_similarity(self, vec1: np.ndarray, vec2: np.ndarray) -> float:
+        # Since vectors are L2 normalized, dot product equals cosine similarity
+        score = float(np.dot(vec1, vec2))
+        return max(0.0, min(1.0, score))
+
+    def _normalize(self, text: str) -> str:
+        return " ".join((text or "").split())
 
 
 def load_embedding_model(model_name: str, cache_dir: str) -> SentenceTransformer:
@@ -34,24 +38,16 @@ def load_embedding_model(model_name: str, cache_dir: str) -> SentenceTransformer
         logger.info(f"Loading embedding model from local cache: {local_path}")
         return SentenceTransformer(str(local_path))
 
-    logger.info(
-        f"Local model not found at {local_path}. "
-        f"Downloading '{model_name}' from Hugging Face."
-    )
+    logger.info(f"Local model not found. Downloading '{model_name}' from Hugging Face.")
     model = SentenceTransformer(model_name)
 
     local_path.mkdir(parents=True, exist_ok=True)
     model.save(str(local_path))
-    logger.info(f"Model saved to {local_path} for future use.")
-
     return model
 
 
 def get_embedding_service(request: Request) -> EmbeddingService:
     service = getattr(request.app.state, "embedding_service", None)
     if service is None:
-        raise RuntimeError(
-            "EmbeddingService is not initialised. "
-            "Ensure the FastAPI lifespan loaded the model correctly."
-        )
+        raise RuntimeError("EmbeddingService is not initialised in app state.")
     return service

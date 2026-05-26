@@ -18,6 +18,7 @@ from app.schemas.resume import (
     ParsedCandidate,
     ProjectItem,
 )
+from app.services.ai_parse_service import maybe_parse_resume_with_ai
 from app.utils.extractor import extract_text_from_file
 from app.utils.normalization import normalize_all_fields
 from app.utils.section_splitter import split_into_sections
@@ -32,7 +33,7 @@ async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
             raw_text = extract_text_from_file(file)
             if not raw_text or not raw_text.strip():
                 raise EmptyResumeError()
-            return parse_resume_text(raw_text)
+            return await parse_resume_text(raw_text)
         except AppException:
             raise
         except Exception as exc:
@@ -40,17 +41,38 @@ async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
             traceback.print_exc()
             logger.error("Resume parsing pipeline failed", exc_info=True)
             raise ResumeParsingError(str(exc))
-        
-
-
-def parse_resume_text(raw_text: str) -> ParsedCandidate:
+async def parse_resume_text(raw_text: str) -> ParsedCandidate:
     marked_text, clean_text = preprocess(raw_text)
     sections = split_into_sections(marked_text)
+    heuristic_candidate = build_heuristic_candidate(clean_text, sections)
+    fallback_reasons = get_ai_fallback_reasons(heuristic_candidate)
 
+    if fallback_reasons:
+        ai_candidate = await maybe_parse_resume_with_ai(
+            raw_text=clean_text,
+            sections=sections,
+            heuristic_candidate=heuristic_candidate,
+            fallback_reasons=fallback_reasons,
+        )
+        if ai_candidate is not None:
+            logger.info(
+                "Resume parsing completed with AI fallback",
+                extra={"fallback_reasons": fallback_reasons},
+            )
+            return ai_candidate
+
+    logger.info("Resume parsing completed successfully")
+    return heuristic_candidate
+
+
+def build_heuristic_candidate(
+    clean_text: str,
+    sections: dict[str, str],
+) -> ParsedCandidate:
     contact = parse_contact(sections["contact"])
 
     education_data = parse_education(sections["education"])
-    
+
     education_entries = education_data.get("entries", [])
     highest_raw = education_data.get("highest_raw")
     education_level = highest_raw or get_education_level(clean_text)
@@ -114,8 +136,24 @@ def parse_resume_text(raw_text: str) -> ParsedCandidate:
     if candidate.experience is not None:
         candidate.years_experience = candidate.experience.total_years
 
-    logger.info("Resume parsing completed successfully")
     return candidate
+
+
+def get_ai_fallback_reasons(candidate: ParsedCandidate) -> list[str]:
+    reasons: list[str] = []
+
+    if not candidate.full_name:
+        reasons.append("missing_full_name")
+    if not candidate.email and not candidate.phone:
+        reasons.append("missing_contact_info")
+    if not candidate.skills:
+        reasons.append("missing_skills")
+    if candidate.experience is None or not candidate.experience.entries:
+        reasons.append("missing_experience")
+    if not candidate.education:
+        reasons.append("missing_education")
+
+    return reasons
 
 
 def get_education_level(raw_text: str) -> str | None:
