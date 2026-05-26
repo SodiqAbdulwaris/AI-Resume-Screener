@@ -1,10 +1,9 @@
+import re
+
 from fastapi import UploadFile
 
-from app.core.exceptions import (
-    AppException,
-    EmptyResumeError,
-    ResumeParsingError,
-)
+from app.config.parser_config import DEGREE_PATTERNS
+from app.core.exceptions import AppException, EmptyResumeError, ResumeParsingError
 from app.core.logger import logger
 from app.parsers.certification_parser import parse_certifications
 from app.parsers.contact_parser import parse_contact
@@ -19,53 +18,66 @@ from app.schemas.resume import (
     ParsedCandidate,
     ProjectItem,
 )
+from app.services.ai_parse_service import maybe_parse_resume_with_ai
 from app.utils.extractor import extract_text_from_file
 from app.utils.normalization import normalize_all_fields
 from app.utils.section_splitter import split_into_sections
 from app.utils.timing import log_time
+from app.utils.pre_processor import preprocess
 
 
 async def parse_resume_service(file: UploadFile) -> ParsedCandidate:
     with log_time("parse_resume_service"):
         try:
             logger.info("Starting resume parsing pipeline")
-
             raw_text = extract_text_from_file(file)
             if not raw_text or not raw_text.strip():
                 raise EmptyResumeError()
-
-            return parse_resume_text(raw_text)
-
+            return await parse_resume_text(raw_text)
         except AppException:
             raise
         except Exception as exc:
+            import traceback
+            traceback.print_exc()
             logger.error("Resume parsing pipeline failed", exc_info=True)
             raise ResumeParsingError(str(exc))
+async def parse_resume_text(raw_text: str) -> ParsedCandidate:
+    marked_text, clean_text = preprocess(raw_text)
+    sections = split_into_sections(marked_text)
+    heuristic_candidate = build_heuristic_candidate(clean_text, sections)
+    fallback_reasons = get_ai_fallback_reasons(heuristic_candidate)
+
+    if fallback_reasons:
+        ai_candidate = await maybe_parse_resume_with_ai(
+            raw_text=clean_text,
+            sections=sections,
+            heuristic_candidate=heuristic_candidate,
+            fallback_reasons=fallback_reasons,
+        )
+        if ai_candidate is not None:
+            logger.info(
+                "Resume parsing completed with AI fallback",
+                extra={"fallback_reasons": fallback_reasons},
+            )
+            return ai_candidate
+
+    logger.info("Resume parsing completed successfully")
+    return heuristic_candidate
 
 
-def parse_resume_text(raw_text: str) -> ParsedCandidate:
-    parsed = {
-        "raw_text": raw_text,
-    }
-    sections = split_into_sections(raw_text)
+def build_heuristic_candidate(
+    clean_text: str,
+    sections: dict[str, str],
+) -> ParsedCandidate:
+    contact = parse_contact(sections["contact"])
 
-    contact_input = sections["contact"] or "\n".join(
-        line for line in raw_text.splitlines()[:10] if line.strip()
-    )
+    education_data = parse_education(sections["education"])
 
-    parsed.update({
-        **parse_contact(contact_input),
-        "skills": parse_skills(sections["skills"]),
-        "projects": parse_projects(sections["projects"]),
-        "education": parse_education(sections["education"]),
-        "experience": parse_experience(sections["experience"]),
-        "certifications": parse_certifications(sections["certifications"]),
-    })
+    education_entries = education_data.get("entries", [])
+    highest_raw = education_data.get("highest_raw")
+    education_level = highest_raw or get_education_level(clean_text)
 
-    normalized = normalize_all_fields(parsed)
-    cleaned = cleanup_empty_values(normalized)
-
-    experience_data = cleaned.get("experience") or {}
+    experience_data = parse_experience(sections["experience"])
     experience_entries = [
         ExperienceEntry(
             role=entry.get("role"),
@@ -84,6 +96,20 @@ def parse_resume_text(raw_text: str) -> ParsedCandidate:
         if experience_data
         else None
     )
+
+    parsed = {
+        "raw_text": clean_text,
+        **contact,
+        "skills": parse_skills(sections["skills"]),
+        "projects": parse_projects(sections["projects"]),
+        "education": education_entries,
+        "education_level": education_level,
+        "experience": experience_data,
+        "certifications": parse_certifications(sections["certifications"]),
+    }
+
+    normalized = normalize_all_fields(parsed)
+    cleaned = cleanup_empty_values(normalized)
 
     candidate = ParsedCandidate(
         full_name=cleaned.get("full_name"),
@@ -104,13 +130,46 @@ def parse_resume_text(raw_text: str) -> ParsedCandidate:
             if isinstance(entry, dict)
         ],
         certifications=cleaned.get("certifications", []),
-        raw_text=parsed.get("raw_text"),
+        raw_text=clean_text,
     )
+
     if candidate.experience is not None:
         candidate.years_experience = candidate.experience.total_years
 
-    logger.info("Resume parsing completed successfully")
     return candidate
+
+
+def get_ai_fallback_reasons(candidate: ParsedCandidate) -> list[str]:
+    reasons: list[str] = []
+
+    if not candidate.full_name:
+        reasons.append("missing_full_name")
+    if not candidate.email and not candidate.phone:
+        reasons.append("missing_contact_info")
+    if not candidate.skills:
+        reasons.append("missing_skills")
+    if candidate.experience is None or not candidate.experience.entries:
+        reasons.append("missing_experience")
+    if not candidate.education:
+        reasons.append("missing_education")
+
+    return reasons
+
+
+def get_education_level(raw_text: str) -> str | None:
+    lowered = raw_text.lower()
+    highest_rank = -1
+    highest_level = None
+
+    for level, pattern in DEGREE_PATTERNS:
+        if re.search(pattern, lowered, re.IGNORECASE):
+            from app.config.parser_config import DEGREE_HIERARCHY
+            rank = DEGREE_HIERARCHY.get(level, -1)
+            if rank > highest_rank:
+                highest_rank = rank
+                highest_level = level
+
+    return highest_level
 
 
 def cleanup_empty_values(payload: dict) -> dict:
@@ -138,7 +197,6 @@ def cleanup_empty_values(payload: dict) -> dict:
             if nested_dict:
                 cleaned[key] = nested_dict
             continue
-
         cleaned[key] = value
 
     return cleaned

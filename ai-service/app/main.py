@@ -3,8 +3,6 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from sentence_transformers import SentenceTransformer
-
 from huggingface_hub import login
 
 from app.config.settings import get_settings
@@ -12,19 +10,27 @@ from app.core.exceptions import AppException
 from app.core.middleware import RequestLoggingMiddleware
 from app.routers.parse import router as parse_router
 from app.routers.match import router as match_router
-from app.services.embedding_service import EmbeddingService
+from app.services.embedding_service import EmbeddingService, load_embedding_model
 
 settings = get_settings()
 logger = logging.getLogger(__name__)
 
-hf_token = settings.HF_TOKEN
-if hf_token:
-    login(token=hf_token) 
+if settings.HF_TOKEN:
+    try:
+        login(token=settings.HF_TOKEN)
+    except Exception as exc:
+        print("Error:", exc)
+        
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Loading embedding model: %s", settings.EMBEDDING_MODEL)
-    raw_model = SentenceTransformer(settings.EMBEDDING_MODEL)
+
+    raw_model = load_embedding_model(
+        model_name=settings.EMBEDDING_MODEL,
+        cache_dir=settings.MODEL_CACHE_DIR,
+    )
     app.state.embedding_service = EmbeddingService(raw_model)
     logger.info("Embedding model loaded and ready.")
 
@@ -35,10 +41,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="AI Resume Screening Service", lifespan=lifespan)
 
+app.add_middleware(RequestLoggingMiddleware)
+
 app.include_router(parse_router)
 app.include_router(match_router)
-
-app.add_middleware(RequestLoggingMiddleware)
 
 
 @app.get("/health")

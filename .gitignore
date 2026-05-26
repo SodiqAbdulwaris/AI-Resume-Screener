@@ -8,7 +8,8 @@ extras/
 __pycache__/
 *.pyc
 ai-service/env/
-ai-service/tests/
-ai-service/extras/
+ai-service/app/tests/
+ai-service/app/extras/
+ai-service/app/embedding-models
 
 backend/uploads/

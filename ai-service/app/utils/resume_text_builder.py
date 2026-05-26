@@ -1,43 +1,23 @@
 from app.schemas.match import CandidateInput
 
 
-def build_candidate_text(
-    candidate: CandidateInput
-) -> str:
-    parts = []
+def build_candidate_text(candidate: CandidateInput) -> str:
+    if candidate.raw_text and candidate.raw_text.strip():
+        return candidate.raw_text.strip()
 
-    if candidate.raw_text is not None and candidate.raw_text.strip():
-        parts.append(candidate.raw_text.strip())
-        if candidate.skills:
-            deduplicated_skills = sorted(
-                {
-                    skill.strip()
-                    for skill in candidate.skills
-                    if skill and skill.strip()
-                }
-            )
-            if deduplicated_skills:
-                parts.append("Skills: " + ", ".join(deduplicated_skills))
-        return "\n".join(parts)
+    parts = []
 
     if candidate.full_name:
         parts.append(candidate.full_name)
 
     if candidate.skills:
-        parts.append(
-            "Skills: " +
-            ", ".join(candidate.skills)
-        )
+        deduped = sorted({s.strip() for s in candidate.skills if s and s.strip()})
+        if deduped:
+            parts.append("Skills: " + ", ".join(deduped))
 
-    parts.append(
-        f"Years of experience: "
-        f"{candidate.years_experience}"
-    )
+    parts.append(f"Years of experience: {candidate.years_experience}")
 
     if candidate.education_level:
-        parts.append(
-            f"Education: "
-            f"{candidate.education_level}"
-        )
+        parts.append(f"Education: {candidate.education_level}")
 
     return "\n".join(parts)

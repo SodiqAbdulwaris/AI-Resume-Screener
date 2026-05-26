@@ -1,14 +1,15 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, File, UploadFile
 
-from app.schemas.resume import ParsedCandidate
-from app.services.parser_service import parse_resume_service
-from app.core.exceptions import FileTooLargeError
 from app.config.settings import get_settings
+from app.core.exceptions import FileTooLargeError
+from app.schemas.resume import ParsedCandidate
+from app.services.parse_service import parse_resume_service
 
 router = APIRouter()
 settings = get_settings()
 
-@router.post("/parse", response_model=ParsedCandidate)
+
+@router.post("/parse/", response_model=ParsedCandidate)
 async def parse_resume(file: UploadFile = File(...)):
     contents = await file.read()
 
@@ -16,7 +17,7 @@ async def parse_resume(file: UploadFile = File(...)):
         raise FileTooLargeError(
             filename=file.filename,
             size_mb=round(len(contents) / (1024 * 1024), 2),
-            max_mb=settings.MAX_FILE_SIZE_MB
+            max_mb=settings.MAX_FILE_SIZE_MB,
         )
 
     await file.seek(0)

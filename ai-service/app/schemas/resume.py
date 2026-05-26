@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
+from pydantic import BaseModel, ConfigDict, Field
+
 from app.schemas.common import EducationLevel
 
 
@@ -25,29 +26,12 @@ class EducationEntry(BaseModel):
 
 class ProjectItem(BaseModel):
     name: Optional[str] = None
-    description: Optional[str] = None
     technologies: list[str] = Field(default_factory=list)
 
 
-class CertificationItem(BaseModel):
-    name: Optional[str] = None
-    issuer: Optional[str] = None
-    issue_date: Optional[str] = None
-
-
-class PortfolioItem(BaseModel):
-    personal_site: Optional[str] = None
-    github: Optional[str] = None
-    linkedin: Optional[str] = None
-    other_links: list[str] = Field(default_factory=list)
-
-
 class ParsedCandidate(BaseModel):
-    
-    model_config = ConfigDict(
-        extra="ignore"
-    )
-    
+    model_config = ConfigDict(extra="ignore")
+
     full_name: Optional[str] = None
     email: Optional[str] = None
     phone: Optional[str] = None
@@ -56,22 +40,12 @@ class ParsedCandidate(BaseModel):
     skills: list[str] = Field(default_factory=list)
 
     education: list[EducationEntry] = Field(default_factory=list)
-    experience: Optional[ExperienceSummary] = None
-    projects: list[ProjectItem] = Field(default_factory=list)
-
-    certifications: list[str] = Field(default_factory=list)
-
-    # Portfolio site: github, linkedin and co
-    portfolio: Optional[PortfolioItem] = None
-    
-    # secondary, masters, phd, bsc
     education_level: Optional[EducationLevel] = None
 
-    years_experience: Optional[float] = Field(
-        default=None,
-        ge=0
-    )
+    experience: Optional[ExperienceSummary] = None
+    years_experience: Optional[float] = Field(default=None, ge=0)
+
+    projects: list[ProjectItem] = Field(default_factory=list)
+    certifications: list[str] = Field(default_factory=list)
 
     raw_text: Optional[str] = None
-    readable_summary: Optional[str] = None   
-    

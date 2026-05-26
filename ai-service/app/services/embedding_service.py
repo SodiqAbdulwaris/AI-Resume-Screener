@@ -1,58 +1,53 @@
 import logging
-
+from pathlib import Path
+import numpy as np
 from fastapi import Request
-from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
 logger = logging.getLogger(__name__)
 
-
 class EmbeddingService:
-    """
-    Wraps the sentence-transformers model.
-    One instance is created at startup and stored on app.state.
-    Never instantiated at import time.
-    """
-
-    def __init__(self, model: SentenceTransformer) -> None:
+    def __init__(self, model: SentenceTransformer):
         self._model = model
 
-    def generate_embedding(self, text: str) -> list[float]:
-        """
-        Encode a string and return a normalised embedding as a plain Python list.
-        normalize_embeddings=True ensures vectors are unit-length,
-        which makes cosine similarity equivalent to a dot product.
-        """
-        vector = self._model.encode(text, normalize_embeddings=True)
-        return vector.tolist()
+    def generate_embedding(self, text: str) -> np.ndarray:
+        if not text or not text.strip():
+            raise ValueError("Cannot generate embedding for empty text.")
+        text = self._normalize(text)
+        return self._model.encode(text, normalize_embeddings=True)
 
-    def calculate_similarity(
-        self,
-        vec1: list[float],
-        vec2: list[float],
-    ) -> float:
-        """
-        Return cosine similarity between two embedding vectors.
-        Output is in range [-1.0, 1.0]; in practice always [0.0, 1.0]
-        for normalised text embeddings.
-        """
-        similarity = cosine_similarity([vec1], [vec2])
-        return float(similarity[0][0])
+    def generate_batch_embeddings(self, texts: list[str]) -> np.ndarray:
+        if not texts:
+            return np.array([])
+        texts = [self._normalize(t) for t in texts]
+        return self._model.encode(texts, normalize_embeddings=True)
+
+    def calculate_similarity(self, vec1: np.ndarray, vec2: np.ndarray) -> float:
+        # Since vectors are L2 normalized, dot product equals cosine similarity
+        score = float(np.dot(vec1, vec2))
+        return max(0.0, min(1.0, score))
+
+    def _normalize(self, text: str) -> str:
+        return " ".join((text or "").split())
+
+
+def load_embedding_model(model_name: str, cache_dir: str) -> SentenceTransformer:
+    local_path = Path(cache_dir) / model_name
+
+    if local_path.exists():
+        logger.info(f"Loading embedding model from local cache: {local_path}")
+        return SentenceTransformer(str(local_path))
+
+    logger.info(f"Local model not found. Downloading '{model_name}' from Hugging Face.")
+    model = SentenceTransformer(model_name)
+
+    local_path.mkdir(parents=True, exist_ok=True)
+    model.save(str(local_path))
+    return model
 
 
 def get_embedding_service(request: Request) -> EmbeddingService:
-    """
-    FastAPI dependency. Pulls the EmbeddingService instance off app.state.
-    Usage in a router:
-
-        from fastapi import Depends, Request
-        from app.services.embedding_service import EmbeddingService, get_embedding_service
-
-        @router.post("/match/")
-        async def match(
-            body: MatchRequest,
-            embedding_service: EmbeddingService = Depends(get_embedding_service),
-        ):
-            vec = embedding_service.generate_embedding(body.job.description)
-    """
-    return request.app.state.embedding_service
+    service = getattr(request.app.state, "embedding_service", None)
+    if service is None:
+        raise RuntimeError("EmbeddingService is not initialised in app state.")
+    return service
