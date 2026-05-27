@@ -1,28 +1,35 @@
-require('dotenv').config()
-const env = require('./src/config/env')
-const express = require('express')
-const connectDB = require('./src/config/db')
+require('dotenv').config();
+const env = require('./src/config/env');
+const connectDB = require('./src/config/db');
+const express = require('express');
+const authRoutes = require('./src/routes/auth.routes');
+const resumeRoutes = require('./src/routes/resumeRoutes');
+const candidateRoutes = require('./src/routes/candidateRoutes');
+const jobRoutes = require('./src/routes/jobRoutes');
+const errorHandler = require('./src/middlewares/errorHandler');
 
-const app = express()
+const app = express();
 
 // middleware
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-// connect database
-connectDB()
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'backend', port: env.BACKEND_PORT })
-})
+  res.json({ success: true, message: 'Server is running' });
+});
 
 // routes
-app.use('/api/v1/auth', require('./src/routes/auth.routes'))
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/resumes', resumeRoutes);
+app.use('/api/v1/candidates', candidateRoutes);
+app.use('/api/v1/jobs', jobRoutes);
 
 // global error handler (always last)
-app.use(require('./src/middleware/errorHandler'))
+app.use(errorHandler);
 
-app.listen(env.BACKEND_PORT, () => {
-  console.log(`Backend running on port ${env.BACKEND_PORT}`)
-})
+connectDB().then(() => {
+  app.listen(env.BACKEND_PORT, () => {
+    console.log(`Backend running on port ${env.BACKEND_PORT}`);
+  });
+});

@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose');
 
-const resumeSchema = new Schema(
+const resumeSchema = new mongoose.Schema(
   {
     originalFileName: { type: String, required: true },
     mimeType: { type: String, required: true },
@@ -17,9 +17,11 @@ const resumeSchema = new Schema(
     // Raw text extracted by the AI parser — forwarded to /match/ for richer embeddings
     parsedText: { type: String },
     // Link to the candidate profile created from this resume
-    candidateProfileId: { type: Schema.Types.ObjectId, ref: 'CandidateProfile' },
+    candidateProfileId: { type: mongoose.Schema.Types.ObjectId, ref: 'CandidateProfile' },
   },
   { timestamps: true }
 );
 
-export default model('Resume', resumeSchema);
+const Resume = mongoose.model('Resume', resumeSchema);
+
+module.exports = Resume;

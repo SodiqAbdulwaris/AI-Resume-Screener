@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>AI-Resume-Screener — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 461 nodes, 800 edges, 43 communities. Commit: 0b0df53</p>
+<p class="subtitle">Generated from graphify knowledge graph: 467 nodes, 804 edges, 53 communities. Commit: 95e2b06</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -68,16 +68,16 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#build-graph">Graph Build</a>
     <a href="#cli-skills">CLI &amp; Skill Installers</a>
     <a href="#serve-api">Serving API</a>
-    <a href="#community-2">Community 2</a>
     <a href="#community-5">Community 5</a>
-    <a href="#community-6">Community 6</a>
     <a href="#community-13">Community 13</a>
+    <a href="#community-43">Community 43</a>
+    <a href="#community-2">Community 2</a>
     <a href="#community-16">Community 16</a>
     <a href="#community-17">Community 17</a>
     <a href="#community-18">Community 18</a>
+    <a href="#community-44">Community 44</a>
     <a href="#community-19">Community 19</a>
-    <a href="#community-22">Community 22</a>
-    <a href="#community-24">Community 24</a>
+    <a href="#community-45">Community 45</a>
     <a href="#other">Other</a>
 </div>
 
@@ -88,48 +88,48 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>148 nodes</small>")
+    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>150 nodes</small>")
     class EXTRACT_PIPELINE_5F350230 module;
-    BUILD_GRAPH_321CBB04("Graph Build<br/><small>54 nodes</small>")
+    BUILD_GRAPH_321CBB04("Graph Build<br/><small>57 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
-    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>51 nodes</small>")
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>49 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
     SERVE_API_35EC8E86("Serving API<br/><small>35 nodes</small>")
     class SERVE_API_35EC8E86 module;
-    COMMUNITY_2_8C8DF7B9("Community 2<br/><small>45 nodes</small>")
-    class COMMUNITY_2_8C8DF7B9 module;
     COMMUNITY_5_2966028D("Community 5<br/><small>24 nodes</small>")
     class COMMUNITY_5_2966028D module;
-    COMMUNITY_6_7D637A07("Community 6<br/><small>23 nodes</small>")
-    class COMMUNITY_6_7D637A07 module;
     COMMUNITY_13_E329587C("Community 13<br/><small>12 nodes</small>")
     class COMMUNITY_13_E329587C module;
+    COMMUNITY_43_5DF3A0B0("Community 43<br/><small>12 nodes</small>")
+    class COMMUNITY_43_5DF3A0B0 module;
+    COMMUNITY_2_8C8DF7B9("Community 2<br/><small>11 nodes</small>")
+    class COMMUNITY_2_8C8DF7B9 module;
     COMMUNITY_16_BD3EE841("Community 16<br/><small>10 nodes</small>")
     class COMMUNITY_16_BD3EE841 module;
     COMMUNITY_17_648F8D7C("Community 17<br/><small>10 nodes</small>")
     class COMMUNITY_17_648F8D7C module;
     COMMUNITY_18_A335126F("Community 18<br/><small>9 nodes</small>")
     class COMMUNITY_18_A335126F module;
+    COMMUNITY_44_474CF115("Community 44<br/><small>9 nodes</small>")
+    class COMMUNITY_44_474CF115 module;
     COMMUNITY_19_9462A0B9("Community 19<br/><small>8 nodes</small>")
     class COMMUNITY_19_9462A0B9 module;
-    COMMUNITY_22_65038249("Community 22<br/><small>5 nodes</small>")
-    class COMMUNITY_22_65038249 module;
-    COMMUNITY_24_ECF60D36("Community 24<br/><small>4 nodes</small>")
-    class COMMUNITY_24_ECF60D36 module;
-    OTHER_D0941E68("Other<br/><small>23 nodes</small>")
+    COMMUNITY_45_E4978FE7("Community 45<br/><small>8 nodes</small>")
+    class COMMUNITY_45_E4978FE7 module;
+    OTHER_D0941E68("Other<br/><small>63 nodes</small>")
     class OTHER_D0941E68 module;
-    CLI_SKILLS_9964CBB8 -->|imports x4| EXTRACT_PIPELINE_5F350230
     COMMUNITY_5_2966028D -->|inherits x4| EXTRACT_PIPELINE_5F350230
     COMMUNITY_18_A335126F -->|imports x4| COMMUNITY_16_BD3EE841
+    CLI_SKILLS_9964CBB8 -->|imports x3| EXTRACT_PIPELINE_5F350230
     COMMUNITY_18_A335126F -->|contains x3| SERVE_API_35EC8E86
+    EXTRACT_PIPELINE_5F350230 -->|contains x2| COMMUNITY_5_2966028D
+    COMMUNITY_43_5DF3A0B0 -->|imports x2| COMMUNITY_45_E4978FE7
+    COMMUNITY_2_8C8DF7B9 -->|imports x2| OTHER_D0941E68
     COMMUNITY_13_E329587C -->|imports x2| COMMUNITY_16_BD3EE841
-    CLI_SKILLS_9964CBB8 -->|contains| COMMUNITY_5_2966028D
-    EXTRACT_PIPELINE_5F350230 -->|contains| COMMUNITY_5_2966028D
-    COMMUNITY_6_7D637A07 -->|imports| COMMUNITY_13_E329587C
-    COMMUNITY_6_7D637A07 -->|imports| SERVE_API_35EC8E86
-    COMMUNITY_13_E329587C -->|imports| OTHER_D0941E68
-    SERVE_API_35EC8E86 -->|imports| COMMUNITY_18_A335126F
-    SERVE_API_35EC8E86 -->|imports| COMMUNITY_6_7D637A07
+    EXTRACT_PIPELINE_5F350230 -->|imports| CLI_SKILLS_9964CBB8
+    COMMUNITY_43_5DF3A0B0 -->|imports| COMMUNITY_2_8C8DF7B9
+    COMMUNITY_43_5DF3A0B0 -->|imports| OTHER_D0941E68
+    COMMUNITY_43_5DF3A0B0 -->|imports| COMMUNITY_13_E329587C
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,19 +146,19 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>148</td><td><code>1, 4, 9, 10, 11, 14, 20, 21, 32, 40</code></td></tr><tr><td>Graph Build</td><td>54</td><td><code>3, 7, 15</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>51</td><td><code>0, 28</code></td></tr><tr><td>Serving API</td><td>35</td><td><code>8, 12, 23</code></td></tr><tr><td>Community 2</td><td>45</td><td><code>2</code></td></tr><tr><td>Community 5</td><td>24</td><td><code>5</code></td></tr><tr><td>Community 6</td><td>23</td><td><code>6</code></td></tr><tr><td>Community 13</td><td>12</td><td><code>13</code></td></tr><tr><td>Community 16</td><td>10</td><td><code>16</code></td></tr><tr><td>Community 17</td><td>10</td><td><code>17</code></td></tr><tr><td>Community 18</td><td>9</td><td><code>18</code></td></tr><tr><td>Community 19</td><td>8</td><td><code>19</code></td></tr><tr><td>Community 22</td><td>5</td><td><code>22</code></td></tr><tr><td>Community 24</td><td>4</td><td><code>24</code></td></tr><tr><td>Other</td><td>23</td><td><code>25, 26, 27, 29, 30, 31, 33, 34, 35, 36, 37, 38, 39, 41, 42</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>150</td><td><code>1, 4, 9, 10, 11, 14, 20, 21, 32, 40</code></td></tr><tr><td>Graph Build</td><td>57</td><td><code>3, 7, 15, 49</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>49</td><td><code>0, 28</code></td></tr><tr><td>Serving API</td><td>35</td><td><code>8, 12, 23</code></td></tr><tr><td>Community 5</td><td>24</td><td><code>5</code></td></tr><tr><td>Community 13</td><td>12</td><td><code>13</code></td></tr><tr><td>Community 43</td><td>12</td><td><code>43</code></td></tr><tr><td>Community 2</td><td>11</td><td><code>2</code></td></tr><tr><td>Community 16</td><td>10</td><td><code>16</code></td></tr><tr><td>Community 17</td><td>10</td><td><code>17</code></td></tr><tr><td>Community 18</td><td>9</td><td><code>18</code></td></tr><tr><td>Community 44</td><td>9</td><td><code>44</code></td></tr><tr><td>Community 19</td><td>8</td><td><code>19</code></td></tr><tr><td>Community 45</td><td>8</td><td><code>45</code></td></tr><tr><td>Other</td><td>63</td><td><code>46, 6, 47, 22, 24, 48, 25, 26, 27, 29, 30, 50, 51, 52, 31, 33, 34, 35, 36, 37, 38, 39, 41, 42</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Graph Build -&gt; Extraction Pipeline -&gt; Community 5 -&gt; CLI &amp; Skill Installers -&gt; Serving API -&gt; Community 6 -&gt; Community 16</div>
+    <div class="arrow-chain">Graph Build -&gt; Extraction Pipeline -&gt; Community 5 -&gt; CLI &amp; Skill Installers -&gt; Serving API -&gt; Other -&gt; Community 44</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>461 nodes · 800 edges · 43 communities (37 shown, 6 thin omitted)</li>
+      <li>467 nodes · 804 edges · 53 communities (43 shown, 10 thin omitted)</li>
       <li>Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 99 edges (avg confidence: 0.6)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `EmbeddingService` - 20 edges</li>
@@ -170,12 +170,12 @@ flowchart LR
 <hr>
 <!-- ====== 2. Extraction Pipeline ====== -->
 <h2 id="extract-pipeline">2. Extraction Pipeline</h2>
-<p>Extraction Pipeline groups implementation around service, app, parserpy, parsers, mostly in app/parsers/experience_parser.py, app/parsers/education_parser.py, app/parsers/project_parser.py. This section covers 148 nodes and 387 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Extraction Pipeline groups implementation around service, app, parserpy, parsers, mostly in app/parsers/experience_parser.py, app/parsers/education_parser.py, app/parsers/project_parser.py. This section covers 150 nodes and 392 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Extraction Pipeline (148 nodes, 387 edges)
+    %% Section: Extraction Pipeline (150 nodes, 392 edges)
     subgraph extract_pipeline_app_core_exceptions_py_5da79668["app/core/exceptions.py"]
         core_exceptions_appexception_343d187c("AppException<br/><small>app/core/exceptions.py</small>")
         core_exceptions_appexception_init_6c0e6c08("__init__()<br/><small>app/core/exceptions.py</small>")
@@ -198,10 +198,8 @@ flowchart LR
         parsers_experience_parser_parse_block_4a09d87a("parse_block()<br/><small>app/parsers/experience_parser.py</small>")
         parsers_experience_parser_parse_experience_8bfd04f5("parse_experience()<br/><small>app/parsers/experience_parser.py</small>")
     end
-    subgraph extract_pipeline_app_parsers_skills_parser_py_31ac8ddb["app/parsers/skills_parser.py"]
-        parsers_skills_parser_split_skill_segments_e7ad07e6("split_skill_segments()<br/><small>app/parsers/skills_parser.py</small>")
-        parsers_skills_parser_parse_skills_5ff2dabd("parse_skills()<br/><small>app/parsers/skills_parser.py</small>")
-    end
+    fastapi_41a1373c("FastAPI<br/><small>ai-service/app/main.py</small>")
+    parsers_skills_parser_split_skill_segments_e7ad07e6("split_skill_segments()<br/><small>app/parsers/skills_parser.py</small>")
     core_exceptions_appexception_343d187c -->|method| core_exceptions_appexception_init_6c0e6c08
     core_exceptions_appexception_init_6c0e6c08 -->|calls| core_exceptions_embeddinggenerationerror_init_fc523d12
     core_exceptions_unsupportedfiletypeerror_eb98a668 -->|method| core_exceptions_unsupportedfiletypeerror_init_07b685c5
@@ -215,8 +213,7 @@ flowchart LR
     core_exceptions_embeddinggenerationerror_97494250 -->|method| core_exceptions_embeddinggenerationerror_init_fc523d12
     parsers_education_parser_parse_education_b15721c5 -->|calls| parsers_education_parser_parse_block_a2dae654
     parsers_experience_parser_parse_experience_8bfd04f5 -->|calls| parsers_experience_parser_parse_block_4a09d87a
-    parsers_skills_parser_parse_skills_5ff2dabd -->|calls| parsers_skills_parser_split_skill_segments_e7ad07e6
-    %% Omitted for readability: 130 nodes, 0 edges
+    %% Omitted for readability: 132 nodes, 0 edges
     class core_exceptions_appexception_343d187c klass;
     class core_exceptions_appexception_init_6c0e6c08 function;
     class core_exceptions_embeddinggenerationerror_init_fc523d12 function;
@@ -233,8 +230,8 @@ flowchart LR
     class parsers_education_parser_parse_education_b15721c5 function;
     class parsers_experience_parser_parse_block_4a09d87a function;
     class parsers_experience_parser_parse_experience_8bfd04f5 function;
+    class fastapi_41a1373c api;
     class parsers_skills_parser_split_skill_segments_e7ad07e6 function;
-    class parsers_skills_parser_parse_skills_5ff2dabd function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -258,6 +255,14 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
+  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>AppException</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>extractor.py</code><br><small style="color:var(--muted)">app/utils/extractor.py</small><br><code>match.py</code><br><small style="color:var(--muted)">app/routers/match.py</small><br>+2 more</td>
+  <td>FastAPI node in ai-service/app/main.py.</td>
+</tr>
+<tr>
+  <td>2</td>
   <td><code>exceptions.py</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -265,15 +270,15 @@ flowchart LR
   <td>Module file in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>2</td>
+  <td>3</td>
   <td><code>AppException</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
+  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><code>__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>ParsedCandidate</code><br><small style="color:var(--muted)">app/services/parse_service.py</small><br><code>str</code><br><small style="color:var(--muted)">app/services/parse_service.py</small><br>+1 more</td>
   <td>AppException node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>3</td>
+  <td>4</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>AppException</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -281,7 +286,7 @@ flowchart LR
   <td>.__init__() node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>5</td>
   <td><code>str</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -289,7 +294,7 @@ flowchart LR
   <td>str node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>6</td>
   <td><code>UnsupportedFileTypeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -297,7 +302,7 @@ flowchart LR
   <td>UnsupportedFileTypeError node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>7</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>UnsupportedFileTypeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -305,7 +310,7 @@ flowchart LR
   <td>.__init__() node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>8</td>
   <td><code>FileTooLargeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -313,7 +318,7 @@ flowchart LR
   <td>FileTooLargeError node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>9</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>FileTooLargeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -321,7 +326,7 @@ flowchart LR
   <td>.__init__() node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>10</td>
   <td><code>float</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -329,7 +334,7 @@ flowchart LR
   <td>float node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>11</td>
   <td><code>EmptyResumeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -337,7 +342,7 @@ flowchart LR
   <td>EmptyResumeError node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>12</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>EmptyResumeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -345,7 +350,7 @@ flowchart LR
   <td>.__init__() node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>13</td>
   <td><code>ResumeParsingError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -353,7 +358,7 @@ flowchart LR
   <td>ResumeParsingError node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>14</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>ResumeParsingError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -361,7 +366,7 @@ flowchart LR
   <td>.__init__() node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>15</td>
   <td><code>EmbeddingGenerationError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -369,7 +374,7 @@ flowchart LR
   <td>EmbeddingGenerationError node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>16</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>__init__()</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br>+3 more</td>
@@ -377,15 +382,23 @@ flowchart LR
   <td>.__init__() node in app/core/exceptions.py.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>17</td>
+  <td><code>match.py</code><br><small style="color:var(--muted)">app/routers/match.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>Module file in app/routers/match.py.</td>
+</tr>
+<tr>
+  <td>18</td>
   <td><code>parse.py</code><br><small style="color:var(--muted)">app/routers/parse.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
+  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td>No direct outbound edge</td>
   <td>Module file in app/routers/parse.py.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>19</td>
   <td><code>parse_resume()</code><br><small style="color:var(--muted)">app/routers/parse.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>FileTooLargeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -393,7 +406,7 @@ flowchart LR
   <td>parse_resume() node in app/routers/parse.py.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>20</td>
   <td><code>UploadFile</code><br><small style="color:var(--muted)">app/routers/parse.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>FileTooLargeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -401,7 +414,7 @@ flowchart LR
   <td>UploadFile node in app/routers/parse.py.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>21</td>
   <td><code>resume.py</code><br><small style="color:var(--muted)">app/schemas/resume.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -409,7 +422,7 @@ flowchart LR
   <td>Module file in app/schemas/resume.py.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>22</td>
   <td><code>ExperienceEntry</code><br><small style="color:var(--muted)">app/schemas/resume.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -417,7 +430,7 @@ flowchart LR
   <td>ExperienceEntry node in app/schemas/resume.py.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>23</td>
   <td><code>ExperienceSummary</code><br><small style="color:var(--muted)">app/schemas/resume.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -425,7 +438,7 @@ flowchart LR
   <td>ExperienceSummary node in app/schemas/resume.py.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>24</td>
   <td><code>EducationEntry</code><br><small style="color:var(--muted)">app/schemas/resume.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -433,7 +446,7 @@ flowchart LR
   <td>EducationEntry node in app/schemas/resume.py.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>25</td>
   <td><code>ProjectItem</code><br><small style="color:var(--muted)">app/schemas/resume.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -441,15 +454,15 @@ flowchart LR
   <td>ProjectItem node in app/schemas/resume.py.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>26</td>
   <td><code>parse_service.py</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
+  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td>No direct outbound edge</td>
   <td>Module file in app/services/parse_service.py.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>27</td>
   <td><code>parse_resume_service()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>EmptyResumeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>parse_resume()</code><br><small style="color:var(--muted)">app/routers/parse.py</small><br><code>ResumeParsingError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small></td>
@@ -457,7 +470,7 @@ flowchart LR
   <td>parse_resume_service() node in app/services/parse_service.py.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>28</td>
   <td><code>UploadFile</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>AppException</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>EducationEntry</code><br><small style="color:var(--muted)">app/schemas/resume.py</small><br><code>EmptyResumeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br>+4 more</td>
@@ -465,7 +478,7 @@ flowchart LR
   <td>UploadFile node in app/services/parse_service.py.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>29</td>
   <td><code>ParsedCandidate</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>AppException</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>EducationEntry</code><br><small style="color:var(--muted)">app/schemas/resume.py</small><br><code>EmptyResumeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br>+4 more</td>
@@ -473,28 +486,12 @@ flowchart LR
   <td>ParsedCandidate node in app/services/parse_service.py.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>30</td>
   <td><code>parse_resume_text()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>parse_resume_service()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
   <td><code>build_heuristic_candidate()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small><br><code>get_ai_fallback_reasons()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small><br><code>split_into_sections()</code><br><small style="color:var(--muted)">app/utils/section_splitter.py</small></td>
   <td>parse_resume_text() node in app/services/parse_service.py.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>str</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>AppException</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br><code>EducationEntry</code><br><small style="color:var(--muted)">app/schemas/resume.py</small><br><code>EmptyResumeError</code><br><small style="color:var(--muted)">app/core/exceptions.py</small><br>+4 more</td>
-  <td>No direct outbound edge</td>
-  <td>str node in app/services/parse_service.py.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>build_heuristic_candidate()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>EducationEntry</code><br><small style="color:var(--muted)">app/schemas/resume.py</small><br><code>ExperienceEntry</code><br><small style="color:var(--muted)">app/schemas/resume.py</small><br><code>ExperienceSummary</code><br><small style="color:var(--muted)">app/schemas/resume.py</small><br>+8 more</td>
-  <td><code>cleanup_empty_values()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small><br><code>get_education_level()</code><br><small style="color:var(--muted)">app/services/parse_service.py</small></td>
-  <td>build_heuristic_candidate() node in app/services/parse_service.py.</td>
 </tr>
 </table>
 
@@ -522,12 +519,12 @@ flowchart LR
 
 <!-- ====== 3. Graph Build ====== -->
 <h2 id="build-graph">3. Graph Build</h2>
-<p>Graph Build groups implementation around packagejson, backend, normalizationpy, service, mostly in package.json, backend/package.json, app/utils/normalization.py. This section covers 54 nodes and 58 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Graph Build groups implementation around packagejson, backend, normalizationpy, service, mostly in package.json, backend/package.json, app/utils/normalization.py. This section covers 57 nodes and 60 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Graph Build (54 nodes, 58 edges)
+    %% Section: Graph Build (57 nodes, 60 edges)
     subgraph build_graph_backend_package_json_fef74fa2["backend/package.json"]
         backend_package_dependencies_axios_9480698a("axios<br/><small>backend/package.json</small>")
         backend_package_dependencies_4ff26931("dependencies<br/><small>backend/package.json</small>")
@@ -537,9 +534,6 @@ flowchart LR
         backend_package_dependencies_dotenv_8389886b("dotenv<br/><small>backend/package.json</small>")
         backend_package_dependencies_express_9f41d3cf("express<br/><small>backend/package.json</small>")
         backend_package_dependencies_form_data_4f61a7c4("form-data<br/><small>backend/package.json</small>")
-        backend_package_main_58e1bdcd("main<br/><small>backend/package.json</small>")
-        backend_package_dependencies_mongoose_88d9e2cb("mongoose<br/><small>backend/package.json</small>")
-        backend_package_dependencies_multer_c0888cf1("multer<br/><small>backend/package.json</small>")
     end
     subgraph build_graph_app_utils_normalization_py_cdd5e4bf["app/utils/normalization.py"]
         utils_normalization_normalize_all_fields_645d1239("normalize_all_fields()<br/><small>app/utils/normalization.py</small>")
@@ -550,11 +544,16 @@ flowchart LR
         ai_service_app_utils_normalization_py_c358ee7c("normalization.py")
         ai_service_app_utils_normalization_py_str_f66c4c8f("str<br/><small>app/utils/normalization.py</small>")
     end
+    subgraph build_graph_codex_hooks_json_b1af5fad[".codex/hooks.json"]
+        codex_hooks_hooks_pretooluse_27d57a05("PreToolUse<br/><small>.codex/hooks.json</small>")
+        codex_hooks_hooks_33f35617("hooks<br/><small>.codex/hooks.json</small>")
+        codex_hooks_json_96b7918d("hooks.json")
+    end
     utils_normalization_normalize_all_fields_645d1239 -->|calls| utils_normalization_dedupe_preserve_order_75132892
     utils_normalization_normalize_all_fields_645d1239 -->|calls| utils_normalization_normalize_project_name_f3f3e899
     utils_normalization_normalize_all_fields_645d1239 -->|calls| utils_normalization_normalize_string_list_6b116c57
     utils_normalization_normalize_all_fields_645d1239 -->|calls| utils_normalization_validate_education_level_449c584e
-    %% Omitted for readability: 36 nodes, 0 edges
+    %% Omitted for readability: 39 nodes, 0 edges
     class backend_package_dependencies_axios_9480698a function;
     class backend_package_dependencies_4ff26931 function;
     class backend_package_description_fadbf070 function;
@@ -563,9 +562,6 @@ flowchart LR
     class backend_package_dependencies_dotenv_8389886b function;
     class backend_package_dependencies_express_9f41d3cf function;
     class backend_package_dependencies_form_data_4f61a7c4 function;
-    class backend_package_main_58e1bdcd function;
-    class backend_package_dependencies_mongoose_88d9e2cb function;
-    class backend_package_dependencies_multer_c0888cf1 function;
     class utils_normalization_normalize_all_fields_645d1239 function;
     class utils_normalization_dedupe_preserve_order_75132892 function;
     class utils_normalization_normalize_project_name_f3f3e899 function;
@@ -573,6 +569,9 @@ flowchart LR
     class utils_normalization_validate_education_level_449c584e function;
     class ai_service_app_utils_normalization_py_c358ee7c module;
     class ai_service_app_utils_normalization_py_str_f66c4c8f function;
+    class codex_hooks_hooks_pretooluse_27d57a05 klass;
+    class codex_hooks_hooks_33f35617 ui;
+    class codex_hooks_json_96b7918d ui;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -844,38 +843,40 @@ flowchart LR
       <tr><td><code>package.json</code></td><td>25 nodes</td></tr>
 <tr><td><code>backend/package.json</code></td><td>17 nodes</td></tr>
 <tr><td><code>app/utils/normalization.py</code></td><td>12 nodes</td></tr>
+<tr><td><code>.codex/hooks.json</code></td><td>3 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x45, explains x5, calls x4, references x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x47, explains x5, calls x4, references x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 4. CLI & Skill Installers ====== -->
 <h2 id="cli-skills">4. CLI &amp; Skill Installers</h2>
-<p>CLI &amp; Skill Installers groups implementation around service, app, servicepy, services, mostly in app/services/embedding_service.py, app/services/matching_service.py, ai-service/app/main.py. This section covers 51 nodes and 79 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>CLI &amp; Skill Installers groups implementation around service, app, servicepy, services, mostly in app/services/embedding_service.py, app/services/matching_service.py, ai-service/app/main.py. This section covers 49 nodes and 73 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: CLI &amp; Skill Installers (51 nodes, 79 edges)
-    subgraph cli_skills_app_services_embedding_service_py_ee990f04["app/services/embedding_service.py"]
-        services_embedding_service_embeddingservice_fe9315e7("EmbeddingService<br/><small>app/services/embedding_service.py</small>")
-        services_embedding_service_embeddingservice_gene_604d9a23("generate_batch_embeddings()<br/><small>app/services/embedding_service.py</small>")
-        services_embedding_service_embeddingservice_calc_e7026141("calculate_similarity()<br/><small>app/services/embedding_service.py</small>")
-        services_embedding_service_embeddingservice_gene_e52f486a("generate_embedding()<br/><small>app/services/embedding_service.py</small>")
-        services_embedding_service_embeddingservice_init_081f1e71("__init__()<br/><small>app/services/embedding_service.py</small>")
-        services_embedding_service_embeddingservice_norm_ec7c0df1("_normalize()<br/><small>app/services/embedding_service.py</small>")
-        ai_service_app_services_embedding_service_py_9e5769d2("embedding_service.py")
-    end
+    %% Section: CLI &amp; Skill Installers (49 nodes, 73 edges)
     subgraph cli_skills_ai_service_app_main_py_04432e8c["ai-service/app/main.py"]
-        fastapi_41a1373c("FastAPI<br/><small>ai-service/app/main.py</small>")
-        ai_service_app_main_py_797d4fb5("main.py")
         appexception_7bfe4c66("AppException<br/><small>ai-service/app/main.py</small>")
         ai_service_app_main_py_exception_8760a8b9("Exception<br/><small>ai-service/app/main.py</small>")
         ai_service_app_main_py_request_b3f470ca("Request<br/><small>ai-service/app/main.py</small>")
+        app_main_app_exception_handler_5aaeeacd("app_exception_handler()<br/><small>ai-service/app/main.py</small>")
+        app_main_generic_exception_handler_f07510f8("generic_exception_handler()<br/><small>ai-service/app/main.py</small>")
+        app_main_health_0aee2290("health()<br/><small>ai-service/app/main.py</small>")
+        app_main_lifespan_8cd9c108("lifespan()<br/><small>ai-service/app/main.py</small>")
+    end
+    subgraph cli_skills_app_services_embedding_service_py_ee990f04["app/services/embedding_service.py"]
+        services_embedding_service_embeddingservice_fe9315e7("EmbeddingService<br/><small>app/services/embedding_service.py</small>")
+        services_embedding_service_embeddingservice_gene_604d9a23("generate_batch_embeddings()<br/><small>app/services/embedding_service.py</small>")
+        services_embedding_service_embeddingservice_gene_e52f486a("generate_embedding()<br/><small>app/services/embedding_service.py</small>")
+        services_embedding_service_embeddingservice_calc_e7026141("calculate_similarity()<br/><small>app/services/embedding_service.py</small>")
+        services_embedding_service_embeddingservice_init_081f1e71("__init__()<br/><small>app/services/embedding_service.py</small>")
+        services_embedding_service_embeddingservice_norm_ec7c0df1("_normalize()<br/><small>app/services/embedding_service.py</small>")
     end
     subgraph cli_skills_app_core_middleware_py_279d7dda["app/core/middleware.py"]
         core_middleware_requestloggingmiddleware_165c50a4("RequestLoggingMiddleware<br/><small>app/core/middleware.py</small>")
@@ -886,7 +887,6 @@ flowchart LR
         services_matching_service_score_candidate_65358036("score_candidate()<br/><small>app/services/matching_service.py</small>")
     end
     basehttpmiddleware_43f61bf6("BaseHTTPMiddleware")
-    ai_service_app_routers_match_py_d1888aaf("match.py")
     core_middleware_requestloggingmiddleware_165c50a4 -->|method| core_middleware_requestloggingmiddleware_dispatc_be6bba4d
     services_embedding_service_embeddingservice_fe9315e7 -->|method| services_embedding_service_embeddingservice_calc_e7026141
     services_embedding_service_embeddingservice_fe9315e7 -->|method| services_embedding_service_embeddingservice_gene_604d9a23
@@ -896,28 +896,25 @@ flowchart LR
     services_embedding_service_embeddingservice_gene_e52f486a -->|calls| services_embedding_service_embeddingservice_norm_ec7c0df1
     services_embedding_service_embeddingservice_gene_604d9a23 -->|calls| services_embedding_service_embeddingservice_norm_ec7c0df1
     services_matching_service_match_candidates_servi_935d35b6 -->|calls| services_matching_service_score_candidate_65358036
-    ai_service_app_main_py_797d4fb5 -->|imports| fastapi_41a1373c
-    fastapi_41a1373c -->|imports| ai_service_app_routers_match_py_d1888aaf
-    fastapi_41a1373c -->|imports| ai_service_app_services_embedding_service_py_9e5769d2
-    %% Omitted for readability: 33 nodes, 0 edges
-    class services_embedding_service_embeddingservice_fe9315e7 klass;
-    class services_embedding_service_embeddingservice_gene_604d9a23 function;
-    class services_embedding_service_embeddingservice_calc_e7026141 function;
-    class services_embedding_service_embeddingservice_gene_e52f486a function;
-    class services_embedding_service_embeddingservice_init_081f1e71 function;
-    class services_embedding_service_embeddingservice_norm_ec7c0df1 function;
-    class ai_service_app_services_embedding_service_py_9e5769d2 module;
-    class fastapi_41a1373c api;
-    class ai_service_app_main_py_797d4fb5 module;
+    %% Omitted for readability: 31 nodes, 0 edges
     class appexception_7bfe4c66 klass;
     class ai_service_app_main_py_exception_8760a8b9 klass;
     class ai_service_app_main_py_request_b3f470ca klass;
+    class app_main_app_exception_handler_5aaeeacd function;
+    class app_main_generic_exception_handler_f07510f8 function;
+    class app_main_health_0aee2290 function;
+    class app_main_lifespan_8cd9c108 function;
+    class services_embedding_service_embeddingservice_fe9315e7 klass;
+    class services_embedding_service_embeddingservice_gene_604d9a23 function;
+    class services_embedding_service_embeddingservice_gene_e52f486a function;
+    class services_embedding_service_embeddingservice_calc_e7026141 function;
+    class services_embedding_service_embeddingservice_init_081f1e71 function;
+    class services_embedding_service_embeddingservice_norm_ec7c0df1 function;
     class core_middleware_requestloggingmiddleware_165c50a4 klass;
     class core_middleware_requestloggingmiddleware_dispatc_be6bba4d function;
     class services_matching_service_match_candidates_servi_935d35b6 function;
     class services_matching_service_score_candidate_65358036 function;
     class basehttpmiddleware_43f61bf6 klass;
-    class ai_service_app_routers_match_py_d1888aaf module;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -944,7 +941,7 @@ flowchart LR
   <td><code>main.py</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
+  <td>No direct outbound edge</td>
   <td>Module file in ai-service/app/main.py.</td>
 </tr>
 <tr>
@@ -957,14 +954,6 @@ flowchart LR
 </tr>
 <tr>
   <td>3</td>
-  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td><code>main.py</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
-  <td><code>embedding_service.py</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small><br><code>EmbeddingService</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small><br><code>match.py</code><br><small style="color:var(--muted)">app/routers/match.py</small><br>+1 more</td>
-  <td>FastAPI node in ai-service/app/main.py.</td>
-</tr>
-<tr>
-  <td>4</td>
   <td><code>health()</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -972,7 +961,7 @@ flowchart LR
   <td>health() node in ai-service/app/main.py.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>4</td>
   <td><code>app_exception_handler()</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -980,7 +969,7 @@ flowchart LR
   <td>app_exception_handler() node in ai-service/app/main.py.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>5</td>
   <td><code>Request</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -988,7 +977,7 @@ flowchart LR
   <td>Request node in ai-service/app/main.py.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>6</td>
   <td><code>AppException</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -996,7 +985,7 @@ flowchart LR
   <td>AppException node in ai-service/app/main.py.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>7</td>
   <td><code>generic_exception_handler()</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1004,7 +993,7 @@ flowchart LR
   <td>generic_exception_handler() node in ai-service/app/main.py.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>8</td>
   <td><code>Exception</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1012,7 +1001,7 @@ flowchart LR
   <td>Exception node in ai-service/app/main.py.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>9</td>
   <td><code>middleware.py</code><br><small style="color:var(--muted)">app/core/middleware.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1020,15 +1009,15 @@ flowchart LR
   <td>Module file in app/core/middleware.py.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>10</td>
   <td><code>RequestLoggingMiddleware</code><br><small style="color:var(--muted)">app/core/middleware.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
-  <td><code>AppException</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>Exception</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br>+1 more</td>
+  <td><code>AppException</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>Exception</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>Request</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><code>dispatch()</code><br><small style="color:var(--muted)">app/core/middleware.py</small></td>
   <td>RequestLoggingMiddleware node in app/core/middleware.py.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>11</td>
   <td><code>BaseHTTPMiddleware</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1036,7 +1025,7 @@ flowchart LR
   <td>BaseHTTPMiddleware node in project.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>12</td>
   <td><code>.dispatch()</code><br><small style="color:var(--muted)">app/core/middleware.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>RequestLoggingMiddleware</code><br><small style="color:var(--muted)">app/core/middleware.py</small></td>
@@ -1044,7 +1033,7 @@ flowchart LR
   <td>.dispatch() node in app/core/middleware.py.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>13</td>
   <td><code>Request</code><br><small style="color:var(--muted)">app/core/middleware.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1052,31 +1041,23 @@ flowchart LR
   <td>Request node in app/core/middleware.py.</td>
 </tr>
 <tr>
-  <td>15</td>
-  <td><code>match.py</code><br><small style="color:var(--muted)">app/routers/match.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/routers/match.py.</td>
-</tr>
-<tr>
-  <td>16</td>
+  <td>14</td>
   <td><code>embedding_service.py</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
-  <td><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
+  <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>Module file in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>15</td>
   <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
-  <td><code>AppException</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>Exception</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>FastAPI</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br>+1 more</td>
+  <td><code>AppException</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>Exception</code><br><small style="color:var(--muted)">ai-service/app/main.py</small><br><code>Request</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
   <td><code>__init__()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small><br><code>_normalize()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small><br><code>calculate_similarity()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small><br>+9 more</td>
   <td>EmbeddingService node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>16</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
@@ -1084,7 +1065,7 @@ flowchart LR
   <td>.__init__() node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>17</td>
   <td><code>SentenceTransformer</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1092,7 +1073,7 @@ flowchart LR
   <td>SentenceTransformer node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>18</td>
   <td><code>.generate_embedding()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
@@ -1100,7 +1081,7 @@ flowchart LR
   <td>.generate_embedding() node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>19</td>
   <td><code>str</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1108,7 +1089,7 @@ flowchart LR
   <td>str node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>20</td>
   <td><code>ndarray</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1116,7 +1097,7 @@ flowchart LR
   <td>ndarray node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>21</td>
   <td><code>.generate_batch_embeddings()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
@@ -1124,7 +1105,7 @@ flowchart LR
   <td>.generate_batch_embeddings() node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>22</td>
   <td><code>.calculate_similarity()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
@@ -1132,7 +1113,7 @@ flowchart LR
   <td>.calculate_similarity() node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>23</td>
   <td><code>float</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1140,7 +1121,7 @@ flowchart LR
   <td>float node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>24</td>
   <td><code>._normalize()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small><br><code>generate_batch_embeddings()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small><br><code>generate_embedding()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
@@ -1148,7 +1129,7 @@ flowchart LR
   <td>._normalize() node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>25</td>
   <td><code>load_embedding_model()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>lifespan()</code><br><small style="color:var(--muted)">ai-service/app/main.py</small></td>
@@ -1156,7 +1137,7 @@ flowchart LR
   <td>load_embedding_model() node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>26</td>
   <td><code>get_embedding_service()</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1164,7 +1145,7 @@ flowchart LR
   <td>get_embedding_service() node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>27</td>
   <td><code>Request</code><br><small style="color:var(--muted)">app/services/embedding_service.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -1172,12 +1153,28 @@ flowchart LR
   <td>Request node in app/services/embedding_service.py.</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>28</td>
   <td><code>explanation_service.py</code><br><small style="color:var(--muted)">app/services/explanation_service.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>Module file in app/services/explanation_service.py.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>build_explanations()</code><br><small style="color:var(--muted)">app/services/explanation_service.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>score_candidate()</code><br><small style="color:var(--muted)">app/services/matching_service.py</small></td>
+  <td>build_explanations() node in app/services/explanation_service.py.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>str</code><br><small style="color:var(--muted)">app/services/explanation_service.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>str node in app/services/explanation_service.py.</td>
 </tr>
 </table>
 
@@ -1188,17 +1185,16 @@ flowchart LR
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>app/services/embedding_service.py</code></td><td>14 nodes</td></tr>
 <tr><td><code>app/services/matching_service.py</code></td><td>10 nodes</td></tr>
-<tr><td><code>ai-service/app/main.py</code></td><td>9 nodes</td></tr>
+<tr><td><code>ai-service/app/main.py</code></td><td>8 nodes</td></tr>
 <tr><td><code>app/services/explanation_service.py</code></td><td>5 nodes</td></tr>
 <tr><td><code>app/core/middleware.py</code></td><td>4 nodes</td></tr>
 <tr><td><code>app/utils/resume_text_builder.py</code></td><td>4 nodes</td></tr>
 <tr><td><code>src/models/Skill.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>app/routers/match.py</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x32, contains x15, method x6, imports x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: references x31, contains x15, method x6, calls x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -1545,360 +1541,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 6. Community 2 ====== -->
-<h2 id="community-2">6. Community 2</h2>
-<p>Community 2 groups implementation around backend, middleware, authcontrollerjs, config, mostly in src/controllers/auth.controller.js, src/middleware/authenticate.js, backend/server.js. This section covers 45 nodes and 49 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Community 2 (45 nodes, 49 edges)
-    subgraph community_2_backend_server_js_2de7f801["backend/server.js"]
-        backend_server_js_8b5ab4c1("server.js")
-        backend_server_app_f3146f7f("app<br/><small>backend/server.js</small>")
-        backend_server_connectdb_bd0413d5("connectDB<br/><small>backend/server.js</small>")
-        backend_server_env_a1111449("env<br/><small>backend/server.js</small>")
-    end
-    subgraph community_2_src_controllers_auth_controller_js_3411df60["src/controllers/auth.controller.js"]
-        backend_src_controllers_auth_controller_js_e0f23f0a("auth.controller.js")
-        controllers_auth_controller_login_0a72da96("login<br/><small>src/controllers/auth.controller.js</small>")
-        controllers_auth_controller_register_6b96bb53("register<br/><small>src/controllers/auth.controller.js</small>")
-    end
-    subgraph community_2_src_utils_apiError_js_ecdb820c["src/utils/apiError.js"]
-        utils_apierror_apierror_bc0c3201("ApiError<br/><small>src/utils/apiError.js</small>")
-        utils_apierror_apierror_constructor_3fa2f609("constructor()<br/><small>src/utils/apiError.js</small>")
-        backend_src_utils_apierror_js_8da36489("apiError.js")
-    end
-    backend_src_config_db_js_ca997123("db.js")
-    backend_src_config_env_js_6cd198cb("env.js")
-    backend_src_middleware_authenticate_js_026519ab("authenticate.js")
-    backend_src_middleware_authorise_js_583eee5e("authorise.js")
-    backend_src_middleware_errorhandler_js_e4b097ba("errorHandler.js")
-    backend_src_models_user_js_6d232361("User.js")
-    backend_src_routes_auth_routes_js_d1d7a6b2("auth.routes.js")
-    backend_src_utils_asynchandler_js_f1162bb1("asyncHandler.js")
-    utils_apierror_apierror_bc0c3201 -->|method| utils_apierror_apierror_constructor_3fa2f609
-    backend_server_js_8b5ab4c1 -->|imports| backend_src_config_db_js_ca997123
-    backend_server_js_8b5ab4c1 -->|imports| backend_src_config_env_js_6cd198cb
-    backend_src_config_db_js_ca997123 -->|imports| backend_src_config_env_js_6cd198cb
-    backend_src_config_env_js_6cd198cb -->|imports| backend_src_controllers_auth_controller_js_e0f23f0a
-    backend_src_config_env_js_6cd198cb -->|imports| backend_src_middleware_authenticate_js_026519ab
-    backend_src_controllers_auth_controller_js_e0f23f0a -->|imports| backend_src_models_user_js_6d232361
-    backend_src_controllers_auth_controller_js_e0f23f0a -->|imports| backend_src_utils_apierror_js_8da36489
-    backend_src_controllers_auth_controller_js_e0f23f0a -->|imports| backend_src_utils_asynchandler_js_f1162bb1
-    backend_src_controllers_auth_controller_js_e0f23f0a -->|imports| backend_src_routes_auth_routes_js_d1d7a6b2
-    controllers_auth_controller_register_6b96bb53 -->|imports| backend_src_routes_auth_routes_js_d1d7a6b2
-    controllers_auth_controller_login_0a72da96 -->|imports| backend_src_routes_auth_routes_js_d1d7a6b2
-    backend_src_middleware_authenticate_js_026519ab -->|imports| backend_src_utils_apierror_js_8da36489
-    backend_src_middleware_authenticate_js_026519ab -->|imports| backend_src_utils_asynchandler_js_f1162bb1
-    backend_src_middleware_authorise_js_583eee5e -->|imports| backend_src_utils_apierror_js_8da36489
-    backend_src_middleware_errorhandler_js_e4b097ba -->|imports| backend_src_utils_apierror_js_8da36489
-    %% Omitted for readability: 27 nodes, 0 edges
-    class backend_server_js_8b5ab4c1 module;
-    class backend_server_app_f3146f7f function;
-    class backend_server_connectdb_bd0413d5 function;
-    class backend_server_env_a1111449 function;
-    class backend_src_controllers_auth_controller_js_e0f23f0a module;
-    class controllers_auth_controller_login_0a72da96 function;
-    class controllers_auth_controller_register_6b96bb53 function;
-    class utils_apierror_apierror_bc0c3201 api;
-    class utils_apierror_apierror_constructor_3fa2f609 function;
-    class backend_src_utils_apierror_js_8da36489 api;
-    class backend_src_config_db_js_ca997123 module;
-    class backend_src_config_env_js_6cd198cb module;
-    class backend_src_middleware_authenticate_js_026519ab module;
-    class backend_src_middleware_authorise_js_583eee5e module;
-    class backend_src_middleware_errorhandler_js_e4b097ba module;
-    class backend_src_models_user_js_6d232361 klass;
-    class backend_src_routes_auth_routes_js_d1d7a6b2 api;
-    class backend_src_utils_asynchandler_js_f1162bb1 async;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">backend/server.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small><br><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td>server.js node in backend/server.js.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>env</code><br><small style="color:var(--muted)">backend/server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>env node in backend/server.js.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>express</code><br><small style="color:var(--muted)">backend/server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in backend/server.js.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>connectDB</code><br><small style="color:var(--muted)">backend/server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>connectDB node in backend/server.js.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>app</code><br><small style="color:var(--muted)">backend/server.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>app node in backend/server.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>server.js</code><br><small style="color:var(--muted)">backend/server.js</small></td>
-  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td>db.js node in src/config/db.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>mongoose</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>mongoose node in src/config/db.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>env</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>env node in src/config/db.js.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>connectDB()</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>connectDB() node in src/config/db.js.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small><br><code>server.js</code><br><small style="color:var(--muted)">backend/server.js</small></td>
-  <td><code>auth.controller.js</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small><br><code>authenticate.js</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
-  <td>env.js node in src/config/env.js.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>{ z }</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>{ z } node in src/config/env.js.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>envSchema</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>envSchema node in src/config/env.js.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>parsed</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>parsed node in src/config/env.js.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>auth.controller.js</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td><code>apiError.js</code><br><small style="color:var(--muted)">src/utils/apiError.js</small><br><code>asyncHandler.js</code><br><small style="color:var(--muted)">src/utils/asyncHandler.js</small><br><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small><br>+1 more</td>
-  <td>auth.controller.js node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>jwt</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>jwt node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>User</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>User node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>env</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>env node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>ApiError</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>ApiError node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>asyncHandler</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-async">Async</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>asyncHandler node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>register</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
-  <td>register node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>login</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
-  <td>login node in src/controllers/auth.controller.js.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>authenticate.js</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
-  <td><code>apiError.js</code><br><small style="color:var(--muted)">src/utils/apiError.js</small><br><code>asyncHandler.js</code><br><small style="color:var(--muted)">src/utils/asyncHandler.js</small></td>
-  <td>authenticate.js node in src/middleware/authenticate.js.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>jwt</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>jwt node in src/middleware/authenticate.js.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>env</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>env node in src/middleware/authenticate.js.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>ApiError</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>ApiError node in src/middleware/authenticate.js.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>asyncHandler</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
-  <td><span class="tag tag-async">Async</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>asyncHandler node in src/middleware/authenticate.js.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>authenticate</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>authenticate node in src/middleware/authenticate.js.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>authorise.js</code><br><small style="color:var(--muted)">src/middleware/authorise.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>apiError.js</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
-  <td>authorise.js node in src/middleware/authorise.js.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>ApiError</code><br><small style="color:var(--muted)">src/middleware/authorise.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>ApiError node in src/middleware/authorise.js.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>authorise()</code><br><small style="color:var(--muted)">src/middleware/authorise.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>authorise() node in src/middleware/authorise.js.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>src/controllers/auth.controller.js</code></td><td>8 nodes</td></tr>
-<tr><td><code>src/middleware/authenticate.js</code></td><td>6 nodes</td></tr>
-<tr><td><code>backend/server.js</code></td><td>5 nodes</td></tr>
-<tr><td><code>src/config/db.js</code></td><td>4 nodes</td></tr>
-<tr><td><code>src/config/env.js</code></td><td>4 nodes</td></tr>
-<tr><td><code>src/models/User.js</code></td><td>4 nodes</td></tr>
-<tr><td><code>src/middleware/authorise.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/middleware/errorHandler.js</code></td><td>3 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x33, imports x13, imports x2, method x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 7. Community 5 ====== -->
-<h2 id="community-5">7. Community 5</h2>
+<!-- ====== 6. Community 5 ====== -->
+<h2 id="community-5">6. Community 5</h2>
 <p>Community 5 groups implementation around service, app, matchpy, schemas, mostly in app/schemas/match.py, app/services/normalization_service.py, app/services/ai_parse_service.py. This section covers 24 nodes and 40 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2107,8 +1751,8 @@ flowchart LR
   <td>15</td>
   <td><code>ParsedCandidate</code><br><small style="color:var(--muted)">app/schemas/resume.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
-  <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/routers/match.py</small><br><code>EvaluateParsedRequest</code><br><small style="color:var(--muted)">app/schemas/orchestration.py</small><br><code>EvaluateParsedRequest</code><br><small style="color:var(--muted)">app/routers/match.py</small><br>+1 more</td>
-  <td><code>CandidateInput</code><br><small style="color:var(--muted)">app/services/normalization_service.py</small><br><code>ParsedCandidate</code><br><small style="color:var(--muted)">app/services/normalization_service.py</small><br><code>ParsedCandidate</code><br><small style="color:var(--muted)">app/services/ai_parse_service.py</small><br>+2 more</td>
+  <td><code>EmbeddingService</code><br><small style="color:var(--muted)">app/routers/match.py</small><br><code>EvaluateParsedRequest</code><br><small style="color:var(--muted)">app/routers/match.py</small><br><code>EvaluateParsedRequest</code><br><small style="color:var(--muted)">app/schemas/orchestration.py</small><br>+1 more</td>
+  <td><code>CandidateInput</code><br><small style="color:var(--muted)">app/services/normalization_service.py</small><br><code>ParsedCandidate</code><br><small style="color:var(--muted)">app/services/ai_parse_service.py</small><br><code>ParsedCandidate</code><br><small style="color:var(--muted)">app/services/normalization_service.py</small><br>+2 more</td>
   <td>ParsedCandidate node in app/schemas/resume.py.</td>
 </tr>
 <tr>
@@ -2205,292 +1849,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 8. Community 6 ====== -->
-<h2 id="community-6">8. Community 6</h2>
-<p>Community 6 groups implementation around backend, indexjs, candidateprofilejs, models, mostly in backend/src/index.js, src/models/CandidateProfile.js, src/routes/candidateRoutes.js. This section covers 23 nodes and 23 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Community 6 (23 nodes, 23 edges)
-    subgraph community_6_backend_src_index_js_2f2be74b["backend/src/index.js"]
-        backend_src_index_js_511e30a9("index.js")
-        src_index_app_c760390f("app<br/><small>backend/src/index.js</small>")
-        src_index_candidateroutes_1b2f6898("candidateRoutes<br/><small>backend/src/index.js</small>")
-        src_index_errorhandler_e9e0ead2("errorHandler<br/><small>backend/src/index.js</small>")
-        src_index_express_d3dc5e89("express<br/><small>backend/src/index.js</small>")
-        src_index_jobroutes_51a02052("jobRoutes<br/><small>backend/src/index.js</small>")
-        src_index_mongoose_ff7720e8("mongoose<br/><small>backend/src/index.js</small>")
-        src_index_resumeroutes_5a9afedc("resumeRoutes<br/><small>backend/src/index.js</small>")
-    end
-    subgraph community_6_src_models_CandidateProfile_js_34ab0847["src/models/CandidateProfile.js"]
-        backend_src_models_candidateprofile_js_3cc6f148("CandidateProfile.js")
-        models_candidateprofile_candidateprofileschema_29d4e138("candidateProfileSchema<br/><small>src/models/CandidateProfile.js</small>")
-        models_candidateprofile_educationentryschema_aa88e7b0("educationEntrySchema<br/><small>src/models/CandidateProfile.js</small>")
-        models_candidateprofile_experienceentryschema_2e77936a("experienceEntrySchema<br/><small>src/models/CandidateProfile.js</small>")
-    end
-    subgraph community_6_src_controllers_candidateController_952fc13d["src/controllers/candidateController.js"]
-        backend_src_controllers_candidatecontroller_js_064b7707("candidateController.js")
-        controllers_candidatecontroller_getprofile_83cbe985("getProfile()<br/><small>src/controllers/candidateController.js</small>")
-        controllers_candidatecontroller_candidateprofile_06366a7e("CandidateProfile<br/><small>src/controllers/candidateController.js</small>")
-    end
-    subgraph community_6_src_middlewares_errorHandler_js_dbb574a6["src/middlewares/errorHandler.js"]
-        backend_src_middlewares_errorhandler_js_7d66d7c3("errorHandler.js")
-        middlewares_errorhandler_errorhandler_6a660bc2("errorHandler()<br/><small>src/middlewares/errorHandler.js</small>")
-    end
-    backend_src_routes_candidateroutes_js_929b54c2("candidateRoutes.js")
-    backend_src_index_js_511e30a9 -->|imports| backend_src_middlewares_errorhandler_js_7d66d7c3
-    backend_src_index_js_511e30a9 -->|imports| backend_src_routes_candidateroutes_js_929b54c2
-    backend_src_controllers_candidatecontroller_js_064b7707 -->|imports| backend_src_models_candidateprofile_js_3cc6f148
-    backend_src_controllers_candidatecontroller_js_064b7707 -->|imports| backend_src_routes_candidateroutes_js_929b54c2
-    controllers_candidatecontroller_getprofile_83cbe985 -->|imports| backend_src_routes_candidateroutes_js_929b54c2
-    %% Omitted for readability: 5 nodes, 0 edges
-    class backend_src_index_js_511e30a9 module;
-    class src_index_app_c760390f function;
-    class src_index_candidateroutes_1b2f6898 api;
-    class src_index_errorhandler_e9e0ead2 function;
-    class src_index_express_d3dc5e89 function;
-    class src_index_jobroutes_51a02052 api;
-    class src_index_mongoose_ff7720e8 function;
-    class src_index_resumeroutes_5a9afedc api;
-    class backend_src_models_candidateprofile_js_3cc6f148 klass;
-    class models_candidateprofile_candidateprofileschema_29d4e138 function;
-    class models_candidateprofile_educationentryschema_aa88e7b0 function;
-    class models_candidateprofile_experienceentryschema_2e77936a function;
-    class backend_src_controllers_candidatecontroller_js_064b7707 module;
-    class controllers_candidatecontroller_getprofile_83cbe985 function;
-    class controllers_candidatecontroller_candidateprofile_06366a7e klass;
-    class backend_src_middlewares_errorhandler_js_7d66d7c3 module;
-    class middlewares_errorhandler_errorhandler_6a660bc2 function;
-    class backend_src_routes_candidateroutes_js_929b54c2 api;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>index.js</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>candidateRoutes.js</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small><br><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middlewares/errorHandler.js</small></td>
-  <td>index.js node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>express</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>mongoose</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>mongoose node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>resumeRoutes</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>resumeRoutes node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>candidateRoutes</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>candidateRoutes node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>jobRoutes</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>jobRoutes node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>errorHandler</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>errorHandler node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>app</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>app node in backend/src/index.js.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>candidateController.js</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>CandidateProfile.js</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small><br><code>candidateRoutes.js</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
-  <td>candidateController.js node in src/controllers/candidateController.js.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>CandidateProfile</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>CandidateProfile node in src/controllers/candidateController.js.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>getProfile()</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>candidateRoutes.js</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
-  <td>getProfile() node in src/controllers/candidateController.js.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middlewares/errorHandler.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>index.js</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>errorHandler.js node in src/middlewares/errorHandler.js.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>errorHandler()</code><br><small style="color:var(--muted)">src/middlewares/errorHandler.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>errorHandler() node in src/middlewares/errorHandler.js.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>CandidateProfile.js</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>candidateController.js</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>CandidateProfile.js node in src/models/CandidateProfile.js.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>mongoose</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>mongoose node in src/models/CandidateProfile.js.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>educationEntrySchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>educationEntrySchema node in src/models/CandidateProfile.js.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>experienceEntrySchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>experienceEntrySchema node in src/models/CandidateProfile.js.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>projectSchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>projectSchema node in src/models/CandidateProfile.js.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>candidateProfileSchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>candidateProfileSchema node in src/models/CandidateProfile.js.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>candidateRoutes.js</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td><code>candidateController.js</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small><br><code>getProfile()</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small><br><code>index.js</code><br><small style="color:var(--muted)">backend/src/index.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>candidateRoutes.js node in src/routes/candidateRoutes.js.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>express</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>express node in src/routes/candidateRoutes.js.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>router</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>router node in src/routes/candidateRoutes.js.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>{ getProfile }</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>{ getProfile } node in src/routes/candidateRoutes.js.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>backend/src/index.js</code></td><td>8 nodes</td></tr>
-<tr><td><code>src/models/CandidateProfile.js</code></td><td>6 nodes</td></tr>
-<tr><td><code>src/routes/candidateRoutes.js</code></td><td>4 nodes</td></tr>
-<tr><td><code>src/controllers/candidateController.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/middlewares/errorHandler.js</code></td><td>2 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x18, imports x4, imports x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 9. Community 13 ====== -->
-<h2 id="community-13">9. Community 13</h2>
+<!-- ====== 7. Community 13 ====== -->
+<h2 id="community-13">7. Community 13</h2>
 <p>Community 13 groups implementation around backend, jobcontrollerjs, controllers, jobroutesjs, mostly in src/controllers/jobController.js, src/routes/jobRoutes.js, src/services/matchService.js. This section covers 12 nodes and 15 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2663,6 +2023,342 @@ flowchart LR
   <div class="card">
     <h4>Design Notes</h4>
     <p>This section comes from graphify community clustering. Relationship summary: contains x9, imports x4, imports x1, calls x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 8. Community 43 ====== -->
+<h2 id="community-43">8. Community 43</h2>
+<p>Community 43 groups implementation around backend, serverjs, errorhandlerjs, errorhandler, mostly in backend/server.js, src/middlewares/errorHandler.js. This section covers 12 nodes and 11 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 43 (12 nodes, 11 edges)
+    subgraph community_43_backend_server_js_f28015a0["backend/server.js"]
+        backend_server_js_8b5ab4c1("server.js")
+        backend_server_app_f3146f7f("app<br/><small>backend/server.js</small>")
+        backend_server_authroutes_a5cae7fa("authRoutes<br/><small>backend/server.js</small>")
+        backend_server_candidateroutes_b5cea2fe("candidateRoutes<br/><small>backend/server.js</small>")
+        backend_server_connectdb_bd0413d5("connectDB<br/><small>backend/server.js</small>")
+        backend_server_env_a1111449("env<br/><small>backend/server.js</small>")
+        backend_server_errorhandler_7cfc7200("errorHandler<br/><small>backend/server.js</small>")
+        backend_server_express_1dc3eba0("express<br/><small>backend/server.js</small>")
+        backend_server_jobroutes_90548efc("jobRoutes<br/><small>backend/server.js</small>")
+        backend_server_resumeroutes_d9a02713("resumeRoutes<br/><small>backend/server.js</small>")
+    end
+    subgraph community_43_src_middlewares_errorHandler_js_b9c6e7e9["src/middlewares/errorHandler.js"]
+        backend_src_middlewares_errorhandler_js_7d66d7c3("errorHandler.js")
+        middlewares_errorhandler_errorhandler_6a660bc2("errorHandler()<br/><small>src/middlewares/errorHandler.js</small>")
+    end
+    backend_server_js_8b5ab4c1 -->|imports| backend_src_middlewares_errorhandler_js_7d66d7c3
+    class backend_server_js_8b5ab4c1 module;
+    class backend_server_app_f3146f7f function;
+    class backend_server_authroutes_a5cae7fa api;
+    class backend_server_candidateroutes_b5cea2fe api;
+    class backend_server_connectdb_bd0413d5 function;
+    class backend_server_env_a1111449 function;
+    class backend_server_errorhandler_7cfc7200 function;
+    class backend_server_express_1dc3eba0 function;
+    class backend_server_jobroutes_90548efc api;
+    class backend_server_resumeroutes_d9a02713 api;
+    class backend_src_middlewares_errorhandler_js_7d66d7c3 module;
+    class middlewares_errorhandler_errorhandler_6a660bc2 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>server.js</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middlewares/errorHandler.js</small></td>
+  <td>server.js node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>env</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>env node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>connectDB</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>connectDB node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>express</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>express node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>authRoutes</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>authRoutes node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>resumeRoutes</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>resumeRoutes node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>candidateRoutes</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>candidateRoutes node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>jobRoutes</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>jobRoutes node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>errorHandler</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>errorHandler node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>app</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>app node in backend/server.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middlewares/errorHandler.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>server.js</code><br><small style="color:var(--muted)">backend/server.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>errorHandler.js node in src/middlewares/errorHandler.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>errorHandler()</code><br><small style="color:var(--muted)">src/middlewares/errorHandler.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>errorHandler() node in src/middlewares/errorHandler.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>backend/server.js</code></td><td>10 nodes</td></tr>
+<tr><td><code>src/middlewares/errorHandler.js</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x10, imports x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 9. Community 2 ====== -->
+<h2 id="community-2">9. Community 2</h2>
+<p>Community 2 groups implementation around backend, authcontrollerjs, controllers, authroutesjs, mostly in src/controllers/auth.controller.js, src/routes/auth.routes.js. This section covers 11 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 2 (11 nodes, 12 edges)
+    subgraph community_2_src_controllers_auth_controller_js_3411df60["src/controllers/auth.controller.js"]
+        backend_src_controllers_auth_controller_js_e0f23f0a("auth.controller.js")
+        controllers_auth_controller_login_0a72da96("login<br/><small>src/controllers/auth.controller.js</small>")
+        controllers_auth_controller_register_6b96bb53("register<br/><small>src/controllers/auth.controller.js</small>")
+        controllers_auth_controller_apierror_da23dc22("ApiError<br/><small>src/controllers/auth.controller.js</small>")
+        controllers_auth_controller_user_6f2174dc("User<br/><small>src/controllers/auth.controller.js</small>")
+        controllers_auth_controller_asynchandler_18826e30("asyncHandler<br/><small>src/controllers/auth.controller.js</small>")
+        controllers_auth_controller_env_6a27de57("env<br/><small>src/controllers/auth.controller.js</small>")
+        controllers_auth_controller_jwt_bab187c7("jwt<br/><small>src/controllers/auth.controller.js</small>")
+    end
+    subgraph community_2_src_routes_auth_routes_js_50819ced["src/routes/auth.routes.js"]
+        backend_src_routes_auth_routes_js_d1d7a6b2("auth.routes.js")
+        routes_auth_routes_router_21045b5f("Router<br/><small>src/routes/auth.routes.js</small>")
+        routes_auth_routes_register_login_a77d0c91("register, login<br/><small>src/routes/auth.routes.js</small>")
+    end
+    backend_src_controllers_auth_controller_js_e0f23f0a -->|imports| backend_src_routes_auth_routes_js_d1d7a6b2
+    controllers_auth_controller_register_6b96bb53 -->|imports| backend_src_routes_auth_routes_js_d1d7a6b2
+    controllers_auth_controller_login_0a72da96 -->|imports| backend_src_routes_auth_routes_js_d1d7a6b2
+    class backend_src_controllers_auth_controller_js_e0f23f0a module;
+    class controllers_auth_controller_login_0a72da96 function;
+    class controllers_auth_controller_register_6b96bb53 function;
+    class controllers_auth_controller_apierror_da23dc22 api;
+    class controllers_auth_controller_user_6f2174dc klass;
+    class controllers_auth_controller_asynchandler_18826e30 async;
+    class controllers_auth_controller_env_6a27de57 function;
+    class controllers_auth_controller_jwt_bab187c7 function;
+    class backend_src_routes_auth_routes_js_d1d7a6b2 api;
+    class routes_auth_routes_router_21045b5f api;
+    class routes_auth_routes_register_login_a77d0c91 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>auth.controller.js</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td>auth.controller.js node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>jwt</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>jwt node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>User</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>User node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>env</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>env node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>ApiError</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ApiError node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>asyncHandler</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>asyncHandler node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>register</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td>register node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>login</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td>login node in src/controllers/auth.controller.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>auth.routes.js</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>auth.controller.js</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small><br><code>login</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small><br><code>register</code><br><small style="color:var(--muted)">src/controllers/auth.controller.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>auth.routes.js node in src/routes/auth.routes.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>{ Router }</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ Router } node in src/routes/auth.routes.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>{ register, login }</code><br><small style="color:var(--muted)">src/routes/auth.routes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ register, login } node in src/routes/auth.routes.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/controllers/auth.controller.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>src/routes/auth.routes.js</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x9, imports x2, imports x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -3115,8 +2811,155 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 13. Community 19 ====== -->
-<h2 id="community-19">13. Community 19</h2>
+<!-- ====== 13. Community 44 ====== -->
+<h2 id="community-44">13. Community 44</h2>
+<p>Community 44 groups implementation around backend, middleware, authorisejs, errorhandlerjs, mostly in src/middleware/authorise.js, src/middleware/errorHandler.js, src/utils/apiError.js. This section covers 9 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 44 (9 nodes, 8 edges)
+    subgraph community_44_src_middleware_authorise_js_30447d23["src/middleware/authorise.js"]
+        backend_src_middleware_authorise_js_583eee5e("authorise.js")
+        middleware_authorise_apierror_9e67b6b7("ApiError<br/><small>src/middleware/authorise.js</small>")
+        middleware_authorise_authorise_00ebdbaf("authorise()<br/><small>src/middleware/authorise.js</small>")
+    end
+    subgraph community_44_src_middleware_errorHandler_js_4ea7da74["src/middleware/errorHandler.js"]
+        backend_src_middleware_errorhandler_js_e4b097ba("errorHandler.js")
+        middleware_errorhandler_apierror_1aef0f1f("ApiError<br/><small>src/middleware/errorHandler.js</small>")
+        middleware_errorhandler_errorhandler_bd8ed9e7("errorHandler()<br/><small>src/middleware/errorHandler.js</small>")
+    end
+    subgraph community_44_src_utils_apiError_js_b3ea84d3["src/utils/apiError.js"]
+        utils_apierror_apierror_bc0c3201("ApiError<br/><small>src/utils/apiError.js</small>")
+        utils_apierror_apierror_constructor_3fa2f609("constructor()<br/><small>src/utils/apiError.js</small>")
+        backend_src_utils_apierror_js_8da36489("apiError.js")
+    end
+    utils_apierror_apierror_bc0c3201 -->|method| utils_apierror_apierror_constructor_3fa2f609
+    backend_src_middleware_authorise_js_583eee5e -->|imports| backend_src_utils_apierror_js_8da36489
+    backend_src_middleware_errorhandler_js_e4b097ba -->|imports| backend_src_utils_apierror_js_8da36489
+    class backend_src_middleware_authorise_js_583eee5e module;
+    class middleware_authorise_apierror_9e67b6b7 api;
+    class middleware_authorise_authorise_00ebdbaf function;
+    class backend_src_middleware_errorhandler_js_e4b097ba module;
+    class middleware_errorhandler_apierror_1aef0f1f api;
+    class middleware_errorhandler_errorhandler_bd8ed9e7 function;
+    class utils_apierror_apierror_bc0c3201 api;
+    class utils_apierror_apierror_constructor_3fa2f609 function;
+    class backend_src_utils_apierror_js_8da36489 api;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>authorise.js</code><br><small style="color:var(--muted)">src/middleware/authorise.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>apiError.js</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
+  <td>authorise.js node in src/middleware/authorise.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>ApiError</code><br><small style="color:var(--muted)">src/middleware/authorise.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ApiError node in src/middleware/authorise.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>authorise()</code><br><small style="color:var(--muted)">src/middleware/authorise.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>authorise() node in src/middleware/authorise.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>apiError.js</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
+  <td>errorHandler.js node in src/middleware/errorHandler.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>ApiError</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ApiError node in src/middleware/errorHandler.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>errorHandler()</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>errorHandler() node in src/middleware/errorHandler.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>apiError.js</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>authorise.js</code><br><small style="color:var(--muted)">src/middleware/authorise.js</small><br><code>errorHandler.js</code><br><small style="color:var(--muted)">src/middleware/errorHandler.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>apiError.js node in src/utils/apiError.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>ApiError</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>constructor()</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
+  <td>ApiError node in src/utils/apiError.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ApiError</code><br><small style="color:var(--muted)">src/utils/apiError.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in src/utils/apiError.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/middleware/authorise.js</code></td><td>3 nodes</td></tr>
+<tr><td><code>src/middleware/errorHandler.js</code></td><td>3 nodes</td></tr>
+<tr><td><code>src/utils/apiError.js</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x5, imports x2, method x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 14. Community 19 ====== -->
+<h2 id="community-19">14. Community 19</h2>
 <p>Community 19 groups implementation around aiclientjs, backend, services, axios, mostly in src/services/aiClient.js. This section covers 8 nodes and 9 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3243,26 +3086,35 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 14. Community 22 ====== -->
-<h2 id="community-22">14. Community 22</h2>
-<p>Community 22 groups implementation around loggerpy, service, app, jsonformatter, mostly in app/core/logger.py. This section covers 5 nodes and 5 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 15. Community 45 ====== -->
+<h2 id="community-45">15. Community 45</h2>
+<p>Community 45 groups implementation around backend, config, dbjs, envjs, mostly in src/config/db.js, src/config/env.js. This section covers 8 nodes and 7 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Community 22 (5 nodes, 5 edges)
-    core_logger_jsonformatter_3e547817("JsonFormatter<br/><small>app/core/logger.py</small>")
-    core_logger_get_logger_5c403e8e("get_logger()<br/><small>app/core/logger.py</small>")
-    core_logger_jsonformatter_format_c75584e6("format()<br/><small>app/core/logger.py</small>")
-    ai_service_app_core_logger_py_924a8be6("logger.py")
-    ai_service_app_core_logger_py_str_a32eab08("str<br/><small>app/core/logger.py</small>")
-    core_logger_jsonformatter_3e547817 -->|calls| core_logger_get_logger_5c403e8e
-    core_logger_jsonformatter_3e547817 -->|method| core_logger_jsonformatter_format_c75584e6
-    class core_logger_jsonformatter_3e547817 klass;
-    class core_logger_get_logger_5c403e8e function;
-    class core_logger_jsonformatter_format_c75584e6 function;
-    class ai_service_app_core_logger_py_924a8be6 module;
-    class ai_service_app_core_logger_py_str_a32eab08 function;
+    %% Section: Community 45 (8 nodes, 7 edges)
+    subgraph community_45_src_config_db_js_c23127a2["src/config/db.js"]
+        backend_src_config_db_js_ca997123("db.js")
+        config_db_connectdb_46c34eff("connectDB()<br/><small>src/config/db.js</small>")
+        config_db_env_03a11336("env<br/><small>src/config/db.js</small>")
+        config_db_mongoose_9af0d61f("mongoose<br/><small>src/config/db.js</small>")
+    end
+    subgraph community_45_src_config_env_js_6d1b82da["src/config/env.js"]
+        backend_src_config_env_js_6cd198cb("env.js")
+        config_env_envschema_a2703eaa("envSchema<br/><small>src/config/env.js</small>")
+        config_env_parsed_0d677152("parsed<br/><small>src/config/env.js</small>")
+        config_env_z_65dc49ca("z<br/><small>src/config/env.js</small>")
+    end
+    backend_src_config_db_js_ca997123 -->|imports| backend_src_config_env_js_6cd198cb
+    class backend_src_config_db_js_ca997123 module;
+    class config_db_connectdb_46c34eff function;
+    class config_db_env_03a11336 function;
+    class config_db_mongoose_9af0d61f function;
+    class backend_src_config_env_js_6cd198cb module;
+    class config_env_envschema_a2703eaa function;
+    class config_env_parsed_0d677152 function;
+    class config_env_z_65dc49ca function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -3286,43 +3138,67 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>logger.py</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/core/logger.py.</td>
+  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td>db.js node in src/config/db.js.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>JsonFormatter</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
+  <td><code>mongoose</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>format()</code><br><small style="color:var(--muted)">app/core/logger.py</small><br><code>get_logger()</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
-  <td>JsonFormatter node in app/core/logger.py.</td>
+  <td>No direct outbound edge</td>
+  <td>mongoose node in src/config/db.js.</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><code>.format()</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>JsonFormatter</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.format() node in app/core/logger.py.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>get_logger()</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>JsonFormatter</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>get_logger() node in app/core/logger.py.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>str</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td><code>env</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>str node in app/core/logger.py.</td>
+  <td>env node in src/config/db.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>connectDB()</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>connectDB() node in src/config/db.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>env.js</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>db.js</code><br><small style="color:var(--muted)">src/config/db.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>env.js node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>{ z }</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ z } node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>envSchema</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>envSchema node in src/config/env.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>parsed</code><br><small style="color:var(--muted)">src/config/env.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>parsed node in src/config/env.js.</td>
 </tr>
 </table>
 
@@ -3331,38 +3207,74 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>app/core/logger.py</code></td><td>5 nodes</td></tr>
+      <tr><td><code>src/config/db.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/config/env.js</code></td><td>4 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x2, calls x1, method x1, references x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x6, imports x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 15. Community 24 ====== -->
-<h2 id="community-24">15. Community 24</h2>
-<p>Community 24 groups implementation around settingspy, service, app, config, mostly in app/config/settings.py. This section covers 4 nodes and 4 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around backend, models, service, app, mostly in src/middleware/authenticate.js, src/models/CandidateProfile.js, app/core/logger.py. This section covers 63 nodes and 43 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Community 24 (4 nodes, 4 edges)
-    subgraph community_24_app_config_settings_py_1aaa6d2c["app/config/settings.py"]
-        ai_service_app_config_settings_py_3764cdce("settings.py")
+    %% Section: Other (63 nodes, 43 edges)
+    subgraph other_app_core_logger_py_7a5a38fa["app/core/logger.py"]
+        core_logger_jsonformatter_3e547817("JsonFormatter<br/><small>app/core/logger.py</small>")
+        core_logger_get_logger_5c403e8e("get_logger()<br/><small>app/core/logger.py</small>")
+        core_logger_jsonformatter_format_c75584e6("format()<br/><small>app/core/logger.py</small>")
+        ai_service_app_core_logger_py_924a8be6("logger.py")
+    end
+    subgraph other_app_config_settings_py_2db55881["app/config/settings.py"]
         config_settings_settings_3511e911("Settings<br/><small>app/config/settings.py</small>")
         config_settings_get_settings_29d5d01d("get_settings()<br/><small>app/config/settings.py</small>")
+        ai_service_app_config_settings_py_3764cdce("settings.py")
+    end
+    subgraph other_src_controllers_candidateController_js_afed48ac["src/controllers/candidateController.js"]
+        backend_src_controllers_candidatecontroller_js_064b7707("candidateController.js")
+        controllers_candidatecontroller_getprofile_83cbe985("getProfile()<br/><small>src/controllers/candidateController.js</small>")
     end
     basesettings_10620791("BaseSettings")
-    config_settings_settings_3511e911 -->|references| config_settings_get_settings_29d5d01d
-    config_settings_settings_3511e911 -->|inherits| basesettings_10620791
-    ai_service_app_config_settings_py_3764cdce -->|contains| config_settings_get_settings_29d5d01d
-    ai_service_app_config_settings_py_3764cdce -->|contains| config_settings_settings_3511e911
-    class ai_service_app_config_settings_py_3764cdce module;
+    ai_service_app_init_py_08ae7aca("__init__.py")
+    ai_service_app_config_init_py_c222eaf0("__init__.py")
+    ai_service_app_core_init_py_fc392fde("__init__.py")
+    ai_service_app_core_context_py_b107102f("context.py")
+    backend_src_middleware_authenticate_js_026519ab("authenticate.js")
+    backend_src_models_candidateprofile_js_3cc6f148("CandidateProfile.js")
+    backend_src_routes_candidateroutes_js_929b54c2("candidateRoutes.js")
+    backend_src_utils_asynchandler_js_f1162bb1("asyncHandler.js")
+    core_logger_jsonformatter_3e547817 -->|calls| core_logger_get_logger_5c403e8e
+    core_logger_jsonformatter_3e547817 -->|method| core_logger_jsonformatter_format_c75584e6
+    backend_src_controllers_candidatecontroller_js_064b7707 -->|imports| backend_src_models_candidateprofile_js_3cc6f148
+    backend_src_controllers_candidatecontroller_js_064b7707 -->|imports| backend_src_routes_candidateroutes_js_929b54c2
+    controllers_candidatecontroller_getprofile_83cbe985 -->|imports| backend_src_routes_candidateroutes_js_929b54c2
+    backend_src_middleware_authenticate_js_026519ab -->|imports| backend_src_utils_asynchandler_js_f1162bb1
+    %% Omitted for readability: 45 nodes, 0 edges
+    class core_logger_jsonformatter_3e547817 klass;
+    class core_logger_get_logger_5c403e8e function;
+    class core_logger_jsonformatter_format_c75584e6 function;
+    class ai_service_app_core_logger_py_924a8be6 module;
     class config_settings_settings_3511e911 klass;
     class config_settings_get_settings_29d5d01d function;
+    class ai_service_app_config_settings_py_3764cdce module;
+    class backend_src_controllers_candidatecontroller_js_064b7707 module;
+    class controllers_candidatecontroller_getprofile_83cbe985 function;
     class basesettings_10620791 klass;
+    class ai_service_app_init_py_08ae7aca module;
+    class ai_service_app_config_init_py_c222eaf0 module;
+    class ai_service_app_core_init_py_fc392fde module;
+    class ai_service_app_core_context_py_b107102f module;
+    class backend_src_middleware_authenticate_js_026519ab module;
+    class backend_src_models_candidateprofile_js_3cc6f148 klass;
+    class backend_src_routes_candidateroutes_js_929b54c2 api;
+    class backend_src_utils_asynchandler_js_f1162bb1 async;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -3386,6 +3298,214 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
+  <td><code>authenticate.js</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>asyncHandler.js</code><br><small style="color:var(--muted)">src/utils/asyncHandler.js</small></td>
+  <td>authenticate.js node in src/middleware/authenticate.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>jwt</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>jwt node in src/middleware/authenticate.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>env</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>env node in src/middleware/authenticate.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>ApiError</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ApiError node in src/middleware/authenticate.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>asyncHandler</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>asyncHandler node in src/middleware/authenticate.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>authenticate</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>authenticate node in src/middleware/authenticate.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>asyncHandler.js</code><br><small style="color:var(--muted)">src/utils/asyncHandler.js</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td><code>authenticate.js</code><br><small style="color:var(--muted)">src/middleware/authenticate.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>asyncHandler.js node in src/utils/asyncHandler.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>asyncHandler()</code><br><small style="color:var(--muted)">src/utils/asyncHandler.js</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>asyncHandler() node in src/utils/asyncHandler.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>candidateController.js</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>CandidateProfile.js</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small><br><code>candidateRoutes.js</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
+  <td>candidateController.js node in src/controllers/candidateController.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>CandidateProfile</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CandidateProfile node in src/controllers/candidateController.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>getProfile()</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>candidateRoutes.js</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
+  <td>getProfile() node in src/controllers/candidateController.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>candidateRoutes.js</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>candidateController.js</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small><br><code>getProfile()</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>candidateRoutes.js node in src/routes/candidateRoutes.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>express</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>express node in src/routes/candidateRoutes.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>router</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>router node in src/routes/candidateRoutes.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>{ getProfile }</code><br><small style="color:var(--muted)">src/routes/candidateRoutes.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ getProfile } node in src/routes/candidateRoutes.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>CandidateProfile.js</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>candidateController.js</code><br><small style="color:var(--muted)">src/controllers/candidateController.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>CandidateProfile.js node in src/models/CandidateProfile.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>mongoose</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>mongoose node in src/models/CandidateProfile.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>educationEntrySchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>educationEntrySchema node in src/models/CandidateProfile.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>experienceEntrySchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>experienceEntrySchema node in src/models/CandidateProfile.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>projectSchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>projectSchema node in src/models/CandidateProfile.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>candidateProfileSchema</code><br><small style="color:var(--muted)">src/models/CandidateProfile.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>candidateProfileSchema node in src/models/CandidateProfile.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>logger.py</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module file in app/core/logger.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>JsonFormatter</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>format()</code><br><small style="color:var(--muted)">app/core/logger.py</small><br><code>get_logger()</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td>JsonFormatter node in app/core/logger.py.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>.format()</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>JsonFormatter</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.format() node in app/core/logger.py.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>get_logger()</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>JsonFormatter</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>get_logger() node in app/core/logger.py.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>str</code><br><small style="color:var(--muted)">app/core/logger.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>str node in app/core/logger.py.</td>
+</tr>
+<tr>
+  <td>27</td>
   <td><code>settings.py</code><br><small style="color:var(--muted)">app/config/settings.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -3393,7 +3513,7 @@ flowchart LR
   <td>Module file in app/config/settings.py.</td>
 </tr>
 <tr>
-  <td>2</td>
+  <td>28</td>
   <td><code>Settings</code><br><small style="color:var(--muted)">app/config/settings.py</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -3401,7 +3521,7 @@ flowchart LR
   <td>Settings node in app/config/settings.py.</td>
 </tr>
 <tr>
-  <td>3</td>
+  <td>29</td>
   <td><code>BaseSettings</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -3409,7 +3529,7 @@ flowchart LR
   <td>BaseSettings node in project.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>30</td>
   <td><code>get_settings()</code><br><small style="color:var(--muted)">app/config/settings.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -3423,301 +3543,19 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>app/config/settings.py</code></td><td>3 nodes</td></tr>
+      <tr><td><code>src/middleware/authenticate.js</code></td><td>6 nodes</td></tr>
+<tr><td><code>src/models/CandidateProfile.js</code></td><td>6 nodes</td></tr>
+<tr><td><code>app/core/logger.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/models/User.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>src/routes/candidateRoutes.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>app/config/settings.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>src/controllers/candidateController.js</code></td><td>3 nodes</td></tr>
+<tr><td><code>src/models/Application.js</code></td><td>3 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x2, references x1, inherits x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 16. Other ====== -->
-<h2 id="other">16. Other</h2>
-<p>Other groups implementation around backend, service, app, models, mostly in src/models/JobRequirement.js, src/models/Application.js, src/models/RecruiterProfile.js. This section covers 23 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Other (23 nodes, 8 edges)
-    subgraph other_src_models_Application_js_8da684b6["src/models/Application.js"]
-        backend_src_models_application_js_f7a23efe("Application.js")
-        models_application_applicationschema_2bf89367("applicationSchema<br/><small>src/models/Application.js</small>")
-        models_application_mongoose_3643e050("mongoose<br/><small>src/models/Application.js</small>")
-    end
-    subgraph other_src_models_JobRequirement_js_6b05fa80["src/models/JobRequirement.js"]
-        backend_src_models_jobrequirement_js_26f01333("JobRequirement.js")
-        models_jobrequirement_jobrequirementschema_50df1c91("jobRequirementSchema<br/><small>src/models/JobRequirement.js</small>")
-        models_jobrequirement_mongoose_478c74da("mongoose<br/><small>src/models/JobRequirement.js</small>")
-    end
-    subgraph other_src_models_RecruiterProfile_js_3b289526["src/models/RecruiterProfile.js"]
-        backend_src_models_recruiterprofile_js_ecd28fc5("RecruiterProfile.js")
-        models_recruiterprofile_mongoose_04c6a800("mongoose<br/><small>src/models/RecruiterProfile.js</small>")
-        models_recruiterprofile_recruiterprofileschema_84c13beb("recruiterProfileSchema<br/><small>src/models/RecruiterProfile.js</small>")
-    end
-    subgraph other_backend_playground_1_mongodb_js_63a32d30["backend/playground-1.mongodb.js"]
-        backend_playground_1_mongodb_js_64863481("playground-1.mongodb.js")
-        backend_playground_1_mongodb_salesonapril4th_78e555bc("salesOnApril4th<br/><small>backend/playground-1.mongodb.js</small>")
-    end
-    readme_md_eeb98ce0("README.md")
-    ai_service_app_init_py_08ae7aca("__init__.py")
-    ai_service_app_config_init_py_c222eaf0("__init__.py")
-    ai_service_app_core_init_py_fc392fde("__init__.py")
-    ai_service_app_core_context_py_b107102f("context.py")
-    ai_service_app_parsers_init_py_48be592f("__init__.py")
-    ai_service_app_routers_init_py_b1c1e755("__init__.py")
-    backend_playground_1_mongodb_js_64863481 -->|contains| backend_playground_1_mongodb_salesonapril4th_78e555bc
-    backend_src_models_application_js_f7a23efe -->|contains| models_application_applicationschema_2bf89367
-    backend_src_models_application_js_f7a23efe -->|contains| models_application_mongoose_3643e050
-    backend_src_models_jobrequirement_js_26f01333 -->|contains| models_jobrequirement_jobrequirementschema_50df1c91
-    backend_src_models_jobrequirement_js_26f01333 -->|contains| models_jobrequirement_mongoose_478c74da
-    backend_src_models_recruiterprofile_js_ecd28fc5 -->|contains| models_recruiterprofile_mongoose_04c6a800
-    backend_src_models_recruiterprofile_js_ecd28fc5 -->|contains| models_recruiterprofile_recruiterprofileschema_84c13beb
-    %% Omitted for readability: 5 nodes, 0 edges
-    class backend_src_models_application_js_f7a23efe klass;
-    class models_application_applicationschema_2bf89367 function;
-    class models_application_mongoose_3643e050 function;
-    class backend_src_models_jobrequirement_js_26f01333 klass;
-    class models_jobrequirement_jobrequirementschema_50df1c91 function;
-    class models_jobrequirement_mongoose_478c74da function;
-    class backend_src_models_recruiterprofile_js_ecd28fc5 klass;
-    class models_recruiterprofile_mongoose_04c6a800 function;
-    class models_recruiterprofile_recruiterprofileschema_84c13beb function;
-    class backend_playground_1_mongodb_js_64863481 module;
-    class backend_playground_1_mongodb_salesonapril4th_78e555bc function;
-    class readme_md_eeb98ce0 concept;
-    class ai_service_app_init_py_08ae7aca module;
-    class ai_service_app_config_init_py_c222eaf0 module;
-    class ai_service_app_core_init_py_fc392fde module;
-    class ai_service_app_core_context_py_b107102f module;
-    class ai_service_app_parsers_init_py_48be592f module;
-    class ai_service_app_routers_init_py_b1c1e755 module;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>JobRequirement.js</code><br><small style="color:var(--muted)">src/models/JobRequirement.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>JobRequirement.js node in src/models/JobRequirement.js.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>mongoose</code><br><small style="color:var(--muted)">src/models/JobRequirement.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>mongoose node in src/models/JobRequirement.js.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>jobRequirementSchema</code><br><small style="color:var(--muted)">src/models/JobRequirement.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>jobRequirementSchema node in src/models/JobRequirement.js.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>Application.js</code><br><small style="color:var(--muted)">src/models/Application.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Application.js node in src/models/Application.js.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>mongoose</code><br><small style="color:var(--muted)">src/models/Application.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>mongoose node in src/models/Application.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>applicationSchema</code><br><small style="color:var(--muted)">src/models/Application.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>applicationSchema node in src/models/Application.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>RecruiterProfile.js</code><br><small style="color:var(--muted)">src/models/RecruiterProfile.js</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>RecruiterProfile.js node in src/models/RecruiterProfile.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>mongoose</code><br><small style="color:var(--muted)">src/models/RecruiterProfile.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>mongoose node in src/models/RecruiterProfile.js.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>recruiterProfileSchema</code><br><small style="color:var(--muted)">src/models/RecruiterProfile.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>recruiterProfileSchema node in src/models/RecruiterProfile.js.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>README.md</code><br><small style="color:var(--muted)">README.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing README.md.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>AI-Resume-Screener</code><br><small style="color:var(--muted)">README.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing AI-Resume-Screener.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>playground-1.mongodb.js</code><br><small style="color:var(--muted)">backend/playground-1.mongodb.js</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>playground-1.mongodb.js node in backend/playground-1.mongodb.js.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>salesOnApril4th</code><br><small style="color:var(--muted)">backend/playground-1.mongodb.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>salesOnApril4th node in backend/playground-1.mongodb.js.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">ai-service/app/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in ai-service/app/__init__.py.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">app/config/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/config/__init__.py.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>context.py</code><br><small style="color:var(--muted)">app/core/context.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/core/context.py.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">app/core/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/core/__init__.py.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">app/parsers/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/parsers/__init__.py.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">app/routers/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/routers/__init__.py.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>common.py</code><br><small style="color:var(--muted)">app/schemas/common.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/schemas/common.py.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">app/schemas/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/schemas/__init__.py.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">app/services/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/services/__init__.py.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>__init__.py</code><br><small style="color:var(--muted)">app/utils/__init__.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Module file in app/utils/__init__.py.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>src/models/Application.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/models/JobRequirement.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/models/RecruiterProfile.js</code></td><td>3 nodes</td></tr>
-<tr><td><code>README.md</code></td><td>2 nodes</td></tr>
-<tr><td><code>backend/playground-1.mongodb.js</code></td><td>2 nodes</td></tr>
-<tr><td><code>ai-service/app/__init__.py</code></td><td>1 nodes</td></tr>
-<tr><td><code>app/config/__init__.py</code></td><td>1 nodes</td></tr>
-<tr><td><code>app/core/__init__.py</code></td><td>1 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x8. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x34, imports x3, references x2, inherits x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -3728,17 +3566,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>461</td></tr>
-      <tr><td>Edges</td><td>800</td></tr>
+      <tr><td>Nodes</td><td>467</td></tr>
+      <tr><td>Edges</td><td>804</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>43</td></tr>
+      <tr><td>Communities</td><td>53</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>701</td></tr>
+      <tr><td>EXTRACTED</td><td>705</td></tr>
       <tr><td>INFERRED</td><td>99</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -3747,7 +3585,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>AI-Resume-Screener — Architecture Documentation</p>
-  <p>Generated: 2026-05-27 15:29 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-05-27 19:37 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

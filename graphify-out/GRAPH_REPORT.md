@@ -1,16 +1,16 @@
 # Graph Report - AI-Resume-Screener  (2026-05-27)
 
 ## Corpus Check
-- 76 files · ~57,297 words
+- 79 files · ~57,575 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 461 nodes · 800 edges · 43 communities (37 shown, 6 thin omitted)
+- 467 nodes · 804 edges · 53 communities (43 shown, 10 thin omitted)
 - Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 99 edges (avg confidence: 0.6)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0b0df53b`
+- Built from commit: `95e2b065`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -46,6 +46,16 @@
 - [[_COMMUNITY_Community 28|Community 28]]
 - [[_COMMUNITY_Community 29|Community 29]]
 - [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 43|Community 43]]
+- [[_COMMUNITY_Community 44|Community 44]]
+- [[_COMMUNITY_Community 45|Community 45]]
+- [[_COMMUNITY_Community 46|Community 46]]
+- [[_COMMUNITY_Community 47|Community 47]]
+- [[_COMMUNITY_Community 48|Community 48]]
+- [[_COMMUNITY_Community 49|Community 49]]
+- [[_COMMUNITY_Community 50|Community 50]]
+- [[_COMMUNITY_Community 51|Community 51]]
+- [[_COMMUNITY_Community 52|Community 52]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `EmbeddingService` - 20 edges
@@ -60,30 +70,30 @@
 10. `str` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `FastAPI` --uses--> `AppException`  [INFERRED]
-  ai-service/app/main.py → ai-service/app/core/exceptions.py
+- `FastAPI` --uses--> `RequestLoggingMiddleware`  [INFERRED]
+  ai-service/app/main.py → ai-service/app/core/middleware.py
+- `FastAPI` --uses--> `EmbeddingService`  [INFERRED]
+  ai-service/app/main.py → ai-service/app/services/embedding_service.py
 - `Request` --uses--> `AppException`  [INFERRED]
   ai-service/app/main.py → ai-service/app/core/exceptions.py
 - `AppException` --uses--> `AppException`  [INFERRED]
   ai-service/app/main.py → ai-service/app/core/exceptions.py
 - `build_heuristic_candidate()` --calls--> `parse_certifications()`  [INFERRED]
   ai-service/app/services/parse_service.py → ai-service/app/parsers/certification_parser.py
-- `build_heuristic_candidate()` --calls--> `parse_contact()`  [INFERRED]
-  ai-service/app/services/parse_service.py → ai-service/app/parsers/contact_parser.py
 
-## Communities (43 total, 6 thin omitted)
+## Communities (53 total, 10 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
-Nodes (34): Request, Exception, Request, float, ndarray, Request, str, float (+26 more)
+Nodes (33): Request, Exception, Request, float, ndarray, Request, str, float (+25 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.11
-Nodes (34): float, str, UploadFile, ParsedCandidate, str, UploadFile, str, UploadFile (+26 more)
+Cohesion: 0.10
+Nodes (35): float, str, UploadFile, ParsedCandidate, str, UploadFile, str, UploadFile (+27 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.05
-Nodes (29): app, connectDB, env, express, env, mongoose, envSchema, parsed (+21 more)
+Cohesion: 0.22
+Nodes (9): ApiError, asyncHandler, env, jwt, login, register, User, { register, login } (+1 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.08
@@ -98,8 +108,8 @@ Cohesion: 0.14
 Nodes (20): EmbeddingService, ParsedCandidate, str, CandidateInput, ParsedCandidate, str, BaseModel, EvaluateParsedRequest (+12 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.09
-Nodes (17): CandidateProfile, getProfile(), candidateProfileSchema, educationEntrySchema, experienceEntrySchema, mongoose, projectSchema, express (+9 more)
+Cohesion: 0.33
+Nodes (5): CandidateProfile, getProfile(), express, { getProfile }, router
 
 ### Community 7 - "Community 7"
 Cohesion: 0.12
@@ -173,20 +183,44 @@ Nodes (4): ALLOWED_MIME_TYPES, multer, storage, upload
 Cohesion: 0.67
 Nodes (3): BaseSettings, get_settings(), Settings
 
+### Community 43 - "Community 43"
+Cohesion: 0.17
+Nodes (9): app, authRoutes, candidateRoutes, connectDB, env, errorHandler, express, jobRoutes (+1 more)
+
+### Community 44 - "Community 44"
+Cohesion: 0.22
+Nodes (3): ApiError, ApiError, ApiError
+
+### Community 45 - "Community 45"
+Cohesion: 0.25
+Nodes (5): env, mongoose, envSchema, parsed, { z }
+
+### Community 46 - "Community 46"
+Cohesion: 0.25
+Nodes (5): ApiError, asyncHandler, authenticate, env, jwt
+
+### Community 47 - "Community 47"
+Cohesion: 0.33
+Nodes (5): candidateProfileSchema, educationEntrySchema, experienceEntrySchema, mongoose, projectSchema
+
+### Community 48 - "Community 48"
+Cohesion: 0.50
+Nodes (3): bcrypt, mongoose, userSchema
+
 ## Knowledge Gaps
-- **139 isolated node(s):** `name`, `version`, `description`, `main`, `install:all` (+134 more)
+- **141 isolated node(s):** `name`, `version`, `description`, `main`, `install:all` (+136 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `build_heuristic_candidate()` connect `Community 1` to `Community 4`, `Community 9`, `Community 10`, `Community 11`, `Community 14`, `Community 15`, `Community 20`?**
-  _High betweenness centrality (0.171) - this node is a cross-community bridge._
-- **Why does `FastAPI` connect `Community 0` to `Community 1`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
-- **Why does `parse_experience()` connect `Community 4` to `Community 1`?**
+  _High betweenness centrality (0.166) - this node is a cross-community bridge._
+- **Why does `FastAPI` connect `Community 1` to `Community 0`?**
   _High betweenness centrality (0.047) - this node is a cross-community bridge._
+- **Why does `parse_experience()` connect `Community 4` to `Community 1`?**
+  _High betweenness centrality (0.046) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `EmbeddingService` (e.g. with `Exception` and `Request`) actually correct?**
   _`EmbeddingService` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `build_heuristic_candidate()` (e.g. with `parse_certifications()` and `parse_contact()`) actually correct?**

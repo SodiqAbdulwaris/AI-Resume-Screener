@@ -1,4 +1,4 @@
-const Resume = require('../models/Resume').default;
+const Resume = require('../models/Resume');
 const CandidateProfile = require('../models/CandidateProfile');
 const aiClient = require('../services/aiClient');
 const { parsedCandidateToBackend } = require('../mappers/aiPayloadMapper');

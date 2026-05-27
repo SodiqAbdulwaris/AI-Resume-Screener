@@ -1,7 +1,7 @@
 const aiClient = require('./aiClient');
 const { jobToAiInput, candidateToAiInput, aiRankedCandidateToMatchResult } = require('../mappers/aiPayloadMapper');
 const CandidateProfile = require('../models/CandidateProfile');
-const Resume = require('../models/Resume').default;
+const Resume = require('../models/Resume');
 const MatchResult = require('../models/MatchResult');
 
 /**
