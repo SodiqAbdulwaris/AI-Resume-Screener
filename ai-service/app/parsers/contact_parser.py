@@ -125,7 +125,7 @@ def extract_best_name(lines: list[str]) -> str | None:
     candidates = []
     for line in lines[:5]:
         candidate = extract_name_candidate(line)
-        if not looks_like_name(line):
+        if not looks_like_name(candidate):
             continue
         candidates.append(candidate)
 

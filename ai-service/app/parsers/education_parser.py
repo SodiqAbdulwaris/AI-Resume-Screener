@@ -18,7 +18,14 @@ STATUS_PATTERN = re.compile(
 )
 BULLET_PREFIX_PATTERN = re.compile(r"^\s*[•*\-]\s*")
 TRAILING_DECORATION_PATTERN = re.compile(
-    r"\s*(?:\d{4}\s*[-–]\s*(?:\d{4}|in progress|on hold|present|ongoing|current).*)$",
+    r"\s+(?:(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+)?"
+    r"\d{4}\s*[-–]\s*"
+    r"(?:(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+)?"
+    r"(?:\d{4}|present|in progress|ongoing|current).*$",
+    re.IGNORECASE,
+)
+GRADE_PATTERN = re.compile(
+    r"\s+grade\s*:\s*[\d.,]+.*$",
     re.IGNORECASE,
 )
 
@@ -165,17 +172,36 @@ def extract_institution_from_degree_line(line: str) -> str | None:
     inst_match = INSTITUTION_KEYWORDS.search(line)
     if not inst_match:
         return None
-    
+
     cut = inst_match.start()
     preceding = line[:cut].rstrip()
-    prefix_match = re.search(r'(\b[A-Z][a-z]+)\s*$', preceding)
-    if prefix_match:
-        cut = prefix_match.start()
-    
+
+    separator_match = re.search(r"[—–]", preceding)
+    if separator_match:
+        after_separator = preceding[separator_match.end():]
+        # Strip any parenthetical content — "(Distributed Systems)" is degree detail
+        after_separator_no_parens = re.sub(r"\([^)]*\)", "", after_separator).strip()
+        words_after = after_separator_no_parens.split()
+
+        if words_after:
+            # Check if there were parenthetical groups between separator and inst keyword
+            has_parens_between = bool(re.search(r"\([^)]*\)", after_separator))
+            if has_parens_between:
+                # Parentheticals are degree detail — word after them is institution prefix
+                cut = line.rindex(words_after[-1])
+            else:
+                # No parens — word directly after separator is degree subject, not prefix
+                cut = inst_match.start()
+    else:
+        prefix_match = re.search(r"(\b[A-Z][a-z]+)\s*$", preceding)
+        if prefix_match:
+            cut = prefix_match.start()
+
     institution_fragment = line[cut:]
     institution_fragment = TRAILING_DECORATION_PATTERN.sub("", institution_fragment).strip()
+    if "," in institution_fragment:
+        institution_fragment = institution_fragment.split(",", 1)[0].strip()
     return institution_fragment
-
 
 def is_noise_line(line: str) -> bool:
     if BULLET_PREFIX_PATTERN.match(line):
@@ -213,12 +239,12 @@ def clean_institution_name(line: str) -> str:
         institution = cleaned.strip()
     return institution
 
-
 def extract_edu_degree_label(line: str) -> str:
     cleaned = BULLET_PREFIX_PATTERN.sub("", line).strip()
     cleaned = GPA_PATTERN.sub("", cleaned)
     cleaned = TRAILING_DECORATION_PATTERN.sub("", cleaned)
     cleaned = STATUS_PATTERN.sub("", cleaned)
+    cleaned = GRADE_PATTERN.sub("", cleaned)
     cleaned = re.sub(r"\b(19|20)\d{2}\b", "", cleaned)
     cleaned = re.sub(r"\(\s*\)", "", cleaned)
     cleaned = re.sub(
@@ -227,13 +253,17 @@ def extract_edu_degree_label(line: str) -> str:
         cleaned,
         flags=re.IGNORECASE,
     )
+
     inst_match = INSTITUTION_KEYWORDS.search(cleaned)
     if inst_match:
-        cleaned = cleaned[:inst_match.start()]
-        cleaned = re.sub(r'\s+[A-Z][a-z]+$', '', cleaned).strip()
-    cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,;-–—()")
-    return cleaned
+        before_inst = cleaned[:inst_match.start()].rstrip()
+        before_inst = re.sub(r'\s+[A-Z][A-Za-z]+$', '', before_inst)
+        cleaned = before_inst
 
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,;-–—")
+    if cleaned.startswith("(") and ")" not in cleaned:
+        cleaned = cleaned.lstrip("(").strip()
+    return cleaned
 
 def degree_level(line: str) -> str | None:
     lowered = line.lower()
