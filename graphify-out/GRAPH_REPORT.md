@@ -1,16 +1,16 @@
-# Graph Report - AI-Resume-Screener  (2026-05-27)
+# Graph Report - AI-Resume-Screener  (2026-05-28)
 
 ## Corpus Check
-- 79 files · ~57,575 words
+- 74 files · ~59,328 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 467 nodes · 804 edges · 53 communities (43 shown, 10 thin omitted)
+- 475 nodes · 821 edges · 47 communities (38 shown, 9 thin omitted)
 - Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 99 edges (avg confidence: 0.6)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `95e2b065`
+- Built from commit: `b4e0e9dd`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -21,7 +21,6 @@
 - [[_COMMUNITY_Community 3|Community 3]]
 - [[_COMMUNITY_Community 4|Community 4]]
 - [[_COMMUNITY_Community 5|Community 5]]
-- [[_COMMUNITY_Community 6|Community 6]]
 - [[_COMMUNITY_Community 7|Community 7]]
 - [[_COMMUNITY_Community 8|Community 8]]
 - [[_COMMUNITY_Community 9|Community 9]]
@@ -41,17 +40,11 @@
 - [[_COMMUNITY_Community 23|Community 23]]
 - [[_COMMUNITY_Community 24|Community 24]]
 - [[_COMMUNITY_Community 25|Community 25]]
-- [[_COMMUNITY_Community 26|Community 26]]
-- [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 28|Community 28]]
 - [[_COMMUNITY_Community 29|Community 29]]
 - [[_COMMUNITY_Community 30|Community 30]]
 - [[_COMMUNITY_Community 43|Community 43]]
 - [[_COMMUNITY_Community 44|Community 44]]
-- [[_COMMUNITY_Community 45|Community 45]]
-- [[_COMMUNITY_Community 46|Community 46]]
-- [[_COMMUNITY_Community 47|Community 47]]
-- [[_COMMUNITY_Community 48|Community 48]]
 - [[_COMMUNITY_Community 49|Community 49]]
 - [[_COMMUNITY_Community 50|Community 50]]
 - [[_COMMUNITY_Community 51|Community 51]]
@@ -70,30 +63,26 @@
 10. `str` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `FastAPI` --uses--> `RequestLoggingMiddleware`  [INFERRED]
-  ai-service/app/main.py → ai-service/app/core/middleware.py
-- `FastAPI` --uses--> `EmbeddingService`  [INFERRED]
-  ai-service/app/main.py → ai-service/app/services/embedding_service.py
+- `FastAPI` --uses--> `AppException`  [INFERRED]
+  ai-service/app/main.py → ai-service/app/core/exceptions.py
 - `Request` --uses--> `AppException`  [INFERRED]
   ai-service/app/main.py → ai-service/app/core/exceptions.py
 - `AppException` --uses--> `AppException`  [INFERRED]
   ai-service/app/main.py → ai-service/app/core/exceptions.py
-- `build_heuristic_candidate()` --calls--> `parse_certifications()`  [INFERRED]
-  ai-service/app/services/parse_service.py → ai-service/app/parsers/certification_parser.py
+- `ParsedCandidate` --uses--> `AppException`  [INFERRED]
+  ai-service/app/services/parse_service.py → ai-service/app/core/exceptions.py
+- `str` --uses--> `AppException`  [INFERRED]
+  ai-service/app/services/parse_service.py → ai-service/app/core/exceptions.py
 
-## Communities (53 total, 10 thin omitted)
+## Communities (47 total, 9 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.07
-Nodes (33): Request, Exception, Request, float, ndarray, Request, str, float (+25 more)
+Nodes (34): Request, Exception, Request, float, ndarray, Request, str, float (+26 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.10
-Nodes (35): float, str, UploadFile, ParsedCandidate, str, UploadFile, str, UploadFile (+27 more)
-
-### Community 2 - "Community 2"
-Cohesion: 0.22
-Nodes (9): ApiError, asyncHandler, env, jwt, login, register, User, { register, login } (+1 more)
+Cohesion: 0.14
+Nodes (20): float, str, UploadFile, str, UploadFile, str, bytes, AppException (+12 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.08
@@ -104,16 +93,12 @@ Cohesion: 0.26
 Nodes (24): bool, float, int, str, best(), block_has_date(), calculate_years_of_experience(), classify_line() (+16 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.14
-Nodes (20): EmbeddingService, ParsedCandidate, str, CandidateInput, ParsedCandidate, str, BaseModel, EvaluateParsedRequest (+12 more)
-
-### Community 6 - "Community 6"
-Cohesion: 0.33
-Nodes (5): CandidateProfile, getProfile(), express, { getProfile }, router
+Cohesion: 0.11
+Nodes (34): EmbeddingService, ParsedCandidate, str, CandidateInput, ParsedCandidate, str, ParsedCandidate, str (+26 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.12
-Nodes (16): dependencies, axios, dotenv, express, form-data, mongoose, multer, description (+8 more)
+Cohesion: 0.10
+Nodes (20): dependencies, axios, bcryptjs, dotenv, express, form-data, jsonwebtoken, mongoose (+12 more)
 
 ### Community 8 - "Community 8"
 Cohesion: 0.12
@@ -131,13 +116,9 @@ Nodes (15): bool, str, classify(), clean_line(), clean_title(), extract_inline_s
 Cohesion: 0.41
 Nodes (14): bool, str, is_labeled_line(), is_table_row(), merge_wrapped_lines(), normalize_label(), normalize_skill_token(), parse_skills() (+6 more)
 
-### Community 12 - "Community 12"
-Cohesion: 0.19
-Nodes (11): aiClient, CandidateProfile, getResume(), { parsedCandidateToBackend }, uploadResume(), aiEducationToBackend(), parsedCandidateToBackend(), express (+3 more)
-
 ### Community 13 - "Community 13"
-Cohesion: 0.23
-Nodes (10): createJob(), getJobMatches(), JobRequirement, MatchResult, runJobMatch(), { runMatch }, { createJob, runJobMatch, getJobMatches }, express (+2 more)
+Cohesion: 0.16
+Nodes (13): createJob(), getJobMatches(), JobRequirement, MatchResult, runJobMatch(), { runMatch }, jobRequirementSchema, mongoose (+5 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.42
@@ -149,19 +130,19 @@ Nodes (11): str, _dedupe_preserve_order(), normalize_all_fields(), _normalize_pr
 
 ### Community 16 - "Community 16"
 Cohesion: 0.20
-Nodes (7): matchResultSchema, mongoose, resumeSchema, aiClient, CandidateProfile, { jobToAiInput, candidateToAiInput, aiRankedCandidateToMatchResult }, MatchResult
+Nodes (12): AI_TO_BACKEND_EDUCATION, aiRankedCandidateToMatchResult(), BACKEND_TO_AI_EDUCATION, backendEducationToAi(), candidateToAiInput(), jobToAiInput(), normalizeSkills(), aiClient (+4 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.47
 Nodes (9): bool, str, alias_match(), classify_line(), clean(), infer_sections(), inject_markers(), is_body() (+1 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.33
-Nodes (7): AI_TO_BACKEND_EDUCATION, aiRankedCandidateToMatchResult(), BACKEND_TO_AI_EDUCATION, backendEducationToAi(), candidateToAiInput(), jobToAiInput(), normalizeSkills()
+Cohesion: 0.24
+Nodes (5): matchResultSchema, mongoose, scoreBreakdownSchema, mongoose, resumeSchema
 
 ### Community 19 - "Community 19"
-Cohesion: 0.32
-Nodes (7): axios, buildAiError(), client, FormData, matchCandidates(), parseResume(), TIMEOUT
+Cohesion: 0.16
+Nodes (13): aiClient, CandidateProfile, getResume(), { parsedCandidateToBackend }, Resume, uploadResume(), aiEducationToBackend(), parsedCandidateToBackend() (+5 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.57
@@ -175,52 +156,40 @@ Nodes (6): bool, int, str, extract_links(), is_email_adjacent_match(), normalise
 Cohesion: 0.50
 Nodes (3): str, get_logger(), JsonFormatter
 
-### Community 23 - "Community 23"
-Cohesion: 0.40
-Nodes (4): ALLOWED_MIME_TYPES, multer, storage, upload
-
 ### Community 24 - "Community 24"
 Cohesion: 0.67
 Nodes (3): BaseSettings, get_settings(), Settings
 
-### Community 43 - "Community 43"
-Cohesion: 0.17
-Nodes (9): app, authRoutes, candidateRoutes, connectDB, env, errorHandler, express, jobRoutes (+1 more)
-
-### Community 44 - "Community 44"
-Cohesion: 0.22
-Nodes (3): ApiError, ApiError, ApiError
-
-### Community 45 - "Community 45"
-Cohesion: 0.25
-Nodes (5): env, mongoose, envSchema, parsed, { z }
-
-### Community 46 - "Community 46"
-Cohesion: 0.25
-Nodes (5): ApiError, asyncHandler, authenticate, env, jwt
-
-### Community 47 - "Community 47"
+### Community 25 - "Community 25"
 Cohesion: 0.33
 Nodes (5): candidateProfileSchema, educationEntrySchema, experienceEntrySchema, mongoose, projectSchema
 
-### Community 48 - "Community 48"
-Cohesion: 0.50
-Nodes (3): bcrypt, mongoose, userSchema
+### Community 28 - "Community 28"
+Cohesion: 0.16
+Nodes (12): CandidateProfile, getProfile(), authenticate(), authorise(), config, jwt, User, { authenticate } (+4 more)
+
+### Community 43 - "Community 43"
+Cohesion: 0.05
+Nodes (35): config, dotenv, envLocalPath, path, config, jwt, login(), signToken() (+27 more)
+
+### Community 44 - "Community 44"
+Cohesion: 0.32
+Nodes (7): axios, buildAiError(), client, config, FormData, matchCandidates(), parseResume()
 
 ## Knowledge Gaps
-- **141 isolated node(s):** `name`, `version`, `description`, `main`, `install:all` (+136 more)
+- **152 isolated node(s):** `name`, `version`, `description`, `main`, `install:all` (+147 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `build_heuristic_candidate()` connect `Community 1` to `Community 4`, `Community 9`, `Community 10`, `Community 11`, `Community 14`, `Community 15`, `Community 20`?**
-  _High betweenness centrality (0.166) - this node is a cross-community bridge._
-- **Why does `FastAPI` connect `Community 1` to `Community 0`?**
-  _High betweenness centrality (0.047) - this node is a cross-community bridge._
-- **Why does `parse_experience()` connect `Community 4` to `Community 1`?**
-  _High betweenness centrality (0.046) - this node is a cross-community bridge._
+- **Why does `build_heuristic_candidate()` connect `Community 5` to `Community 4`, `Community 9`, `Community 10`, `Community 11`, `Community 14`, `Community 15`, `Community 20`?**
+  _High betweenness centrality (0.161) - this node is a cross-community bridge._
+- **Why does `FastAPI` connect `Community 0` to `Community 1`, `Community 5`?**
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
+- **Why does `parse_experience()` connect `Community 4` to `Community 5`?**
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `EmbeddingService` (e.g. with `Exception` and `Request`) actually correct?**
   _`EmbeddingService` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `build_heuristic_candidate()` (e.g. with `parse_certifications()` and `parse_contact()`) actually correct?**

@@ -279,7 +279,7 @@
       "source_file": "ai-service/app/main.py",
       "source_location": "L27",
       "id": "fastapi",
-      "community": 1,
+      "community": 0,
       "norm_label": "fastapi"
     },
     {
@@ -1548,7 +1548,7 @@
       "source_file": "ai-service/app/routers/match.py",
       "source_location": "L1",
       "id": "ai_service_app_routers_match_py",
-      "community": 1,
+      "community": 0,
       "norm_label": "match.py"
     },
     {
@@ -1728,7 +1728,7 @@
       "source_file": "ai-service/app/schemas/resume.py",
       "source_location": "L1",
       "id": "ai_service_app_schemas_resume_py",
-      "community": 1,
+      "community": 5,
       "norm_label": "resume.py"
     },
     {
@@ -1737,7 +1737,7 @@
       "source_file": "ai-service/app/schemas/resume.py",
       "source_location": "L7",
       "id": "schemas_resume_experienceentry",
-      "community": 1,
+      "community": 5,
       "norm_label": "experienceentry"
     },
     {
@@ -1746,7 +1746,7 @@
       "source_file": "ai-service/app/schemas/resume.py",
       "source_location": "L14",
       "id": "schemas_resume_experiencesummary",
-      "community": 1,
+      "community": 5,
       "norm_label": "experiencesummary"
     },
     {
@@ -1755,7 +1755,7 @@
       "source_file": "ai-service/app/schemas/resume.py",
       "source_location": "L19",
       "id": "schemas_resume_educationentry",
-      "community": 1,
+      "community": 5,
       "norm_label": "educationentry"
     },
     {
@@ -1764,7 +1764,7 @@
       "source_file": "ai-service/app/schemas/resume.py",
       "source_location": "L27",
       "id": "schemas_resume_projectitem",
-      "community": 1,
+      "community": 5,
       "norm_label": "projectitem"
     },
     {
@@ -2142,7 +2142,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L1",
       "id": "ai_service_app_services_parse_service_py",
-      "community": 1,
+      "community": 5,
       "norm_label": "parse_service.py"
     },
     {
@@ -2160,7 +2160,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L29",
       "id": "ai_service_app_services_parse_service_py_uploadfile",
-      "community": 1,
+      "community": 5,
       "norm_label": "uploadfile"
     },
     {
@@ -2169,7 +2169,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L29",
       "id": "ai_service_app_services_parse_service_py_parsedcandidate",
-      "community": 1,
+      "community": 5,
       "norm_label": "parsedcandidate"
     },
     {
@@ -2178,7 +2178,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L44",
       "id": "services_parse_service_parse_resume_text",
-      "community": 1,
+      "community": 5,
       "norm_label": "parse_resume_text()"
     },
     {
@@ -2187,7 +2187,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L44",
       "id": "ai_service_app_services_parse_service_py_str",
-      "community": 1,
+      "community": 5,
       "norm_label": "str"
     },
     {
@@ -2196,7 +2196,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L68",
       "id": "services_parse_service_build_heuristic_candidate",
-      "community": 1,
+      "community": 5,
       "norm_label": "build_heuristic_candidate()"
     },
     {
@@ -2205,7 +2205,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L142",
       "id": "services_parse_service_get_ai_fallback_reasons",
-      "community": 1,
+      "community": 5,
       "norm_label": "get_ai_fallback_reasons()"
     },
     {
@@ -2214,7 +2214,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L159",
       "id": "services_parse_service_get_education_level",
-      "community": 1,
+      "community": 5,
       "norm_label": "get_education_level()"
     },
     {
@@ -2223,7 +2223,7 @@
       "source_file": "ai-service/app/services/parse_service.py",
       "source_location": "L175",
       "id": "services_parse_service_cleanup_empty_values",
-      "community": 1,
+      "community": 5,
       "norm_label": "cleanup_empty_values()"
     },
     {
@@ -2547,7 +2547,7 @@
       "source_file": "ai-service/app/utils/section_splitter.py",
       "source_location": "L1",
       "id": "ai_service_app_utils_section_splitter_py",
-      "community": 1,
+      "community": 5,
       "norm_label": "section_splitter.py"
     },
     {
@@ -2556,7 +2556,7 @@
       "source_file": "ai-service/app/utils/section_splitter.py",
       "source_location": "L9",
       "id": "utils_section_splitter_split_into_sections",
-      "community": 1,
+      "community": 5,
       "norm_label": "split_into_sections()"
     },
     {
@@ -2565,7 +2565,7 @@
       "source_file": "ai-service/app/utils/section_splitter.py",
       "source_location": "L9",
       "id": "ai_service_app_utils_section_splitter_py_str",
-      "community": 1,
+      "community": 5,
       "norm_label": "str"
     },
     {
@@ -2695,10 +2695,19 @@
       "norm_label": "axios"
     },
     {
-      "label": "dotenv",
+      "label": "bcryptjs",
       "file_type": "code",
       "source_file": "backend/package.json",
       "source_location": "L12",
+      "id": "backend_package_dependencies_bcryptjs",
+      "community": 7,
+      "norm_label": "bcryptjs"
+    },
+    {
+      "label": "dotenv",
+      "file_type": "code",
+      "source_file": "backend/package.json",
+      "source_location": "L13",
       "id": "backend_package_dependencies_dotenv",
       "community": 7,
       "norm_label": "dotenv"
@@ -2707,7 +2716,7 @@
       "label": "express",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "id": "backend_package_dependencies_express",
       "community": 7,
       "norm_label": "express"
@@ -2716,16 +2725,25 @@
       "label": "form-data",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "id": "backend_package_dependencies_form_data",
       "community": 7,
       "norm_label": "form-data"
     },
     {
+      "label": "jsonwebtoken",
+      "file_type": "code",
+      "source_file": "backend/package.json",
+      "source_location": "L16",
+      "id": "backend_package_dependencies_jsonwebtoken",
+      "community": 7,
+      "norm_label": "jsonwebtoken"
+    },
+    {
       "label": "mongoose",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L15",
+      "source_location": "L17",
       "id": "backend_package_dependencies_mongoose",
       "community": 7,
       "norm_label": "mongoose"
@@ -2734,16 +2752,34 @@
       "label": "multer",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L16",
+      "source_location": "L18",
       "id": "backend_package_dependencies_multer",
       "community": 7,
       "norm_label": "multer"
     },
     {
+      "label": "swagger-jsdoc",
+      "file_type": "code",
+      "source_file": "backend/package.json",
+      "source_location": "L19",
+      "id": "backend_package_dependencies_swagger_jsdoc",
+      "community": 7,
+      "norm_label": "swagger-jsdoc"
+    },
+    {
+      "label": "swagger-ui-express",
+      "file_type": "code",
+      "source_file": "backend/package.json",
+      "source_location": "L20",
+      "id": "backend_package_dependencies_swagger_ui_express",
+      "community": 7,
+      "norm_label": "swagger-ui-express"
+    },
+    {
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L18",
+      "source_location": "L22",
       "id": "backend_package_devdependencies",
       "community": 7,
       "norm_label": "devdependencies"
@@ -2752,7 +2788,7 @@
       "label": "nodemon",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L19",
+      "source_location": "L23",
       "id": "backend_package_devdependencies_nodemon",
       "community": 7,
       "norm_label": "nodemon"
@@ -2776,130 +2812,130 @@
       "norm_label": "salesonapril4th"
     },
     {
-      "label": "server.js",
+      "label": "verify_backend.js",
       "file_type": "code",
-      "source_file": "backend/server.js",
+      "source_file": "backend/verify_backend.js",
       "source_location": "L1",
-      "id": "backend_server_js",
-      "community": 43,
-      "norm_label": "server.js"
+      "id": "backend_verify_backend_js",
+      "community": 2,
+      "norm_label": "verify_backend.js"
     },
     {
-      "label": "env",
+      "label": "axios",
       "file_type": "code",
-      "source_file": "backend/server.js",
+      "source_file": "backend/verify_backend.js",
+      "source_location": "L1",
+      "id": "backend_verify_backend_axios",
+      "community": 2,
+      "norm_label": "axios"
+    },
+    {
+      "label": "FormData",
+      "file_type": "code",
+      "source_file": "backend/verify_backend.js",
       "source_location": "L2",
-      "id": "backend_server_env",
-      "community": 43,
-      "norm_label": "env"
+      "id": "backend_verify_backend_formdata",
+      "community": 2,
+      "norm_label": "formdata"
     },
     {
-      "label": "connectDB",
+      "label": "runTests()",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L3",
-      "id": "backend_server_connectdb",
+      "source_file": "backend/verify_backend.js",
+      "source_location": "L6",
+      "id": "backend_verify_backend_runtests",
+      "community": 2,
+      "norm_label": "runtests()"
+    },
+    {
+      "label": "index.js",
+      "file_type": "code",
+      "source_file": "backend/src/index.js",
+      "source_location": "L1",
+      "id": "backend_src_index_js",
       "community": 43,
-      "norm_label": "connectdb"
+      "norm_label": "index.js"
+    },
+    {
+      "label": "config",
+      "file_type": "code",
+      "source_file": "backend/src/index.js",
+      "source_location": "L1",
+      "id": "src_index_config",
+      "community": 43,
+      "norm_label": "config"
     },
     {
       "label": "express",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L4",
-      "id": "backend_server_express",
+      "source_file": "backend/src/index.js",
+      "source_location": "L3",
+      "id": "src_index_express",
       "community": 43,
       "norm_label": "express"
     },
     {
-      "label": "authRoutes",
+      "label": "mongoose",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L5",
-      "id": "backend_server_authroutes",
+      "source_file": "backend/src/index.js",
+      "source_location": "L4",
+      "id": "src_index_mongoose",
       "community": 43,
-      "norm_label": "authroutes"
+      "norm_label": "mongoose"
     },
     {
       "label": "resumeRoutes",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L6",
-      "id": "backend_server_resumeroutes",
+      "source_file": "backend/src/index.js",
+      "source_location": "L7",
+      "id": "src_index_resumeroutes",
       "community": 43,
       "norm_label": "resumeroutes"
     },
     {
       "label": "candidateRoutes",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L7",
-      "id": "backend_server_candidateroutes",
+      "source_file": "backend/src/index.js",
+      "source_location": "L8",
+      "id": "src_index_candidateroutes",
       "community": 43,
       "norm_label": "candidateroutes"
     },
     {
       "label": "jobRoutes",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L8",
-      "id": "backend_server_jobroutes",
+      "source_file": "backend/src/index.js",
+      "source_location": "L9",
+      "id": "src_index_jobroutes",
       "community": 43,
       "norm_label": "jobroutes"
     },
     {
+      "label": "authRoutes",
+      "file_type": "code",
+      "source_file": "backend/src/index.js",
+      "source_location": "L10",
+      "id": "src_index_authroutes",
+      "community": 43,
+      "norm_label": "authroutes"
+    },
+    {
       "label": "errorHandler",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L9",
-      "id": "backend_server_errorhandler",
+      "source_file": "backend/src/index.js",
+      "source_location": "L11",
+      "id": "src_index_errorhandler",
       "community": 43,
       "norm_label": "errorhandler"
     },
     {
       "label": "app",
       "file_type": "code",
-      "source_file": "backend/server.js",
-      "source_location": "L11",
-      "id": "backend_server_app",
+      "source_file": "backend/src/index.js",
+      "source_location": "L13",
+      "id": "src_index_app",
       "community": 43,
       "norm_label": "app"
-    },
-    {
-      "label": "db.js",
-      "file_type": "code",
-      "source_file": "backend/src/config/db.js",
-      "source_location": "L1",
-      "id": "backend_src_config_db_js",
-      "community": 45,
-      "norm_label": "db.js"
-    },
-    {
-      "label": "mongoose",
-      "file_type": "code",
-      "source_file": "backend/src/config/db.js",
-      "source_location": "L1",
-      "id": "config_db_mongoose",
-      "community": 45,
-      "norm_label": "mongoose"
-    },
-    {
-      "label": "env",
-      "file_type": "code",
-      "source_file": "backend/src/config/db.js",
-      "source_location": "L2",
-      "id": "config_db_env",
-      "community": 45,
-      "norm_label": "env"
-    },
-    {
-      "label": "connectDB()",
-      "file_type": "code",
-      "source_file": "backend/src/config/db.js",
-      "source_location": "L4",
-      "id": "config_db_connectdb",
-      "community": 45,
-      "norm_label": "connectdb()"
     },
     {
       "label": "env.js",
@@ -2907,35 +2943,53 @@
       "source_file": "backend/src/config/env.js",
       "source_location": "L1",
       "id": "backend_src_config_env_js",
-      "community": 45,
+      "community": 43,
       "norm_label": "env.js"
     },
     {
-      "label": "{ z }",
+      "label": "path",
       "file_type": "code",
       "source_file": "backend/src/config/env.js",
       "source_location": "L1",
-      "id": "config_env_z",
-      "community": 45,
-      "norm_label": "{ z }"
+      "id": "config_env_path",
+      "community": 43,
+      "norm_label": "path"
     },
     {
-      "label": "envSchema",
+      "label": "dotenv",
       "file_type": "code",
       "source_file": "backend/src/config/env.js",
-      "source_location": "L3",
-      "id": "config_env_envschema",
-      "community": 45,
-      "norm_label": "envschema"
+      "source_location": "L2",
+      "id": "config_env_dotenv",
+      "community": 43,
+      "norm_label": "dotenv"
     },
     {
-      "label": "parsed",
+      "label": "envLocalPath",
       "file_type": "code",
       "source_file": "backend/src/config/env.js",
-      "source_location": "L13",
-      "id": "config_env_parsed",
-      "community": 45,
-      "norm_label": "parsed"
+      "source_location": "L4",
+      "id": "config_env_envlocalpath",
+      "community": 43,
+      "norm_label": "envlocalpath"
+    },
+    {
+      "label": "readInteger()",
+      "file_type": "code",
+      "source_file": "backend/src/config/env.js",
+      "source_location": "L8",
+      "id": "config_env_readinteger",
+      "community": 43,
+      "norm_label": "readinteger()"
+    },
+    {
+      "label": "config",
+      "file_type": "code",
+      "source_file": "backend/src/config/env.js",
+      "source_location": "L18",
+      "id": "config_env_config",
+      "community": 43,
+      "norm_label": "config"
     },
     {
       "label": "auth.controller.js",
@@ -2943,7 +2997,7 @@
       "source_file": "backend/src/controllers/auth.controller.js",
       "source_location": "L1",
       "id": "backend_src_controllers_auth_controller_js",
-      "community": 2,
+      "community": 43,
       "norm_label": "auth.controller.js"
     },
     {
@@ -2952,7 +3006,7 @@
       "source_file": "backend/src/controllers/auth.controller.js",
       "source_location": "L1",
       "id": "controllers_auth_controller_jwt",
-      "community": 2,
+      "community": 43,
       "norm_label": "jwt"
     },
     {
@@ -2961,466 +3015,448 @@
       "source_file": "backend/src/controllers/auth.controller.js",
       "source_location": "L2",
       "id": "controllers_auth_controller_user",
-      "community": 2,
+      "community": 43,
       "norm_label": "user"
     },
     {
-      "label": "env",
+      "label": "config",
       "file_type": "code",
       "source_file": "backend/src/controllers/auth.controller.js",
       "source_location": "L3",
-      "id": "controllers_auth_controller_env",
-      "community": 2,
-      "norm_label": "env"
+      "id": "controllers_auth_controller_config",
+      "community": 43,
+      "norm_label": "config"
     },
     {
-      "label": "ApiError",
+      "label": "signToken()",
       "file_type": "code",
       "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L4",
-      "id": "controllers_auth_controller_apierror",
-      "community": 2,
-      "norm_label": "apierror"
+      "source_location": "L10",
+      "id": "controllers_auth_controller_signtoken",
+      "community": 43,
+      "norm_label": "signtoken()"
     },
     {
-      "label": "asyncHandler",
+      "label": "register()",
       "file_type": "code",
       "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L5",
-      "id": "controllers_auth_controller_asynchandler",
-      "community": 2,
-      "norm_label": "asynchandler"
-    },
-    {
-      "label": "register",
-      "file_type": "code",
-      "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L7",
+      "source_location": "L22",
       "id": "controllers_auth_controller_register",
-      "community": 2,
-      "norm_label": "register"
+      "community": 43,
+      "norm_label": "register()"
     },
     {
-      "label": "login",
+      "label": "login()",
       "file_type": "code",
       "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L32",
+      "source_location": "L75",
       "id": "controllers_auth_controller_login",
-      "community": 2,
-      "norm_label": "login"
+      "community": 43,
+      "norm_label": "login()"
     },
     {
-      "label": "candidateController.js",
+      "label": "logout()",
       "file_type": "code",
-      "source_file": "backend/src/controllers/candidateController.js",
+      "source_file": "backend/src/controllers/auth.controller.js",
+      "source_location": "L131",
+      "id": "controllers_auth_controller_logout",
+      "community": 43,
+      "norm_label": "logout()"
+    },
+    {
+      "label": "candidate.controller.js",
+      "file_type": "code",
+      "source_file": "backend/src/controllers/candidate.controller.js",
       "source_location": "L1",
-      "id": "backend_src_controllers_candidatecontroller_js",
-      "community": 6,
-      "norm_label": "candidatecontroller.js"
+      "id": "backend_src_controllers_candidate_controller_js",
+      "community": 28,
+      "norm_label": "candidate.controller.js"
     },
     {
       "label": "CandidateProfile",
       "file_type": "code",
-      "source_file": "backend/src/controllers/candidateController.js",
+      "source_file": "backend/src/controllers/candidate.controller.js",
       "source_location": "L1",
-      "id": "controllers_candidatecontroller_candidateprofile",
-      "community": 6,
+      "id": "controllers_candidate_controller_candidateprofile",
+      "community": 28,
       "norm_label": "candidateprofile"
     },
     {
       "label": "getProfile()",
       "file_type": "code",
-      "source_file": "backend/src/controllers/candidateController.js",
-      "source_location": "L7",
-      "id": "controllers_candidatecontroller_getprofile",
-      "community": 6,
+      "source_file": "backend/src/controllers/candidate.controller.js",
+      "source_location": "L3",
+      "id": "controllers_candidate_controller_getprofile",
+      "community": 28,
       "norm_label": "getprofile()"
     },
     {
-      "label": "jobController.js",
+      "label": "job.controller.js",
       "file_type": "code",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L1",
-      "id": "backend_src_controllers_jobcontroller_js",
+      "id": "backend_src_controllers_job_controller_js",
       "community": 13,
-      "norm_label": "jobcontroller.js"
+      "norm_label": "job.controller.js"
     },
     {
       "label": "JobRequirement",
       "file_type": "code",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L1",
-      "id": "controllers_jobcontroller_jobrequirement",
+      "id": "controllers_job_controller_jobrequirement",
       "community": 13,
       "norm_label": "jobrequirement"
     },
     {
       "label": "MatchResult",
       "file_type": "code",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L2",
-      "id": "controllers_jobcontroller_matchresult",
+      "id": "controllers_job_controller_matchresult",
       "community": 13,
       "norm_label": "matchresult"
     },
     {
       "label": "{ runMatch }",
       "file_type": "code",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L3",
-      "id": "controllers_jobcontroller_runmatch",
+      "id": "controllers_job_controller_runmatch",
       "community": 13,
       "norm_label": "{ runmatch }"
     },
     {
       "label": "createJob()",
       "file_type": "code",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L9",
-      "id": "controllers_jobcontroller_createjob",
+      "id": "controllers_job_controller_createjob",
       "community": 13,
       "norm_label": "createjob()"
     },
     {
       "label": "runJobMatch()",
       "file_type": "code",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L33",
-      "id": "controllers_jobcontroller_runjobmatch",
+      "id": "controllers_job_controller_runjobmatch",
       "community": 13,
       "norm_label": "runjobmatch()"
     },
     {
       "label": "getJobMatches()",
       "file_type": "code",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L52",
-      "id": "controllers_jobcontroller_getjobmatches",
+      "id": "controllers_job_controller_getjobmatches",
       "community": 13,
       "norm_label": "getjobmatches()"
     },
     {
-      "label": "resumeController.js",
+      "label": "resume.controller.js",
       "file_type": "code",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L1",
-      "id": "backend_src_controllers_resumecontroller_js",
-      "community": 12,
-      "norm_label": "resumecontroller.js"
+      "id": "backend_src_controllers_resume_controller_js",
+      "community": 19,
+      "norm_label": "resume.controller.js"
+    },
+    {
+      "label": "Resume",
+      "file_type": "code",
+      "source_file": "backend/src/controllers/resume.controller.js",
+      "source_location": "L1",
+      "id": "controllers_resume_controller_resume",
+      "community": 19,
+      "norm_label": "resume"
     },
     {
       "label": "CandidateProfile",
       "file_type": "code",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L2",
-      "id": "controllers_resumecontroller_candidateprofile",
-      "community": 12,
+      "id": "controllers_resume_controller_candidateprofile",
+      "community": 19,
       "norm_label": "candidateprofile"
     },
     {
       "label": "aiClient",
       "file_type": "code",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L3",
-      "id": "controllers_resumecontroller_aiclient",
-      "community": 12,
+      "id": "controllers_resume_controller_aiclient",
+      "community": 19,
       "norm_label": "aiclient"
     },
     {
       "label": "{ parsedCandidateToBackend }",
       "file_type": "code",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L4",
-      "id": "controllers_resumecontroller_parsedcandidatetobackend",
-      "community": 12,
+      "id": "controllers_resume_controller_parsedcandidatetobackend",
+      "community": 19,
       "norm_label": "{ parsedcandidatetobackend }"
     },
     {
       "label": "uploadResume()",
       "file_type": "code",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L10",
-      "id": "controllers_resumecontroller_uploadresume",
-      "community": 12,
+      "id": "controllers_resume_controller_uploadresume",
+      "community": 19,
       "norm_label": "uploadresume()"
     },
     {
       "label": "getResume()",
       "file_type": "code",
-      "source_file": "backend/src/controllers/resumeController.js",
-      "source_location": "L70",
-      "id": "controllers_resumecontroller_getresume",
-      "community": 12,
+      "source_file": "backend/src/controllers/resume.controller.js",
+      "source_location": "L73",
+      "id": "controllers_resume_controller_getresume",
+      "community": 19,
       "norm_label": "getresume()"
     },
     {
-      "label": "aiPayloadMapper.js",
+      "label": "ai.payload.mapper.js",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L1",
-      "id": "backend_src_mappers_aipayloadmapper_js",
-      "community": 18,
-      "norm_label": "aipayloadmapper.js"
+      "id": "backend_src_mappers_ai_payload_mapper_js",
+      "community": 16,
+      "norm_label": "ai.payload.mapper.js"
     },
     {
       "label": "BACKEND_TO_AI_EDUCATION",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L11",
-      "id": "mappers_aipayloadmapper_backend_to_ai_education",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_backend_to_ai_education",
+      "community": 16,
       "norm_label": "backend_to_ai_education"
     },
     {
       "label": "AI_TO_BACKEND_EDUCATION",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L20",
-      "id": "mappers_aipayloadmapper_ai_to_backend_education",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_ai_to_backend_education",
+      "community": 16,
       "norm_label": "ai_to_backend_education"
     },
     {
       "label": "backendEducationToAi()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L31",
-      "id": "mappers_aipayloadmapper_backendeducationtoai",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_backendeducationtoai",
+      "community": 16,
       "norm_label": "backendeducationtoai()"
     },
     {
       "label": "aiEducationToBackend()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L36",
-      "id": "mappers_aipayloadmapper_aieducationtobackend",
-      "community": 12,
+      "id": "mappers_ai_payload_mapper_aieducationtobackend",
+      "community": 19,
       "norm_label": "aieducationtobackend()"
     },
     {
       "label": "normalizeSkills()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L43",
-      "id": "mappers_aipayloadmapper_normalizeskills",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_normalizeskills",
+      "community": 16,
       "norm_label": "normalizeskills()"
     },
     {
       "label": "jobToAiInput()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L53",
-      "id": "mappers_aipayloadmapper_jobtoaiinput",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_jobtoaiinput",
+      "community": 16,
       "norm_label": "jobtoaiinput()"
     },
     {
       "label": "candidateToAiInput()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L72",
-      "id": "mappers_aipayloadmapper_candidatetoaiinput",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_candidatetoaiinput",
+      "community": 16,
       "norm_label": "candidatetoaiinput()"
     },
     {
       "label": "yearToDate()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L96",
-      "id": "mappers_aipayloadmapper_yeartodate",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_yeartodate",
+      "community": 16,
       "norm_label": "yeartodate()"
     },
     {
       "label": "parsedCandidateToBackend()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L108",
-      "id": "mappers_aipayloadmapper_parsedcandidatetobackend",
-      "community": 12,
+      "id": "mappers_ai_payload_mapper_parsedcandidatetobackend",
+      "community": 19,
       "norm_label": "parsedcandidatetobackend()"
     },
     {
       "label": "aiRankedCandidateToMatchResult()",
       "file_type": "code",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
       "source_location": "L158",
-      "id": "mappers_aipayloadmapper_airankedcandidatetomatchresult",
-      "community": 18,
+      "id": "mappers_ai_payload_mapper_airankedcandidatetomatchresult",
+      "community": 16,
       "norm_label": "airankedcandidatetomatchresult()"
     },
     {
-      "label": "authenticate.js",
+      "label": "auth.middleware.js",
       "file_type": "code",
-      "source_file": "backend/src/middleware/authenticate.js",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
       "source_location": "L1",
-      "id": "backend_src_middleware_authenticate_js",
-      "community": 46,
-      "norm_label": "authenticate.js"
+      "id": "backend_src_middlewares_auth_middleware_js",
+      "community": 28,
+      "norm_label": "auth.middleware.js"
     },
     {
       "label": "jwt",
       "file_type": "code",
-      "source_file": "backend/src/middleware/authenticate.js",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
       "source_location": "L1",
-      "id": "middleware_authenticate_jwt",
-      "community": 46,
+      "id": "middlewares_auth_middleware_jwt",
+      "community": 28,
       "norm_label": "jwt"
     },
     {
-      "label": "env",
+      "label": "User",
       "file_type": "code",
-      "source_file": "backend/src/middleware/authenticate.js",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
       "source_location": "L2",
-      "id": "middleware_authenticate_env",
-      "community": 46,
-      "norm_label": "env"
+      "id": "middlewares_auth_middleware_user",
+      "community": 28,
+      "norm_label": "user"
     },
     {
-      "label": "ApiError",
+      "label": "config",
       "file_type": "code",
-      "source_file": "backend/src/middleware/authenticate.js",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
       "source_location": "L3",
-      "id": "middleware_authenticate_apierror",
-      "community": 46,
-      "norm_label": "apierror"
+      "id": "middlewares_auth_middleware_config",
+      "community": 28,
+      "norm_label": "config"
     },
     {
-      "label": "asyncHandler",
+      "label": "authenticate()",
       "file_type": "code",
-      "source_file": "backend/src/middleware/authenticate.js",
-      "source_location": "L4",
-      "id": "middleware_authenticate_asynchandler",
-      "community": 46,
-      "norm_label": "asynchandler"
-    },
-    {
-      "label": "authenticate",
-      "file_type": "code",
-      "source_file": "backend/src/middleware/authenticate.js",
-      "source_location": "L6",
-      "id": "middleware_authenticate_authenticate",
-      "community": 46,
-      "norm_label": "authenticate"
-    },
-    {
-      "label": "authorise.js",
-      "file_type": "code",
-      "source_file": "backend/src/middleware/authorise.js",
-      "source_location": "L1",
-      "id": "backend_src_middleware_authorise_js",
-      "community": 44,
-      "norm_label": "authorise.js"
-    },
-    {
-      "label": "ApiError",
-      "file_type": "code",
-      "source_file": "backend/src/middleware/authorise.js",
-      "source_location": "L1",
-      "id": "middleware_authorise_apierror",
-      "community": 44,
-      "norm_label": "apierror"
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L8",
+      "id": "middlewares_auth_middleware_authenticate",
+      "community": 28,
+      "norm_label": "authenticate()"
     },
     {
       "label": "authorise()",
       "file_type": "code",
-      "source_file": "backend/src/middleware/authorise.js",
-      "source_location": "L3",
-      "id": "middleware_authorise_authorise",
-      "community": 44,
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L48",
+      "id": "middlewares_auth_middleware_authorise",
+      "community": 28,
       "norm_label": "authorise()"
     },
     {
-      "label": "errorHandler.js",
+      "label": "error.middleware.js",
       "file_type": "code",
-      "source_file": "backend/src/middleware/errorHandler.js",
+      "source_file": "backend/src/middlewares/error.middleware.js",
       "source_location": "L1",
-      "id": "backend_src_middleware_errorhandler_js",
-      "community": 44,
-      "norm_label": "errorhandler.js"
+      "id": "backend_src_middlewares_error_middleware_js",
+      "community": 43,
+      "norm_label": "error.middleware.js"
     },
     {
-      "label": "ApiError",
+      "label": "config",
       "file_type": "code",
-      "source_file": "backend/src/middleware/errorHandler.js",
+      "source_file": "backend/src/middlewares/error.middleware.js",
       "source_location": "L1",
-      "id": "middleware_errorhandler_apierror",
-      "community": 44,
-      "norm_label": "apierror"
+      "id": "middlewares_error_middleware_config",
+      "community": 43,
+      "norm_label": "config"
     },
     {
-      "label": "errorHandler()",
+      "label": "formatBytes()",
       "file_type": "code",
-      "source_file": "backend/src/middleware/errorHandler.js",
+      "source_file": "backend/src/middlewares/error.middleware.js",
       "source_location": "L3",
-      "id": "middleware_errorhandler_errorhandler",
-      "community": 44,
-      "norm_label": "errorhandler()"
-    },
-    {
-      "label": "errorHandler.js",
-      "file_type": "code",
-      "source_file": "backend/src/middlewares/errorHandler.js",
-      "source_location": "L1",
-      "id": "backend_src_middlewares_errorhandler_js",
+      "id": "middlewares_error_middleware_formatbytes",
       "community": 43,
-      "norm_label": "errorhandler.js"
+      "norm_label": "formatbytes()"
     },
     {
       "label": "errorHandler()",
       "file_type": "code",
-      "source_file": "backend/src/middlewares/errorHandler.js",
-      "source_location": "L7",
-      "id": "middlewares_errorhandler_errorhandler",
+      "source_file": "backend/src/middlewares/error.middleware.js",
+      "source_location": "L14",
+      "id": "middlewares_error_middleware_errorhandler",
       "community": 43,
       "norm_label": "errorhandler()"
     },
     {
-      "label": "upload.js",
+      "label": "upload.middleware.js",
       "file_type": "code",
-      "source_file": "backend/src/middlewares/upload.js",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
       "source_location": "L1",
-      "id": "backend_src_middlewares_upload_js",
-      "community": 23,
-      "norm_label": "upload.js"
+      "id": "backend_src_middlewares_upload_middleware_js",
+      "community": 43,
+      "norm_label": "upload.middleware.js"
     },
     {
       "label": "multer",
       "file_type": "code",
-      "source_file": "backend/src/middlewares/upload.js",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
       "source_location": "L1",
-      "id": "middlewares_upload_multer",
-      "community": 23,
+      "id": "middlewares_upload_middleware_multer",
+      "community": 43,
       "norm_label": "multer"
+    },
+    {
+      "label": "config",
+      "file_type": "code",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L2",
+      "id": "middlewares_upload_middleware_config",
+      "community": 43,
+      "norm_label": "config"
     },
     {
       "label": "ALLOWED_MIME_TYPES",
       "file_type": "code",
-      "source_file": "backend/src/middlewares/upload.js",
-      "source_location": "L3",
-      "id": "middlewares_upload_allowed_mime_types",
-      "community": 23,
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L4",
+      "id": "middlewares_upload_middleware_allowed_mime_types",
+      "community": 43,
       "norm_label": "allowed_mime_types"
     },
     {
       "label": "storage",
       "file_type": "code",
-      "source_file": "backend/src/middlewares/upload.js",
-      "source_location": "L10",
-      "id": "middlewares_upload_storage",
-      "community": 23,
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L9",
+      "id": "middlewares_upload_middleware_storage",
+      "community": 43,
       "norm_label": "storage"
     },
     {
       "label": "upload",
       "file_type": "code",
-      "source_file": "backend/src/middlewares/upload.js",
-      "source_location": "L12",
-      "id": "middlewares_upload_upload",
-      "community": 23,
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L11",
+      "id": "middlewares_upload_middleware_upload",
+      "community": 43,
       "norm_label": "upload"
     },
     {
@@ -3429,7 +3465,7 @@
       "source_file": "backend/src/models/Application.js",
       "source_location": "L1",
       "id": "backend_src_models_application_js",
-      "community": 26,
+      "community": 12,
       "norm_label": "application.js"
     },
     {
@@ -3438,7 +3474,7 @@
       "source_file": "backend/src/models/Application.js",
       "source_location": "L1",
       "id": "models_application_mongoose",
-      "community": 26,
+      "community": 12,
       "norm_label": "mongoose"
     },
     {
@@ -3447,7 +3483,7 @@
       "source_file": "backend/src/models/Application.js",
       "source_location": "L3",
       "id": "models_application_applicationschema",
-      "community": 26,
+      "community": 12,
       "norm_label": "applicationschema"
     },
     {
@@ -3456,7 +3492,7 @@
       "source_file": "backend/src/models/CandidateProfile.js",
       "source_location": "L1",
       "id": "backend_src_models_candidateprofile_js",
-      "community": 47,
+      "community": 25,
       "norm_label": "candidateprofile.js"
     },
     {
@@ -3465,7 +3501,7 @@
       "source_file": "backend/src/models/CandidateProfile.js",
       "source_location": "L1",
       "id": "models_candidateprofile_mongoose",
-      "community": 47,
+      "community": 25,
       "norm_label": "mongoose"
     },
     {
@@ -3474,7 +3510,7 @@
       "source_file": "backend/src/models/CandidateProfile.js",
       "source_location": "L3",
       "id": "models_candidateprofile_educationentryschema",
-      "community": 47,
+      "community": 25,
       "norm_label": "educationentryschema"
     },
     {
@@ -3483,25 +3519,25 @@
       "source_file": "backend/src/models/CandidateProfile.js",
       "source_location": "L14",
       "id": "models_candidateprofile_experienceentryschema",
-      "community": 47,
+      "community": 25,
       "norm_label": "experienceentryschema"
     },
     {
       "label": "projectSchema",
       "file_type": "code",
       "source_file": "backend/src/models/CandidateProfile.js",
-      "source_location": "L25",
+      "source_location": "L24",
       "id": "models_candidateprofile_projectschema",
-      "community": 47,
+      "community": 25,
       "norm_label": "projectschema"
     },
     {
       "label": "candidateProfileSchema",
       "file_type": "code",
       "source_file": "backend/src/models/CandidateProfile.js",
-      "source_location": "L34",
+      "source_location": "L32",
       "id": "models_candidateprofile_candidateprofileschema",
-      "community": 47,
+      "community": 25,
       "norm_label": "candidateprofileschema"
     },
     {
@@ -3510,7 +3546,7 @@
       "source_file": "backend/src/models/JobRequirement.js",
       "source_location": "L1",
       "id": "backend_src_models_jobrequirement_js",
-      "community": 25,
+      "community": 13,
       "norm_label": "jobrequirement.js"
     },
     {
@@ -3519,7 +3555,7 @@
       "source_file": "backend/src/models/JobRequirement.js",
       "source_location": "L1",
       "id": "models_jobrequirement_mongoose",
-      "community": 25,
+      "community": 13,
       "norm_label": "mongoose"
     },
     {
@@ -3528,7 +3564,7 @@
       "source_file": "backend/src/models/JobRequirement.js",
       "source_location": "L3",
       "id": "models_jobrequirement_jobrequirementschema",
-      "community": 25,
+      "community": 13,
       "norm_label": "jobrequirementschema"
     },
     {
@@ -3537,7 +3573,7 @@
       "source_file": "backend/src/models/MatchResult.js",
       "source_location": "L1",
       "id": "backend_src_models_matchresult_js",
-      "community": 16,
+      "community": 18,
       "norm_label": "matchresult.js"
     },
     {
@@ -3546,16 +3582,25 @@
       "source_file": "backend/src/models/MatchResult.js",
       "source_location": "L1",
       "id": "models_matchresult_mongoose",
-      "community": 16,
+      "community": 18,
       "norm_label": "mongoose"
+    },
+    {
+      "label": "scoreBreakdownSchema",
+      "file_type": "code",
+      "source_file": "backend/src/models/MatchResult.js",
+      "source_location": "L3",
+      "id": "models_matchresult_scorebreakdownschema",
+      "community": 18,
+      "norm_label": "scorebreakdownschema"
     },
     {
       "label": "matchResultSchema",
       "file_type": "code",
       "source_file": "backend/src/models/MatchResult.js",
-      "source_location": "L3",
+      "source_location": "L13",
       "id": "models_matchresult_matchresultschema",
-      "community": 16,
+      "community": 18,
       "norm_label": "matchresultschema"
     },
     {
@@ -3564,7 +3609,7 @@
       "source_file": "backend/src/models/RecruiterProfile.js",
       "source_location": "L1",
       "id": "backend_src_models_recruiterprofile_js",
-      "community": 27,
+      "community": 23,
       "norm_label": "recruiterprofile.js"
     },
     {
@@ -3573,7 +3618,7 @@
       "source_file": "backend/src/models/RecruiterProfile.js",
       "source_location": "L1",
       "id": "models_recruiterprofile_mongoose",
-      "community": 27,
+      "community": 23,
       "norm_label": "mongoose"
     },
     {
@@ -3582,7 +3627,7 @@
       "source_file": "backend/src/models/RecruiterProfile.js",
       "source_location": "L3",
       "id": "models_recruiterprofile_recruiterprofileschema",
-      "community": 27,
+      "community": 23,
       "norm_label": "recruiterprofileschema"
     },
     {
@@ -3591,8 +3636,17 @@
       "source_file": "backend/src/models/Resume.js",
       "source_location": "L1",
       "id": "backend_src_models_resume_js",
-      "community": 16,
+      "community": 18,
       "norm_label": "resume.js"
+    },
+    {
+      "label": "mongoose",
+      "file_type": "code",
+      "source_file": "backend/src/models/Resume.js",
+      "source_location": "L1",
+      "id": "models_resume_mongoose",
+      "community": 18,
+      "norm_label": "mongoose"
     },
     {
       "label": "resumeSchema",
@@ -3600,35 +3654,8 @@
       "source_file": "backend/src/models/Resume.js",
       "source_location": "L3",
       "id": "models_resume_resumeschema",
-      "community": 16,
+      "community": 18,
       "norm_label": "resumeschema"
-    },
-    {
-      "label": "Skill.js",
-      "file_type": "code",
-      "source_file": "backend/src/models/Skill.js",
-      "source_location": "L1",
-      "id": "backend_src_models_skill_js",
-      "community": 28,
-      "norm_label": "skill.js"
-    },
-    {
-      "label": "mongoose",
-      "file_type": "code",
-      "source_file": "backend/src/models/Skill.js",
-      "source_location": "L1",
-      "id": "models_skill_mongoose",
-      "community": 28,
-      "norm_label": "mongoose"
-    },
-    {
-      "label": "skillSchema",
-      "file_type": "code",
-      "source_file": "backend/src/models/Skill.js",
-      "source_location": "L3",
-      "id": "models_skill_skillschema",
-      "community": 28,
-      "norm_label": "skillschema"
     },
     {
       "label": "User.js",
@@ -3636,7 +3663,7 @@
       "source_file": "backend/src/models/User.js",
       "source_location": "L1",
       "id": "backend_src_models_user_js",
-      "community": 48,
+      "community": 43,
       "norm_label": "user.js"
     },
     {
@@ -3645,7 +3672,7 @@
       "source_file": "backend/src/models/User.js",
       "source_location": "L1",
       "id": "models_user_mongoose",
-      "community": 48,
+      "community": 43,
       "norm_label": "mongoose"
     },
     {
@@ -3654,7 +3681,7 @@
       "source_file": "backend/src/models/User.js",
       "source_location": "L2",
       "id": "models_user_bcrypt",
-      "community": 48,
+      "community": 43,
       "norm_label": "bcrypt"
     },
     {
@@ -3663,7 +3690,7 @@
       "source_file": "backend/src/models/User.js",
       "source_location": "L4",
       "id": "models_user_userschema",
-      "community": 48,
+      "community": 43,
       "norm_label": "userschema"
     },
     {
@@ -3672,314 +3699,323 @@
       "source_file": "backend/src/routes/auth.routes.js",
       "source_location": "L1",
       "id": "backend_src_routes_auth_routes_js",
-      "community": 2,
+      "community": 43,
       "norm_label": "auth.routes.js"
-    },
-    {
-      "label": "{ Router }",
-      "file_type": "code",
-      "source_file": "backend/src/routes/auth.routes.js",
-      "source_location": "L1",
-      "id": "routes_auth_routes_router",
-      "community": 2,
-      "norm_label": "{ router }"
-    },
-    {
-      "label": "{ register, login }",
-      "file_type": "code",
-      "source_file": "backend/src/routes/auth.routes.js",
-      "source_location": "L2",
-      "id": "routes_auth_routes_register_login",
-      "community": 2,
-      "norm_label": "{ register, login }"
-    },
-    {
-      "label": "candidateRoutes.js",
-      "file_type": "code",
-      "source_file": "backend/src/routes/candidateRoutes.js",
-      "source_location": "L1",
-      "id": "backend_src_routes_candidateroutes_js",
-      "community": 6,
-      "norm_label": "candidateroutes.js"
     },
     {
       "label": "express",
       "file_type": "code",
-      "source_file": "backend/src/routes/candidateRoutes.js",
+      "source_file": "backend/src/routes/auth.routes.js",
       "source_location": "L1",
-      "id": "routes_candidateroutes_express",
-      "community": 6,
+      "id": "routes_auth_routes_express",
+      "community": 43,
+      "norm_label": "express"
+    },
+    {
+      "label": "authController",
+      "file_type": "code",
+      "source_file": "backend/src/routes/auth.routes.js",
+      "source_location": "L2",
+      "id": "routes_auth_routes_authcontroller",
+      "community": 43,
+      "norm_label": "authcontroller"
+    },
+    {
+      "label": "router",
+      "file_type": "code",
+      "source_file": "backend/src/routes/auth.routes.js",
+      "source_location": "L4",
+      "id": "routes_auth_routes_router",
+      "community": 43,
+      "norm_label": "router"
+    },
+    {
+      "label": "candidate.routes.js",
+      "file_type": "code",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L1",
+      "id": "backend_src_routes_candidate_routes_js",
+      "community": 28,
+      "norm_label": "candidate.routes.js"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L1",
+      "id": "routes_candidate_routes_express",
+      "community": 28,
       "norm_label": "express"
     },
     {
       "label": "router",
       "file_type": "code",
-      "source_file": "backend/src/routes/candidateRoutes.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
       "source_location": "L2",
-      "id": "routes_candidateroutes_router",
-      "community": 6,
+      "id": "routes_candidate_routes_router",
+      "community": 28,
       "norm_label": "router"
     },
     {
       "label": "{ getProfile }",
       "file_type": "code",
-      "source_file": "backend/src/routes/candidateRoutes.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
       "source_location": "L3",
-      "id": "routes_candidateroutes_getprofile",
-      "community": 6,
+      "id": "routes_candidate_routes_getprofile",
+      "community": 28,
       "norm_label": "{ getprofile }"
     },
     {
-      "label": "jobRoutes.js",
+      "label": "{ authenticate }",
       "file_type": "code",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L4",
+      "id": "routes_candidate_routes_authenticate",
+      "community": 28,
+      "norm_label": "{ authenticate }"
+    },
+    {
+      "label": "{ authorise }",
+      "file_type": "code",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L5",
+      "id": "routes_candidate_routes_authorise",
+      "community": 28,
+      "norm_label": "{ authorise }"
+    },
+    {
+      "label": "job.routes.js",
+      "file_type": "code",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L1",
-      "id": "backend_src_routes_jobroutes_js",
+      "id": "backend_src_routes_job_routes_js",
       "community": 13,
-      "norm_label": "jobroutes.js"
+      "norm_label": "job.routes.js"
     },
     {
       "label": "express",
       "file_type": "code",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L1",
-      "id": "routes_jobroutes_express",
+      "id": "routes_job_routes_express",
       "community": 13,
       "norm_label": "express"
     },
     {
       "label": "router",
       "file_type": "code",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L2",
-      "id": "routes_jobroutes_router",
+      "id": "routes_job_routes_router",
       "community": 13,
       "norm_label": "router"
     },
     {
       "label": "{ createJob, runJobMatch, getJobMatches }",
       "file_type": "code",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L3",
-      "id": "routes_jobroutes_createjob_runjobmatch_getjobmatches",
+      "id": "routes_job_routes_createjob_runjobmatch_getjobmatches",
       "community": 13,
       "norm_label": "{ createjob, runjobmatch, getjobmatches }"
     },
     {
-      "label": "resumeRoutes.js",
+      "label": "{ authenticate, authorise }",
       "file_type": "code",
-      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L4",
+      "id": "routes_job_routes_authenticate_authorise",
+      "community": 13,
+      "norm_label": "{ authenticate, authorise }"
+    },
+    {
+      "label": "resume.routes.js",
+      "file_type": "code",
+      "source_file": "backend/src/routes/resume.routes.js",
       "source_location": "L1",
-      "id": "backend_src_routes_resumeroutes_js",
-      "community": 12,
-      "norm_label": "resumeroutes.js"
+      "id": "backend_src_routes_resume_routes_js",
+      "community": 19,
+      "norm_label": "resume.routes.js"
     },
     {
       "label": "express",
       "file_type": "code",
-      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_file": "backend/src/routes/resume.routes.js",
       "source_location": "L1",
-      "id": "routes_resumeroutes_express",
-      "community": 12,
+      "id": "routes_resume_routes_express",
+      "community": 19,
       "norm_label": "express"
     },
     {
       "label": "router",
       "file_type": "code",
-      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_file": "backend/src/routes/resume.routes.js",
       "source_location": "L2",
-      "id": "routes_resumeroutes_router",
-      "community": 12,
+      "id": "routes_resume_routes_router",
+      "community": 19,
       "norm_label": "router"
     },
     {
       "label": "upload",
       "file_type": "code",
-      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_file": "backend/src/routes/resume.routes.js",
       "source_location": "L3",
-      "id": "routes_resumeroutes_upload",
-      "community": 12,
+      "id": "routes_resume_routes_upload",
+      "community": 19,
       "norm_label": "upload"
     },
     {
       "label": "{ uploadResume, getResume }",
       "file_type": "code",
-      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_file": "backend/src/routes/resume.routes.js",
       "source_location": "L4",
-      "id": "routes_resumeroutes_uploadresume_getresume",
-      "community": 12,
+      "id": "routes_resume_routes_uploadresume_getresume",
+      "community": 19,
       "norm_label": "{ uploadresume, getresume }"
     },
     {
-      "label": "aiClient.js",
+      "label": "{ authenticate, authorise }",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L1",
-      "id": "backend_src_services_aiclient_js",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L5",
+      "id": "routes_resume_routes_authenticate_authorise",
       "community": 19,
-      "norm_label": "aiclient.js"
+      "norm_label": "{ authenticate, authorise }"
+    },
+    {
+      "label": "ai.client.js",
+      "file_type": "code",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L1",
+      "id": "backend_src_services_ai_client_js",
+      "community": 44,
+      "norm_label": "ai.client.js"
     },
     {
       "label": "axios",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
+      "source_file": "backend/src/services/ai.client.js",
       "source_location": "L1",
-      "id": "services_aiclient_axios",
-      "community": 19,
+      "id": "services_ai_client_axios",
+      "community": 44,
       "norm_label": "axios"
     },
     {
       "label": "FormData",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
+      "source_file": "backend/src/services/ai.client.js",
       "source_location": "L2",
-      "id": "services_aiclient_formdata",
-      "community": 19,
+      "id": "services_ai_client_formdata",
+      "community": 44,
       "norm_label": "formdata"
     },
     {
-      "label": "TIMEOUT",
+      "label": "config",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L5",
-      "id": "services_aiclient_timeout",
-      "community": 19,
-      "norm_label": "timeout"
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L3",
+      "id": "services_ai_client_config",
+      "community": 44,
+      "norm_label": "config"
     },
     {
       "label": "client",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L7",
-      "id": "services_aiclient_client",
-      "community": 19,
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L5",
+      "id": "services_ai_client_client",
+      "community": 44,
       "norm_label": "client"
     },
     {
       "label": "parseResume()",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L19",
-      "id": "services_aiclient_parseresume",
-      "community": 19,
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L17",
+      "id": "services_ai_client_parseresume",
+      "community": 44,
       "norm_label": "parseresume()"
     },
     {
       "label": "matchCandidates()",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L39",
-      "id": "services_aiclient_matchcandidates",
-      "community": 19,
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L37",
+      "id": "services_ai_client_matchcandidates",
+      "community": 44,
       "norm_label": "matchcandidates()"
     },
     {
       "label": "buildAiError()",
       "file_type": "code",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L54",
-      "id": "services_aiclient_buildaierror",
-      "community": 19,
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L52",
+      "id": "services_ai_client_buildaierror",
+      "community": 44,
       "norm_label": "buildaierror()"
     },
     {
-      "label": "matchService.js",
+      "label": "match.service.js",
       "file_type": "code",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L1",
-      "id": "backend_src_services_matchservice_js",
+      "id": "backend_src_services_match_service_js",
       "community": 16,
-      "norm_label": "matchservice.js"
+      "norm_label": "match.service.js"
     },
     {
       "label": "aiClient",
       "file_type": "code",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L1",
-      "id": "services_matchservice_aiclient",
+      "id": "services_match_service_aiclient",
       "community": 16,
       "norm_label": "aiclient"
     },
     {
       "label": "{ jobToAiInput, candidateToAiInput, aiRankedCandidateToMatchResult }",
       "file_type": "code",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L2",
-      "id": "services_matchservice_jobtoaiinput_candidatetoaiinput_airankedcandidatetomatchresult",
+      "id": "services_match_service_jobtoaiinput_candidatetoaiinput_airankedcandidatetomatchresult",
       "community": 16,
       "norm_label": "{ jobtoaiinput, candidatetoaiinput, airankedcandidatetomatchresult }"
     },
     {
       "label": "CandidateProfile",
       "file_type": "code",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L3",
-      "id": "services_matchservice_candidateprofile",
+      "id": "services_match_service_candidateprofile",
       "community": 16,
       "norm_label": "candidateprofile"
     },
     {
+      "label": "Resume",
+      "file_type": "code",
+      "source_file": "backend/src/services/match.service.js",
+      "source_location": "L4",
+      "id": "services_match_service_resume",
+      "community": 16,
+      "norm_label": "resume"
+    },
+    {
       "label": "MatchResult",
       "file_type": "code",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L5",
-      "id": "services_matchservice_matchresult",
+      "id": "services_match_service_matchresult",
       "community": 16,
       "norm_label": "matchresult"
     },
     {
       "label": "runMatch()",
       "file_type": "code",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L18",
-      "id": "services_matchservice_runmatch",
+      "id": "services_match_service_runmatch",
       "community": 13,
       "norm_label": "runmatch()"
-    },
-    {
-      "label": "apiError.js",
-      "file_type": "code",
-      "source_file": "backend/src/utils/apiError.js",
-      "source_location": "L1",
-      "id": "backend_src_utils_apierror_js",
-      "community": 44,
-      "norm_label": "apierror.js"
-    },
-    {
-      "label": "ApiError",
-      "file_type": "code",
-      "source_file": "backend/src/utils/apiError.js",
-      "source_location": "L1",
-      "id": "utils_apierror_apierror",
-      "community": 44,
-      "norm_label": "apierror"
-    },
-    {
-      "label": ".constructor()",
-      "file_type": "code",
-      "source_file": "backend/src/utils/apiError.js",
-      "source_location": "L2",
-      "id": "utils_apierror_apierror_constructor",
-      "community": 44,
-      "norm_label": ".constructor()"
-    },
-    {
-      "label": "asyncHandler.js",
-      "file_type": "code",
-      "source_file": "backend/src/utils/asyncHandler.js",
-      "source_location": "L1",
-      "id": "backend_src_utils_asynchandler_js",
-      "community": 46,
-      "norm_label": "asynchandler.js"
-    },
-    {
-      "label": "asyncHandler()",
-      "file_type": "code",
-      "source_file": "backend/src/utils/asyncHandler.js",
-      "source_location": "L1",
-      "id": "utils_asynchandler_asynchandler",
-      "community": 46,
-      "norm_label": "asynchandler()"
     },
     {
       "label": "AGENTS.md",
@@ -4102,7 +4138,7 @@
       "label": "API Endpoints",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L23",
+      "source_location": "L25",
       "id": "backend_readme_api_endpoints",
       "community": 8,
       "norm_label": "api endpoints"
@@ -4111,7 +4147,7 @@
       "label": "Resumes",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L25",
+      "source_location": "L27",
       "id": "backend_readme_resumes",
       "community": 8,
       "norm_label": "resumes"
@@ -4120,7 +4156,7 @@
       "label": "code:bash (curl -X POST http://localhost:3000/api/resumes \\)",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L33",
+      "source_location": "L35",
       "id": "backend_readme_codeblock_2",
       "community": 8,
       "norm_label": "code:bash (curl -x post http://localhost:3000/api/resumes \\)"
@@ -4129,7 +4165,7 @@
       "label": "code:json ({)",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L39",
+      "source_location": "L41",
       "id": "backend_readme_codeblock_3",
       "community": 8,
       "norm_label": "code:json ({)"
@@ -4138,7 +4174,7 @@
       "label": "Candidate Profiles",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L48",
+      "source_location": "L50",
       "id": "backend_readme_candidate_profiles",
       "community": 8,
       "norm_label": "candidate profiles"
@@ -4147,7 +4183,7 @@
       "label": "Jobs",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L54",
+      "source_location": "L56",
       "id": "backend_readme_jobs",
       "community": 8,
       "norm_label": "jobs"
@@ -4156,7 +4192,7 @@
       "label": "code:bash (curl -X POST http://localhost:3000/api/jobs \\)",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L63",
+      "source_location": "L65",
       "id": "backend_readme_codeblock_4",
       "community": 8,
       "norm_label": "code:bash (curl -x post http://localhost:3000/api/jobs \\)"
@@ -4165,7 +4201,7 @@
       "label": "code:bash (curl -X POST http://localhost:3000/api/jobs/<jobId>/match)",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L77",
+      "source_location": "L79",
       "id": "backend_readme_codeblock_5",
       "community": 8,
       "norm_label": "code:bash (curl -x post http://localhost:3000/api/jobs/<jobid>/match)"
@@ -4174,7 +4210,7 @@
       "label": "code:bash (curl http://localhost:3000/api/jobs/<jobId>/matches?shortlis)",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L82",
+      "source_location": "L84",
       "id": "backend_readme_codeblock_6",
       "community": 8,
       "norm_label": "code:bash (curl http://localhost:3000/api/jobs/<jobid>/matches?shortlis)"
@@ -4183,7 +4219,7 @@
       "label": "Project Structure",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L86",
+      "source_location": "L88",
       "id": "backend_readme_project_structure",
       "community": 8,
       "norm_label": "project structure"
@@ -4192,7 +4228,7 @@
       "label": "code:block7 (src/)",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L88",
+      "source_location": "L90",
       "id": "backend_readme_codeblock_7",
       "community": 8,
       "norm_label": "code:block7 (src/)"
@@ -4201,10 +4237,46 @@
       "label": "Key Design Decisions",
       "file_type": "document",
       "source_file": "backend/README.md",
-      "source_location": "L114",
+      "source_location": "L116",
       "id": "backend_readme_key_design_decisions",
       "community": 8,
       "norm_label": "key design decisions"
+    },
+    {
+      "label": "swaggerUi",
+      "file_type": "code",
+      "source_file": "backend/src/index.js",
+      "source_location": "L3",
+      "community": 43,
+      "norm_label": "swaggerui",
+      "id": "src_index_swaggerui"
+    },
+    {
+      "label": "importRoutes",
+      "file_type": "code",
+      "source_file": "backend/src/index.js",
+      "source_location": "L10",
+      "community": 43,
+      "norm_label": "importroutes",
+      "id": "src_index_importroutes"
+    },
+    {
+      "label": "swaggerSpec",
+      "file_type": "code",
+      "source_file": "backend/src/index.js",
+      "source_location": "L11",
+      "community": 43,
+      "norm_label": "swaggerspec",
+      "id": "src_index_swaggerspec"
+    },
+    {
+      "label": "tasks.md",
+      "file_type": "document",
+      "source_file": "tasks.md",
+      "source_location": "L1",
+      "community": 6,
+      "norm_label": "tasks.md",
+      "id": "tasks_md"
     }
   ],
   "links": [
@@ -4454,9 +4526,9 @@
       "source_file": ".codex/hooks.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "codex_hooks_json",
-      "target": "codex_hooks_hooks",
-      "confidence_score": 1.0
+      "target": "codex_hooks_hooks"
     },
     {
       "relation": "contains",
@@ -4464,9 +4536,9 @@
       "source_file": ".codex/hooks.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "codex_hooks_hooks",
-      "target": "codex_hooks_hooks_pretooluse",
-      "confidence_score": 1.0
+      "target": "codex_hooks_hooks_pretooluse"
     },
     {
       "relation": "contains",
@@ -10682,6 +10754,16 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_package_dependencies",
+      "target": "backend_package_dependencies_bcryptjs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_package_dependencies",
       "target": "backend_package_dependencies_dotenv"
     },
     {
@@ -10703,6 +10785,16 @@
       "confidence_score": 1.0,
       "source": "backend_package_dependencies",
       "target": "backend_package_dependencies_form_data"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_package_dependencies",
+      "target": "backend_package_dependencies_jsonwebtoken"
     },
     {
       "relation": "contains",
@@ -10731,6 +10823,26 @@
       "source_location": "L19",
       "weight": 1.0,
       "confidence_score": 1.0,
+      "source": "backend_package_dependencies",
+      "target": "backend_package_dependencies_swagger_jsdoc"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/package.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_package_dependencies",
+      "target": "backend_package_dependencies_swagger_ui_express"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "backend_package_devdependencies",
       "target": "backend_package_devdependencies_nodemon"
     },
@@ -10747,230 +10859,248 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L6",
+      "source_file": "backend/verify_backend.js",
+      "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_app"
+      "source": "backend_verify_backend_js",
+      "target": "backend_verify_backend_axios"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_authroutes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_candidateroutes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_connectdb"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
+      "source_file": "backend/verify_backend.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_env"
+      "source": "backend_verify_backend_js",
+      "target": "backend_verify_backend_formdata"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L9",
-      "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_errorhandler",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_express"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L8",
-      "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_jobroutes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
+      "source_file": "backend/verify_backend.js",
       "source_location": "L6",
       "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_server_resumeroutes",
-      "confidence_score": 1.0
+      "confidence_score": 1.0,
+      "source": "backend_verify_backend_js",
+      "target": "backend_verify_backend_runtests"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
+      "source_file": "backend/src/index.js",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_src_config_db_js"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_server_js",
+      "source": "backend_src_index_js",
       "target": "backend_src_config_env_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
+      "source_file": "backend/src/index.js",
       "source_location": "L9",
       "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_src_middlewares_errorhandler_js",
-      "confidence_score": 1.0
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "backend_src_middlewares_error_middleware_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L5",
-      "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_src_routes_auth_routes_js",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_src_routes_candidateroutes_js",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
+      "source_file": "backend/src/index.js",
       "source_location": "L8",
       "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_src_routes_jobroutes_js",
-      "confidence_score": 1.0
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "backend_src_routes_auth_routes_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/server.js",
+      "source_file": "backend/src/index.js",
       "source_location": "L6",
       "weight": 1.0,
-      "source": "backend_server_js",
-      "target": "backend_src_routes_resumeroutes_js",
-      "confidence_score": 1.0
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "backend_src_routes_candidate_routes_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/config/db.js",
-      "source_location": "L2",
+      "source_file": "backend/src/index.js",
+      "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_config_db_js",
-      "target": "backend_src_config_env_js"
+      "source": "backend_src_index_js",
+      "target": "backend_src_routes_job_routes_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "backend_src_routes_resume_routes_js"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/config/db.js",
+      "source_file": "backend/src/index.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_app"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_authroutes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_candidateroutes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_config_db_js",
-      "target": "config_db_connectdb"
+      "source": "backend_src_index_js",
+      "target": "src_index_config"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/config/db.js",
+      "source_file": "backend/src/index.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_errorhandler"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_config_db_js",
-      "target": "config_db_env"
+      "source": "backend_src_index_js",
+      "target": "src_index_express"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/config/db.js",
-      "source_location": "L1",
+      "source_file": "backend/src/index.js",
+      "source_location": "L10",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_config_db_js",
-      "target": "config_db_mongoose"
+      "source": "backend_src_index_js",
+      "target": "src_index_importroutes"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/config/env.js",
+      "source_file": "backend/src/index.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_jobroutes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_config_env_js",
-      "target": "config_env_envschema"
+      "source": "backend_src_index_js",
+      "target": "src_index_mongoose"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_resumeroutes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_swaggerspec"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/index.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_index_js",
+      "target": "src_index_swaggerui"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/config/env.js",
-      "source_location": "L13",
+      "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_src_config_env_js",
-      "target": "config_env_parsed"
+      "target": "config_env_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/config/env.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_config_env_js",
+      "target": "config_env_dotenv"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/config/env.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_config_env_js",
+      "target": "config_env_envlocalpath"
     },
     {
       "relation": "contains",
@@ -10980,7 +11110,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_src_config_env_js",
-      "target": "config_env_z"
+      "target": "config_env_path"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/config/env.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_config_env_js",
+      "target": "config_env_readinteger"
     },
     {
       "relation": "imports_from",
@@ -10997,11 +11137,44 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_auth_middleware_js",
+      "target": "backend_src_config_env_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/error.middleware.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_error_middleware_js",
+      "target": "backend_src_config_env_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
+      "source": "backend_src_middlewares_upload_middleware_js",
+      "target": "backend_src_config_env_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
       "target": "backend_src_config_env_js"
     },
     {
@@ -11016,48 +11189,6 @@
       "target": "backend_src_models_user_js"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_auth_controller_js",
-      "target": "backend_src_utils_apierror_js"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_auth_controller_js",
-      "target": "backend_src_utils_asynchandler_js"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_auth_controller_js",
-      "target": "controllers_auth_controller_apierror"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_auth_controller_js",
-      "target": "controllers_auth_controller_asynchandler"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/controllers/auth.controller.js",
@@ -11065,7 +11196,7 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_src_controllers_auth_controller_js",
-      "target": "controllers_auth_controller_env"
+      "target": "controllers_auth_controller_config"
     },
     {
       "relation": "contains",
@@ -11081,7 +11212,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L32",
+      "source_location": "L75",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_src_controllers_auth_controller_js",
@@ -11091,11 +11222,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/controllers/auth.controller.js",
-      "source_location": "L7",
+      "source_location": "L131",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_controllers_auth_controller_js",
+      "target": "controllers_auth_controller_logout"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/controllers/auth.controller.js",
+      "source_location": "L22",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_src_controllers_auth_controller_js",
       "target": "controllers_auth_controller_register"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/controllers/auth.controller.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_controllers_auth_controller_js",
+      "target": "controllers_auth_controller_signtoken"
     },
     {
       "relation": "contains",
@@ -11119,803 +11270,869 @@
       "target": "backend_src_controllers_auth_controller_js"
     },
     {
-      "relation": "imports",
-      "context": "import",
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/auth.routes.js",
-      "source_location": "L2",
+      "source_file": "backend/src/controllers/auth.controller.js",
+      "source_location": "L107",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_auth_routes_js",
-      "target": "controllers_auth_controller_register"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/auth.routes.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_auth_routes_js",
-      "target": "controllers_auth_controller_login"
+      "source": "controllers_auth_controller_login",
+      "target": "controllers_auth_controller_signtoken"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/candidateController.js",
+      "source_file": "backend/src/controllers/candidate.controller.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_candidatecontroller_js",
+      "source": "backend_src_controllers_candidate_controller_js",
       "target": "backend_src_models_candidateprofile_js"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/candidateController.js",
+      "source_file": "backend/src/controllers/candidate.controller.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_candidatecontroller_js",
-      "target": "controllers_candidatecontroller_candidateprofile"
+      "source": "backend_src_controllers_candidate_controller_js",
+      "target": "controllers_candidate_controller_candidateprofile"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/candidateController.js",
+      "source_file": "backend/src/controllers/candidate.controller.js",
       "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_candidatecontroller_js",
-      "target": "controllers_candidatecontroller_getprofile"
+      "source": "backend_src_controllers_candidate_controller_js",
+      "target": "controllers_candidate_controller_getprofile"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/candidateRoutes.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_candidateroutes_js",
-      "target": "backend_src_controllers_candidatecontroller_js"
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "backend_src_controllers_candidate_controller_js"
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/candidateRoutes.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_candidateroutes_js",
-      "target": "controllers_candidatecontroller_getprofile"
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "controllers_candidate_controller_getprofile"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
+      "source": "backend_src_controllers_job_controller_js",
       "target": "backend_src_models_jobrequirement_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
+      "source": "backend_src_controllers_job_controller_js",
       "target": "backend_src_models_matchresult_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "backend_src_services_matchservice_js"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "backend_src_services_match_service_js"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L9",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "controllers_jobcontroller_createjob"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "controllers_job_controller_createjob"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L52",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "controllers_jobcontroller_getjobmatches"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "controllers_job_controller_getjobmatches"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "controllers_jobcontroller_jobrequirement"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "controllers_job_controller_jobrequirement"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "controllers_jobcontroller_matchresult"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "controllers_job_controller_matchresult"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L33",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "controllers_jobcontroller_runjobmatch"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "controllers_job_controller_runjobmatch"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "controllers_jobcontroller_runmatch"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "controllers_job_controller_runmatch"
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_jobcontroller_js",
-      "target": "services_matchservice_runmatch"
+      "source": "backend_src_controllers_job_controller_js",
+      "target": "services_match_service_runmatch"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_jobroutes_js",
-      "target": "backend_src_controllers_jobcontroller_js"
+      "source": "backend_src_routes_job_routes_js",
+      "target": "backend_src_controllers_job_controller_js"
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_jobroutes_js",
-      "target": "controllers_jobcontroller_createjob"
+      "source": "backend_src_routes_job_routes_js",
+      "target": "controllers_job_controller_createjob"
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_jobroutes_js",
-      "target": "controllers_jobcontroller_runjobmatch"
+      "source": "backend_src_routes_job_routes_js",
+      "target": "controllers_job_controller_runjobmatch"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "backend/src/controllers/jobController.js",
+      "source_file": "backend/src/controllers/job.controller.js",
       "source_location": "L40",
       "weight": 1.0,
-      "source": "controllers_jobcontroller_runjobmatch",
-      "target": "services_matchservice_runmatch"
+      "source": "controllers_job_controller_runjobmatch",
+      "target": "services_match_service_runmatch"
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_file": "backend/src/routes/job.routes.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_jobroutes_js",
-      "target": "controllers_jobcontroller_getjobmatches"
+      "source": "backend_src_routes_job_routes_js",
+      "target": "controllers_job_controller_getjobmatches"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "backend_src_mappers_aipayloadmapper_js"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "backend_src_mappers_ai_payload_mapper_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
+      "source": "backend_src_controllers_resume_controller_js",
       "target": "backend_src_models_candidateprofile_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
+      "source": "backend_src_controllers_resume_controller_js",
       "target": "backend_src_models_resume_js"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "backend_src_services_aiclient_js"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "backend_src_services_ai_client_js"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "controllers_resumecontroller_aiclient"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "controllers_resume_controller_aiclient"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "controllers_resumecontroller_candidateprofile"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "controllers_resume_controller_candidateprofile"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
-      "source_location": "L70",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "controllers_resumecontroller_getresume"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "controllers_resumecontroller_parsedcandidatetobackend"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "controllers_resumecontroller_uploadresume"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/controllers/resumeController.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_controllers_resumecontroller_js",
-      "target": "mappers_aipayloadmapper_parsedcandidatetobackend"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "backend_src_controllers_resumecontroller_js"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "controllers_resumecontroller_uploadresume"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backend/src/controllers/resumeController.js",
-      "source_location": "L34",
-      "weight": 1.0,
-      "source": "controllers_resumecontroller_uploadresume",
-      "target": "mappers_aipayloadmapper_parsedcandidatetobackend"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "controllers_resumecontroller_getresume"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L20",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_ai_to_backend_education"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L36",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_aieducationtobackend"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L158",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_airankedcandidatetomatchresult"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_backend_to_ai_education"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L31",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_backendeducationtoai"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L72",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_candidatetoaiinput"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L53",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_jobtoaiinput"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L43",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_normalizeskills"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L108",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_parsedcandidatetobackend"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L96",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_mappers_aipayloadmapper_js",
-      "target": "mappers_aipayloadmapper_yeartodate"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "backend_src_mappers_aipayloadmapper_js"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L84",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "mappers_aipayloadmapper_candidatetoaiinput",
-      "target": "mappers_aipayloadmapper_backendeducationtoai"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L61",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "mappers_aipayloadmapper_jobtoaiinput",
-      "target": "mappers_aipayloadmapper_backendeducationtoai"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L121",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "mappers_aipayloadmapper_parsedcandidatetobackend",
-      "target": "mappers_aipayloadmapper_aieducationtobackend"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L73",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "mappers_aipayloadmapper_candidatetoaiinput",
-      "target": "mappers_aipayloadmapper_normalizeskills"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "controllers_resume_controller_getresume"
     },
     {
-      "relation": "calls",
-      "context": "call",
+      "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L58",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "mappers_aipayloadmapper_jobtoaiinput",
-      "target": "mappers_aipayloadmapper_normalizeskills"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/mappers/aiPayloadMapper.js",
-      "source_location": "L120",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "mappers_aipayloadmapper_parsedcandidatetobackend",
-      "target": "mappers_aipayloadmapper_normalizeskills"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "mappers_aipayloadmapper_jobtoaiinput"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backend/src/services/matchService.js",
-      "source_location": "L31",
-      "weight": 1.0,
-      "source": "services_matchservice_runmatch",
-      "target": "mappers_aipayloadmapper_jobtoaiinput"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "mappers_aipayloadmapper_candidatetoaiinput"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "mappers_aipayloadmapper_airankedcandidatetomatchresult"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
-      "target": "backend_src_utils_apierror_js"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
-      "target": "backend_src_utils_asynchandler_js"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "controllers_resume_controller_parsedcandidatetobackend"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
-      "target": "middleware_authenticate_apierror"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
-      "target": "middleware_authenticate_asynchandler"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
-      "target": "middleware_authenticate_authenticate"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
-      "target": "middleware_authenticate_env"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authenticate.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_middleware_authenticate_js",
-      "target": "middleware_authenticate_jwt"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authorise.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authorise_js",
-      "target": "backend_src_utils_apierror_js"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "controllers_resume_controller_resume"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authorise.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authorise_js",
-      "target": "middleware_authorise_apierror"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/authorise.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_authorise_js",
-      "target": "middleware_authorise_authorise"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/errorHandler.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_errorhandler_js",
-      "target": "backend_src_utils_apierror_js"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/errorHandler.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_errorhandler_js",
-      "target": "middleware_errorhandler_apierror"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middleware/errorHandler.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middleware_errorhandler_js",
-      "target": "middleware_errorhandler_errorhandler"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middlewares/errorHandler.js",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middlewares_errorhandler_js",
-      "target": "middlewares_errorhandler_errorhandler"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middlewares/upload.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middlewares_upload_js",
-      "target": "middlewares_upload_allowed_mime_types"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middlewares/upload.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_middlewares_upload_js",
-      "target": "middlewares_upload_multer"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/middlewares/upload.js",
+      "source_file": "backend/src/controllers/resume.controller.js",
       "source_location": "L10",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_middlewares_upload_js",
-      "target": "middlewares_upload_storage"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "controllers_resume_controller_uploadresume"
     },
     {
-      "relation": "contains",
+      "relation": "imports",
+      "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/middlewares/upload.js",
-      "source_location": "L12",
+      "source_file": "backend/src/controllers/resume.controller.js",
+      "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_middlewares_upload_js",
-      "target": "middlewares_upload_upload"
+      "source": "backend_src_controllers_resume_controller_js",
+      "target": "mappers_ai_payload_mapper_parsedcandidatetobackend"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "backend_src_controllers_resume_controller_js"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "controllers_resume_controller_uploadresume"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/controllers/resume.controller.js",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "controllers_resume_controller_uploadresume",
+      "target": "mappers_ai_payload_mapper_parsedcandidatetobackend"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "controllers_resume_controller_getresume"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_ai_to_backend_education"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_aieducationtobackend"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L158",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_airankedcandidatetomatchresult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_backend_to_ai_education"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_backendeducationtoai"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_candidatetoaiinput"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_jobtoaiinput"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_normalizeskills"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_parsedcandidatetobackend"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L96",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_mappers_ai_payload_mapper_js",
+      "target": "mappers_ai_payload_mapper_yeartodate"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/match.service.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_match_service_js",
+      "target": "backend_src_mappers_ai_payload_mapper_js"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L84",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mappers_ai_payload_mapper_candidatetoaiinput",
+      "target": "mappers_ai_payload_mapper_backendeducationtoai"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mappers_ai_payload_mapper_jobtoaiinput",
+      "target": "mappers_ai_payload_mapper_backendeducationtoai"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L121",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mappers_ai_payload_mapper_parsedcandidatetobackend",
+      "target": "mappers_ai_payload_mapper_aieducationtobackend"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L73",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mappers_ai_payload_mapper_candidatetoaiinput",
+      "target": "mappers_ai_payload_mapper_normalizeskills"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L58",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mappers_ai_payload_mapper_jobtoaiinput",
+      "target": "mappers_ai_payload_mapper_normalizeskills"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/mappers/ai.payload.mapper.js",
+      "source_location": "L120",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mappers_ai_payload_mapper_parsedcandidatetobackend",
+      "target": "mappers_ai_payload_mapper_normalizeskills"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/match.service.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_match_service_js",
+      "target": "mappers_ai_payload_mapper_jobtoaiinput"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/services/match.service.js",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "services_match_service_runmatch",
+      "target": "mappers_ai_payload_mapper_jobtoaiinput"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/match.service.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_match_service_js",
+      "target": "mappers_ai_payload_mapper_candidatetoaiinput"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/match.service.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_match_service_js",
+      "target": "mappers_ai_payload_mapper_airankedcandidatetomatchresult"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_auth_middleware_js",
+      "target": "backend_src_models_user_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_auth_middleware_js",
+      "target": "middlewares_auth_middleware_authenticate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_auth_middleware_js",
+      "target": "middlewares_auth_middleware_authorise"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "backend_src_middlewares_upload_js"
+      "source": "backend_src_middlewares_auth_middleware_js",
+      "target": "middlewares_auth_middleware_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_auth_middleware_js",
+      "target": "middlewares_auth_middleware_jwt"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/auth.middleware.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_auth_middleware_js",
+      "target": "middlewares_auth_middleware_user"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "backend_src_middlewares_auth_middleware_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_job_routes_js",
+      "target": "backend_src_middlewares_auth_middleware_js"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "backend_src_middlewares_auth_middleware_js"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "middlewares_auth_middleware_authenticate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_job_routes_js",
+      "target": "middlewares_auth_middleware_authenticate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "middlewares_auth_middleware_authenticate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "middlewares_auth_middleware_authorise",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_job_routes_js",
+      "target": "middlewares_auth_middleware_authorise"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "middlewares_auth_middleware_authorise"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/error.middleware.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_error_middleware_js",
+      "target": "middlewares_error_middleware_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/error.middleware.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_error_middleware_js",
+      "target": "middlewares_error_middleware_errorhandler"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/error.middleware.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_error_middleware_js",
+      "target": "middlewares_error_middleware_formatbytes"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/error.middleware.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "middlewares_error_middleware_errorhandler",
+      "target": "middlewares_error_middleware_formatbytes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_upload_middleware_js",
+      "target": "middlewares_upload_middleware_allowed_mime_types"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_upload_middleware_js",
+      "target": "middlewares_upload_middleware_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_upload_middleware_js",
+      "target": "middlewares_upload_middleware_multer"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_upload_middleware_js",
+      "target": "middlewares_upload_middleware_storage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/middlewares/upload.middleware.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_middlewares_upload_middleware_js",
+      "target": "middlewares_upload_middleware_upload"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "backend_src_middlewares_upload_middleware_js"
     },
     {
       "relation": "contains",
@@ -11923,9 +12140,9 @@
       "source_file": "backend/src/models/Application.js",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "backend_src_models_application_js",
-      "target": "models_application_applicationschema"
+      "target": "models_application_applicationschema",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -11933,9 +12150,9 @@
       "source_file": "backend/src/models/Application.js",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "backend_src_models_application_js",
-      "target": "models_application_mongoose"
+      "target": "models_application_mongoose",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -11991,11 +12208,11 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
+      "source": "backend_src_services_match_service_js",
       "target": "backend_src_models_candidateprofile_js"
     },
     {
@@ -12039,14 +12256,24 @@
       "target": "models_matchresult_mongoose"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/models/MatchResult.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "backend_src_models_matchresult_js",
+      "target": "models_matchresult_scorebreakdownschema",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
+      "source": "backend_src_services_match_service_js",
       "target": "backend_src_models_matchresult_js"
     },
     {
@@ -12055,9 +12282,9 @@
       "source_file": "backend/src/models/RecruiterProfile.js",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "backend_src_models_recruiterprofile_js",
-      "target": "models_recruiterprofile_mongoose"
+      "target": "models_recruiterprofile_mongoose",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -12065,9 +12292,19 @@
       "source_file": "backend/src/models/RecruiterProfile.js",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "backend_src_models_recruiterprofile_js",
-      "target": "models_recruiterprofile_recruiterprofileschema"
+      "target": "models_recruiterprofile_recruiterprofileschema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/models/Resume.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_models_resume_js",
+      "target": "models_resume_mongoose"
     },
     {
       "relation": "contains",
@@ -12083,32 +12320,12 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
+      "source": "backend_src_services_match_service_js",
       "target": "backend_src_models_resume_js"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/models/Skill.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_models_skill_js",
-      "target": "models_skill_mongoose"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/models/Skill.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_models_skill_js",
-      "target": "models_skill_skillschema"
     },
     {
       "relation": "contains",
@@ -12148,7 +12365,17 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_src_routes_auth_routes_js",
-      "target": "routes_auth_routes_register_login"
+      "target": "routes_auth_routes_authcontroller"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/auth.routes.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_auth_routes_js",
+      "target": "routes_auth_routes_express"
     },
     {
       "relation": "contains",
@@ -12163,285 +12390,305 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/candidateRoutes.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_candidateroutes_js",
-      "target": "routes_candidateroutes_express"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/candidateRoutes.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_candidateroutes_js",
-      "target": "routes_candidateroutes_getprofile"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/candidateRoutes.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_candidateroutes_js",
-      "target": "routes_candidateroutes_router"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/jobRoutes.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_jobroutes_js",
-      "target": "routes_jobroutes_createjob_runjobmatch_getjobmatches"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/jobRoutes.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_jobroutes_js",
-      "target": "routes_jobroutes_express"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/jobRoutes.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_jobroutes_js",
-      "target": "routes_jobroutes_router"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "routes_resumeroutes_express"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "routes_resumeroutes_router"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "routes_resumeroutes_upload"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_routes_resumeroutes_js",
-      "target": "routes_resumeroutes_uploadresume_getresume"
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "routes_candidate_routes_authenticate"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "routes_candidate_routes_authorise",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/candidate.routes.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_aiclient_js",
-      "target": "services_aiclient_axios"
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "routes_candidate_routes_express"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L54",
+      "source_file": "backend/src/routes/candidate.routes.js",
+      "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_aiclient_js",
-      "target": "services_aiclient_buildaierror"
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "routes_candidate_routes_getprofile"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_services_aiclient_js",
-      "target": "services_aiclient_client"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
+      "source_file": "backend/src/routes/candidate.routes.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_aiclient_js",
-      "target": "services_aiclient_formdata"
+      "source": "backend_src_routes_candidate_routes_js",
+      "target": "routes_candidate_routes_router"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L39",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_aiclient_js",
-      "target": "services_aiclient_matchcandidates"
+      "source": "backend_src_routes_job_routes_js",
+      "target": "routes_job_routes_authenticate_authorise"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L19",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_aiclient_js",
-      "target": "services_aiclient_parseresume"
+      "source": "backend_src_routes_job_routes_js",
+      "target": "routes_job_routes_createjob_runjobmatch_getjobmatches"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_job_routes_js",
+      "target": "routes_job_routes_express"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/job.routes.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_job_routes_js",
+      "target": "routes_job_routes_router"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
       "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_aiclient_js",
-      "target": "services_aiclient_timeout"
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "routes_resume_routes_authenticate_authorise"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "routes_resume_routes_express"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "routes_resume_routes_router"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "routes_resume_routes_upload"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/routes/resume.routes.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_routes_resume_routes_js",
+      "target": "routes_resume_routes_uploadresume_getresume"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
+      "target": "services_ai_client_axios"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
+      "target": "services_ai_client_buildaierror"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
+      "target": "services_ai_client_client"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
+      "target": "services_ai_client_config"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
+      "target": "services_ai_client_formdata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
+      "target": "services_ai_client_matchcandidates"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_ai_client_js",
+      "target": "services_ai_client_parseresume"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "backend_src_services_aiclient_js"
+      "source": "backend_src_services_match_service_js",
+      "target": "backend_src_services_ai_client_js"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L29",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L27",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "services_aiclient_parseresume",
-      "target": "services_aiclient_buildaierror"
+      "source": "services_ai_client_parseresume",
+      "target": "services_ai_client_buildaierror"
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/aiClient.js",
-      "source_location": "L47",
+      "source_file": "backend/src/services/ai.client.js",
+      "source_location": "L45",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "services_aiclient_matchcandidates",
-      "target": "services_aiclient_buildaierror"
+      "source": "services_ai_client_matchcandidates",
+      "target": "services_ai_client_buildaierror"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "services_matchservice_aiclient"
+      "source": "backend_src_services_match_service_js",
+      "target": "services_match_service_aiclient"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L3",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "services_matchservice_candidateprofile"
+      "source": "backend_src_services_match_service_js",
+      "target": "services_match_service_candidateprofile"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "services_matchservice_jobtoaiinput_candidatetoaiinput_airankedcandidatetomatchresult"
+      "source": "backend_src_services_match_service_js",
+      "target": "services_match_service_jobtoaiinput_candidatetoaiinput_airankedcandidatetomatchresult"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "services_matchservice_matchresult"
+      "source": "backend_src_services_match_service_js",
+      "target": "services_match_service_matchresult"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "backend/src/services/matchService.js",
+      "source_file": "backend/src/services/match.service.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_services_match_service_js",
+      "target": "services_match_service_resume"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/services/match.service.js",
       "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "backend_src_services_matchservice_js",
-      "target": "services_matchservice_runmatch"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/utils/apiError.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_utils_apierror_js",
-      "target": "utils_apierror_apierror"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/utils/apiError.js",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_apierror_apierror",
-      "target": "utils_apierror_apierror_constructor"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/utils/asyncHandler.js",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_utils_asynchandler_js",
-      "target": "utils_asynchandler_asynchandler"
+      "source": "backend_src_services_match_service_js",
+      "target": "services_match_service_runmatch"
     },
     {
       "relation": "contains",
@@ -12449,9 +12696,9 @@
       "source_file": "AGENTS.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "agents_md",
-      "target": "ai_resume_screener_agents_graphify",
-      "confidence_score": 1.0
+      "target": "ai_resume_screener_agents_graphify"
     },
     {
       "relation": "contains",
@@ -12469,9 +12716,9 @@
       "source_file": ".agents/rules/graphify.md",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "agents_rules_graphify_md",
-      "target": "rules_graphify_graphify",
-      "confidence_score": 1.0
+      "target": "rules_graphify_graphify"
     },
     {
       "relation": "contains",
@@ -12479,9 +12726,9 @@
       "source_file": ".agents/workflows/graphify.md",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "agents_workflows_graphify_md",
-      "target": "workflows_graphify_workflow_graphify",
-      "confidence_score": 1.0
+      "target": "workflows_graphify_workflow_graphify"
     },
     {
       "relation": "contains",
@@ -12645,5 +12892,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "95e2b065b7f0ae219e8d6f1ebf564b2fd6f2e5c1"
+  "built_at_commit": "b4e0e9dd13493d5a490ed970abbb6781c198c88d"
 }

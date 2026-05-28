@@ -1,3 +1,10 @@
+const config = require('../config/env');
+
+function formatBytes(bytes) {
+  const mb = bytes / (1024 * 1024);
+  return `${Number.isInteger(mb) ? mb : mb.toFixed(1)} MB`;
+}
+
 /**
  * Express global error handler.
  * Converts known error shapes into consistent JSON responses.
@@ -9,7 +16,10 @@ function errorHandler(err, req, res, next) {
 
   // Multer file size error
   if (err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(400).json({ success: false, message: 'File exceeds the 5 MB size limit.' });
+    return res.status(400).json({
+      success: false,
+      message: `File exceeds the ${formatBytes(config.maxFileSizeBytes)} size limit.`,
+    });
   }
 
   // Multer invalid file type (set in upload middleware)

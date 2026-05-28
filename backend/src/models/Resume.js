@@ -2,26 +2,33 @@ const mongoose = require('mongoose');
 
 const resumeSchema = new mongoose.Schema(
   {
+    uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     originalFileName: { type: String, required: true },
-    mimeType: { type: String, required: true },
+    mimeType: {
+      type: String,
+      required: true,
+      enum: [
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      ],
+    },
     fileSize: { type: Number, required: true },
-    // parseStatus tracks progress through the AI parsing pipeline
+    isActive: { type: Boolean, required: true, default: false },
     parseStatus: {
       type: String,
+      required: true,
       enum: ['pending', 'processing', 'done', 'failed'],
       default: 'pending',
     },
     parseStartedAt: { type: Date },
     parseCompletedAt: { type: Date },
     parseError: { type: String },
-    // Raw text extracted by the AI parser — forwarded to /match/ for richer embeddings
-    parsedText: { type: String },
-    // Link to the candidate profile created from this resume
-    candidateProfileId: { type: mongoose.Schema.Types.ObjectId, ref: 'CandidateProfile' },
+    rawText: { type: String },
   },
   { timestamps: true }
 );
 
-const Resume = mongoose.model('Resume', resumeSchema);
+resumeSchema.index({ uploadedBy: 1 });
+resumeSchema.index({ uploadedBy: 1, isActive: 1 });
 
-module.exports = Resume;
+module.exports = mongoose.model('Resume', resumeSchema);

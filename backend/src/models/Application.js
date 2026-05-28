@@ -1,30 +1,26 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const applicationSchema = new mongoose.Schema(
   {
-    candidateId: {
+    candidate: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    job: { type: mongoose.Schema.Types.ObjectId, ref: 'JobRequirement', required: true },
+    candidateProfile: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    jobId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'JobRequirement',
+      ref: 'CandidateProfile',
       required: true,
     },
     status: {
       type: String,
-      enum: ['applied', 'reviewed', 'shortlisted', 'rejected'],
-      default: 'applied',
+      required: true,
+      enum: ['pending', 'reviewed', 'shortlisted', 'rejected'],
+      default: 'pending',
     },
-    appliedAt: {
-      type: Date,
-      default: Date.now,
-    },
+    appliedAt: { type: Date, required: true, default: Date.now },
   },
   { timestamps: true }
-)
+);
 
-applicationSchema.index({ candidateId: 1, jobId: 1 }, { unique: true })
+applicationSchema.index({ candidate: 1, job: 1 }, { unique: true });
+applicationSchema.index({ job: 1 });
 
-module.exports = mongoose.model('Application', applicationSchema)
+module.exports = mongoose.model('Application', applicationSchema);

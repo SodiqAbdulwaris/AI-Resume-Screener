@@ -6,8 +6,8 @@ Express + MongoDB backend that wraps the AI resume parsing and candidate matchin
 
 ```bash
 npm install
-cp .env.example .env
-# Edit .env with your MongoDB URI and AI service URL
+cp .env.example .env.local
+# Edit .env.local with your MongoDB URI and AI service URL
 npm run dev
 ```
 
@@ -19,6 +19,8 @@ npm run dev
 | `MONGODB_URI` | `mongodb://localhost:27017/ai-resume-screener` | MongoDB connection string |
 | `AI_SERVICE_URL` | `http://localhost:8000` | Base URL of the AI service |
 | `AI_SERVICE_TIMEOUT_MS` | `30000` | Timeout for AI service calls in milliseconds |
+| `MAX_FILE_SIZE_BYTES` | `5242880` | Maximum resume upload size in bytes |
+| `JWT_SECRET` | development fallback | Secret used to sign auth tokens |
 
 ## API Endpoints
 
@@ -95,7 +97,7 @@ src/
 ├── mappers/
 │   └── aiPayloadMapper.js      # All field transforms between backend ↔ AI
 ├── middlewares/
-│   ├── upload.js               # Multer config (PDF/DOCX, 5MB limit)
+│   ├── upload.js               # Multer config (PDF/DOCX, configurable size limit)
 │   └── errorHandler.js         # Global error handler
 ├── models/
 │   ├── Resume.js

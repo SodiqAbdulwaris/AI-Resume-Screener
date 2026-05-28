@@ -1,12 +1,10 @@
 const axios = require('axios');
 const FormData = require('form-data');
-
-const BASE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8000';
-const TIMEOUT = parseInt(process.env.AI_SERVICE_TIMEOUT_MS || '30000', 10);
+const config = require('../config/env');
 
 const client = axios.create({
-  baseURL: BASE_URL,
-  timeout: TIMEOUT,
+  baseURL: config.aiServiceUrl,
+  timeout: config.aiServiceTimeoutMs,
 });
 
 /**
@@ -71,6 +69,21 @@ function buildAiError(err, operation) {
   // Network error or unexpected failure
   err.isAiError = true;
   return err;
+}
+
+async function matchCandidates(aiJobInput, aiCandidateInputs) {
+  try {
+    const response = await client.post('/match/', {
+      job: aiJobInput,
+      candidates: aiCandidateInputs,
+    });
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      console.error('AI 422 detail:', JSON.stringify(err.response.data, null, 2));
+    }
+    throw buildAiError(err, 'match');
+  }
 }
 
 module.exports = { parseResume, matchCandidates };
