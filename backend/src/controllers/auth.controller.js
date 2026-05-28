@@ -1,69 +1,143 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/User')
-const env = require('../config/env')
-const ApiError = require('../utils/apiError')
-const asyncHandler = require('../utils/asyncHandler')
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const config = require('../config/env');
 
-const register = asyncHandler(async (req, res) => {
-  const { fullName, email, password, role } = req.body
+const TOKEN_EXPIRY = '7d';
 
-  if (!fullName || !email || !password || !role) {
-    throw new ApiError(400, 'All fields are required')
-  }
-
-  if (!['candidate', 'recruiter'].includes(role)) {
-    throw new ApiError(400, 'Invalid role')
-  }
-
-  const existingUser = await User.findOne({ email })
-  if (existingUser) {
-    throw new ApiError(409, 'Email already in use')
-  }
-
-  await User.create({ fullName, email, password, role })
-
-  res.status(201).json({
-    success: true,
-    message: 'Registered successfully',
-    data: null,
-  })
-})
-
-const login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body
-
-  if (!email || !password) {
-    throw new ApiError(400, 'All fields are required')
-  }
-
-  const user = await User.findOne({ email }).select('+password')
-  if (!user) {
-    throw new ApiError(401, 'Invalid credentials')
-  }
-
-  const isMatch = await user.comparePassword(password)
-  if (!isMatch) {
-    throw new ApiError(401, 'Invalid credentials')
-  }
-
-  const token = jwt.sign(
+/**
+ * Sign a JWT token for a user.
+ */
+function signToken(user) {
+  return jwt.sign(
     { userId: user._id, role: user.role },
-    env.JWT_SECRET,
-    { expiresIn: env.JWT_LAST_FOR }
-  )
+    config.jwtSecret,
+    { expiresIn: TOKEN_EXPIRY }
+  );
+}
 
-  const safeUser = {
-    _id: user._id,
-    fullName: user.fullName,
-    email: user.email,
-    role: user.role,
+/**
+ * POST /api/auth/register
+ * Register a new user (Candidate or Recruiter).
+ */
+async function register(req, res, next) {
+  try {
+    const { fullName, email, password, role } = req.body;
+
+    if (!fullName || !email || !password || !role) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide fullName, email, password, and role.',
+        data: null,
+      });
+    }
+
+    // Check if role is valid
+    if (role && !['candidate', 'recruiter'].includes(role)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid role. Allowed roles are candidate or recruiter.',
+        data: null,
+      });
+    }
+
+    // Check for existing email
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email is already registered.',
+        data: null,
+      });
+    }
+
+    // Create user
+    const user = await User.create({
+      fullName,
+      email,
+      password,
+      role,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: 'Registered successfully',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
   }
+}
 
-  res.status(200).json({
+/**
+ * POST /api/auth/login
+ * Log in a user using email/phone and password.
+ */
+async function login(req, res, next) {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide email and password.',
+        data: null,
+      });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() }).select('+password');
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid email or password.',
+        data: null,
+      });
+    }
+
+    // Check password
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid email or password.',
+        data: null,
+      });
+    }
+
+    const token = signToken(user);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      data: {
+        token,
+        user: {
+          _id: user._id,
+          fullName: user.fullName,
+          email: user.email,
+          role: user.role,
+        },
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * POST /api/auth/logout
+ * Log out user (stateless JWT client cleanup helper).
+ */
+async function logout(req, res) {
+  return res.json({
     success: true,
-    message: 'Login successful',
-    data: { token, user: safeUser },
-  })
-})
+    message: 'Logged out successfully. Please clear token from client storage.',
+    data: null,
+  });
+}
 
-module.exports = { register, login }
+module.exports = {
+  register,
+  login,
+  logout,
+};

@@ -1,48 +1,23 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const jobRequirementSchema = new mongoose.Schema(
   {
-    recruiterId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    jobTitle: {
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    requiredSkills: { type: [String], default: [] },
+    preferredSkills: { type: [String], default: [] },
+    requiredEducationLevel: {
       type: String,
-      required: true,
-      trim: true,
+      enum: ['any', 'olevel', 'bachelor', 'master', 'phd'],
+      default: 'any',
     },
-    requiredSkills: {
-      type: [String],
-    },
-    preferredSkills: {
-      type: [String],
-    },
-    experienceYears: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-    educationLevel: {
-      type: String,
-      enum: ['Any', 'Bachelor', 'Master', 'PhD'],
-      default: 'Any',
-    },
-    employmentType: {
-      type: String,
-      enum: ['full-time', 'part-time', 'contract'],
-      default: 'full-time',
-    },
-    description: {
-      type: String,
-      trim: true,
-    },
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
+    requiredExperienceYears: { type: Number, default: 0 },
+    isOpen: { type: Boolean, required: true, default: true },
   },
   { timestamps: true }
-)
+);
 
-module.exports = mongoose.model('JobRequirement', jobRequirementSchema)
+jobRequirementSchema.index({ createdBy: 1 });
+
+module.exports = mongoose.model('JobRequirement', jobRequirementSchema);

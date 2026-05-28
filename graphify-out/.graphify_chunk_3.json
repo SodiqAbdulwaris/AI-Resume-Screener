@@ -1,0 +1,417 @@
+{
+  "nodes": [
+    {
+      "id": "errorHandler_errorHandler",
+      "label": "Express Global Error Handler",
+      "file_type": "code",
+      "source_file": "backend/src/middlewares/errorHandler.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "upload_upload",
+      "label": "Multer Upload Middleware",
+      "file_type": "code",
+      "source_file": "backend/src/middlewares/upload.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Keeps uploaded resumes in memory buffer (no temp files needed). Restricts size to 5 MB (matching AI service defaults) and limits types to PDF/DOCX."
+    },
+    {
+      "id": "CandidateProfile_model",
+      "label": "CandidateProfile Model",
+      "file_type": "code",
+      "source_file": "backend/src/models/CandidateProfile.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Normalizes candidate educationLevel to enum ('any', 'olevel', 'bachelor', 'master', 'phd'). Holds denormalized summary (yearsExperience) for fast matching payload creation."
+    },
+    {
+      "id": "JobRequirement_model",
+      "label": "JobRequirement Model",
+      "file_type": "code",
+      "source_file": "backend/src/models/JobRequirement.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Maps educationLevel 'any' to null when sent to AI service."
+    },
+    {
+      "id": "MatchResult_model",
+      "label": "MatchResult Model",
+      "file_type": "code",
+      "source_file": "backend/src/models/MatchResult.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Scores are stored as 0-100. Uses a unique index on (jobId, candidateId) to allow upserting new matches rather than duplicating rows."
+    },
+    {
+      "id": "Resume_model",
+      "label": "Resume Model",
+      "file_type": "code",
+      "source_file": "backend/src/models/Resume.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Tracks parse status (pending, processing, done, failed). Stores parsedText to be forwarded to matching endpoints for richer embeddings."
+    },
+    {
+      "id": "candidateRoutes_router",
+      "label": "Candidate Routes",
+      "file_type": "code",
+      "source_file": "backend/src/routes/candidateRoutes.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "jobRoutes_router",
+      "label": "Job Routes",
+      "file_type": "code",
+      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "resumeRoutes_router",
+      "label": "Resume Routes",
+      "file_type": "code",
+      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "aiClient_service",
+      "label": "AI Client Service",
+      "file_type": "code",
+      "source_file": "backend/src/services/aiClient.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "matchService_service",
+      "label": "Match Service",
+      "file_type": "code",
+      "source_file": "backend/src/services/matchService.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Orchestrates load of CandidateProfile + Resume, converts using mappers, sends to AI client, and updates/upserts MatchResults."
+    },
+    {
+      "id": "graphify_concept",
+      "label": "Graphify Knowledge Graph",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Maintains a knowledge graph of the codebase with god nodes, community structures, and cross-file relationships to facilitate codebase understanding and architecture queries."
+    },
+    {
+      "id": "AGENTS_md",
+      "label": "AGENTS.md",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "root_readme",
+      "label": "AI-Resume-Screener README",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "tasks_md",
+      "label": "Integration Tasks",
+      "file_type": "document",
+      "source_file": "tasks.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "rules_graphify_md",
+      "label": "Graphify Rules",
+      "file_type": "document",
+      "source_file": ".agents/rules/graphify.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "workflows_graphify_md",
+      "label": "Graphify Workflows",
+      "file_type": "document",
+      "source_file": ".agents/workflows/graphify.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "requirements_txt",
+      "label": "AI Service Requirements",
+      "file_type": "document",
+      "source_file": "ai-service/requirements.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "backend_readme",
+      "label": "Backend Documentation",
+      "file_type": "document",
+      "source_file": "backend/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Details the architecture, API endpoints, setup, environment variables, and crucial design decisions like score scaling and education level mapping."
+    }
+  ],
+  "edges": [
+    {
+      "source": "errorHandler_errorHandler",
+      "target": "aiClient_service",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "backend/src/middlewares/errorHandler.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "resumeRoutes_router",
+      "target": "upload_upload",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/routes/resumeRoutes.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "CandidateProfile_model",
+      "target": "Resume_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/models/CandidateProfile.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "Resume_model",
+      "target": "CandidateProfile_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/models/Resume.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "MatchResult_model",
+      "target": "JobRequirement_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/models/MatchResult.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "MatchResult_model",
+      "target": "CandidateProfile_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/models/MatchResult.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "matchService_service",
+      "target": "aiClient_service",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/services/matchService.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "matchService_service",
+      "target": "CandidateProfile_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/services/matchService.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "matchService_service",
+      "target": "Resume_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/services/matchService.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "matchService_service",
+      "target": "MatchResult_model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/src/services/matchService.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "jobRoutes_router",
+      "target": "matchService_service",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "backend/src/routes/jobRoutes.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "AGENTS_md",
+      "target": "graphify_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "rules_graphify_md",
+      "target": "graphify_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".agents/rules/graphify.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "workflows_graphify_md",
+      "target": "graphify_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".agents/workflows/graphify.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "AGENTS_md",
+      "target": "rules_graphify_md",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "AGENTS.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "backend_readme",
+      "target": "tasks_md",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "backend/README.md",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "candidate_matching_pipeline",
+      "label": "Candidate Matching Pipeline",
+      "nodes": [
+        "JobRequirement_model",
+        "CandidateProfile_model",
+        "Resume_model",
+        "MatchResult_model",
+        "matchService_service",
+        "aiClient_service"
+      ],
+      "relation": "implement",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "backend/src/services/matchService.js"
+    },
+    {
+      "id": "graphify_integration",
+      "label": "Graphify Knowledge Graph Integration",
+      "nodes": [
+        "AGENTS_md",
+        "rules_graphify_md",
+        "workflows_graphify_md",
+        "graphify_concept"
+      ],
+      "relation": "implement",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": ".agents/rules/graphify.md"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

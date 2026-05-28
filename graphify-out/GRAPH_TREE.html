@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>/ — graphify tree viewer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      margin: 20px 0 0 24px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #1e3a56;
+    }
+    .controls {
+      margin: 20px 0 15px 24px;
+    }
+    button {
+      margin-right: 10px;
+      padding: 8px 18px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    button:active {
+      background: #004085;
+    }
+    #tree-container {
+      width: calc(100vw - 48px); /* Adjust for body margin/padding */
+      height: 85vh;
+      overflow: auto;
+      border-radius: 8px;
+      background: #fff;
+      margin-left: 24px;
+      margin-right: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #ddd;
+    }
+    svg {
+      background: #fff;
+      border-radius: 8px;
+      display: block; /* Important for D3 */
+    }
+    .node circle {
+      stroke-width: 2.5px;
+    }
+    .node text { /* Base style for the <text> container */
+      font: 13px 'Segoe UI', sans-serif;
+      paint-order: stroke fill; /* Ensures text is readable over lines */
+      stroke: #fff; /* White halo */
+      stroke-width: 3px; /* Halo thickness */
+      stroke-linejoin: round;
+      stroke-opacity: 0.85; /* Halo opacity */
+    }
+    .link {
+      fill: none;
+      stroke-opacity: 0.7;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1>/ — Knowledge Graph</h1>
+  <div class="controls">
+    <button onclick="expandAll()">Expand All</button>
+    <button onclick="collapseAll()">Collapse All</button>
+    <button onclick="resetView()">Reset View</button>
+  </div>
+  <div id="tree-container">
+    <svg id="tree-svg" width="6000" height="8000"></svg>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const initialJsonData = {"name":"/","total_count":396,"children":[{"name":"ai-service","total_count":229,"children":[{"name":"app","total_count":229,"children":[{"name":"config","total_count":4,"children":[{"name":"settings.py","total_count":2,"children":[{"name":"get_settings()","total_count":1,"children":[]},{"name":"Settings","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]},{"name":"parser_config.py","total_count":1,"children":[]}]},{"name":"core","total_count":23,"children":[{"name":"exceptions.py","total_count":14,"children":[{"name":".__init__()","total_count":1,"children":[]},{"name":".__init__()","total_count":1,"children":[]},{"name":".__init__()","total_count":1,"children":[]},{"name":".__init__()","total_count":1,"children":[]},{"name":".__init__()","total_count":1,"children":[]},{"name":".__init__()","total_count":1,"children":[]},{"name":"AppException","total_count":1,"children":[]},{"name":"EmbeddingGenerationError","total_count":1,"children":[]},{"name":"EmptyResumeError","total_count":1,"children":[]},{"name":"FileTooLargeError","total_count":1,"children":[]},{"name":"float","total_count":1,"children":[]},{"name":"ResumeParsingError","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]},{"name":"UnsupportedFileTypeError","total_count":1,"children":[]}]},{"name":"logger.py","total_count":4,"children":[{"name":".format()","total_count":1,"children":[]},{"name":"get_logger()","total_count":1,"children":[]},{"name":"JsonFormatter","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"middleware.py","total_count":3,"children":[{"name":".dispatch()","total_count":1,"children":[]},{"name":"Request","total_count":1,"children":[]},{"name":"RequestLoggingMiddleware","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]},{"name":"context.py","total_count":1,"children":[]}]},{"name":"main.py","total_count":8,"children":[{"name":"app_exception_handler()","total_count":1,"children":[]},{"name":"AppException","total_count":1,"children":[]},{"name":"Exception","total_count":1,"children":[]},{"name":"FastAPI","total_count":1,"children":[]},{"name":"generic_exception_handler()","total_count":1,"children":[]},{"name":"health()","total_count":1,"children":[]},{"name":"lifespan()","total_count":1,"children":[]},{"name":"Request","total_count":1,"children":[]}]},{"name":"parsers","total_count":93,"children":[{"name":"certification_parser.py","total_count":6,"children":[{"name":"bool","total_count":1,"children":[]},{"name":"clean_cert_name()","total_count":1,"children":[]},{"name":"looks_like_certification()","total_count":1,"children":[]},{"name":"parse_certifications()","total_count":1,"children":[]},{"name":"split_line()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"contact_parser.py","total_count":11,"children":[{"name":"bool","total_count":1,"children":[]},{"name":"extract_best_name()","total_count":1,"children":[]},{"name":"extract_location()","total_count":1,"children":[]},{"name":"extract_name_candidate()","total_count":1,"children":[]},{"name":"int","total_count":1,"children":[]},{"name":"is_location()","total_count":1,"children":[]},{"name":"looks_like_headline()","total_count":1,"children":[]},{"name":"looks_like_name()","total_count":1,"children":[]},{"name":"name_score()","total_count":1,"children":[]},{"name":"parse_contact()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"education_parser.py","total_count":16,"children":[{"name":"bool","total_count":1,"children":[]},{"name":"clean_institution_name()","total_count":1,"children":[]},{"name":"contains_open_ended_marker()","total_count":1,"children":[]},{"name":"degree_level()","total_count":1,"children":[]},{"name":"degree_rank()","total_count":1,"children":[]},{"name":"edu_years()","total_count":1,"children":[]},{"name":"extract_edu_degree_label()","total_count":1,"children":[]},{"name":"extract_institution_from_degree_line()","total_count":1,"children":[]},{"name":"int","total_count":1,"children":[]},{"name":"is_degree_line()","total_count":1,"children":[]},{"name":"is_institution_line()","total_count":1,"children":[]},{"name":"is_noise_line()","total_count":1,"children":[]},{"name":"parse_block()","total_count":1,"children":[]},{"name":"parse_education()","total_count":1,"children":[]},{"name":"split_into_blocks()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"experience_parser.py","total_count":24,"children":[{"name":"best()","total_count":1,"children":[]},{"name":"block_has_date()","total_count":1,"children":[]},{"name":"bool","total_count":1,"children":[]},{"name":"calculate_years_of_experience()","total_count":1,"children":[]},{"name":"classify_line()","total_count":1,"children":[]},{"name":"clean_company()","total_count":1,"children":[]},{"name":"clean_lines()","total_count":1,"children":[]},{"name":"clean_role()","total_count":1,"children":[]},{"name":"detect_header_kind()","total_count":1,"children":[]},{"name":"extract_role_company()","total_count":1,"children":[]},{"name":"float","total_count":1,"children":[]},{"name":"int","total_count":1,"children":[]},{"name":"is_company_line()","total_count":1,"children":[]},{"name":"is_description()","total_count":1,"children":[]},{"name":"is_role_line()","total_count":1,"children":[]},{"name":"parse_block()","total_count":1,"children":[]},{"name":"parse_experience()","total_count":1,"children":[]},{"name":"parse_range()","total_count":1,"children":[]},{"name":"parse_year()","total_count":1,"children":[]},{"name":"role_ends_with_keyword()","total_count":1,"children":[]},{"name":"should_split()","total_count":1,"children":[]},{"name":"split_into_blocks()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]},{"name":"try_split_role_company()","total_count":1,"children":[]}]},{"name":"links_parser.py","total_count":6,"children":[{"name":"bool","total_count":1,"children":[]},{"name":"extract_links()","total_count":1,"children":[]},{"name":"int","total_count":1,"children":[]},{"name":"is_email_adjacent_match()","total_count":1,"children":[]},{"name":"normalise()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"project_parser.py","total_count":15,"children":[{"name":"bool","total_count":1,"children":[]},{"name":"classify()","total_count":1,"children":[]},{"name":"clean_line()","total_count":1,"children":[]},{"name":"clean_title()","total_count":1,"children":[]},{"name":"extract_inline_stack()","total_count":1,"children":[]},{"name":"extract_title()","total_count":1,"children":[]},{"name":"is_project_heading()","total_count":1,"children":[]},{"name":"is_tech_line()","total_count":1,"children":[]},{"name":"match_known_tech()","total_count":1,"children":[]},{"name":"parse_block()","total_count":1,"children":[]},{"name":"parse_projects()","total_count":1,"children":[]},{"name":"split_inline()","total_count":1,"children":[]},{"name":"split_into_blocks()","total_count":1,"children":[]},{"name":"split_tech()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"skills_parser.py","total_count":14,"children":[{"name":"bool","total_count":1,"children":[]},{"name":"is_labeled_line()","total_count":1,"children":[]},{"name":"is_table_row()","total_count":1,"children":[]},{"name":"merge_wrapped_lines()","total_count":1,"children":[]},{"name":"normalize_label()","total_count":1,"children":[]},{"name":"normalize_skill_token()","total_count":1,"children":[]},{"name":"parse_skills()","total_count":1,"children":[]},{"name":"should_merge_skill_line()","total_count":1,"children":[]},{"name":"split_collapsed_categories()","total_count":1,"children":[]},{"name":"split_skill_segments()","total_count":1,"children":[]},{"name":"split_skill_tokens()","total_count":1,"children":[]},{"name":"split_table_row()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]},{"name":"strip_leading_label()","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]}]},{"name":"routers","total_count":6,"children":[{"name":"match.py","total_count":3,"children":[{"name":"EmbeddingService","total_count":1,"children":[]},{"name":"EvaluateParsedRequest","total_count":1,"children":[]},{"name":"match_candidates()","total_count":1,"children":[]}]},{"name":"parse.py","total_count":2,"children":[{"name":"parse_resume()","total_count":1,"children":[]},{"name":"UploadFile","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]}]},{"name":"schemas","total_count":15,"children":[{"name":"match.py","total_count":6,"children":[{"name":"CandidateInput","total_count":1,"children":[]},{"name":"JobInput","total_count":1,"children":[]},{"name":"MatchRequest","total_count":1,"children":[]},{"name":"MatchResponse","total_count":1,"children":[]},{"name":"RankedCandidate","total_count":1,"children":[]},{"name":"ScoreBreakdown","total_count":1,"children":[]}]},{"name":"orchestration.py","total_count":2,"children":[{"name":"EvaluateParsedRequest","total_count":1,"children":[]},{"name":"ParsedCandidatePayload","total_count":1,"children":[]}]},{"name":"resume.py","total_count":5,"children":[{"name":"EducationEntry","total_count":1,"children":[]},{"name":"ExperienceEntry","total_count":1,"children":[]},{"name":"ExperienceSummary","total_count":1,"children":[]},{"name":"ParsedCandidate","total_count":1,"children":[]},{"name":"ProjectItem","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]},{"name":"common.py","total_count":1,"children":[]}]},{"name":"services","total_count":44,"children":[{"name":"ai_parse_service.py","total_count":3,"children":[{"name":"maybe_parse_resume_with_ai()","total_count":1,"children":[]},{"name":"ParsedCandidate","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"embedding_service.py","total_count":13,"children":[{"name":".__init__()","total_count":1,"children":[]},{"name":"._normalize()","total_count":1,"children":[]},{"name":".calculate_similarity()","total_count":1,"children":[]},{"name":".generate_batch_embeddings()","total_count":1,"children":[]},{"name":".generate_embedding()","total_count":1,"children":[]},{"name":"EmbeddingService","total_count":1,"children":[]},{"name":"float","total_count":1,"children":[]},{"name":"get_embedding_service()","total_count":1,"children":[]},{"name":"load_embedding_model()","total_count":1,"children":[]},{"name":"ndarray","total_count":1,"children":[]},{"name":"Request","total_count":1,"children":[]},{"name":"SentenceTransformer","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"explanation_service.py","total_count":4,"children":[{"name":"build_explanations()","total_count":1,"children":[]},{"name":"float","total_count":1,"children":[]},{"name":"generate_readable_summary()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"matching_service.py","total_count":9,"children":[{"name":"EmbeddingService","total_count":1,"children":[]},{"name":"float","total_count":1,"children":[]},{"name":"match_candidates_service()","total_count":1,"children":[]},{"name":"MatchRequest","total_count":1,"children":[]},{"name":"MatchResponse","total_count":1,"children":[]},{"name":"ndarray","total_count":1,"children":[]},{"name":"RankedCandidate","total_count":1,"children":[]},{"name":"score_candidate()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"normalization_service.py","total_count":4,"children":[{"name":"CandidateInput","total_count":1,"children":[]},{"name":"parsed_candidate_to_match_candidate()","total_count":1,"children":[]},{"name":"ParsedCandidate","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"parse_service.py","total_count":9,"children":[{"name":"build_heuristic_candidate()","total_count":1,"children":[]},{"name":"cleanup_empty_values()","total_count":1,"children":[]},{"name":"get_ai_fallback_reasons()","total_count":1,"children":[]},{"name":"get_education_level()","total_count":1,"children":[]},{"name":"parse_resume_service()","total_count":1,"children":[]},{"name":"parse_resume_text()","total_count":1,"children":[]},{"name":"ParsedCandidate","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]},{"name":"UploadFile","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]},{"name":"parser_service.py","total_count":1,"children":[]}]},{"name":"utils","total_count":35,"children":[{"name":"extractor.py","total_count":7,"children":[{"name":"bytes","total_count":1,"children":[]},{"name":"clean_text()","total_count":1,"children":[]},{"name":"extract_docx_text()","total_count":1,"children":[]},{"name":"extract_pdf_text()","total_count":1,"children":[]},{"name":"extract_text_from_file()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]},{"name":"UploadFile","total_count":1,"children":[]}]},{"name":"normalization.py","total_count":11,"children":[{"name":"_dedupe_preserve_order()","total_count":1,"children":[]},{"name":"_normalize_project_name()","total_count":1,"children":[]},{"name":"_normalize_string_list()","total_count":1,"children":[]},{"name":"_validate_education_level()","total_count":1,"children":[]},{"name":"Deduplicate, lowercase, and sort a list of strings.     Non-string items are si","total_count":1,"children":[]},{"name":"Normalise and clean all parsed resume fields in place.      By the time this r","total_count":1,"children":[]},{"name":"normalize_all_fields()","total_count":1,"children":[]},{"name":"Remove duplicates from a list while preserving original order.     Case-insensi","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]},{"name":"Strip and return the project name as-is.     We do not call .title() — it destr","total_count":1,"children":[]},{"name":"Validate that education_level is one of the four canonical values.     Returns","total_count":1,"children":[]}]},{"name":"pre_processor.py","total_count":9,"children":[{"name":"alias_match()","total_count":1,"children":[]},{"name":"bool","total_count":1,"children":[]},{"name":"classify_line()","total_count":1,"children":[]},{"name":"clean()","total_count":1,"children":[]},{"name":"infer_sections()","total_count":1,"children":[]},{"name":"inject_markers()","total_count":1,"children":[]},{"name":"is_body()","total_count":1,"children":[]},{"name":"preprocess()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"resume_text_builder.py","total_count":3,"children":[{"name":"build_candidate_text()","total_count":1,"children":[]},{"name":"CandidateInput","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"section_splitter.py","total_count":2,"children":[{"name":"split_into_sections()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"timing.py","total_count":2,"children":[{"name":"log_time()","total_count":1,"children":[]},{"name":"str","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]}]}]},{"name":"backend","total_count":141,"children":[{"name":"package.json","total_count":16,"children":[{"name":"axios","total_count":1,"children":[]},{"name":"dependencies","total_count":1,"children":[]},{"name":"description","total_count":1,"children":[]},{"name":"dev","total_count":1,"children":[]},{"name":"devDependencies","total_count":1,"children":[]},{"name":"dotenv","total_count":1,"children":[]},{"name":"express","total_count":1,"children":[]},{"name":"form-data","total_count":1,"children":[]},{"name":"main","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]},{"name":"multer","total_count":1,"children":[]},{"name":"name","total_count":1,"children":[]},{"name":"nodemon","total_count":1,"children":[]},{"name":"scripts","total_count":1,"children":[]},{"name":"start","total_count":1,"children":[]},{"name":"version","total_count":1,"children":[]}]},{"name":"playground-1.mongodb.js","total_count":1,"children":[{"name":"salesOnApril4th","total_count":1,"children":[]}]},{"name":"README.md","total_count":17,"children":[{"name":"AI Resume Screener — Backend","total_count":1,"children":[]},{"name":"API Endpoints","total_count":1,"children":[]},{"name":"Candidate Profiles","total_count":1,"children":[]},{"name":"code:bash (curl -X POST http://localhost:3000/api/jobs \\)","total_count":1,"children":[]},{"name":"code:bash (curl -X POST http://localhost:3000/api/jobs/<jobId>/match)","total_count":1,"children":[]},{"name":"code:bash (curl -X POST http://localhost:3000/api/resumes \\)","total_count":1,"children":[]},{"name":"code:bash (curl http://localhost:3000/api/jobs/<jobId>/matches?shortlis)","total_count":1,"children":[]},{"name":"code:bash (npm install)","total_count":1,"children":[]},{"name":"code:block7 (src/)","total_count":1,"children":[]},{"name":"code:json ({)","total_count":1,"children":[]},{"name":"Environment Variables","total_count":1,"children":[]},{"name":"Jobs","total_count":1,"children":[]},{"name":"Key Design Decisions","total_count":1,"children":[]},{"name":"Project Structure","total_count":1,"children":[]},{"name":"README.md","total_count":1,"children":[]},{"name":"Resumes","total_count":1,"children":[]},{"name":"Setup","total_count":1,"children":[]}]},{"name":"server.js","total_count":4,"children":[{"name":"app","total_count":1,"children":[]},{"name":"connectDB","total_count":1,"children":[]},{"name":"env","total_count":1,"children":[]},{"name":"express","total_count":1,"children":[]}]},{"name":"src","total_count":103,"children":[{"name":"config","total_count":6,"children":[{"name":"db.js","total_count":3,"children":[{"name":"connectDB()","total_count":1,"children":[]},{"name":"env","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]}]},{"name":"env.js","total_count":3,"children":[{"name":"envSchema","total_count":1,"children":[]},{"name":"parsed","total_count":1,"children":[]},{"name":"{ z }","total_count":1,"children":[]}]}]},{"name":"controllers","total_count":20,"children":[{"name":"auth.controller.js","total_count":7,"children":[{"name":"ApiError","total_count":1,"children":[]},{"name":"asyncHandler","total_count":1,"children":[]},{"name":"env","total_count":1,"children":[]},{"name":"jwt","total_count":1,"children":[]},{"name":"login","total_count":1,"children":[]},{"name":"register","total_count":1,"children":[]},{"name":"User","total_count":1,"children":[]}]},{"name":"candidateController.js","total_count":2,"children":[{"name":"CandidateProfile","total_count":1,"children":[]},{"name":"getProfile()","total_count":1,"children":[]}]},{"name":"jobController.js","total_count":6,"children":[{"name":"createJob()","total_count":1,"children":[]},{"name":"getJobMatches()","total_count":1,"children":[]},{"name":"JobRequirement","total_count":1,"children":[]},{"name":"MatchResult","total_count":1,"children":[]},{"name":"runJobMatch()","total_count":1,"children":[]},{"name":"{ runMatch }","total_count":1,"children":[]}]},{"name":"resumeController.js","total_count":5,"children":[{"name":"aiClient","total_count":1,"children":[]},{"name":"CandidateProfile","total_count":1,"children":[]},{"name":"getResume()","total_count":1,"children":[]},{"name":"uploadResume()","total_count":1,"children":[]},{"name":"{ parsedCandidateToBackend }","total_count":1,"children":[]}]}]},{"name":"index.js","total_count":7,"children":[{"name":"app","total_count":1,"children":[]},{"name":"candidateRoutes","total_count":1,"children":[]},{"name":"errorHandler","total_count":1,"children":[]},{"name":"express","total_count":1,"children":[]},{"name":"jobRoutes","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]},{"name":"resumeRoutes","total_count":1,"children":[]}]},{"name":"mappers","total_count":10,"children":[{"name":"aiPayloadMapper.js","total_count":10,"children":[{"name":"AI_TO_BACKEND_EDUCATION","total_count":1,"children":[]},{"name":"aiEducationToBackend()","total_count":1,"children":[]},{"name":"aiRankedCandidateToMatchResult()","total_count":1,"children":[]},{"name":"BACKEND_TO_AI_EDUCATION","total_count":1,"children":[]},{"name":"backendEducationToAi()","total_count":1,"children":[]},{"name":"candidateToAiInput()","total_count":1,"children":[]},{"name":"jobToAiInput()","total_count":1,"children":[]},{"name":"normalizeSkills()","total_count":1,"children":[]},{"name":"parsedCandidateToBackend()","total_count":1,"children":[]},{"name":"yearToDate()","total_count":1,"children":[]}]}]},{"name":"middleware","total_count":9,"children":[{"name":"authenticate.js","total_count":5,"children":[{"name":"ApiError","total_count":1,"children":[]},{"name":"asyncHandler","total_count":1,"children":[]},{"name":"authenticate","total_count":1,"children":[]},{"name":"env","total_count":1,"children":[]},{"name":"jwt","total_count":1,"children":[]}]},{"name":"authorise.js","total_count":2,"children":[{"name":"ApiError","total_count":1,"children":[]},{"name":"authorise()","total_count":1,"children":[]}]},{"name":"errorHandler.js","total_count":2,"children":[{"name":"ApiError","total_count":1,"children":[]},{"name":"errorHandler()","total_count":1,"children":[]}]}]},{"name":"middlewares","total_count":5,"children":[{"name":"errorHandler.js","total_count":1,"children":[{"name":"errorHandler()","total_count":1,"children":[]}]},{"name":"upload.js","total_count":4,"children":[{"name":"ALLOWED_MIME_TYPES","total_count":1,"children":[]},{"name":"multer","total_count":1,"children":[]},{"name":"storage","total_count":1,"children":[]},{"name":"upload","total_count":1,"children":[]}]}]},{"name":"models","total_count":19,"children":[{"name":"Application.js","total_count":2,"children":[{"name":"applicationSchema","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]}]},{"name":"CandidateProfile.js","total_count":5,"children":[{"name":"candidateProfileSchema","total_count":1,"children":[]},{"name":"educationEntrySchema","total_count":1,"children":[]},{"name":"experienceEntrySchema","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]},{"name":"projectSchema","total_count":1,"children":[]}]},{"name":"JobRequirement.js","total_count":2,"children":[{"name":"jobRequirementSchema","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]}]},{"name":"MatchResult.js","total_count":2,"children":[{"name":"matchResultSchema","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]}]},{"name":"RecruiterProfile.js","total_count":2,"children":[{"name":"mongoose","total_count":1,"children":[]},{"name":"recruiterProfileSchema","total_count":1,"children":[]}]},{"name":"Resume.js","total_count":1,"children":[{"name":"resumeSchema","total_count":1,"children":[]}]},{"name":"Skill.js","total_count":2,"children":[{"name":"mongoose","total_count":1,"children":[]},{"name":"skillSchema","total_count":1,"children":[]}]},{"name":"User.js","total_count":3,"children":[{"name":"bcrypt","total_count":1,"children":[]},{"name":"mongoose","total_count":1,"children":[]},{"name":"userSchema","total_count":1,"children":[]}]}]},{"name":"routes","total_count":12,"children":[{"name":"auth.routes.js","total_count":2,"children":[{"name":"{ register, login }","total_count":1,"children":[]},{"name":"{ Router }","total_count":1,"children":[]}]},{"name":"candidateRoutes.js","total_count":3,"children":[{"name":"express","total_count":1,"children":[]},{"name":"router","total_count":1,"children":[]},{"name":"{ getProfile }","total_count":1,"children":[]}]},{"name":"jobRoutes.js","total_count":3,"children":[{"name":"express","total_count":1,"children":[]},{"name":"router","total_count":1,"children":[]},{"name":"{ createJob, runJobMatch, getJobMatches }","total_count":1,"children":[]}]},{"name":"resumeRoutes.js","total_count":4,"children":[{"name":"express","total_count":1,"children":[]},{"name":"router","total_count":1,"children":[]},{"name":"upload","total_count":1,"children":[]},{"name":"{ uploadResume, getResume }","total_count":1,"children":[]}]}]},{"name":"services","total_count":12,"children":[{"name":"aiClient.js","total_count":7,"children":[{"name":"axios","total_count":1,"children":[]},{"name":"buildAiError()","total_count":1,"children":[]},{"name":"client","total_count":1,"children":[]},{"name":"FormData","total_count":1,"children":[]},{"name":"matchCandidates()","total_count":1,"children":[]},{"name":"parseResume()","total_count":1,"children":[]},{"name":"TIMEOUT","total_count":1,"children":[]}]},{"name":"matchService.js","total_count":5,"children":[{"name":"aiClient","total_count":1,"children":[]},{"name":"CandidateProfile","total_count":1,"children":[]},{"name":"MatchResult","total_count":1,"children":[]},{"name":"runMatch()","total_count":1,"children":[]},{"name":"{ jobToAiInput, candidateToAiInput, aiRankedCandidateToMatchResult }","total_count":1,"children":[]}]}]},{"name":"utils","total_count":3,"children":[{"name":"apiError.js","total_count":2,"children":[{"name":".constructor()","total_count":1,"children":[]},{"name":"ApiError","total_count":1,"children":[]}]},{"name":"asyncHandler.js","total_count":1,"children":[{"name":"asyncHandler()","total_count":1,"children":[]}]}]}]}]},{"name":"package.json","total_count":24,"children":[{"name":"ai","total_count":1,"children":[]},{"name":"author","total_count":1,"children":[]},{"name":"backend","total_count":1,"children":[]},{"name":"bugs","total_count":1,"children":[]},{"name":"concurrently","total_count":1,"children":[]},{"name":"dependencies","total_count":1,"children":[]},{"name":"description","total_count":1,"children":[]},{"name":"dev","total_count":1,"children":[]},{"name":"devDependencies","total_count":1,"children":[]},{"name":"frontend","total_count":1,"children":[]},{"name":"homepage","total_count":1,"children":[]},{"name":"install:all","total_count":1,"children":[]},{"name":"keywords","total_count":1,"children":[]},{"name":"license","total_count":1,"children":[]},{"name":"main","total_count":1,"children":[]},{"name":"mongodb","total_count":1,"children":[]},{"name":"name","total_count":1,"children":[]},{"name":"repository","total_count":1,"children":[]},{"name":"scripts","total_count":1,"children":[]},{"name":"type","total_count":1,"children":[]},{"name":"type","total_count":1,"children":[]},{"name":"url","total_count":1,"children":[]},{"name":"url","total_count":1,"children":[]},{"name":"version","total_count":1,"children":[]}]},{"name":"README.md","total_count":2,"children":[{"name":"AI-Resume-Screener","total_count":1,"children":[]},{"name":"README.md","total_count":1,"children":[]}]}]};
+
+    function transformData(jsonData) {
+        // Helper function to recursively build the children structure
+        function processNode(node, parentL1StageName) {
+            let displayName = node.name;
+            // Append total_count if it exists and is not already in the name
+            if (node.total_count !== undefined) {
+                if (!/\(Total Count: \d+\)$/.test(displayName)) {
+                    displayName += ` (Total Count: ${node.total_count})`;
+                }
+            }
+
+            const newNode = { name: displayName };
+
+            if (parentL1StageName === "Root") {
+                 newNode.originalStageName = node.name;
+            } else {
+                newNode.originalStageName = parentL1StageName;
+            }
+
+            if (node.children && node.children.length > 0) {
+                const stageNameToPass = (parentL1StageName === "Root") ? node.name : parentL1StageName;
+                newNode.children = node.children.map(child => processNode(child, stageNameToPass));
+            }
+
+            return newNode;
+        }
+
+        let rootDisplayName = jsonData.name;
+        if (jsonData.total_count !== undefined && !/\(Total Count: \d+\)$/.test(rootDisplayName)) {
+            rootDisplayName += ` (Total Count: ${jsonData.total_count})`;
+        }
+
+        return {
+            name: rootDisplayName,
+            originalStageName: "Root",
+            children: (jsonData.children || []).map(child => processNode(child, "Root"))
+        };
+    }
+
+    const treeData = transformData(initialJsonData);
+
+    // Auto-populated phaseColors: every depth-1 child of the root gets
+    // a stable colour from a bigger palette so all top-level dirs are
+    // distinguishable.
+    const PALETTE = [
+      ["#3498DB","#2980B9","#AED6F1"], ["#2ECC71","#27AE60","#A9DFBF"],
+      ["#E74C3C","#C0392B","#F5B7B1"], ["#9B59B6","#8E44AD","#D7BDE2"],
+      ["#F39C12","#D68910","#FAD7A0"], ["#1ABC9C","#117864","#A2D9CE"],
+      ["#34495E","#1B2631","#ABB2B9"], ["#E67E22","#BA4A00","#F5CBA7"],
+      ["#16A085","#0E6655","#A2D9CE"], ["#D35400","#A04000","#EDBB99"],
+      ["#7F8C8D","#566573","#D5DBDB"], ["#C0392B","#7B241C","#F5B7B1"],
+      ["#2E86C1","#1B4F72","#A9CCE3"], ["#28B463","#196F3D","#A9DFBF"],
+      ["#AF7AC5","#6C3483","#D2B4DE"],
+    ];
+    const phaseColors = { "Root": { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+                          "Default": { fill: "#BDC3C7", stroke: "#95A5A6", collapsedFill: "#ECF0F1" } };
+    (initialJsonData.children || []).forEach((c, i) => {
+      const pal = PALETTE[i % PALETTE.length];
+      phaseColors[c.name] = { fill: pal[0], stroke: pal[1], collapsedFill: pal[2] };
+    });
+
+    const levelSpecificPalettes = {
+      0: { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+      2: { fill: "#6ab04c", stroke: "#508a38", collapsedFill: "#a3d391" },
+      3: { fill: "#f0932b", stroke: "#d0730f", collapsedFill: "#f6c07e" },
+      4: { fill: "#be2edd", stroke: "#a01cb3", collapsedFill: "#e08bf2" },
+      5: { fill: "#00a8ff", stroke: "#007ac1", collapsedFill: "#74d2ff" },
+      6: { fill: "#e55039", stroke: "#c23620", collapsedFill: "#f09a8d" },
+      default: { fill: "#747d8c", stroke: "#57606f", collapsedFill: "#a4b0be" }
+    };
+
+    const svgElement = d3.select("#tree-svg");
+    const initialSvgWidth = +svgElement.attr("width");
+    const initialSvgHeight = +svgElement.attr("height");
+    const margin = { top: 40, right: 120, bottom: 80, left: 450 };
+    let width = initialSvgWidth - margin.left - margin.right;
+    let height = initialSvgHeight - margin.top - margin.bottom;
+    const duration = 500;
+    let nodeCounter = 0;
+    const g = svgElement.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    const treemap = d3.tree().nodeSize([40, 0]);
+    let rootNode = d3.hierarchy(treeData, d => d.children);
+    rootNode.x0 = 0;
+    rootNode.y0 = 0;
+
+    if (rootNode.children) {
+      rootNode.children.forEach(d_child => {
+        if (d_child.children) { collapseBranch(d_child); }
+      });
+    }
+    updateTree(rootNode);
+
+    function collapseBranch(d) { if (d.children) { d._children = d.children; d._children.forEach(collapseBranch); d.children = null; } }
+    function expandBranch(d) { if (d._children) { d.children = d._children; d._children = null; } if (d.children) { d.children.forEach(expandBranch); } }
+    window.expandAll = () => { expandBranch(rootNode); updateTree(rootNode); };
+    window.collapseAll = () => { if (rootNode.children) { rootNode.children.forEach(collapseBranch); } updateTree(rootNode); };
+    window.resetView = () => { if (rootNode.children) { rootNode.children.forEach(d_child => { if (d_child.children || d_child._children) { collapseBranch(d_child); } }); } if (rootNode._children && !rootNode.children) { rootNode.children = rootNode._children; rootNode._children = null; } updateTree(rootNode); };
+
+    function updateTree(source) {
+      const treeLayoutData = treemap(rootNode);
+      let nodes = treeLayoutData.descendants();
+      let links = treeLayoutData.descendants().slice(1);
+
+      let minX = 0;
+      let maxX = 0;
+      if (nodes.length > 0) {
+        minX = d3.min(nodes, d => d.x);
+        maxX = d3.max(nodes, d => d.x);
+      }
+
+      let neededHeight = Math.max(initialSvgHeight, maxX - minX + margin.top + margin.bottom + 100);
+      svgElement.transition().duration(duration / 2).attr("height", neededHeight);
+      g.transition().duration(duration / 2).attr("transform", `translate(${margin.left},${margin.top - minX + 40})`);
+
+      nodes.forEach(d => { d.y = d.depth * 400; }); // Adjust horizontal separation if needed
+
+      const node = g.selectAll('g.node').data(nodes, d => d.id || (d.id = ++nodeCounter));
+      const nodeEnter = node.enter().append('g')
+        .attr('class', d => "node" + (d.children || d._children ? " node--internal" : " node--leaf") + (d._children ? " _children" : ""))
+        .attr('transform', d => `translate(${source.y0},${source.x0})`)
+        .on('click', (event, d) => { if (d.children) { d._children = d.children; d.children = null; } else if (d._children) { d.children = d._children; d._children = null; } updateTree(d); })
+        .style('cursor', d => (d.children || d._children) ? 'pointer' : 'default');
+
+      nodeEnter.append('circle').attr('r', 1e-6);
+
+      nodeEnter.append('text')
+        .attr('dy', '.35em')
+        .attr('x', d => d.children || d._children ? -14 : 14)
+        .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+        .style("fill-opacity", 1e-6)
+        .call(wrapText, 380);
+
+      const nodeUpdate = nodeEnter.merge(node);
+      nodeUpdate.transition().duration(duration)
+        .attr('transform', d => `translate(${d.y},${d.x})`)
+        .attr('class', d => "node" + (d.children ? " node--internal" : " node--leaf") + (d._children ? " node--internal _children" : ""));
+
+      nodeUpdate.select('circle').attr('r', 8.5)
+        .style('fill', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            if (d._children) return palette.collapsedFill;
+            if (d.children) return palette.fill;
+            return "#fff";
+        })
+        .style('stroke', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            return palette.stroke;
+        });
+      nodeUpdate.select('text').style("fill-opacity", 1).call(wrapText, 380);
+
+      const nodeExit = node.exit().transition().duration(duration).attr('transform', d => `translate(${source.y},${source.x})`).remove();
+      nodeExit.select('circle').attr('r', 1e-6);
+      nodeExit.select('text').style('fill-opacity', 1e-6);
+
+      const link = g.selectAll('path.link').data(links, d => d.id);
+      const linkEnter = link.enter().insert('path', "g").attr('class', 'link').attr('d', d => { const o = { x: source.x0, y: source.y0 }; return diagonal(o, o); });
+
+      linkEnter.merge(link).transition().duration(duration).attr('d', d => diagonal(d, d.parent))
+        .style('stroke', d => {
+            const sourceNode = d.parent;
+            if (!sourceNode) return phaseColors.Default.stroke;
+            const l1AncestorName = sourceNode.data.originalStageName;
+            const colorPalette = phaseColors[l1AncestorName] || phaseColors.Default;
+            return colorPalette.stroke;
+        });
+      link.exit().transition().duration(duration).attr('d', d => { const o = { x: source.x, y: source.y }; return diagonal(o, o); }).remove();
+      nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+    }
+
+    function diagonal(s, d) { return `M ${s.y} ${s.x} C ${(s.y + d.y) / 2} ${s.x}, ${(s.y + d.y) / 2} ${d.x}, ${d.y} ${d.x}`; }
+
+    function wrapText(textElements, maxWidth) {
+        const textPartColors = {
+            name: '#343a40',
+            count: '#0056b3'
+        };
+        const countRegex = /(\s\(Total Count: \d+\))$/;
+
+        textElements.each(function () {
+            const textD3 = d3.select(this);
+            const originalNodeText = textD3.datum().data.name;
+            const x = parseFloat(textD3.attr("x") || 0);
+            const initialDy = textD3.attr("dy");
+            const textAnchor = textD3.attr("text-anchor");
+            const lineHeight = 1.1;
+
+            textD3.text(null);
+
+            let namePart = originalNodeText;
+            let countPartText = "";
+
+            const countMatch = originalNodeText.match(countRegex);
+            if (countMatch && originalNodeText.endsWith(countMatch[0])) {
+                namePart = originalNodeText.substring(0, originalNodeText.length - countMatch[0].length).trim();
+                countPartText = countMatch[0].trim();
+            }
+
+            const tokens = [];
+            namePart.split(/\s+/).filter(Boolean).forEach(word => {
+                tokens.push({ text: word, type: 'name' });
+            });
+            if (countPartText) {
+                tokens.push({ text: countPartText, type: 'count' });
+            }
+
+            if (tokens.length === 0 && originalNodeText) {
+                tokens.push({ text: originalNodeText, type: 'name' });
+            }
+
+            let currentTspan = textD3.append("tspan").attr("x", x).attr("dy", initialDy);
+            if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+
+            let lineTokens = [];
+
+            for (let i = 0; i < tokens.length; i++) {
+                const tokenObj = tokens[i];
+
+                lineTokens.push(tokenObj);
+                currentTspan.text(lineTokens.map(t => t.text).join(" "));
+
+                if (currentTspan.node().getComputedTextLength() > maxWidth && lineTokens.length > 1) {
+                    lineTokens.pop();
+
+                    currentTspan.text(null);
+                    lineTokens.forEach((prevToken, idx) => {
+                        currentTspan.append("tspan")
+                            .text((idx > 0 ? " " : "") + prevToken.text)
+                            .style("fill", textPartColors[prevToken.type] || textPartColors.name)
+                            .style("font-weight", prevToken.type === 'count' ? "bold" : "normal");
+                    });
+
+                    lineTokens = [tokenObj];
+                    currentTspan = textD3.append("tspan").attr("x", x).attr("dy", lineHeight + "em");
+                    if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+                }
+            }
+
+            currentTspan.text(null);
+            lineTokens.forEach((token, idx) => {
+                currentTspan.append("tspan")
+                    .text((idx > 0 ? " " : "") + token.text)
+                    .style("fill", textPartColors[token.type] || textPartColors.name)
+                    .style("font-weight", token.type === 'count' ? "bold" : "normal");
+            });
+
+            if (textD3.selectAll("tspan > tspan").empty() && textD3.select("tspan").text().length === 0 && originalNodeText) {
+                let t = textD3.select("tspan");
+                let displayText = originalNodeText;
+                t.text(displayText).style("fill", textPartColors.name);
+                if (t.node() && t.node().getComputedTextLength() > maxWidth && displayText.length > 20) {
+                    let estimatedChars = Math.floor(maxWidth / (t.node().getComputedTextLength()/displayText.length) );
+                    displayText = displayText.substring(0, Math.max(0, estimatedChars - 3)) + "...";
+                    t.text(displayText);
+                }
+            }
+        });
+    }
+  </script>
+</body>
+</html>

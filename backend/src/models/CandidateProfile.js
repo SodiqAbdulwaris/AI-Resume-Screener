@@ -1,86 +1,55 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const experienceSchema = new mongoose.Schema(
+const educationEntrySchema = new mongoose.Schema(
   {
-    jobTitle: { type: String },
-    company: { type: String },
-    startDate: { type: Date },
-    endDate: { type: Date },
-    description: { type: String },
+    institution: String,
+    degree: String,
+    startYear: Number,
+    endYear: Number,
+    gpa: String,
   },
   { _id: false }
-)
+);
+
+const experienceEntrySchema = new mongoose.Schema(
+  {
+    role: String,
+    company: String,
+    startYear: Number,
+    endYear: Number,
+  },
+  { _id: false }
+);
+
+const projectSchema = new mongoose.Schema(
+  {
+    name: String,
+    technologies: [String],
+  },
+  { _id: false }
+);
 
 const candidateProfileSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-      unique: true,
-    },
-    resumeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Resume',
-      required: true,
-    },
-    profileSource: {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
+    resumeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Resume', required: true },
+    fullName: { type: String },
+    email: { type: String },
+    phone: { type: String },
+    location: { type: String },
+    skills: { type: [String], default: [] },
+    education: { type: [educationEntrySchema], default: [] },
+    educationLevel: {
       type: String,
-      enum: ['ai_parsed', 'manual'],
-      default: 'ai_parsed',
+      enum: ['olevel', 'bachelor', 'master', 'phd', null],
+      default: null,
     },
-    personalInfo: {
-      fullName: { type: String },
-      email: { type: String },
-      phone: { type: String },
-    },
-    skills: {
-      type: [String],
-    },
-    manuallyAddedSkills: {
-      type: [String],
-    },
-    experience: {
-      type: [experienceSchema],
-    },
-    manuallyAddedExperience: {
-      type: [experienceSchema],
-    },
-    education: {
-      type: [
-        {
-          degree: { type: String },
-          institution: { type: String },
-          startDate: { type: Date },
-          endDate: { type: Date },
-          _id: false,
-        },
-      ],
-    },
-    certifications: {
-      type: [String],
-    },
-    projects: {
-      type: [
-        {
-          title: { type: String },
-          description: { type: String },
-          techStack: { type: [String] },
-          _id: false,
-        },
-      ],
-    },
-    embeddings: {
-      type: [Number],
-    },
-    parsingConfidence: {
-      overall: { type: Number },
-      skills: { type: Number },
-      experience: { type: Number },
-      education: { type: Number },
-    },
+    experience: { type: [experienceEntrySchema], default: [] },
+    yearsExperience: { type: Number, default: 0 },
+    projects: { type: [projectSchema], default: [] },
+    certifications: { type: [String], default: [] },
   },
   { timestamps: true }
-)
+);
 
-module.exports = mongoose.model('CandidateProfile', candidateProfileSchema)
+module.exports = mongoose.model('CandidateProfile', candidateProfileSchema);

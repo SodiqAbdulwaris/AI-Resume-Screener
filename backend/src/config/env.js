@@ -1,24 +1,28 @@
-const { z } = require('zod')
+const path = require('path');
+const dotenv = require('dotenv');
 
-const envSchema = z.object({
-    MONGO_URI: z.string().url('MongoDB URI must be a valid URL'),
-    JWT_SECRET: z.string().min(32, 'JWT must be 32 characters'),
-    JWT_LAST_FOR: z.string().default('7d'),
-    BACKEND_PORT: z.string().default(5000),
-    AI_SERVICE_URL: z.string().url('AI Service URL must be a valid URL'),
-    MAX_FILE_UPLOAD: z.string().default(5),
-    NODE_ENV: z.enum(['production', 'development']).default('development')
-})
+const envLocalPath = path.resolve(__dirname, '../../.env.local');
 
-const parsed = envSchema.safeParse(process.env)
+dotenv.config({ path: envLocalPath });
 
-if (!parsed.success){
-    console.log('Invalid environmental variables')
-    parsed.error.errors.forEach(err => {
-        console.log(`${err.path[0]}: ${err.message}`)
-    });
-    process.exit(1)
+function readInteger(name, defaultValue) {
+  const rawValue = process.env[name];
+  if (rawValue === undefined || rawValue === '') {
+    return defaultValue;
+  }
+
+  const parsed = Number.parseInt(rawValue, 10);
+  return Number.isFinite(parsed) ? parsed : defaultValue;
 }
 
-module.exports = parsed.data
+const config = {
+  envLocalPath,
+  port: readInteger('PORT', 5000),
+  mongodbUri: process.env.MONGODB_URI,
+  jwtSecret: process.env.JWT_SECRET,
+  aiServiceUrl: process.env.AI_SERVICE_URL || 'http://localhost:8000',
+  aiServiceTimeoutMs: readInteger('AI_SERVICE_TIMEOUT_MS', 30000),
+  maxFileSizeBytes: readInteger('MAX_FILE_SIZE_BYTES', 5 * 1024 * 1024),
+};
 
+module.exports = config;
