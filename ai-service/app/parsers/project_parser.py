@@ -17,9 +17,9 @@ PARENTHETICAL_LABEL = re.compile(
 
 INLINE_TECH_SEPARATOR = re.compile(r"\s*[—–|]\s*")
 TECH_LABEL = re.compile(
-    r"^\s*(technologies|tech|stack)\s*:\s*", 
+    r"^\s*(technologies|tech|stack)\s*:\s*",
     re.IGNORECASE,
-    )
+)
 
 METRIC_LINE = re.compile(
     r"\b\d[\d,]*\s*(downloads|users|installs|stars)\b", 
@@ -67,11 +67,15 @@ def split_into_blocks(lines: List[str]) -> List[List[str]]:
     return blocks
 
 
+
 def is_project_heading(line: str) -> bool:
     cleaned = clean_line(line)
     if not cleaned:
         return False
     if TECH_LABEL.match(cleaned):
+        return False
+    # A line that looks like a comma/pipe separated tech list is a continuation
+    if is_tech_line(cleaned):
         return False
     if PROSE_SIGNAL.search(cleaned) and not INLINE_TECH_SEPARATOR.search(cleaned):
         return False
@@ -131,9 +135,18 @@ def extract_title(line: str) -> Tuple[Optional[str], Optional[str]]:
 
     if INLINE_TECH_SEPARATOR.search(cleaned):
         left, right = split_inline(cleaned)
-        if is_tech_line(right) and not METRIC_LINE.search(right):  # ← add metric guard
+        if is_tech_line(right) and not METRIC_LINE.search(right):
             return clean_title(left), right
-
+        # Embedded Stack: label
+        tech_match = TECH_LABEL.search(right)
+        if tech_match:
+            return clean_title(left), right[tech_match.start():]
+        # Right side is prose description — strip it, extract tech from known vocab only
+        known = match_known_tech(right)
+        if known:
+            return clean_title(left), ", ".join(known)
+        return clean_title(left), None
+    
     match = TECH_LABEL.search(cleaned)
     if match:
         return clean_title(cleaned[:match.start()]), cleaned[match.start():]
