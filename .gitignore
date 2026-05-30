@@ -5,6 +5,8 @@ node_modules/
 
 extras/
 
+.agents/
+.codex/
 .qodo/
 __pycache__/
 *.pyc
@@ -12,5 +14,7 @@ ai-service/env/
 ai-service/app/tests/
 ai-service/app/extras/
 ai-service/app/embedding-models
+
+graphify-out/
 
 backend/uploads/
