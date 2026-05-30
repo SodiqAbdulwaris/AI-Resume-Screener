@@ -15,8 +15,8 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\config\\parser_config.py": {
-    "mtime": 1779711983.4071,
-    "ast_hash": "56ce12c0b4fec5a37da77d9a388b00b9",
+    "mtime": 1779993703.7695048,
+    "ast_hash": "38e19954932783bc4d02d4292e07e90a",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\config\\settings.py": {
@@ -60,18 +60,18 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\parsers\\contact_parser.py": {
-    "mtime": 1779713197.100506,
-    "ast_hash": "4d6ab26327e979468a1fe4a011debeaf",
+    "mtime": 1779969104.920995,
+    "ast_hash": "49c6f169c5c59b204e54616028435605",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\parsers\\education_parser.py": {
-    "mtime": 1779712233.5261383,
-    "ast_hash": "c4fc400b03b7d1554bb94996003cc599",
+    "mtime": 1779996464.111632,
+    "ast_hash": "6fc6a4de8ef6dcee352a0b98228bf849",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\parsers\\experience_parser.py": {
-    "mtime": 1779715425.1937294,
-    "ast_hash": "fdca6edcfc778b57d5f48e30ea90ca86",
+    "mtime": 1779996347.150337,
+    "ast_hash": "e486d575452c8445075d5d8523efbd81",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\parsers\\links_parser.py": {
@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\parsers\\project_parser.py": {
-    "mtime": 1779732213.025419,
-    "ast_hash": "2e4f4f36be199dc847e94062f22068fb",
+    "mtime": 1779996520.6685143,
+    "ast_hash": "fba6d959689374e320d7dc015616851f",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\parsers\\skills_parser.py": {
@@ -95,8 +95,8 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\routers\\match.py": {
-    "mtime": 1779721178.06135,
-    "ast_hash": "ef8045799ab3bcf541a91f91cd1fbeeb",
+    "mtime": 1779952025.2152545,
+    "ast_hash": "332a14ec8d37498ca51cccae35e687ac",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\ai-service\\app\\routers\\parse.py": {
@@ -230,8 +230,8 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\models\\MatchResult.js": {
-    "mtime": 1779948671.2306201,
-    "ast_hash": "9be7722c71452c904becfb2ea16d6a75",
+    "mtime": 1779948880.8406887,
+    "ast_hash": "c907ca8e9636fcee7c160941acd2fbed",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\models\\Resume.js": {
@@ -325,8 +325,8 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\index.js": {
-    "mtime": 1779945320.1413343,
-    "ast_hash": "282f319636a45df1d0cd82a40c75787a",
+    "mtime": 1779951023.3717885,
+    "ast_hash": "ae95c9f1f42955032b2f94f4f4be9c0e",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\config\\env.js": {
@@ -345,18 +345,18 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\controllers\\job.controller.js": {
-    "mtime": 1779922723.840558,
-    "ast_hash": "bd0b13d947303a6899d5991c607e33e3",
+    "mtime": 1779951183.836006,
+    "ast_hash": "73d13a1f3f3a6728e1ef065ba29505be",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\controllers\\resume.controller.js": {
-    "mtime": 1779922723.435335,
-    "ast_hash": "c46e52c8a6f491f02e605f8c0c78dc41",
+    "mtime": 1779949072.8496945,
+    "ast_hash": "1caac366cba18788f8ab0c44ce27106c",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\mappers\\ai.payload.mapper.js": {
-    "mtime": 1779895461.1028023,
-    "ast_hash": "10b4a1295692c3b7e3bee9cba54297df",
+    "mtime": 1779951540.5126638,
+    "ast_hash": "137f3fa6bb83c3f49124cdf8bbcfd3e5",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\middlewares\\auth.middleware.js": {
@@ -385,8 +385,8 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\routes\\job.routes.js": {
-    "mtime": 1779922722.6220238,
-    "ast_hash": "764697f12596cfd417d2ce992ec4cd4d",
+    "mtime": 1779951319.4895642,
+    "ast_hash": "8f0184be4535d8aae1cbeb7a110ac3cb",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\routes\\resume.routes.js": {
@@ -395,13 +395,13 @@
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\services\\ai.client.js": {
-    "mtime": 1779916717.7480252,
-    "ast_hash": "00ac755c8ed0ced201c514b9ca369eeb",
+    "mtime": 1779951676.789546,
+    "ast_hash": "7a4db7a3552b8c4f8c63024866027a3d",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\services\\match.service.js": {
-    "mtime": 1779922724.996579,
-    "ast_hash": "0f38fc20cfda0576a794266a7da94d93",
+    "mtime": 1779951566.5025835,
+    "ast_hash": "5df01abc3983afb013f5c526aa2d18f4",
     "semantic_hash": ""
   },
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\models\\Application.js": {
@@ -412,6 +412,211 @@
   "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\models\\RecruiterProfile.js": {
     "mtime": 1779948686.6029387,
     "ast_hash": "d2afd8b807c8a3df84a997365a468f3a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\controllers\\application.controller.js": {
+    "mtime": 1779950913.0979788,
+    "ast_hash": "f26cf2d44ebc5a03c57e5ada5d1aaa0a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\middlewares\\validateObjectId.middleware.js": {
+    "mtime": 1779951299.0823336,
+    "ast_hash": "e53c40e84bdd1710c3ff9ca61c79ee82",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\backend\\src\\routes\\application.routes.js": {
+    "mtime": 1779950944.1351962,
+    "ast_hash": "5a9f4cc7447a5f343ce008f72e9bf4b7",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\package.json": {
+    "mtime": 1780178160.8103015,
+    "ast_hash": "03cde17180fe7af2fb5aa7d6ab88489a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\vite.config.js": {
+    "mtime": 1780178161.1155639,
+    "ast_hash": "3e0a244e6f56e50cdcc6eee462b6eb0e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\App.jsx": {
+    "mtime": 1780178581.4859192,
+    "ast_hash": "16d297a53b74f12e29720178826a11c5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\main.jsx": {
+    "mtime": 1780178161.5634954,
+    "ast_hash": "82fe2a5dc3ec595c58f5b0b576f44078",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\candidate\\ApplyModal.jsx": {
+    "mtime": 1780178545.086784,
+    "ast_hash": "1587da59d85175f4dc9702d7502df84b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\candidate\\CandidateApplications.jsx": {
+    "mtime": 1780178550.1682403,
+    "ast_hash": "1a83626c97633a5e9c66ff1faffd4c18",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\candidate\\CandidateBrowse.jsx": {
+    "mtime": 1780178547.7426007,
+    "ast_hash": "d44099508e251262c4479cc2b8adc8b5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\candidate\\CandidateProfile.jsx": {
+    "mtime": 1780178552.8391743,
+    "ast_hash": "715a71b5da643475e7a01fb771ac7d06",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\candidate\\JobCard.jsx": {
+    "mtime": 1780178538.3248198,
+    "ast_hash": "c2eabbe686a96fa0628258d27996342e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\candidate\\JobDetailModal.jsx": {
+    "mtime": 1780178543.123808,
+    "ast_hash": "f40357f755167293242d8af4094a71d7",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\candidate\\ResumeUpload.jsx": {
+    "mtime": 1780178556.258957,
+    "ast_hash": "e703a03d43a733aaba757d0e5fb4c9a1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\layout\\Nav.jsx": {
+    "mtime": 1780178530.1679256,
+    "ast_hash": "7793413bae24d28f4102d9e88296bdcc",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\layout\\PageHeader.jsx": {
+    "mtime": 1780178532.4816504,
+    "ast_hash": "0a75edbb0ecc7c2caa77a9cbc73fa6f4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\recruiter\\MatchResultCard.jsx": {
+    "mtime": 1780178565.396528,
+    "ast_hash": "bd104518c3aa42358000d1a7897ca9ce",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\recruiter\\MatchView.jsx": {
+    "mtime": 1780178568.937622,
+    "ast_hash": "696708094acc44fd5c047cef95b838b9",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\recruiter\\PostJobView.jsx": {
+    "mtime": 1780178559.5440867,
+    "ast_hash": "a55b8ba6b515c1ca8be3cbeb63f4ef82",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\recruiter\\RecruiterJobs.jsx": {
+    "mtime": 1780178561.9949882,
+    "ast_hash": "2ea8759d5ba48b3be4e9b85713c9bd6b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Alert.jsx": {
+    "mtime": 1780178508.9921927,
+    "ast_hash": "99bc38470ba2006cde038da385790d25",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Avatar.jsx": {
+    "mtime": 1780178506.5707424,
+    "ast_hash": "f58fc3c4ca73e04252c91b5b7839393f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Badge.jsx": {
+    "mtime": 1780178504.2710228,
+    "ast_hash": "e229b1af0ec8b549fdbccd4502ba1584",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Btn.jsx": {
+    "mtime": 1780178502.251119,
+    "ast_hash": "77b30911c166f8e0c637dc1433885288",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Divider.jsx": {
+    "mtime": 1780178524.755189,
+    "ast_hash": "831a7f9c5c44ecc88452b28159ae0b24",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\FormField.jsx": {
+    "mtime": 1780178526.5318334,
+    "ast_hash": "74ca1b3975ea9fbd2ad02dd9420b8ec6",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Modal.jsx": {
+    "mtime": 1780178510.95042,
+    "ast_hash": "6e9c817e9e73c3513ae51af09534bb06",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\ScoreBar.jsx": {
+    "mtime": 1780178516.5041134,
+    "ast_hash": "ad50d8e928fdfe35ecf3bfd4aeeab8a9",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\SkeletonBlock.jsx": {
+    "mtime": 1780178520.9102516,
+    "ast_hash": "d2ef94b16720451ebda8ac3333635076",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Spinner.jsx": {
+    "mtime": 1780178512.7297208,
+    "ast_hash": "06926c1c935e382990f12c428f2f8562",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\StatCard.jsx": {
+    "mtime": 1780178519.4039316,
+    "ast_hash": "2022f7d6421c9c4433d134b75c9b857d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\components\\ui\\Tabs.jsx": {
+    "mtime": 1780178522.8781352,
+    "ast_hash": "118a2d7028eff323df933ee24661b930",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\constants\\colors.js": {
+    "mtime": 1780178490.8891778,
+    "ast_hash": "0baf6e73ccac563f23ea15cfeed5d3fd",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\context\\AuthContext.jsx": {
+    "mtime": 1780178499.645472,
+    "ast_hash": "b14616eeaf1baa61fba841270eeb0942",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\lib\\api.js": {
+    "mtime": 1780178496.291747,
+    "ast_hash": "f0caf63f6ebee4406a61c93486855cd9",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\lib\\utils.js": {
+    "mtime": 1780178541.1270673,
+    "ast_hash": "9862c6447b22045a8c0b3d1e119541a6",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\pages\\AuthPage.jsx": {
+    "mtime": 1780178573.0823164,
+    "ast_hash": "f89d1ad223b139d1792144495e816c76",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\pages\\CandidateDashboard.jsx": {
+    "mtime": 1780178575.8056715,
+    "ast_hash": "52118cddcddad42d21a50d14f1003155",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\pages\\RecruiterDashboard.jsx": {
+    "mtime": 1780178578.4562762,
+    "ast_hash": "f55831a96d81d415ba5e93bbedc86708",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\src\\styles\\designSystem.js": {
+    "mtime": 1780178535.932894,
+    "ast_hash": "0fc6e7d63575d27564cf2634d7e07155",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\HP\\Documents\\MyWorks\\Projects\\AI-Resume-Screener\\frontend\\index.html": {
+    "mtime": 1780178160.9589438,
+    "ast_hash": "8bd020dc655c4fa1ac086743aa4e4a1b",
     "semantic_hash": ""
   }
 }
