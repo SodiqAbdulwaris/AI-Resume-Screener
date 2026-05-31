@@ -35,13 +35,13 @@ app.get('/health', (req, res) => res.json({ status: 'ok' }));
 // Global error handler (must be last)
 app.use(errorHandler);
 
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 mongoose
   .connect(config.mongodbUri)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server running on port http://localhost:${PORT}`));
-  })
+  .then(() => console.log('Connected to MongoDB'))
   .catch((err) => {
     console.error('MongoDB connection error:', err);
-    process.exit(1);
-  });
+});
