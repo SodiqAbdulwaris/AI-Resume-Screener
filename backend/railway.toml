@@ -1,6 +1,9 @@
 [build]
 builder = "nixpacks"
 
+[build.environment]
+NIXPACKS_NODE_VERSION = "20"
+
 [deploy]
 startCommand = "node src/index.js"
 healthcheckPath = "/health"
