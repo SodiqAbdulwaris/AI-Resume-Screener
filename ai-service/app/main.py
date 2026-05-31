@@ -26,13 +26,17 @@ if settings.HF_TOKEN:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Loading embedding model: %s", settings.EMBEDDING_MODEL)
-
-    raw_model = load_embedding_model(
-        model_name=settings.EMBEDDING_MODEL,
-        cache_dir=settings.MODEL_CACHE_DIR,
-    )
-    app.state.embedding_service = EmbeddingService(raw_model)
-    logger.info("Embedding model loaded and ready.")
+    try:
+        raw_model = load_embedding_model(
+            model_name=settings.EMBEDDING_MODEL,
+            cache_dir=settings.MODEL_CACHE_DIR,
+        )
+        app.state.embedding_service = EmbeddingService(raw_model)
+        app.state.model_ready = True
+        logger.info("Embedding model loaded and ready.")
+    except Exception as e:
+        logger.error("Failed to load embedding model: %s", e)
+        app.state.model_ready = False
 
     yield
 
@@ -49,7 +53,8 @@ app.include_router(match_router)
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "port": settings.AI_SERVICE_PORT}
+    model_ready = getattr(app.state, "model_ready", False)
+    return {"status": "ok", "model_ready": model_ready}
 
 
 @app.exception_handler(AppException)
