@@ -33,7 +33,7 @@ export const getJobs = (token) => apiCall("GET", "/jobs", null, token);
 export const applyToJob = (jobId, token) => apiCall("POST", `/jobs/${jobId}/apply`, null, token);
 export const getMyApplications = (token) => apiCall("GET", "/jobs/my-applications", null, token);
 export const getCandidateProfile = (token) => apiCall("GET", "/candidates/me", null, token);
-export const acceptParsedName = (token) => apiCall("PATCH", "/candidates/me/accept-parsed-name", null, token);
+export const acceptParsedName = (token) => apiCall("POST", "/candidates/me/accept-parsed-name", null, token);
 export const uploadResume = (formData, token) => apiCall("POST", "/resumes", formData, token, true);
 export const createJob = (body, token) => apiCall("POST", "/jobs", body, token);
 export const triggerMatch = (jobId, token) => apiCall("POST", `/jobs/${jobId}/match`, null, token);

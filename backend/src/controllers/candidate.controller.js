@@ -1,17 +1,38 @@
 const CandidateProfile = require('../models/CandidateProfile');
+const Resume = require('../models/Resume');
 const User = require('../models/User');
 
+async function findOwnProfile(user) {
+  let profile = await CandidateProfile.findOne({ user: user._id });
+  if (profile) return profile;
+
+  const activeResume = await Resume.findOne({ uploadedBy: user._id, isActive: true })
+    .sort({ createdAt: -1 })
+    .select('_id')
+    .lean();
+
+  if (!activeResume) return null;
+
+  profile = await CandidateProfile.findOne({ resumeId: activeResume._id });
+  if (profile && profile.user?.toString() !== user._id.toString()) {
+    profile.user = user._id;
+    await profile.save();
+  }
+
+  return profile;
+}
+
 async function getProfile(req, res) {
-  const profile = await CandidateProfile.findOne({ user: req.user._id }).lean();
+  const profile = await findOwnProfile(req.user);
   if (!profile) {
     return res.status(404).json({ success: false, message: 'Candidate profile not found.', data: null });
   }
-  return res.json({ success: true, message: 'Candidate profile retrieved successfully.', data: profile });
+  return res.json({ success: true, message: 'Candidate profile retrieved successfully.', data: profile.toObject() });
 }
 
 async function acceptParsedName(req, res, next) {
   try {
-    const profile = await CandidateProfile.findOne({ user: req.user._id });
+    const profile = await findOwnProfile(req.user);
     if (!profile) {
       return res.status(404).json({ success: false, message: 'Candidate profile not found.', data: null });
     }

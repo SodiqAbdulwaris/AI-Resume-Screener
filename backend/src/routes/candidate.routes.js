@@ -5,6 +5,7 @@ const { authenticate } = require('../middlewares/auth.middleware');
 const { authorise } = require('../middlewares/auth.middleware');
 
 router.get('/me', authenticate, authorise('candidate'), getProfile);
+router.post('/me/accept-parsed-name', authenticate, authorise('candidate'), acceptParsedName);
 router.patch('/me/accept-parsed-name', authenticate, authorise('candidate'), acceptParsedName);
 
 module.exports = router;
