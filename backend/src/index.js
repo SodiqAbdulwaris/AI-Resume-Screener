@@ -15,6 +15,10 @@ const errorHandler = require('./middlewares/error.middleware');
 const app = express();
 const PORT = config.port || 5000;
 
+// Trust Railway's reverse proxy so express-rate-limit reads the real client IP
+// from X-Forwarded-For instead of throwing ERR_ERL_UNEXPECTED_X_FORWARDED_FOR.
+app.set('trust proxy', 1);
+
 if (process.env.NODE_ENV === 'production' && config.aiServiceUrl.includes('localhost')) {
   console.warn('[Config] AI_SERVICE_URL points to localhost in production. Resume parsing will fail unless the AI service runs in the same container.');
 }
