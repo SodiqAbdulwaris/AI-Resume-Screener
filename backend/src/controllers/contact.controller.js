@@ -34,7 +34,16 @@ async function handleContactForm(req, res, next) {
       `,
     });
   } catch (err) {
-    return next(err);
+    // TEMPORARY DEBUG — remove before final production commit
+    const sgBody = err?.response?.body;
+    console.error('[contact] SendGrid error:', JSON.stringify(sgBody ?? err?.message));
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to send message.',
+      // eslint-disable-next-line no-underscore-dangle
+      _debug: sgBody ?? err?.message ?? String(err),
+      data: null,
+    });
   }
 
   return res.status(200).json({
