@@ -40,9 +40,9 @@ const config = {
   aiServiceUrl: readUrl('AI_SERVICE_URL', 'http://localhost:8000'),
   aiServiceTimeoutMs: readInteger('AI_SERVICE_TIMEOUT_MS', 30000),
   maxFileSizeBytes: readInteger('MAX_FILE_SIZE_BYTES', 5 * 1024 * 1024),
-  sendgridApiKey: process.env.SENDGRID_API_KEY,
-  sendgridFromEmail: process.env.SENDGRID_FROM_EMAIL,
-  contactReceiverEmail: process.env.CONTACT_RECEIVER_EMAIL,
+  resendApiKey: process.env.RESEND_API_KEY,
+  resendFromEmail: process.env.RESEND_FROM_EMAIL,
+  contactReceiverEmail: process.env.CONTACT_FEEDBACK_TO_EMAIL,
 };
 
 module.exports = config;

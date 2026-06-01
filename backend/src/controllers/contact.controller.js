@@ -1,4 +1,4 @@
-const sgMail = require('@sendgrid/mail');
+const { Resend } = require('resend');
 const config = require('../config/env');
 
 function stripTags(str) {
@@ -18,32 +18,24 @@ async function handleContactForm(req, res, next) {
     });
   }
 
-  sgMail.setApiKey(config.sendgridApiKey);
+  const resend = new Resend(config.resendApiKey);
 
-  try {
-    await sgMail.send({
-      to: config.contactReceiverEmail,
-      from: config.sendgridFromEmail,
-      replyTo: email,
-      subject: `HireSignal Contact: Message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
-      html: `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p style="white-space:pre-wrap">${message.replace(/\n/g, '<br>')}</p>
-      `,
-    });
-  } catch (err) {
-    // TEMPORARY DEBUG — remove before final production commit
-    const sgBody = err?.response?.body;
-    console.error('[contact] SendGrid error:', JSON.stringify(sgBody ?? err?.message));
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to send message.',
-      // eslint-disable-next-line no-underscore-dangle
-      _debug: sgBody ?? err?.message ?? String(err),
-      data: null,
-    });
+  const { error } = await resend.emails.send({
+    to: config.contactReceiverEmail,
+    from: config.resendFromEmail,
+    reply_to: email,
+    subject: `HireSignal Contact: Message from ${name}`,
+    text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    html: `
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p style="white-space:pre-wrap">${message.replace(/\n/g, '<br>')}</p>
+    `,
+  });
+
+  if (error) {
+    console.error('[contact] Resend error:', JSON.stringify(error));
+    return next(error);
   }
 
   return res.status(200).json({
