@@ -9,7 +9,7 @@ const { authenticate, authorise } = require('../middlewares/auth.middleware');
  * /api/resumes:
  *   post:
  *     summary: Upload a resume for parsing
- *     description: Accepts a PDF or DOCX file, extracts text, runs the AI service parser, creates a candidate profile, and returns document IDs. Only accessible by Recruiters.
+ *     description: Accepts a PDF or DOCX file, extracts text, runs the AI service parser, creates a candidate profile, and returns document IDs. Only accessible by candidates.
  *     tags: [Resumes]
  *     security:
  *       - bearerAuth: []
@@ -34,7 +34,7 @@ const { authenticate, authorise } = require('../middlewares/auth.middleware');
  *       401:
  *         description: Unauthorized.
  *       403:
- *         description: Forbidden. Recruiter role required.
+ *         description: Forbidden. Candidate role required.
  */
 router.post('/', authenticate, authorise('candidate'), upload.single('file'), uploadResume);
 
@@ -43,7 +43,7 @@ router.post('/', authenticate, authorise('candidate'), upload.single('file'), up
  * /api/resumes/{resumeId}:
  *   get:
  *     summary: Get resume parsing status and metadata
- *     description: Returns the uploader details, processing state (pending, processing, done, failed), and any errors. Accessible by Recruiters.
+ *     description: Returns the uploader details, processing state (pending, processing, done, failed), and any errors. Candidates can read their own resumes; recruiters can read resumes for matching/review flows.
  *     tags: [Resumes]
  *     security:
  *       - bearerAuth: []
@@ -60,6 +60,6 @@ router.post('/', authenticate, authorise('candidate'), upload.single('file'), up
  *       404:
  *         description: Resume not found.
  */
-router.get('/:resumeId', authenticate, authorise('recruiter'), getResume);
+router.get('/:resumeId', authenticate, authorise('candidate', 'recruiter'), getResume);
 
 module.exports = router;

@@ -72,6 +72,15 @@ async function getResume(req, res) {
   if (!resume) {
     return res.status(404).json({ success: false, message: 'Resume not found.', data: null });
   }
+
+  if (req.user.role === 'candidate' && resume.uploadedBy.toString() !== req.user._id.toString()) {
+    return res.status(403).json({
+      success: false,
+      message: 'Access forbidden. You can only view your own resume.',
+      data: null,
+    });
+  }
+
   return res.json({ success: true, message: 'Resume retrieved successfully.', data: resume });
 }
 
