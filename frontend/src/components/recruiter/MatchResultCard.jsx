@@ -10,6 +10,8 @@ export default function MatchResultCard({ match, rank }) {
   const [expanded, setExpanded] = useState(false);
   const cand = match.candidate || {};
   const name = typeof cand === "object" ? cand.fullName || "Candidate" : "Candidate";
+  const email = typeof cand === "object" ? cand.email : null;
+  const phone = typeof cand === "object" ? cand.phone : null;
   const score = Math.round((match.totalScore || 0) * 100);
   const breakdown = match.scoreBreakdown || {};
   const color = scoreColor(match.totalScore);
@@ -45,6 +47,12 @@ export default function MatchResultCard({ match, rank }) {
           {typeof cand === "object" && (
             <div style={{ fontSize: 12, color: COLORS.text2 }}>
               {cand.educationLevel && `${cand.educationLevel} · `}{cand.yearsExperience != null ? `${cand.yearsExperience} yrs exp` : ""}
+            </div>
+          )}
+          {(email || phone) && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 6, fontSize: 12 }}>
+              {email && <a href={`mailto:${email}`} style={{ color: "#a5b4fc", textDecoration: "none" }}>{email}</a>}
+              {phone && <a href={`tel:${phone}`} style={{ color: COLORS.text2, textDecoration: "none" }}>{phone}</a>}
             </div>
           )}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 6 }}>

@@ -1,6 +1,7 @@
 const Application = require('../models/Application');
 const CandidateProfile = require('../models/CandidateProfile');
 const JobRequirement = require('../models/JobRequirement');
+const MatchResult = require('../models/MatchResult');
 
 async function applyToJob(req, res) {
   const { jobId } = req.params;
@@ -40,4 +41,17 @@ async function getMyApplications(req, res) {
   return res.json({ success: true, message: 'Applications retrieved successfully.', data: applications });
 }
 
-module.exports = { applyToJob, getMyApplications };
+async function cancelApplication(req, res) {
+  const { jobId } = req.params;
+  const application = await Application.findOneAndDelete({ candidate: req.user._id, job: jobId }).lean();
+
+  if (!application) {
+    return res.status(404).json({ success: false, message: 'Application not found.', data: null });
+  }
+
+  await MatchResult.deleteOne({ job: jobId, candidate: application.candidateProfile });
+
+  return res.json({ success: true, message: 'Application cancelled successfully.', data: application });
+}
+
+module.exports = { applyToJob, getMyApplications, cancelApplication };

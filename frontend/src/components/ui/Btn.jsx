@@ -1,6 +1,6 @@
 import { COLORS } from "../../constants/colors";
 
-export default function Btn({ children, variant = "primary", size = "md", onClick, disabled, fullWidth, style: extra }) {
+export default function Btn({ children, variant = "primary", size = "md", type = "button", onClick, disabled, fullWidth, style: extra }) {
   const base = {
     fontFamily: "'Geist', sans-serif",
     fontWeight: 500,
@@ -25,7 +25,7 @@ export default function Btn({ children, variant = "primary", size = "md", onClic
   };
   return (
     <button
-      type="button"
+      type={type}
       style={{ ...base, ...sizes[size], ...variants[variant] }}
       onClick={onClick}
       disabled={disabled}

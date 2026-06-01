@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
-import { getMatchResults, triggerMatch } from "../../lib/api";
+import { downloadMatchResultsCsv, getMatchResults, triggerMatch } from "../../lib/api";
 import Alert from "../ui/Alert";
 import Spinner from "../ui/Spinner";
 import Btn from "../ui/Btn";
@@ -13,6 +13,7 @@ export default function MatchView({ job, token, onBack, autoRun = false }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [exporting, setExporting] = useState(false);
   const [error, setError] = useState(null);
 
   const runMatch = async () => {
@@ -21,6 +22,27 @@ export default function MatchView({ job, token, onBack, autoRun = false }) {
     setLoading(false);
     if (r.success) setResults(r.data.results || []);
     else setError(r.message);
+  };
+
+  const exportCsv = async () => {
+    setExporting(true);
+    setError(null);
+    const result = await downloadMatchResultsCsv(job._id, token);
+    setExporting(false);
+
+    if (!result.success) {
+      setError(result.message);
+      return;
+    }
+
+    const url = URL.createObjectURL(result.data.blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = result.data.filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
   };
 
   useEffect(() => {
@@ -53,6 +75,11 @@ export default function MatchView({ job, token, onBack, autoRun = false }) {
         </div>
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.75rem" }}>
           {results.length > 0 && <Badge variant="blue">{results.length} candidates</Badge>}
+          {results.length > 0 && (
+            <Btn variant="secondary" size="sm" onClick={exportCsv} disabled={exporting}>
+              {exporting ? <Spinner size={14} /> : "Export CSV"}
+            </Btn>
+          )}
           <Btn variant="primary" size="sm" onClick={runMatch} disabled={loading}>
             {loading ? <><Spinner size={14} />Running…</> : "🤖 Run AI Match"}
           </Btn>

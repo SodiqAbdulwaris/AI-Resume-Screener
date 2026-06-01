@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { COLORS } from "../constants/colors";
 import { s } from "../styles/designSystem";
 import { useAuth } from "../context/AuthContext";
-import { acceptParsedName, getJobs, getMyApplications, getCandidateProfile, getResume } from "../lib/api";
+import { acceptParsedName, cancelApplication, getJobs, getMyApplications, getCandidateProfile, getResume } from "../lib/api";
 import Nav from "../components/layout/Nav";
 import PageHeader from "../components/layout/PageHeader";
 import Tabs from "../components/ui/Tabs";
@@ -11,8 +11,9 @@ import CandidateBrowse from "../components/candidate/CandidateBrowse";
 import CandidateApplications from "../components/candidate/CandidateApplications";
 import CandidateProfile from "../components/candidate/CandidateProfile";
 import ResumeUpload from "../components/candidate/ResumeUpload";
+import ContactSupport from "../components/contact/ContactSupport";
 
-export default function CandidateDashboard() {
+export default function CandidateDashboard({ onContactClick }) {
   const { token, user, updateUser } = useAuth();
   const [tab, setTab] = useState("jobs");
   const [jobs, setJobs] = useState([]);
@@ -52,6 +53,14 @@ export default function CandidateDashboard() {
     return result;
   }
 
+  async function handleCancelApplication(jobId) {
+    const result = await cancelApplication(jobId, token);
+    if (result.success) {
+      await loadAll();
+    }
+    return result;
+  }
+
   const appliedCount = applications.length;
   const openJobs = jobs.length;
 
@@ -60,11 +69,12 @@ export default function CandidateDashboard() {
     { key: "applications", label: "My Applications", count: appliedCount },
     { key: "profile", label: "Profile" },
     { key: "resume", label: "Resume" },
+    { key: "contact", label: "Contact" },
   ];
 
   return (
     <div>
-      <Nav />
+      <Nav onContactClick={onContactClick} />
       <div style={{ padding: "2rem 2rem 4rem" }}>
         <PageHeader
           title={`Good to see you, ${user.fullName.split(" ")[0]}.`}
@@ -84,11 +94,13 @@ export default function CandidateDashboard() {
         ) : tab === "jobs" ? (
           <CandidateBrowse jobs={jobs} applications={applications} profile={profile} token={token} onApplied={loadAll} />
         ) : tab === "applications" ? (
-          <CandidateApplications applications={applications} />
+          <CandidateApplications applications={applications} onCancel={handleCancelApplication} />
         ) : tab === "profile" ? (
           <CandidateProfile profile={profile} onAcceptParsedName={handleAcceptParsedName} />
-        ) : (
+        ) : tab === "resume" ? (
           <ResumeUpload token={token} onUploaded={loadAll} resumeInfo={resumeInfo} />
+        ) : (
+          <ContactSupport user={user} />
         )}
       </div>
     </div>

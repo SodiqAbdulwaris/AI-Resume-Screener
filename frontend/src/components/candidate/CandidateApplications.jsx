@@ -1,14 +1,34 @@
+import { useState } from "react";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import { fmtDate } from "../../lib/utils";
+import Alert from "../ui/Alert";
 import Badge from "../ui/Badge";
+import Btn from "../ui/Btn";
+import Spinner from "../ui/Spinner";
 
 function statusBadge(status) {
   const map = { pending: "yellow", reviewed: "blue", shortlisted: "green", rejected: "red" };
   return <Badge variant={map[status] || "gray"}>{status}</Badge>;
 }
 
-export default function CandidateApplications({ applications }) {
+export default function CandidateApplications({ applications, onCancel }) {
+  const [cancellingId, setCancellingId] = useState(null);
+  const [error, setError] = useState(null);
+
+  async function cancel(application) {
+    if (!onCancel) return;
+    setCancellingId(application._id);
+    setError(null);
+    const jobId = application.job?._id || application.job;
+    const result = await onCancel(jobId);
+    setCancellingId(null);
+
+    if (!result.success) {
+      setError(result.message);
+    }
+  }
+
   if (!applications.length) {
     return (
       <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
@@ -19,6 +39,7 @@ export default function CandidateApplications({ applications }) {
   }
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+      <Alert message={error} variant="error" />
       {applications.map((a, i) => (
         <div
           key={a._id}
@@ -46,6 +67,9 @@ export default function CandidateApplications({ applications }) {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             {statusBadge(a.status)}
+            <Btn variant="secondary" size="sm" onClick={() => cancel(a)} disabled={cancellingId === a._id}>
+              {cancellingId === a._id ? <Spinner size={14} /> : "Cancel"}
+            </Btn>
           </div>
         </div>
       ))}

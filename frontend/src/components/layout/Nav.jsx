@@ -3,10 +3,9 @@ import Avatar from "../ui/Avatar";
 import Btn from "../ui/Btn";
 import { useAuth } from "../../context/AuthContext";
 
-export default function Nav() {
+export default function Nav({ onContactClick }) {
   const { user, logout } = useAuth();
-  if (!user) return null;
-  const isRecruiter = user.role === "recruiter";
+  const isRecruiter = user?.role === "recruiter";
 
   return (
     <nav
@@ -23,6 +22,7 @@ export default function Nav() {
         zIndex: 200,
       }}
     >
+      {/* Left: Logo + role badge */}
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <div
           style={{
@@ -49,27 +49,44 @@ export default function Nav() {
         >
           HireSignal
         </span>
-        <span
-          style={{
-            marginLeft: 4,
-            fontSize: 11,
-            padding: "2px 8px",
-            background: isRecruiter ? "rgba(20,184,166,0.12)" : COLORS.accentGlow,
-            color: isRecruiter ? COLORS.teal : "#a5b4fc",
-            borderRadius: 20,
-            fontWeight: 500,
-          }}
-        >
-          {isRecruiter ? "Recruiter" : "Candidate"}
-        </span>
+        {user && (
+          <span
+            style={{
+              marginLeft: 4,
+              fontSize: 11,
+              padding: "2px 8px",
+              background: isRecruiter ? "rgba(20,184,166,0.12)" : COLORS.accentGlow,
+              color: isRecruiter ? COLORS.teal : "#a5b4fc",
+              borderRadius: 20,
+              fontWeight: 500,
+            }}
+          >
+            {isRecruiter ? "Recruiter" : "Candidate"}
+          </span>
+        )}
       </div>
+
+      {/* Right: Contact Us + user info + sign out */}
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <Avatar name={user.fullName} size={32} />
-        <div style={{ lineHeight: 1.3 }}>
-          <div style={{ fontSize: 13, fontWeight: 500 }}>{user.fullName}</div>
-          <div style={{ fontSize: 11, color: COLORS.text3 }}>{user.email}</div>
-        </div>
-        <Btn variant="secondary" size="sm" onClick={logout}>Sign out</Btn>
+        <Btn
+          id="nav-contact-btn"
+          variant="ghost"
+          size="sm"
+          onClick={onContactClick}
+        >
+          Contact Us
+        </Btn>
+
+        {user && (
+          <>
+            <Avatar name={user.fullName} size={32} />
+            <div style={{ lineHeight: 1.3 }}>
+              <div style={{ fontSize: 13, fontWeight: 500 }}>{user.fullName}</div>
+              <div style={{ fontSize: 11, color: COLORS.text3 }}>{user.email}</div>
+            </div>
+            <Btn variant="secondary" size="sm" onClick={logout}>Sign out</Btn>
+          </>
+        )}
       </div>
     </nav>
   );

@@ -1,8 +1,10 @@
 const path = require('path');
 const dotenv = require('dotenv');
 
+const envPath = path.resolve(__dirname, '../../.env');
 const envLocalPath = path.resolve(__dirname, '../../.env.local');
 
+dotenv.config({ path: envPath });
 dotenv.config({ path: envLocalPath });
 
 function readInteger(name, defaultValue) {
@@ -30,6 +32,7 @@ function readUrl(name, defaultValue) {
 }
 
 const config = {
+  envPath,
   envLocalPath,
   port: readInteger('PORT', 5000),
   mongodbUri: process.env.MONGODB_URI,
@@ -37,6 +40,9 @@ const config = {
   aiServiceUrl: readUrl('AI_SERVICE_URL', 'http://localhost:8000'),
   aiServiceTimeoutMs: readInteger('AI_SERVICE_TIMEOUT_MS', 30000),
   maxFileSizeBytes: readInteger('MAX_FILE_SIZE_BYTES', 5 * 1024 * 1024),
+  sendgridApiKey: process.env.SENDGRID_API_KEY,
+  sendgridFromEmail: process.env.SENDGRID_FROM_EMAIL,
+  contactReceiverEmail: process.env.CONTACT_RECEIVER_EMAIL,
 };
 
 module.exports = config;

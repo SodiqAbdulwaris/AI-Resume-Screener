@@ -9,6 +9,7 @@ const candidateRoutes = require('./routes/candidate.routes');
 const jobRoutes = require('./routes/job.routes');
 const authRoutes = require('./routes/auth.routes');
 const applicationRoutes = require('./routes/application.routes');
+const contactRoutes = require('./routes/contact.routes');
 const errorHandler = require('./middlewares/error.middleware');
 
 const app = express();
@@ -64,6 +65,7 @@ app.use('/api/v1/resumes', resumeRoutes);
 app.use('/api/v1/candidates', candidateRoutes);
 app.use('/api/v1/jobs', jobRoutes);
 app.use('/api/v1/applications', applicationRoutes);
+app.use('/api/v1/contact', contactRoutes);
 
 // 4. Health Check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));

@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import AuthPage from "./pages/AuthPage";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
+import ContactPage from "./pages/ContactPage";
+import Nav from "./components/layout/Nav";
 import Spinner from "./components/ui/Spinner";
 import { COLORS } from "./constants/colors";
 
 function AppContent() {
   const { token, user, loading } = useAuth();
+  const [showContact, setShowContact] = useState(false);
 
   if (loading) {
     return (
@@ -42,11 +46,27 @@ function AppContent() {
     );
   }
 
+  // Not logged in — show Nav (with Contact Us) above AuthPage
   if (!token || !user) {
-    return <AuthPage />;
+    return (
+      <>
+        <Nav onContactClick={() => setShowContact(true)} />
+        <AuthPage />
+        {showContact && <ContactPage onClose={() => setShowContact(false)} />}
+      </>
+    );
   }
 
-  return user.role === "candidate" ? <CandidateDashboard /> : <RecruiterDashboard />;
+  return (
+    <>
+      {user.role === "candidate" ? (
+        <CandidateDashboard onContactClick={() => setShowContact(true)} />
+      ) : (
+        <RecruiterDashboard onContactClick={() => setShowContact(true)} />
+      )}
+      {showContact && <ContactPage onClose={() => setShowContact(false)} />}
+    </>
+  );
 }
 
 export default function App() {
