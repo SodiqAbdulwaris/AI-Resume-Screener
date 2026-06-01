@@ -15,25 +15,33 @@ const app = express();
 const PORT = config.port || 5000;
 
 // 1. CORS Configuration
-// Ensure process.env.FRONTEND_URL matches your Vercel deployment exactly (no trailing slash)
-const normalizeOrigin = (origin) => origin.replace(/\/$/, '');
+// FRONTEND_URL supports one URL. FRONTEND_URLS supports comma-separated URLs.
+const normalizeOrigin = (origin) => origin.trim().replace(/\/$/, '');
+
+const envOrigins = [
+  process.env.FRONTEND_URL,
+  ...(process.env.FRONTEND_URLS || '').split(','),
+];
 
 const allowedOrigins = [
-  process.env.FRONTEND_URL, 
-  'http://localhost:5173', 
-  'http://localhost:3000'
-].filter(Boolean).map(normalizeOrigin); // Filters out undefined values if FRONTEND_URL isn't set locally
+  ...envOrigins,
+  'http://localhost:5173',
+  'http://localhost:3000',
+].filter(Boolean).map(normalizeOrigin);
 
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps, curl, or postman)
     if (!origin) return callback(null, true);
     
-    if (allowedOrigins.indexOf(normalizeOrigin(origin)) !== -1) {
+    const normalizedOrigin = normalizeOrigin(origin);
+
+    if (allowedOrigins.includes(normalizedOrigin)) {
       return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'), false);
     }
+
+    console.warn(`[CORS] Rejected origin: ${origin}. Allowed origins: ${allowedOrigins.join(', ')}`);
+    return callback(new Error('Not allowed by CORS'), false);
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
