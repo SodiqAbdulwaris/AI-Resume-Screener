@@ -4,9 +4,7 @@ const config = require('../config/env');
 
 const TOKEN_EXPIRY = '7d';
 
-/**
- * Sign a JWT token for a user.
- */
+
 function signToken(user) {
   return jwt.sign(
     { userId: user._id, role: user.role },

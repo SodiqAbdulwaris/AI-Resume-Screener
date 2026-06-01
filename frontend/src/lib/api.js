@@ -1,9 +1,15 @@
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api/v1";
 
 export async function apiCall(method, path, body = null, token = null, isForm = false) {
-  const headers = isForm
-    ? { Authorization: `Bearer ${token}` }
-    : { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+  const headers = {};
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  if (!isForm && body) {
+    headers["Content-Type"] = "application/json";
+  }
 
   try {
     const res = await fetch(API_BASE + path, {

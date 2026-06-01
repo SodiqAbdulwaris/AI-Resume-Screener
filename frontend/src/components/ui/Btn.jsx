@@ -25,6 +25,7 @@ export default function Btn({ children, variant = "primary", size = "md", onClic
   };
   return (
     <button
+      type="button"
       style={{ ...base, ...sizes[size], ...variants[variant] }}
       onClick={onClick}
       disabled={disabled}

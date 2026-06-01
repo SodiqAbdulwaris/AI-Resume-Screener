@@ -1,9 +1,9 @@
 const config = require('./config/env');
-
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');  // ← add this
+const cors = require('cors');
 
+// Route Imports
 const resumeRoutes = require('./routes/resume.routes');
 const candidateRoutes = require('./routes/candidate.routes');
 const jobRoutes = require('./routes/job.routes');
@@ -14,34 +14,64 @@ const errorHandler = require('./middlewares/error.middleware');
 const app = express();
 const PORT = config.port || 5000;
 
-// CORS
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true,
-}));
+// 1. CORS Configuration
+// Ensure process.env.FRONTEND_URL matches your Vercel deployment exactly (no trailing slash)
+const normalizeOrigin = (origin) => origin.replace(/\/$/, '');
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL, 
+  'http://localhost:5173', 
+  'http://localhost:3000'
+].filter(Boolean).map(normalizeOrigin); // Filters out undefined values if FRONTEND_URL isn't set locally
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, or postman)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(normalizeOrigin(origin)) !== -1) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'), false);
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+// 2. Global Parsers
 app.use(express.json());
 
-// Routes
+// 3. API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/resumes', resumeRoutes);
 app.use('/api/v1/candidates', candidateRoutes);
 app.use('/api/v1/jobs', jobRoutes);
 app.use('/api/v1/applications', applicationRoutes);
 
-// Health check
+// 4. Health Check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
-// Global error handler (must be last)
+// 5. Global Error Handler (Must be registered after routes)
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
+// 6. Database Connection & Server Initialization
+// We connect to MongoDB first. The server will only spin up if the connection succeeds.
+console.log('Connecting to MongoDB...');
 mongoose
   .connect(config.mongodbUri)
-  .then(() => console.log('Connected to MongoDB'))
+  .then(() => {
+    console.log('Connected to MongoDB successfully.');
+    
+    app.listen(PORT, () => {
+      console.log(`Server running successfully on port ${PORT}`);
+    });
+  })
   .catch((err) => {
-    console.error('MongoDB connection error:', err);
-});
+    console.error('CRITICAL: MongoDB connection error. Process terminating...', err);
+    process.exit(1); // Forces Railway to restart or flag a bad deployment instead of serving broken 404s
+  });
