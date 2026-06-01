@@ -14,6 +14,10 @@ const errorHandler = require('./middlewares/error.middleware');
 const app = express();
 const PORT = config.port || 5000;
 
+if (process.env.NODE_ENV === 'production' && config.aiServiceUrl.includes('localhost')) {
+  console.warn('[Config] AI_SERVICE_URL points to localhost in production. Resume parsing will fail unless the AI service runs in the same container.');
+}
+
 // 1. CORS Configuration
 // FRONTEND_URL supports one URL. FRONTEND_URLS supports comma-separated URLs.
 const normalizeOrigin = (origin) => origin.trim().replace(/\/$/, '');

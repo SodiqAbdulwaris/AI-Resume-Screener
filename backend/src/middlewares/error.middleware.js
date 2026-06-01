@@ -45,7 +45,7 @@ function errorHandler(err, req, res, next) {
   if (err.isAiError) {
     return res.status(502).json({
       success: false,
-      message: 'AI service error. The operation has been marked as failed.',
+      message: err.message || 'AI service error. The operation has been marked as failed.',
     });
   }
 

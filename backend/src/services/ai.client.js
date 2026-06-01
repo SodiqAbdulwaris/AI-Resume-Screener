@@ -19,7 +19,7 @@ async function parseResume(fileBuffer, fileName, mimeType) {
   form.append('file', fileBuffer, { filename: fileName, contentType: mimeType });
 
   try {
-    const response = await client.post('/parse', form, {
+    const response = await client.post('/parse/', form, {
       headers: form.getHeaders(),
     });
     return response.data;
@@ -54,7 +54,12 @@ function buildAiError(err, operation) {
     // AI service returned a non-2xx response
     const status = err.response.status;
     const body = err.response.data || {};
-    const message = body.message || `AI service ${operation} failed`;
+    const message = body.message || body.detail || `AI service ${operation} failed with status ${status}`;
+    console.error(`[AI Service] ${operation} failed`, {
+      baseURL: config.aiServiceUrl,
+      status,
+      body,
+    });
     const error = new Error(message);
     error.aiStatus = status;
     error.aiErrorCode = body.error_code || null;
@@ -62,28 +67,24 @@ function buildAiError(err, operation) {
     return error;
   }
   if (err.code === 'ECONNABORTED') {
+    console.error(`[AI Service] ${operation} timed out`, {
+      baseURL: config.aiServiceUrl,
+      timeoutMs: config.aiServiceTimeoutMs,
+    });
     const error = new Error(`AI service ${operation} timed out`);
     error.isAiTimeout = true;
     return error;
   }
   // Network error or unexpected failure
-  err.isAiError = true;
-  return err;
-}
-
-async function matchCandidates(aiJobInput, aiCandidateInputs) {
-  try {
-    const response = await client.post('/match/', {
-      job: aiJobInput,
-      candidates: aiCandidateInputs,
-    });
-    return response.data;
-  } catch (err) {
-    if (err.response) {
-      console.error('AI 422 detail:', JSON.stringify(err.response.data, null, 2));
-    }
-    throw buildAiError(err, 'match');
-  }
+  console.error(`[AI Service] ${operation} request failed`, {
+    baseURL: config.aiServiceUrl,
+    code: err.code,
+    message: err.message,
+  });
+  const error = new Error(`Cannot reach AI service at ${config.aiServiceUrl}. Check AI_SERVICE_URL and that the AI service is deployed/running.`);
+  error.isAiError = true;
+  error.cause = err;
+  return error;
 }
 
 module.exports = { parseResume, matchCandidates };
