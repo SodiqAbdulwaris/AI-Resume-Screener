@@ -61,7 +61,7 @@ function parsedCandidateToBackend(parsed) {
   };
 
   const profileFields = {
-    fullName: parsed.full_name ?? null,
+    parsedFullName: parsed.full_name ?? null,
     email: parsed.email ?? null,
     phone: parsed.phone ?? null,
     location: parsed.location ?? null,

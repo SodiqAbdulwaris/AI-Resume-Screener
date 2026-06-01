@@ -34,6 +34,7 @@ const candidateProfileSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
     resumeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Resume', required: true },
     fullName: { type: String },
+    parsedFullName: { type: String },
     email: { type: String },
     phone: { type: String },
     location: { type: String },

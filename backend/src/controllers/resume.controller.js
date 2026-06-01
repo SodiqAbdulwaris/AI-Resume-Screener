@@ -46,7 +46,7 @@ async function uploadResume(req, res, next) {
     // 7. Upsert CandidateProfile — one profile per candidate, updated on each upload
     const profile = await CandidateProfile.findOneAndUpdate(
       { user: req.user._id },
-      { resumeId: resume._id, ...profileFields },
+      { resumeId: resume._id, ...profileFields, fullName: req.user.fullName },
       { upsert: true, new: true }
     );
 

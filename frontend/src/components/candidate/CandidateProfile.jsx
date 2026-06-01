@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import Avatar from "../ui/Avatar";
+import Alert from "../ui/Alert";
+import Btn from "../ui/Btn";
+import Spinner from "../ui/Spinner";
 import StatCard from "../ui/StatCard";
 
-export default function CandidateProfile({ profile }) {
+export default function CandidateProfile({ profile, onAcceptParsedName }) {
+  const [acceptingName, setAcceptingName] = useState(false);
+  const [nameMessage, setNameMessage] = useState(null);
+  const [nameError, setNameError] = useState(null);
+
   if (!profile) {
     return (
       <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
@@ -12,20 +20,54 @@ export default function CandidateProfile({ profile }) {
       </div>
     );
   }
+
+  const accountName = profile.fullName || "Candidate";
+  const parsedName = profile.parsedFullName;
+  const showParsedName =
+    parsedName && parsedName.trim().toLowerCase() !== accountName.trim().toLowerCase();
+
+  async function handleAcceptParsedName() {
+    if (!onAcceptParsedName) return;
+    setAcceptingName(true);
+    setNameMessage(null);
+    setNameError(null);
+    const result = await onAcceptParsedName();
+    setAcceptingName(false);
+
+    if (result.success) {
+      setNameMessage("Account name updated from your resume.");
+    } else {
+      setNameError(result.message);
+    }
+  }
+
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1rem" }}>
       {/* Left */}
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <div style={s.card} className="fade-up">
+          <Alert message={nameError} variant="error" />
+          <Alert message={nameMessage} variant="success" />
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.25rem" }}>
-            <Avatar name={profile.fullName} size={52} />
+            <Avatar name={accountName} size={52} />
             <div>
-              <div style={{ fontSize: "1rem", fontWeight: 500 }}>{profile.fullName}</div>
+              <div style={{ fontSize: "1rem", fontWeight: 500 }}>{accountName}</div>
+              {showParsedName && <div style={{ fontSize: 12, color: COLORS.text3 }}>Resume name: {parsedName}</div>}
               <div style={{ fontSize: 13, color: COLORS.text2 }}>{profile.email}</div>
               {profile.phone && <div style={{ fontSize: 12, color: COLORS.text3 }}>{profile.phone}</div>}
               {profile.location && <div style={{ fontSize: 12, color: COLORS.text3 }}>📍 {profile.location}</div>}
             </div>
           </div>
+          {showParsedName && (
+            <div style={{ background: COLORS.bg3, borderRadius: 9, padding: "0.85rem 1rem", marginBottom: "1rem" }}>
+              <div style={{ fontSize: 13, color: COLORS.text2, marginBottom: "0.75rem" }}>
+                Your resume uses a different name. Accept it to update your account name.
+              </div>
+              <Btn variant="secondary" size="sm" onClick={handleAcceptParsedName} disabled={acceptingName}>
+                {acceptingName ? <Spinner size={14} /> : "Accept resume name"}
+              </Btn>
+            </div>
+          )}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
             <StatCard label="Experience" value={`${profile.yearsExperience || 0} yrs`} />
             <StatCard label="Education" value={profile.educationLevel || "—"} />

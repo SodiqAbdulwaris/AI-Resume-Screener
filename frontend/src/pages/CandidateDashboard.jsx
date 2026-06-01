@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { COLORS } from "../constants/colors";
 import { s } from "../styles/designSystem";
 import { useAuth } from "../context/AuthContext";
-import { getJobs, getMyApplications, getCandidateProfile, getResume } from "../lib/api";
+import { acceptParsedName, getJobs, getMyApplications, getCandidateProfile, getResume } from "../lib/api";
 import Nav from "../components/layout/Nav";
 import PageHeader from "../components/layout/PageHeader";
 import Tabs from "../components/ui/Tabs";
@@ -13,7 +13,7 @@ import CandidateProfile from "../components/candidate/CandidateProfile";
 import ResumeUpload from "../components/candidate/ResumeUpload";
 
 export default function CandidateDashboard() {
-  const { token, user } = useAuth();
+  const { token, user, updateUser } = useAuth();
   const [tab, setTab] = useState("jobs");
   const [jobs, setJobs] = useState([]);
   const [applications, setApplications] = useState([]);
@@ -42,6 +42,15 @@ export default function CandidateDashboard() {
   useEffect(() => {
     loadAll();
   }, [loadAll]);
+
+  async function handleAcceptParsedName() {
+    const result = await acceptParsedName(token);
+    if (result.success) {
+      setProfile(result.data.profile);
+      updateUser(result.data.user);
+    }
+    return result;
+  }
 
   const appliedCount = applications.length;
   const openJobs = jobs.length;
@@ -77,7 +86,7 @@ export default function CandidateDashboard() {
         ) : tab === "applications" ? (
           <CandidateApplications applications={applications} />
         ) : tab === "profile" ? (
-          <CandidateProfile profile={profile} />
+          <CandidateProfile profile={profile} onAcceptParsedName={handleAcceptParsedName} />
         ) : (
           <ResumeUpload token={token} onUploaded={loadAll} resumeInfo={resumeInfo} />
         )}
