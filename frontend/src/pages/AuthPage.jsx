@@ -66,8 +66,7 @@ export default function AuthPage() {
     });
     setLoading(false);
     if (r.success) {
-      setSuccessMsg(`We've sent a verification email to ${form.email}. Please check your inbox.`);
-      setTab("login");
+      login(r.data.token, r.data.user);
     } else {
       setError(r.message);
     }

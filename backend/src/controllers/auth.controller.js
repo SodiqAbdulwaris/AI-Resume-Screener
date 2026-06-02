@@ -77,44 +77,24 @@ async function register(req, res, next) {
       email: email.toLowerCase().trim(),
       password,
       role,
-      isVerified: false,
+      isVerified: true,
     });
 
-    const verificationToken = jwt.sign(
-      { userId: user._id, purpose: 'email-verification' },
-      config.jwtSecret,
-      { expiresIn: '24h' }
-    );
+    const token = signAccessToken(user);
+    await generateAndSetRefreshToken(res, user._id);
 
-    const resend = new Resend(config.resendApiKey);
-    const verifyLink = `${config.frontendUrl}/verify-email?token=${verificationToken}`;
-
-    const { error } = await resend.emails.send({
-      to: user.email,
-      from: config.resendFromEmail,
-      subject: 'Verify your email for HireSignal',
-      text: `Hello ${user.fullName},\n\nPlease verify your email by clicking the following link:\n${verifyLink}\n\nThis link is valid for 24 hours.`,
-      html: `
-        <p>Hello ${user.fullName},</p>
-        <p>Please verify your email for HireSignal by clicking the button below:</p>
-        <p>
-          <a href="${verifyLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
-            Verify Email
-          </a>
-        </p>
-        <p>Or copy and paste this link in your browser: <br>${verifyLink}</p>
-        <p>This link is valid for 24 hours.</p>
-      `
-    });
-
-    if (error) {
-      console.error('[Verify Email] Error sending email via Resend:', JSON.stringify(error));
-    }
-
-    return res.status(202).json({
+    return res.status(201).json({
       success: true,
-      message: 'Check your email to verify your account.',
-      data: null,
+      message: 'Registration successful.',
+      data: {
+        token,
+        user: {
+          _id: user._id,
+          fullName: user.fullName,
+          email: user.email,
+          role: user.role,
+        },
+      },
     });
   } catch (err) {
     next(err);
@@ -153,14 +133,6 @@ async function login(req, res, next) {
         success: false,
         message: 'Invalid email or password.',
         data: null,
-      });
-    }
-
-    if (!user.isVerified) {
-      return res.status(403).json({
-        success: false,
-        message: 'Please verify your email before logging in.',
-        data: { needsVerification: true },
       });
     }
 
