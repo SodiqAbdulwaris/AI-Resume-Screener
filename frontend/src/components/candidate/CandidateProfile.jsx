@@ -7,7 +7,10 @@ import Btn from "../ui/Btn";
 import Spinner from "../ui/Spinner";
 import StatCard from "../ui/StatCard";
 
-export default function CandidateProfile({ profile, onAcceptParsedName }) {
+import { useOutletContext } from "react-router-dom";
+
+export default function CandidateProfile() {
+  const { profile, handleAcceptParsedName: onAcceptParsedName } = useOutletContext();
   const [acceptingName, setAcceptingName] = useState(false);
   const [nameMessage, setNameMessage] = useState(null);
   const [nameError, setNameError] = useState(null);

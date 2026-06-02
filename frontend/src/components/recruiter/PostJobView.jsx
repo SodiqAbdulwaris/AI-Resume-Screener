@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import { createJob } from "../../lib/api";
@@ -7,7 +8,8 @@ import FormField from "../ui/FormField";
 import Btn from "../ui/Btn";
 import Spinner from "../ui/Spinner";
 
-export default function PostJobView({ token, onPosted }) {
+export default function PostJobView() {
+  const { token, onPosted } = useOutletContext();
   const [form, setForm] = useState({
     title: "", description: "", requiredSkills: "", preferredSkills: "",
     requiredEducationLevel: "any", requiredExperienceYears: "",

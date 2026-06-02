@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { COLORS } from "../constants/colors";
 import { s } from "../styles/designSystem";
 import { useAuth } from "../context/AuthContext";
@@ -7,29 +8,50 @@ import Nav from "../components/layout/Nav";
 import PageHeader from "../components/layout/PageHeader";
 import Tabs from "../components/ui/Tabs";
 import SkeletonBlock from "../components/ui/SkeletonBlock";
-import CandidateBrowse from "../components/candidate/CandidateBrowse";
-import CandidateApplications from "../components/candidate/CandidateApplications";
-import CandidateProfile from "../components/candidate/CandidateProfile";
-import ResumeUpload from "../components/candidate/ResumeUpload";
-import ContactSupport from "../components/contact/ContactSupport";
 
 export default function CandidateDashboard({ onContactClick }) {
   const { token, user, updateUser } = useAuth();
-  const [tab, setTab] = useState("jobs");
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [jobs, setJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [profile, setProfile] = useState(null);
   const [resumeInfo, setResumeInfo] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
+  const [nextCursor, setNextCursor] = useState(null);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingJobs, setLoadingJobs] = useState(false);
+
+  // Determine active tab from URL path
+  let activeTab = "jobs";
+  if (location.pathname === "/applications") activeTab = "applications";
+  else if (location.pathname === "/profile") activeTab = "profile";
+  else if (location.pathname === "/resume") activeTab = "resume";
+  else if (location.pathname === "/contact") activeTab = "contact";
+
+  const handleTabChange = (key) => {
+    if (key === "jobs") navigate("/jobs");
+    else navigate(`/${key}`);
+  };
+
+  const loadJobsData = useCallback(async (cursor = null) => {
+    if (cursor) setLoadingJobs(true);
+    const r = await getJobs(token, cursor);
+    if (r.success) {
+      setJobs(prev => cursor ? [...prev, ...r.data.items] : r.data.items);
+      setNextCursor(r.data.nextCursor);
+      setHasMore(r.data.hasMore);
+    }
+    setLoadingJobs(false);
+  }, [token]);
 
   const loadAll = useCallback(async () => {
     setLoadingData(true);
-    const [jr, ar, pr] = await Promise.all([
-      getJobs(token),
+    const [ar, pr] = await Promise.all([
       getMyApplications(token),
       getCandidateProfile(token),
     ]);
-    setJobs(jr.success ? jr.data : []);
     setApplications(ar.success ? ar.data : []);
     setProfile(pr.success ? pr.data : null);
 
@@ -37,8 +59,9 @@ export default function CandidateDashboard({ onContactClick }) {
       const rr = await getResume(pr.data.resumeId, token);
       if (rr.success) setResumeInfo(rr.data);
     }
+    await loadJobsData();
     setLoadingData(false);
-  }, [token]);
+  }, [token, loadJobsData]);
 
   useEffect(() => {
     loadAll();
@@ -80,7 +103,7 @@ export default function CandidateDashboard({ onContactClick }) {
           title={`Good to see you, ${user.fullName.split(" ")[0]}.`}
           subtitle="Browse open roles and track your applications."
         />
-        <Tabs tabs={tabDefs} active={tab} onChange={setTab} />
+        <Tabs tabs={tabDefs} active={activeTab} onChange={handleTabChange} />
         {loadingData ? (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: "1rem" }}>
             {[1, 2, 3].map(i => (
@@ -91,16 +114,24 @@ export default function CandidateDashboard({ onContactClick }) {
               </div>
             ))}
           </div>
-        ) : tab === "jobs" ? (
-          <CandidateBrowse jobs={jobs} applications={applications} profile={profile} token={token} onApplied={loadAll} />
-        ) : tab === "applications" ? (
-          <CandidateApplications applications={applications} onCancel={handleCancelApplication} />
-        ) : tab === "profile" ? (
-          <CandidateProfile profile={profile} onAcceptParsedName={handleAcceptParsedName} />
-        ) : tab === "resume" ? (
-          <ResumeUpload token={token} onUploaded={loadAll} resumeInfo={resumeInfo} />
         ) : (
-          <ContactSupport user={user} />
+          <Outlet
+            context={{
+              jobs,
+              applications,
+              profile,
+              resumeInfo,
+              token,
+              loadAll,
+              loadingJobs,
+              hasMore,
+              nextCursor,
+              loadJobsData,
+              handleCancelApplication,
+              handleAcceptParsedName,
+              user,
+            }}
+          />
         )}
       </div>
     </div>

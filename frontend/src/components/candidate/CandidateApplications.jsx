@@ -12,7 +12,10 @@ function statusBadge(status) {
   return <Badge variant={map[status] || "gray"}>{status}</Badge>;
 }
 
-export default function CandidateApplications({ applications, onCancel }) {
+import { useOutletContext } from "react-router-dom";
+
+export default function CandidateApplications() {
+  const { applications, handleCancelApplication: onCancel } = useOutletContext();
   const [cancellingId, setCancellingId] = useState(null);
   const [error, setError] = useState(null);
 

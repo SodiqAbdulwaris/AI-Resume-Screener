@@ -4,8 +4,24 @@ import { applyToJob } from "../../lib/api";
 import JobCard from "./JobCard";
 import JobDetailModal from "./JobDetailModal";
 import ApplyModal from "./ApplyModal";
+import Btn from "../ui/Btn";
 
-export default function CandidateBrowse({ jobs, applications, profile, token, onApplied }) {
+import { useOutletContext } from "react-router-dom";
+
+export default function CandidateBrowse() {
+  const {
+    jobs,
+    applications,
+    profile,
+    token,
+    loadAll: onApplied,
+    hasMore,
+    loadingJobs: loadingMore,
+    loadJobsData,
+    nextCursor,
+  } = useOutletContext();
+
+  const onLoadMore = () => loadJobsData(nextCursor);
   const [modal, setModal] = useState(null); // null | {type, job}
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -45,6 +61,13 @@ export default function CandidateBrowse({ jobs, applications, profile, token, on
               />
             </div>
           ))}
+        </div>
+      )}
+      {hasMore && (
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+          <Btn variant="secondary" onClick={onLoadMore} disabled={loadingMore}>
+            {loadingMore ? "Loading..." : "Load More Roles"}
+          </Btn>
         </div>
       )}
       {modal?.type === "detail" && (

@@ -28,6 +28,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    passwordResetVersion: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

@@ -1,10 +1,12 @@
+import { useOutletContext } from "react-router-dom";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import StatCard from "../ui/StatCard";
 import Btn from "../ui/Btn";
 import Badge from "../ui/Badge";
 
-export default function RecruiterJobs({ jobs, onViewMatch, onPost }) {
+export default function RecruiterJobs() {
+  const { jobs, onViewMatch, onPost, onToggleJobStatus, hasMore, loadingMore, onLoadMore } = useOutletContext();
   const openJobs = jobs.filter((j) => j.isOpen);
   return (
     <div>
@@ -37,13 +39,27 @@ export default function RecruiterJobs({ jobs, onViewMatch, onPost }) {
                 <div style={{ fontSize: 12, color: COLORS.text3, marginBottom: "1rem" }}>
                   ⏱ {j.requiredExperienceYears}+ yrs · 🎓 {j.requiredEducationLevel}
                 </div>
-                <div style={{ display: "flex", gap: 8 }}>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <Btn variant="secondary" size="sm" onClick={() => onViewMatch(j, false)}>View Matches</Btn>
                   <Btn variant="primary" size="sm" onClick={() => onViewMatch(j, true)}>🤖 Run Match</Btn>
+                  <Btn
+                    variant={j.isOpen ? "danger" : "secondary"}
+                    size="sm"
+                    onClick={() => onToggleJobStatus && onToggleJobStatus(j._id, j.isOpen)}
+                  >
+                    {j.isOpen ? "Close Role" : "Reopen Role"}
+                  </Btn>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      )}
+      {hasMore && (
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+          <Btn variant="secondary" onClick={onLoadMore} disabled={loadingMore}>
+            {loadingMore ? "Loading..." : "Load More Jobs"}
+          </Btn>
         </div>
       )}
     </div>

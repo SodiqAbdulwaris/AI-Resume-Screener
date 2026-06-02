@@ -1,21 +1,47 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const config = require('../config/env');
+const crypto = require('crypto');
+const RefreshToken = require('../models/RefreshToken');
+const { Resend } = require('resend');
+const { z } = require('zod');
 
-const TOKEN_EXPIRY = '7d';
+const passwordSchema = z.string().min(8, 'Password must be at least 8 characters long');
 
-
-function signToken(user) {
+function signAccessToken(user) {
   return jwt.sign(
     { userId: user._id, role: user.role },
     config.jwtSecret,
-    { expiresIn: TOKEN_EXPIRY }
+    { expiresIn: config.accessTokenExpiry }
   );
 }
 
+async function generateAndSetRefreshToken(res, userId) {
+  const rawToken = crypto.randomBytes(40).toString('hex');
+  const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex');
+  const expiresAt = new Date();
+  expiresAt.setDate(expiresAt.getDate() + 30); // 30 days
+
+  await RefreshToken.create({
+    token: hashedToken,
+    userId,
+    expiresAt,
+  });
+
+  const isProduction = process.env.NODE_ENV === 'production';
+  res.cookie('refreshToken', rawToken, {
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: isProduction,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+  });
+
+  return rawToken;
+}
+
 /**
- * POST /api/auth/register
- * Register a new user (Candidate or Recruiter).
+ * POST /api/v1/auth/register
+ * Register a new user with email verification.
  */
 async function register(req, res, next) {
   try {
@@ -29,7 +55,6 @@ async function register(req, res, next) {
       });
     }
 
-    // Check if role is valid
     if (role && !['candidate', 'recruiter'].includes(role)) {
       return res.status(400).json({
         success: false,
@@ -38,8 +63,7 @@ async function register(req, res, next) {
       });
     }
 
-    // Check for existing email
-    const existingEmail = await User.findOne({ email });
+    const existingEmail = await User.findOne({ email: email.toLowerCase().trim() });
     if (existingEmail) {
       return res.status(400).json({
         success: false,
@@ -48,17 +72,48 @@ async function register(req, res, next) {
       });
     }
 
-    // Create user
     const user = await User.create({
       fullName,
-      email,
+      email: email.toLowerCase().trim(),
       password,
       role,
+      isVerified: false,
     });
 
-    return res.status(201).json({
+    const verificationToken = jwt.sign(
+      { userId: user._id, purpose: 'email-verification' },
+      config.jwtSecret,
+      { expiresIn: '24h' }
+    );
+
+    const resend = new Resend(config.resendApiKey);
+    const verifyLink = `${config.frontendUrl}/verify-email?token=${verificationToken}`;
+
+    const { error } = await resend.emails.send({
+      to: user.email,
+      from: config.resendFromEmail,
+      subject: 'Verify your email for HireSignal',
+      text: `Hello ${user.fullName},\n\nPlease verify your email by clicking the following link:\n${verifyLink}\n\nThis link is valid for 24 hours.`,
+      html: `
+        <p>Hello ${user.fullName},</p>
+        <p>Please verify your email for HireSignal by clicking the button below:</p>
+        <p>
+          <a href="${verifyLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
+            Verify Email
+          </a>
+        </p>
+        <p>Or copy and paste this link in your browser: <br>${verifyLink}</p>
+        <p>This link is valid for 24 hours.</p>
+      `
+    });
+
+    if (error) {
+      console.error('[Verify Email] Error sending email via Resend:', JSON.stringify(error));
+    }
+
+    return res.status(202).json({
       success: true,
-      message: 'Registered successfully',
+      message: 'Check your email to verify your account.',
       data: null,
     });
   } catch (err) {
@@ -67,8 +122,8 @@ async function register(req, res, next) {
 }
 
 /**
- * POST /api/auth/login
- * Log in a user using email/phone and password.
+ * POST /api/v1/auth/login
+ * Log in a user using email and password.
  */
 async function login(req, res, next) {
   try {
@@ -92,7 +147,6 @@ async function login(req, res, next) {
       });
     }
 
-    // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(401).json({
@@ -102,7 +156,16 @@ async function login(req, res, next) {
       });
     }
 
-    const token = signToken(user);
+    if (!user.isVerified) {
+      return res.status(403).json({
+        success: false,
+        message: 'Please verify your email before logging in.',
+        data: { needsVerification: true },
+      });
+    }
+
+    const token = signAccessToken(user);
+    await generateAndSetRefreshToken(res, user._id);
 
     return res.status(200).json({
       success: true,
@@ -123,19 +186,325 @@ async function login(req, res, next) {
 }
 
 /**
- * POST /api/auth/logout
- * Log out user (stateless JWT client cleanup helper).
+ * POST /api/v1/auth/refresh
+ * Refresh access token using httpOnly cookie.
  */
-async function logout(req, res) {
+async function refresh(req, res, next) {
+  try {
+    const rawToken = req.cookies.refreshToken;
+    if (!rawToken) {
+      return res.status(401).json({ success: false, message: 'Refresh token missing.', data: null });
+    }
+
+    const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex');
+    const tokenDoc = await RefreshToken.findOne({ token: hashedToken });
+
+    if (!tokenDoc) {
+      return res.status(401).json({ success: false, message: 'Invalid refresh token.', data: null });
+    }
+
+    if (tokenDoc.expiresAt < new Date()) {
+      await RefreshToken.deleteOne({ _id: tokenDoc._id });
+      res.clearCookie('refreshToken');
+      return res.status(401).json({ success: false, message: 'Expired refresh token.', data: null });
+    }
+
+    const user = await User.findById(tokenDoc.userId);
+    if (!user) {
+      await RefreshToken.deleteOne({ _id: tokenDoc._id });
+      res.clearCookie('refreshToken');
+      return res.status(401).json({ success: false, message: 'User not found.', data: null });
+    }
+
+    await RefreshToken.deleteOne({ _id: tokenDoc._id });
+    const newAccessToken = signAccessToken(user);
+    await generateAndSetRefreshToken(res, user._id);
+
+    return res.json({
+      success: true,
+      message: 'Token refreshed successfully.',
+      data: {
+        token: newAccessToken,
+        user: {
+          _id: user._id,
+          fullName: user.fullName,
+          email: user.email,
+          role: user.role,
+        },
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * POST /api/v1/auth/logout
+ * Log out user, deleting refresh token and cookie.
+ */
+async function logout(req, res, next) {
+  try {
+    const rawToken = req.cookies.refreshToken;
+    if (rawToken) {
+      const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex');
+      await RefreshToken.deleteOne({ token: hashedToken });
+    }
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    });
+    return res.json({
+      success: true,
+      message: 'Logged out successfully.',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * GET /api/v1/auth/me
+ * Return the currently authenticated user's profile.
+ */
+async function getMe(req, res) {
   return res.json({
     success: true,
-    message: 'Logged out successfully. Please clear token from client storage.',
-    data: null,
+    message: 'User profile retrieved.',
+    data: {
+      _id: req.user._id,
+      fullName: req.user.fullName,
+      email: req.user.email,
+      role: req.user.role,
+    },
   });
+}
+
+/**
+ * GET /api/v1/auth/verify-email
+ * Verify verification token and update user's verification status.
+ */
+async function verifyEmail(req, res, next) {
+  try {
+    const { token } = req.query;
+    if (!token) {
+      return res.status(400).json({ success: false, message: 'Verification token is required.', data: null });
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, config.jwtSecret);
+    } catch (err) {
+      return res.status(400).json({ success: false, message: 'Invalid or expired verification token.', data: null });
+    }
+
+    if (decoded.purpose !== 'email-verification') {
+      return res.status(400).json({ success: false, message: 'Invalid token purpose.', data: null });
+    }
+
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(400).json({ success: false, message: 'User not found.', data: null });
+    }
+
+    if (user.isVerified) {
+      return res.status(200).json({ success: true, message: 'Email already verified. You can now log in.', data: null });
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Email verified. You can now log in.',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * POST /api/v1/auth/resend-verification
+ * Resend the verification email to the user.
+ */
+async function resendVerification(req, res, next) {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email is required.', data: null });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    
+    if (!user || user.isVerified) {
+      return res.status(200).json({
+        success: true,
+        message: 'If that email is registered and unverified, a verification link has been sent.',
+        data: null,
+      });
+    }
+
+    const verificationToken = jwt.sign(
+      { userId: user._id, purpose: 'email-verification' },
+      config.jwtSecret,
+      { expiresIn: '24h' }
+    );
+
+    const resend = new Resend(config.resendApiKey);
+    const verifyLink = `${config.frontendUrl}/verify-email?token=${verificationToken}`;
+
+    const { error } = await resend.emails.send({
+      to: user.email,
+      from: config.resendFromEmail,
+      subject: 'Verify your email for HireSignal',
+      text: `Hello ${user.fullName},\n\nPlease verify your email by clicking the following link:\n${verifyLink}\n\nThis link is valid for 24 hours.`,
+      html: `
+        <p>Hello ${user.fullName},</p>
+        <p>Please verify your email for HireSignal by clicking the button below:</p>
+        <p>
+          <a href="${verifyLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
+            Verify Email
+          </a>
+        </p>
+        <p>Or copy and paste this link in your browser: <br>${verifyLink}</p>
+        <p>This link is valid for 24 hours.</p>
+      `
+    });
+
+    if (error) {
+      console.error('[Resend Verify] Error sending email via Resend:', JSON.stringify(error));
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'If that email is registered and unverified, a verification link has been sent.',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * POST /api/v1/auth/forgot-password
+ * Handle forgot password request.
+ */
+async function forgotPassword(req, res, next) {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email is required.', data: null });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    
+    if (user) {
+      const resetToken = jwt.sign(
+        { userId: user._id, purpose: 'password-reset', tokenVersion: user.passwordResetVersion },
+        config.jwtSecret,
+        { expiresIn: '1h' }
+      );
+
+      const resend = new Resend(config.resendApiKey);
+      const resetLink = `${config.frontendUrl}/reset-password?token=${resetToken}`;
+
+      const { error } = await resend.emails.send({
+        to: user.email,
+        from: config.resendFromEmail,
+        subject: 'Reset your password for HireSignal',
+        text: `Hello ${user.fullName},\n\nYou requested a password reset. Please click the link below to set a new password:\n${resetLink}\n\nThis link is valid for 1 hour.`,
+        html: `
+          <p>Hello ${user.fullName},</p>
+          <p>Please reset your password for HireSignal by clicking the button below:</p>
+          <p>
+            <a href="${resetLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
+              Reset Password
+            </a>
+          </p>
+          <p>Or copy and paste this link in your browser: <br>${resetLink}</p>
+          <p>This link is valid for 1 hour.</p>
+        `
+      });
+
+      if (error) {
+        console.error('[Forgot Password] Error sending email via Resend:', JSON.stringify(error));
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'If that email exists, a reset link has been sent.',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * POST /api/v1/auth/reset-password
+ * Handle reset password.
+ */
+async function resetPassword(req, res, next) {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      return res.status(400).json({ success: false, message: 'Token and new password are required.', data: null });
+    }
+
+    const validation = passwordSchema.safeParse(newPassword);
+    if (!validation.success) {
+      return res.status(400).json({
+        success: false,
+        message: validation.error.errors[0].message,
+        data: null,
+      });
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, config.jwtSecret);
+    } catch (err) {
+      return res.status(400).json({ success: false, message: 'Invalid or expired reset token.', data: null });
+    }
+
+    if (decoded.purpose !== 'password-reset') {
+      return res.status(400).json({ success: false, message: 'Invalid token purpose.', data: null });
+    }
+
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(400).json({ success: false, message: 'User not found.', data: null });
+    }
+
+    if (decoded.tokenVersion !== user.passwordResetVersion) {
+      return res.status(400).json({ success: false, message: 'This reset link has already been used or is invalidated.', data: null });
+    }
+
+    user.password = newPassword;
+    user.passwordResetVersion += 1;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Password reset successful. You can now log in.',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = {
   register,
   login,
   logout,
+  getMe,
+  refresh,
+  verifyEmail,
+  resendVerification,
+  forgotPassword,
+  resetPassword,
 };

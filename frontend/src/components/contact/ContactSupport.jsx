@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import { sendContactFeedback } from "../../lib/api";
@@ -7,7 +8,8 @@ import Btn from "../ui/Btn";
 import FormField from "../ui/FormField";
 import Spinner from "../ui/Spinner";
 
-export default function ContactSupport({ user }) {
+export default function ContactSupport() {
+  const { user } = useOutletContext();
   const [form, setForm] = useState({
     name: user?.fullName || "",
     email: user?.email || "",

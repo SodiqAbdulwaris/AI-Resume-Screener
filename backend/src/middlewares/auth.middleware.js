@@ -65,7 +65,39 @@ function authorise(...roles) {
   };
 }
 
+/**
+ * Optional authentication middleware.
+ * If a valid JWT Bearer token is provided, sets req.user.
+ * Does not block the request if token is missing.
+ */
+async function optionalAuthenticate(req, res, next) {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return next();
+    }
+
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, config.jwtSecret);
+
+    const user = await User.findById(decoded.userId).select('-password');
+    if (user) {
+      req.user = user;
+    }
+    next();
+  } catch (err) {
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication token expired.',
+      });
+    }
+    next();
+  }
+}
+
 module.exports = {
   authenticate,
   authorise,
+  optionalAuthenticate,
 };

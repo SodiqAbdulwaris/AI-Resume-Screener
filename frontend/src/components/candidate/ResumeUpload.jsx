@@ -8,7 +8,10 @@ import Spinner from "../ui/Spinner";
 import Btn from "../ui/Btn";
 import Badge from "../ui/Badge";
 
-export default function ResumeUpload({ token, onUploaded, resumeInfo }) {
+import { useOutletContext } from "react-router-dom";
+
+export default function ResumeUpload() {
+  const { token, loadAll: onUploaded, resumeInfo } = useOutletContext();
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

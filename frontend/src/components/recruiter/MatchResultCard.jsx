@@ -6,7 +6,7 @@ import Badge from "../ui/Badge";
 import ScoreBar, { scoreColor } from "../ui/ScoreBar";
 import Divider from "../ui/Divider";
 
-export default function MatchResultCard({ match, rank }) {
+export default function MatchResultCard({ match, rank, onToggleShortlist }) {
   const [expanded, setExpanded] = useState(false);
   const cand = match.candidate || {};
   const name = typeof cand === "object" ? cand.fullName || "Candidate" : "Candidate";
@@ -43,7 +43,34 @@ export default function MatchResultCard({ match, rank }) {
       <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
         <Avatar name={name} size={42} gradient={isTop ? goldColors[rank - 1] : undefined} />
         <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 500, fontSize: 14, marginBottom: 2 }}>{name}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
+            <div style={{ fontWeight: 500, fontSize: 14 }}>{name}</div>
+            <button
+              onClick={() => onToggleShortlist && onToggleShortlist(match._id, !!match.shortlisted)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "2px 4px",
+                display: "inline-flex",
+                color: match.shortlisted ? COLORS.warning : COLORS.text3,
+                transition: "color 0.15s, transform 0.1s",
+              }}
+              title={match.shortlisted ? "Remove from Shortlist" : "Shortlist Candidate"}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.15)";
+                if (!match.shortlisted) e.currentTarget.style.color = COLORS.warning;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                if (!match.shortlisted) e.currentTarget.style.color = COLORS.text3;
+              }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill={match.shortlisted ? COLORS.warning : "none"} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </button>
+          </div>
           {typeof cand === "object" && (
             <div style={{ fontSize: 12, color: COLORS.text2 }}>
               {cand.educationLevel && `${cand.educationLevel} · `}{cand.yearsExperience != null ? `${cand.yearsExperience} yrs exp` : ""}

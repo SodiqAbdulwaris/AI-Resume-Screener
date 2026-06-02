@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { COLORS } from "../constants/colors";
 import { s } from "../styles/designSystem";
 import { useAuth } from "../context/AuthContext";
-import { authLogin, authRegister } from "../lib/api";
+import { authLogin, authRegister, resendVerification } from "../lib/api";
 import Alert from "../components/ui/Alert";
 import FormField from "../components/ui/FormField";
 import Btn from "../components/ui/Btn";
@@ -10,11 +11,26 @@ import Spinner from "../components/ui/Spinner";
 
 export default function AuthPage() {
   const { login } = useAuth();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   const [tab, setTab] = useState("login");
   const [form, setForm] = useState({ email: "", password: "", fullName: "", role: "candidate" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+
+  // Verification resend states
+  const [showResend, setShowResend] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(null);
+
+  useEffect(() => {
+    if (searchParams.get("verified") === "true") {
+      setSuccessMsg("Email verified. You can now log in.");
+      navigate("/", { replace: true });
+    }
+  }, [searchParams, navigate]);
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -23,13 +39,16 @@ export default function AuthPage() {
       setError("Please fill in all fields.");
       return;
     }
-    setLoading(true); setError(null);
+    setLoading(true); setError(null); setShowResend(false); setResendSuccess(null);
     const r = await authLogin({ email: form.email, password: form.password });
     setLoading(false);
     if (r.success) {
       login(r.data.token, r.data.user);
     } else {
       setError(r.message);
+      if (r.data?.needsVerification) {
+        setShowResend(true);
+      }
     }
   }
 
@@ -38,7 +57,7 @@ export default function AuthPage() {
       setError("All fields are required.");
       return;
     }
-    setLoading(true); setError(null);
+    setLoading(true); setError(null); setSuccessMsg(null);
     const r = await authRegister({
       fullName: form.fullName,
       email: form.email,
@@ -47,10 +66,22 @@ export default function AuthPage() {
     });
     setLoading(false);
     if (r.success) {
-      setSuccessMsg("Account created! Please sign in.");
+      setSuccessMsg(`We've sent a verification email to ${form.email}. Please check your inbox.`);
       setTab("login");
     } else {
       setError(r.message);
+    }
+  }
+
+  async function handleResendVerification() {
+    setResendLoading(true); setError(null); setResendSuccess(null);
+    const r = await resendVerification(form.email);
+    setResendLoading(false);
+    if (r.success) {
+      setResendSuccess("Verification email resent. Please check your inbox.");
+      setShowResend(false);
+    } else {
+      setError(r.message || "Failed to resend verification email.");
     }
   }
 
@@ -110,7 +141,7 @@ export default function AuthPage() {
           {[{ key: "login", label: "Sign in" }, { key: "register", label: "Create account" }].map((t) => (
             <button
               key={t.key}
-              onClick={() => { setTab(t.key); setError(null); setSuccessMsg(null); }}
+              onClick={() => { setTab(t.key); setError(null); setSuccessMsg(null); setShowResend(false); setResendSuccess(null); }}
               style={{
                 flex: 1,
                 padding: "8px",
@@ -133,6 +164,7 @@ export default function AuthPage() {
         <div style={{ ...s.card, border: `1px solid ${COLORS.border2}` }}>
           <Alert message={error} variant="error" />
           <Alert message={successMsg} variant="success" />
+          {resendSuccess && <Alert message={resendSuccess} variant="success" />}
 
           {tab === "login" ? (
             <div>
@@ -142,9 +174,47 @@ export default function AuthPage() {
               <FormField label="Password">
                 <input type="password" placeholder="••••••••" value={form.password} onChange={update("password")} required style={{ marginBottom: "0.5rem" }} />
               </FormField>
+              <div style={{ textAlign: "right", marginBottom: "1rem" }}>
+                <button
+                  type="button"
+                  onClick={() => navigate("/forgot-password")}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "#a5b4fc",
+                    fontSize: 12,
+                    cursor: "pointer",
+                    fontFamily: "'Geist', sans-serif",
+                  }}
+                >
+                  Forgot password?
+                </button>
+              </div>
               <Btn variant="primary" fullWidth onClick={handleLogin} disabled={loading} style={{ marginTop: 4 }}>
                 {loading ? <Spinner size={16} /> : "Sign in"}
               </Btn>
+
+              {showResend && (
+                <div style={{ marginTop: "1rem", textAlign: "center" }}>
+                  <button
+                    type="button"
+                    onClick={handleResendVerification}
+                    disabled={resendLoading}
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: COLORS.accent,
+                      fontSize: 13,
+                      fontWeight: 500,
+                      cursor: "pointer",
+                      fontFamily: "'Geist', sans-serif",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    {resendLoading ? "Resending..." : "Resend verification email"}
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <div>
