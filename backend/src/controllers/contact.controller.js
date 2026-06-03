@@ -1,4 +1,4 @@
-const { Resend } = require('resend');
+const { sendEmail } = require('../services/email.service');
 const config = require('../config/env');
 
 function stripTags(str) {
@@ -18,23 +18,20 @@ async function handleContactForm(req, res, next) {
     });
   }
 
-  const resend = new Resend(config.resendApiKey);
-
-  const { error } = await resend.emails.send({
-    to: config.contactReceiverEmail,
-    from: config.resendFromEmail,
-    reply_to: email,
-    subject: `HireSignal Contact: Message from ${name}`,
-    text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
-    html: `
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p style="white-space:pre-wrap">${message.replace(/\n/g, '<br>')}</p>
-    `,
-  });
-
-  if (error) {
-    console.error('[contact] Resend error:', JSON.stringify(error));
+  try {
+    await sendEmail({
+      to: config.contactReceiverEmail,
+      replyTo: email,
+      subject: `HireSignal Contact: Message from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      html: `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p style="white-space:pre-wrap">${message.replace(/\n/g, '<br>')}</p>
+      `,
+    });
+  } catch (error) {
+    console.error('[contact] Send email error:', error);
     return next(error);
   }
 

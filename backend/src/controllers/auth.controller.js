@@ -3,7 +3,7 @@ const User = require('../models/User');
 const config = require('../config/env');
 const crypto = require('crypto');
 const RefreshToken = require('../models/RefreshToken');
-const { Resend } = require('resend');
+const { sendEmail } = require('../services/email.service');
 const { z } = require('zod');
 
 const passwordSchema = z.string().min(8, 'Password must be at least 8 characters long');
@@ -324,29 +324,27 @@ async function resendVerification(req, res, next) {
       { expiresIn: '24h' }
     );
 
-    const resend = new Resend(config.resendApiKey);
     const verifyLink = `${config.frontendUrl}/verify-email?token=${verificationToken}`;
 
-    const { error } = await resend.emails.send({
-      to: user.email,
-      from: config.resendFromEmail,
-      subject: 'Verify your email for HireSignal',
-      text: `Hello ${user.fullName},\n\nPlease verify your email by clicking the following link:\n${verifyLink}\n\nThis link is valid for 24 hours.`,
-      html: `
-        <p>Hello ${user.fullName},</p>
-        <p>Please verify your email for HireSignal by clicking the button below:</p>
-        <p>
-          <a href="${verifyLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
-            Verify Email
-          </a>
-        </p>
-        <p>Or copy and paste this link in your browser: <br>${verifyLink}</p>
-        <p>This link is valid for 24 hours.</p>
-      `
-    });
-
-    if (error) {
-      console.error('[Resend Verify] Error sending email via Resend:', JSON.stringify(error));
+    try {
+      await sendEmail({
+        to: user.email,
+        subject: 'Verify your email for HireSignal',
+        text: `Hello ${user.fullName},\n\nPlease verify your email by clicking the following link:\n${verifyLink}\n\nThis link is valid for 24 hours.`,
+        html: `
+          <p>Hello ${user.fullName},</p>
+          <p>Please verify your email for HireSignal by clicking the button below:</p>
+          <p>
+            <a href="${verifyLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
+              Verify Email
+            </a>
+          </p>
+          <p>Or copy and paste this link in your browser: <br>${verifyLink}</p>
+          <p>This link is valid for 24 hours.</p>
+        `
+      });
+    } catch (error) {
+      console.error('[Resend Verify] Error sending verification email:', error);
     }
 
     return res.status(200).json({
@@ -379,29 +377,27 @@ async function forgotPassword(req, res, next) {
         { expiresIn: '1h' }
       );
 
-      const resend = new Resend(config.resendApiKey);
       const resetLink = `${config.frontendUrl}/reset-password?token=${resetToken}`;
 
-      const { error } = await resend.emails.send({
-        to: user.email,
-        from: config.resendFromEmail,
-        subject: 'Reset your password for HireSignal',
-        text: `Hello ${user.fullName},\n\nYou requested a password reset. Please click the link below to set a new password:\n${resetLink}\n\nThis link is valid for 1 hour.`,
-        html: `
-          <p>Hello ${user.fullName},</p>
-          <p>Please reset your password for HireSignal by clicking the button below:</p>
-          <p>
-            <a href="${resetLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
-              Reset Password
-            </a>
-          </p>
-          <p>Or copy and paste this link in your browser: <br>${resetLink}</p>
-          <p>This link is valid for 1 hour.</p>
-        `
-      });
-
-      if (error) {
-        console.error('[Forgot Password] Error sending email via Resend:', JSON.stringify(error));
+      try {
+        await sendEmail({
+          to: user.email,
+          subject: 'Reset your password for HireSignal',
+          text: `Hello ${user.fullName},\n\nYou requested a password reset. Please click the link below to set a new password:\n${resetLink}\n\nThis link is valid for 1 hour.`,
+          html: `
+            <p>Hello ${user.fullName},</p>
+            <p>Please reset your password for HireSignal by clicking the button below:</p>
+            <p>
+              <a href="${resetLink}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;font-weight:500;">
+                Reset Password
+              </a>
+            </p>
+            <p>Or copy and paste this link in your browser: <br>${resetLink}</p>
+            <p>This link is valid for 1 hour.</p>
+          `
+        });
+      } catch (error) {
+        console.error('[Forgot Password] Error sending reset email:', error);
       }
     }
 

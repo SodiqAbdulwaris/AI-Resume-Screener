@@ -21,8 +21,8 @@ const envSchema = z.object({
   }).default('http://localhost:8000'),
   AI_SERVICE_TIMEOUT_MS: z.string().transform((val) => parseInt(val, 10)).default('30000'),
   MAX_FILE_SIZE_BYTES: z.string().transform((val) => parseInt(val, 10)).default('5242880'),
-  RESEND_API_KEY: z.string(),
-  RESEND_FROM_EMAIL: z.string(),
+  RESEND_API_KEY: z.string().optional(),
+  RESEND_FROM_EMAIL: z.string().optional(),
   CONTACT_FEEDBACK_TO_EMAIL: z.string().optional(),
   DEFAULT_PAGE_LIMIT: z.string().transform((val) => parseInt(val, 10)).default('20'),
   MAX_PAGE_LIMIT: z.string().transform((val) => parseInt(val, 10)).default('100'),
@@ -30,6 +30,11 @@ const envSchema = z.object({
   ACCESS_TOKEN_EXPIRY: z.string().default('15m'),
   REFRESH_TOKEN_EXPIRY: z.string().default('30d'),
   FRONTEND_URL: z.string().default('http://localhost:5173'),
+  SMTP_HOST: z.string().default('smtp.gmail.com'),
+  SMTP_PORT: z.string().default('587'),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -59,6 +64,11 @@ const config = {
   accessTokenExpiry: env.ACCESS_TOKEN_EXPIRY,
   refreshTokenExpiry: env.REFRESH_TOKEN_EXPIRY,
   frontendUrl: env.FRONTEND_URL,
+  smtpHost: env.SMTP_HOST,
+  smtpPort: parseInt(env.SMTP_PORT, 10),
+  smtpUser: env.SMTP_USER,
+  smtpPass: env.SMTP_PASS,
+  emailFrom: env.EMAIL_FROM || env.RESEND_FROM_EMAIL || 'noreply@hiresignal.com',
 };
 
 module.exports = config;
