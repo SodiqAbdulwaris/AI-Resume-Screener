@@ -1,8 +1,12 @@
 # HireSignal
 
-An AI-powered resume screening platform. Candidates upload a resume, get a structured profile, and apply to jobs. Recruiters post job requirements and trigger AI matching to rank applicants by fit.
+**HireSignal** is an AI-powered resume screening and candidate matching platform that bridges the gap between job seekers and recruiters. Candidates upload their resumes and receive automatically structured profiles — extracting skills, experience, education, projects, and certifications — then apply to open positions. Recruiters post job requirements and trigger a multi-dimensional AI matching engine that ranks all applicants by their fit score, with full score breakdowns, matched/missing skills, and natural-language AI reasoning.
 
-Built as a school project on the MERN stack with a Python/FastAPI AI service.
+> 🌐 **Live Demo**: [ai-resume-screener-sand.vercel.app](https://ai-resume-screener-sand.vercel.app)
+> &nbsp;
+> 📁 **GitHub Repository**: [github.com/SodiqAbdulwaris/AI-Resume-Screener](https://github.com/SodiqAbdulwaris/AI-Resume-Screener)
+
+Built as a school project on the MERN stack with a Python/FastAPI AI microservice.
 
 ---
 
