@@ -5,8 +5,11 @@ const config = require('../config/env');
 let transporter = null;
 let resendClient = null;
 
-// Initialize clients based on available configurations
-if (config.smtpUser && config.smtpPass) {
+// Initialize clients based on available configurations (Resend takes priority in production)
+if (config.resendApiKey) {
+  console.log('📧 Email Service: Resend Configured.');
+  resendClient = new Resend(config.resendApiKey);
+} else if (config.smtpUser && config.smtpPass) {
   console.log('📧 Email Service: SMTP Configured.');
   transporter = nodemailer.createTransport({
     host: config.smtpHost,
@@ -16,10 +19,10 @@ if (config.smtpUser && config.smtpPass) {
       user: config.smtpUser,
       pass: config.smtpPass.replace(/\s+/g, ''),
     },
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000,   // 10 seconds
+    socketTimeout: 15000,     // 15 seconds
   });
-} else if (config.resendApiKey) {
-  console.log('📧 Email Service: Resend Configured.');
-  resendClient = new Resend(config.resendApiKey);
 } else {
   console.log('📧 Email Service: No email backend configured. Falling back to Console logging.');
 }
@@ -38,25 +41,7 @@ if (config.smtpUser && config.smtpPass) {
 async function sendEmail({ to, subject, text, html, replyTo }) {
   const from = config.emailFrom;
 
-  // 1. SMTP Transporter (Nodemailer)
-  if (transporter) {
-    try {
-      const info = await transporter.sendMail({
-        from,
-        to,
-        subject,
-        text,
-        html,
-        replyTo,
-      });
-      return { success: true, messageId: info.messageId };
-    } catch (err) {
-      console.error('❌ SMTP Email send failure:', err);
-      throw err;
-    }
-  }
-
-  // 2. Resend API
+  // 1. Resend API (preferred method)
   if (resendClient) {
     try {
       const { data, error } = await resendClient.emails.send({
@@ -75,6 +60,24 @@ async function sendEmail({ to, subject, text, html, replyTo }) {
       return { success: true, messageId: data?.id };
     } catch (err) {
       console.error('❌ Resend email send exception:', err);
+      throw err;
+    }
+  }
+
+  // 2. SMTP Transporter (Nodemailer fallback)
+  if (transporter) {
+    try {
+      const info = await transporter.sendMail({
+        from,
+        to,
+        subject,
+        text,
+        html,
+        replyTo,
+      });
+      return { success: true, messageId: info.messageId };
+    } catch (err) {
+      console.error('❌ SMTP Email send failure:', err);
       throw err;
     }
   }

@@ -1,6 +1,8 @@
 .env
 .env.local
 
+.vscode/
+
 node_modules/
 
 extras/
@@ -20,3 +22,4 @@ AGENTS.md
 graphify-out/
 
 backend/uploads/
+CLAUDE.md
