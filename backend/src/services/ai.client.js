@@ -71,7 +71,9 @@ function buildAiError(err, operation) {
       baseURL: config.aiServiceUrl,
       timeoutMs: config.aiServiceTimeoutMs,
     });
-    const error = new Error(`AI service ${operation} timed out`);
+    // Internal details (base URL, operation name) stay server-side in the log above —
+    // the user-facing message should read like a normal transient failure, not an infra report.
+    const error = new Error('This is taking longer than expected. Please try again in a moment.');
     error.isAiTimeout = true;
     return error;
   }
@@ -81,7 +83,7 @@ function buildAiError(err, operation) {
     code: err.code,
     message: err.message,
   });
-  const error = new Error(`Cannot reach AI service at ${config.aiServiceUrl}. Check AI_SERVICE_URL and that the AI service is deployed/running.`);
+  const error = new Error('Our processing service is temporarily unavailable. Please try again shortly.');
   error.isAiError = true;
   error.cause = err;
   return error;
