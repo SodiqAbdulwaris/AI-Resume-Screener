@@ -10,17 +10,30 @@ import Badge from "../ui/Badge";
 
 import { useOutletContext } from "react-router-dom";
 
+function ParseStatusBadge({ status }) {
+  const byStatus = {
+    done: { variant: "green", label: "Parsed ✓" },
+    needs_review: { variant: "yellow", label: "Needs review" },
+    failed: { variant: "red", label: "Parse failed" },
+    processing: { variant: "blue", label: "Processing…" },
+    pending: { variant: "gray", label: "Pending" },
+  };
+  const { variant, label } = byStatus[status] || byStatus.pending;
+  return <Badge variant={variant}>{label}</Badge>;
+}
+
 export default function ResumeUpload() {
   const { token, loadAll: onUploaded, resumeInfo } = useOutletContext();
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [warning, setWarning] = useState(null);
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef(null);
 
   function handleFile(f) {
-    setError(null); setSuccess(null);
+    setError(null); setSuccess(null); setWarning(null);
     const ext = f.name.split(".").pop().toLowerCase();
     if (!["pdf", "docx"].includes(ext)) { setError("Only PDF and DOCX files are accepted."); return; }
     if (f.size > 5 * 1024 * 1024) { setError("File is larger than 5MB."); return; }
@@ -29,13 +42,17 @@ export default function ResumeUpload() {
 
   async function doUpload() {
     if (!file) return;
-    setLoading(true); setError(null); setSuccess(null);
+    setLoading(true); setError(null); setSuccess(null); setWarning(null);
     const fd = new FormData();
     fd.append("file", file);
     const r = await uploadResume(fd, token);
     setLoading(false);
-    if (r.success) { setFile(null); setSuccess("Resume uploaded and parsed successfully!"); onUploaded(); }
-    else setError(r.message);
+    if (r.success) {
+      setFile(null);
+      if (r.data?.parseStatus === "needs_review") setWarning(r.message);
+      else setSuccess(r.message || "Resume uploaded and parsed successfully!");
+      onUploaded();
+    } else setError(r.message);
   }
 
   return (
@@ -47,6 +64,7 @@ export default function ResumeUpload() {
         </p>
         <Alert message={error} variant="error" />
         <Alert message={success} variant="success" />
+        <Alert message={warning} variant="warning" />
         <div
           onClick={() => inputRef.current?.click()}
           onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
@@ -90,7 +108,19 @@ export default function ResumeUpload() {
           <div style={{ fontSize: 12, color: COLORS.text2, marginBottom: "0.75rem" }}>
             {(resumeInfo.fileSize / 1024).toFixed(0)} KB · Uploaded {fmtDate(resumeInfo.createdAt)}
           </div>
-          <Badge variant="green">Parsed ✓</Badge>
+          <ParseStatusBadge status={resumeInfo.parseStatus} />
+          {resumeInfo.parseStatus === "needs_review" && (
+            <div style={{ fontSize: 12, color: COLORS.text2, marginTop: "0.6rem" }}>
+              {resumeInfo.extractionMethod === "ocr"
+                ? "This resume was scanned — please verify the extracted details in your profile."
+                : "We couldn't extract much from this resume — please review your profile and fill in any missing details."}
+            </div>
+          )}
+          {resumeInfo.parseStatus === "failed" && resumeInfo.parseError && (
+            <div style={{ fontSize: 12, color: COLORS.text2, marginTop: "0.6rem" }}>
+              {resumeInfo.parseError}
+            </div>
+          )}
         </div>
       )}
     </div>
