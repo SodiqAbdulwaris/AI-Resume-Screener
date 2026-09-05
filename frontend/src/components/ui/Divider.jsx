@@ -1,5 +1,5 @@
-import { COLORS } from "../../constants/colors";
+import { Separator } from "./shadcn/separator";
 
 export default function Divider() {
-  return <div style={{ borderTop: `1px solid ${COLORS.border}`, margin: "1.25rem 0" }} />;
+  return <Separator className="my-5" />;
 }

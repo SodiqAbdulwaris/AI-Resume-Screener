@@ -2,8 +2,9 @@ import * as React from "react"
 import { cn } from "cn"
 import { Dialog as DialogPrimitive } from "radix-ui"
 
+import { Cross2Icon } from "@radix-ui/react-icons"
+
 import { Button } from "@/components/ui/shadcn/button"
-import { IconPlaceholder } from "@/app/(create)/components/icon-placeholder"
 
 function Dialog({
   ...props
@@ -70,13 +71,7 @@ function DialogContent({
               className="absolute top-2 right-2"
               size="icon-sm"
             >
-              <IconPlaceholder
-                lucide="XIcon"
-                tabler="IconX"
-                hugeicons="Cancel01Icon"
-                phosphor="XIcon"
-                remixicon="RiCloseLine"
-              />
+              <Cross2Icon />
               <span className="sr-only">Close</span>
             </Button>
           </DialogPrimitive.Close>

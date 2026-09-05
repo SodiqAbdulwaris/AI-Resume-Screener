@@ -1,29 +1,13 @@
-import { COLORS } from "../../constants/colors";
-
-function initials(name = "") {
-  return name.split(" ").slice(0, 2).map((w) => w[0] || "").join("").toUpperCase();
-}
+import { Avatar as AvatarRoot, AvatarFallback } from "./shadcn/avatar";
+import { initials } from "../../lib/utils";
 
 export default function Avatar({ name, size = 36, gradient }) {
-  const bg = gradient || `linear-gradient(135deg, ${COLORS.accent}, #8b5cf6)`;
+  const bg = gradient || "linear-gradient(135deg, var(--primary), #8b5cf6)";
   return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        background: bg,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: size * 0.36,
-        fontWeight: 600,
-        color: "#fff",
-        flexShrink: 0,
-        letterSpacing: "0.03em",
-      }}
-    >
-      {initials(name)}
-    </div>
+    <AvatarRoot style={{ width: size, height: size }} className="shrink-0">
+      <AvatarFallback style={{ background: bg, fontSize: size * 0.36, letterSpacing: "0.03em" }} className="font-semibold text-white">
+        {initials(name)}
+      </AvatarFallback>
+    </AvatarRoot>
   );
 }

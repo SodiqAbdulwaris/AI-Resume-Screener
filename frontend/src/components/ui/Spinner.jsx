@@ -1,15 +1,8 @@
-export default function Spinner({ size = 18, color = "#fff" }) {
+export default function Spinner({ size = 18, color = "currentColor" }) {
   return (
     <span
-      style={{
-        display: "inline-block",
-        width: size,
-        height: size,
-        border: `2px solid rgba(255,255,255,0.15)`,
-        borderTopColor: color,
-        borderRadius: "50%",
-        animation: "spin 0.65s linear infinite",
-      }}
+      className="inline-block rounded-full border-2 border-white/15"
+      style={{ width: size, height: size, borderTopColor: color, animation: "spin 0.65s linear infinite" }}
     />
   );
 }

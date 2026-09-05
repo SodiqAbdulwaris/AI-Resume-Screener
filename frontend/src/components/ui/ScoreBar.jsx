@@ -1,22 +1,15 @@
-import { COLORS } from "../../constants/colors";
-
 export function scoreColor(v) {
-  if (v >= 0.7) return COLORS.success;
-  if (v >= 0.4) return COLORS.warning;
-  return COLORS.danger;
+  if (v >= 0.7) return "#22c55e";
+  if (v >= 0.4) return "#f59e0b";
+  return "#ef4444";
 }
 
 export default function ScoreBar({ value, color }) {
   return (
-    <div style={{ background: COLORS.bg3, borderRadius: 20, height: 5, overflow: "hidden" }}>
+    <div className="h-[5px] overflow-hidden rounded-full bg-muted">
       <div
-        style={{
-          height: "100%",
-          width: `${Math.round(value * 100)}%`,
-          background: color || scoreColor(value),
-          borderRadius: 20,
-          animation: "scoreIn 0.9s ease",
-        }}
+        className="h-full rounded-full"
+        style={{ width: `${Math.round(value * 100)}%`, background: color || scoreColor(value), animation: "scoreIn 0.9s ease" }}
       />
     </div>
   );
