@@ -2,8 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeftIcon, RocketIcon, BarChartIcon } from "@radix-ui/react-icons";
 import { useAuth } from "../../context/AuthContext";
-import { COLORS } from "../../constants/colors";
-import { s } from "../../styles/designSystem";
 import { downloadMatchResultsCsv, getMatchResults, getJob, triggerMatch, toggleShortlist } from "../../lib/api";
 import Alert from "../ui/Alert";
 import Spinner from "../ui/Spinner";
@@ -110,14 +108,14 @@ export default function MatchView({ onContactClick }) {
   return (
     <div>
       <Nav onContactClick={onContactClick} />
-      <div style={{ padding: "2rem 2rem 4rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }} className="fade-up">
+      <div className="px-4 pb-16 pt-6 sm:px-8">
+        <div className="fade-up mb-6 flex flex-wrap items-center gap-4">
           <Btn variant="secondary" size="sm" onClick={() => navigate("/recruiter/jobs")}><ArrowLeftIcon /> Back</Btn>
           <div>
-            <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.2rem", fontWeight: 700 }}>{title}</h3>
-            <div style={{ fontSize: 12, color: COLORS.text3 }}>AI Match Results</div>
+            <h3 className="text-lg font-bold text-foreground">{title}</h3>
+            <div className="text-xs text-muted-foreground">AI Match Results</div>
           </div>
-          <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div className="ml-auto flex flex-wrap items-center gap-3">
             {results.length > 0 && <Badge variant="blue">{results.length} candidates</Badge>}
             {results.length > 0 && (
               <Btn variant="secondary" size="sm" onClick={exportCsv} disabled={exporting}>
@@ -131,18 +129,18 @@ export default function MatchView({ onContactClick }) {
         </div>
         <Alert message={error} variant="error" />
         {fetching ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          <div className="flex flex-col gap-3">
             {[1, 2].map(i => (
-              <div key={i} style={{ ...s.card }}>
+              <div key={i} className="rounded-[14px] border border-border bg-card p-6">
                 <SkeletonBlock height={16} width="40%" />
-                <div style={{ marginTop: 12 }}><SkeletonBlock height={5} /></div>
+                <div className="mt-3"><SkeletonBlock height={5} /></div>
               </div>
             ))}
           </div>
         ) : results.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
-            <BarChartIcon width={40} height={40} style={{ opacity: 0.3, marginBottom: "1rem" }} />
-            <p style={{ marginBottom: "1.25rem" }}>
+          <div className="py-16 text-center text-muted-foreground">
+            <BarChartIcon width={40} height={40} className="mx-auto mb-4 opacity-30" />
+            <p className="mb-5">
               {lastMatchedAt
                 ? "AI matching ran, but no candidates matched — check that anyone has applied to this job yet."
                 : "No match results yet. Run AI matching to rank candidates."}
@@ -152,14 +150,14 @@ export default function MatchView({ onContactClick }) {
             </Btn>
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          <div className="flex flex-col gap-3">
             {results.map((m, i) => (
               <MatchResultCard key={m._id || i} match={m} rank={i + 1} onToggleShortlist={handleToggleShortlist} />
             ))}
           </div>
         )}
         {hasMore && (
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+          <div className="mt-8 flex justify-center">
             <Btn variant="secondary" onClick={() => loadMatches(nextCursor)} disabled={loadingMore}>
               {loadingMore ? "Loading..." : "Load More Candidates"}
             </Btn>

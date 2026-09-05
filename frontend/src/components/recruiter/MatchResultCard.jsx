@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { CheckIcon, Cross1Icon, ChevronUpIcon, ChevronDownIcon } from "@radix-ui/react-icons";
-import { COLORS } from "../../constants/colors";
-import { s } from "../../styles/designSystem";
 import Avatar from "../ui/Avatar";
 import Badge from "../ui/Badge";
 import ScoreBar, { scoreColor } from "../ui/ScoreBar";
@@ -26,73 +24,55 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
 
   return (
     <div
-      className="fade-up"
-      style={{
-        ...s.card,
-        position: "relative",
-        overflow: "hidden",
-        borderColor: rank === 1 ? "rgba(245,158,11,0.2)" : COLORS.border,
-        animationDelay: `${(rank - 1) * 0.06}s`,
-      }}
+      className="fade-up relative overflow-hidden rounded-[14px] border bg-card p-6"
+      style={{ borderColor: rank === 1 ? "rgba(245,158,11,0.2)" : "var(--border)", animationDelay: `${(rank - 1) * 0.06}s` }}
     >
       {/* Rank watermark */}
-      <div style={{ position: "absolute", top: "0.75rem", right: "1rem", fontFamily: "'Geist Variable', sans-serif", fontSize: "3rem", fontWeight: 700, color: isTop ? "rgba(245,158,11,0.12)" : "color-mix(in srgb, var(--foreground) 4%, transparent)", userSelect: "none", lineHeight: 1 }}>
+      <div
+        className="pointer-events-none absolute right-4 top-3 select-none text-5xl font-bold leading-none"
+        style={{ color: isTop ? "rgba(245,158,11,0.12)" : "color-mix(in srgb, var(--foreground) 4%, transparent)" }}
+      >
         #{match.rankedPosition || rank}
       </div>
 
       {/* Header */}
-      <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
+      <div className="mb-4 flex flex-wrap items-start gap-4">
         <Avatar name={name} size={42} gradient={isTop ? goldColors[rank - 1] : undefined} />
-        <div style={{ flex: 1 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-            <div style={{ fontWeight: 500, fontSize: 14 }}>{name}</div>
+        <div className="min-w-0 flex-1">
+          <div className="mb-0.5 flex items-center gap-2">
+            <div className="text-sm font-medium">{name}</div>
             <button
               onClick={() => onToggleShortlist && onToggleShortlist(match._id, !!match.shortlisted)}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "2px 4px",
-                display: "inline-flex",
-                color: match.shortlisted ? COLORS.warning : COLORS.text3,
-                transition: "color 0.15s, transform 0.1s",
-              }}
+              className="inline-flex items-center px-1 py-0.5 transition-transform hover:scale-110"
+              style={{ color: match.shortlisted ? "#d97706" : "var(--muted-foreground)" }}
               title={match.shortlisted ? "Remove from Shortlist" : "Shortlist Candidate"}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.15)";
-                if (!match.shortlisted) e.currentTarget.style.color = COLORS.warning;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-                if (!match.shortlisted) e.currentTarget.style.color = COLORS.text3;
-              }}
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill={match.shortlisted ? COLORS.warning : "none"} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill={match.shortlisted ? "#d97706" : "none"} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
             </button>
           </div>
           {typeof cand === "object" && (
-            <div style={{ fontSize: 12, color: COLORS.text2 }}>
+            <div className="text-xs text-muted-foreground">
               {cand.educationLevel && `${cand.educationLevel} · `}{cand.yearsExperience != null ? `${cand.yearsExperience} yrs exp` : ""}
             </div>
           )}
           {(email || phone) && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 6, fontSize: 12 }}>
-              {email && <a href={`mailto:${email}`} style={{ color: "var(--primary)", textDecoration: "none" }}>{email}</a>}
-              {phone && <a href={`tel:${phone}`} style={{ color: COLORS.text2, textDecoration: "none" }}>{phone}</a>}
+            <div className="mt-1.5 flex flex-wrap gap-2 text-xs">
+              {email && <a href={`mailto:${email}`} className="text-primary no-underline">{email}</a>}
+              {phone && <a href={`tel:${phone}`} className="text-muted-foreground no-underline">{phone}</a>}
             </div>
           )}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 6 }}>
+          <div className="mt-1.5 flex flex-wrap gap-1">
             {(typeof cand === "object" ? cand.skills || [] : []).slice(0, 4).map((sk) => (
-              <span key={sk} style={{ ...s.tag, fontSize: 11 }}>{sk}</span>
+              <span key={sk} className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground">{sk}</span>
             ))}
           </div>
         </div>
-        <div style={{ textAlign: "right", flexShrink: 0 }}>
-          <div style={{ fontFamily: "'Geist Variable', sans-serif", fontWeight: 700, fontSize: "2rem", color, lineHeight: 1 }}>{score}</div>
-          <div style={{ fontSize: 10, color: COLORS.text3, textTransform: "uppercase", letterSpacing: "0.06em" }}>% match</div>
-          {match.shortlisted && <Badge variant="green" style={{ marginTop: 4 }}>Shortlisted</Badge>}
+        <div className="shrink-0 text-right">
+          <div className="text-3xl font-bold leading-none" style={{ color }}>{score}</div>
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">% match</div>
+          {match.shortlisted && <Badge variant="green" className="mt-1">Shortlisted</Badge>}
         </div>
       </div>
 
@@ -100,19 +80,19 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
       <ScoreBar value={match.totalScore} color={color} />
 
       {/* Breakdown */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, margin: "1rem 0" }}>
+      <div className="my-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {Object.entries(breakdown).map(([k, v]) => (
-          <div key={k} style={{ background: COLORS.bg3, borderRadius: 8, padding: "8px 10px", textAlign: "center" }}>
-            <div style={{ fontSize: 13, fontWeight: 500, color: scoreColor(v) }}>{Math.round(v * 100)}%</div>
-            <div style={{ fontSize: 10, color: COLORS.text3, textTransform: "capitalize", marginTop: 2 }}>{k}</div>
+          <div key={k} className="rounded-lg bg-secondary px-2.5 py-2 text-center">
+            <div className="text-[13px] font-medium" style={{ color: scoreColor(v) }}>{Math.round(v * 100)}%</div>
+            <div className="mt-0.5 text-[10px] capitalize text-muted-foreground">{k}</div>
           </div>
         ))}
       </div>
 
       {/* Skills */}
-      <div style={{ marginBottom: "0.75rem" }}>
-        <div style={{ fontSize: 11, color: COLORS.text3, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.07em" }}>Skills</div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+      <div className="mb-3">
+        <div className="mb-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">Skills</div>
+        <div className="flex flex-wrap gap-1.5">
           {(match.matchedSkills || []).map((sk) => (
             <Badge key={sk} variant="green"><CheckIcon width={11} height={11} /> {sk}</Badge>
           ))}
@@ -128,19 +108,19 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
           <Divider />
           <button
             onClick={() => setExpanded(!expanded)}
-            style={{ background: "none", border: "none", color: COLORS.text3, fontSize: 12, cursor: "pointer", padding: 0, fontFamily: "'Geist Variable', sans-serif", display: "flex", alignItems: "center", gap: 4 }}
+            className="flex items-center gap-1 border-none bg-transparent p-0 text-xs text-muted-foreground"
           >
             {expanded ? <ChevronUpIcon /> : <ChevronDownIcon />} {expanded ? "Hide" : "Show"} AI reasoning
           </button>
           {expanded && (
-            <div style={{ marginTop: "0.75rem" }}>
+            <div className="mt-3">
               {match.reasons?.length > 0 && (
-                <ul style={{ paddingLeft: "1.25rem", fontSize: 13, color: COLORS.text2, marginBottom: "0.5rem" }}>
-                  {match.reasons.map((r, i) => <li key={i} style={{ marginBottom: 3 }}>{r}</li>)}
+                <ul className="mb-2 list-disc pl-5 text-[13px] text-muted-foreground">
+                  {match.reasons.map((r, i) => <li key={i} className="mb-0.5">{r}</li>)}
                 </ul>
               )}
               {match.explanation && (
-                <p style={{ fontSize: 13, color: COLORS.text2, borderLeft: `2px solid ${COLORS.border2}`, paddingLeft: "0.75rem", margin: 0, lineHeight: 1.65 }}>
+                <p className="border-l-2 border-border pl-3 text-[13px] leading-relaxed text-muted-foreground">
                   {match.explanation}
                 </p>
               )}

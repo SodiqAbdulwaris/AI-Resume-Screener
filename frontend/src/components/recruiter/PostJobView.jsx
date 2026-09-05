@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { COLORS } from "../../constants/colors";
-import { s } from "../../styles/designSystem";
 import { createJob } from "../../lib/api";
 import Alert from "../ui/Alert";
 import FormField from "../ui/FormField";
@@ -60,9 +58,9 @@ export default function PostJobView() {
   }
 
   return (
-    <div style={{ maxWidth: 600 }}>
-      <div style={s.card} className="fade-up">
-        <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: "1.25rem" }}>Post a new role</h3>
+    <div className="max-w-[600px]">
+      <div className="fade-up rounded-[14px] border border-border bg-card p-6">
+        <h3 className="mb-5 text-xl font-bold text-foreground">Post a new role</h3>
         <Alert message={error} variant="error" />
         <Alert message={success} variant="success" />
         <div>
@@ -70,9 +68,9 @@ export default function PostJobView() {
             <input placeholder="e.g. Senior Backend Engineer" value={form.title} onChange={update("title")} required />
           </FormField>
           <FormField label="Description *">
-            <textarea rows={4} placeholder="Describe the role, responsibilities, team, and expectations..." value={form.description} onChange={update("description")} required style={{ resize: "vertical" }} />
+            <textarea rows={4} placeholder="Describe the role, responsibilities, team, and expectations..." value={form.description} onChange={update("description")} required className="resize-y" />
           </FormField>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <FormField label="Min. education">
               <select value={form.requiredEducationLevel} onChange={update("requiredEducationLevel")}>
                 <option value="any">Any</option>
@@ -93,16 +91,16 @@ export default function PostJobView() {
             <input placeholder="docker, aws, typescript" value={form.preferredSkills} onChange={update("preferredSkills")} />
           </FormField>
 
-          <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: COLORS.text2, margin: "0.5rem 0 1rem", cursor: "pointer" }}>
-            <input type="checkbox" checked={customWeights} onChange={(e) => setCustomWeights(e.target.checked)} style={{ width: "auto" }} />
+          <label className="my-3 flex cursor-pointer items-center gap-2 text-[13px] text-muted-foreground">
+            <input type="checkbox" checked={customWeights} onChange={(e) => setCustomWeights(e.target.checked)} className="w-auto" />
             Advanced: customize matching weights for this job
           </label>
           {customWeights && (
-            <div style={{ background: COLORS.bg3, borderRadius: 10, padding: "1rem", marginBottom: "1rem" }}>
-              <p style={{ fontSize: 12, color: COLORS.text2, marginBottom: "0.75rem" }}>
+            <div className="mb-4 rounded-[10px] bg-secondary p-4">
+              <p className="mb-3 text-xs text-muted-foreground">
                 Overrides the platform default for this job only. Must sum to 1.0.
               </p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {WEIGHT_FIELDS.map((f) => (
                   <FormField key={f.key} label={f.label}>
                     <input
@@ -113,13 +111,13 @@ export default function PostJobView() {
                   </FormField>
                 ))}
               </div>
-              <div style={{ fontSize: 12, color: weightsSumOk ? COLORS.text2 : "#f87171" }}>
+              <div className={`text-xs ${weightsSumOk ? "text-muted-foreground" : "text-red-500"}`}>
                 Sum: {weightsSum.toFixed(2)} {!weightsSumOk && "— must equal 1.00"}
               </div>
             </div>
           )}
 
-          <Btn variant="primary" fullWidth onClick={handleSubmit} disabled={loading || (customWeights && !weightsSumOk)} style={{ marginTop: 6 }}>
+          <Btn variant="primary" fullWidth onClick={handleSubmit} disabled={loading || (customWeights && !weightsSumOk)} className="mt-1.5">
             {loading ? <Spinner size={16} /> : "Post job"}
           </Btn>
         </div>
