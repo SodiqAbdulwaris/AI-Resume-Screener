@@ -11,6 +11,8 @@ extras/
 .codex/
 .qodo/
 .claude/
+
+frontend/dist/
 __pycache__/
 *.pyc
 ai-service/env/
