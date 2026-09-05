@@ -15,4 +15,13 @@ First attempt hung on a "Workspace Trust Required" interactive prompt (this CLI 
 
 ## Outcome
 
-Not yet complete at time of writing — will be filled in once the run finishes.
+✅ Complete. Commit `8f248b9` on `redesign/cursor-agent`: warm editorial / print-magazine "Operate UI".
+
+- Colors: taupe stone paper (`#EBE4D8`) background, oxblood wine (`#8B3A4A`) accent
+- Typography: Fraunces (headings) + Source Sans 3 (UI/body)
+- Tighter corner radii than the teal baseline, subtle grain texture
+- Dark mode: warm espresso tone, same wine accent family carried through
+- Rewrote tokens in `global.css`, shared `components/ui`, and fixed dangling Geist font-family references left over from removing that font
+- Confirmed itself that `npm run build` passes; routes/logic untouched
+
+Note: Fraunces is a font `design-taste-frontend`'s own anti-slop rules ban as a *default* AI choice for most briefs — but the brief this variant was given (explicitly editorial/print-magazine) is exactly the carve-out that skill lists as a legitimate exception. Not overriding cursor-agent's choice here; it's on-brief.

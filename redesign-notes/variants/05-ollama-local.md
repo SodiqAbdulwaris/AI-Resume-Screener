@@ -29,4 +29,10 @@ Its own reasoning (visible in the raw output, worth keeping): it explicitly note
 
 ## Implementation status
 
-Not yet started — direction captured, implementation is next. Will update this file with what was actually built once done.
+✅ Complete. Commit `4191f12` on `redesign/ollama-local`.
+
+Implemented: full light+dark token set in `global.css` (dark mode is my addition — the model's brief didn't cover it, but the toggle infra already exists app-wide and dropping it felt like a worse outcome than a sensible companion palette in the same navy family), `--radius: 0` for sharp corners, Montserrat (headings) + Open Sans (body) via Google Fonts.
+
+Verified: `npm run build` passes, spot-checked in-browser in both themes via a temporary dev server on port 5180 — renders as intended, sharp corners visible on card/inputs/button, clean structured layout.
+
+**Known limitation, documented rather than silently left:** several components set `fontFamily` inline (`'Geist Variable'`) on real `<h1>`-`<h3>` tags, which beats the CSS `h1,h2,h3{font-family: Montserrat}` rule this commit added (inline styles always win over stylesheet rules). So not every heading in the app actually shows Montserrat yet — the ones with no inline override do, others still show Geist. Full fix requires the same file-by-file Tailwind-class conversion the teal variant did for R2 (auth pages) — out of scope for a single-pass color/font-token exploration.

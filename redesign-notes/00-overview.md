@@ -9,12 +9,16 @@ The HireSignal frontend is being redesigned in **5 parallel visual directions**,
 | # | Branch | Built by | Direction | Status |
 |---|--------|----------|-----------|--------|
 | 1 | `redesign/claude-teal` | Me (this session, earlier) | Light-default, teal accent, real dark mode toggle | ✅ Done — see [variants/01-claude-teal.md](variants/01-claude-teal.md) |
-| 2 | `redesign/opencode-bigpickle` | `opencode` CLI, free `big-pickle` model | Bold, high-contrast, dark-mode-first | 🔄 In progress — see [variants/02-opencode-bigpickle.md](variants/02-opencode-bigpickle.md) |
-| 3 | `redesign/cursor-agent` | `cursor-agent` CLI | Warm, editorial, premium print-magazine feel | 🔄 In progress — see [variants/03-cursor-agent.md](variants/03-cursor-agent.md) |
-| 4 | `redesign/agy-antigravity` | `agy` (Antigravity) CLI | Dense, data-forward "cockpit" dashboard | 🔄 In progress — see [variants/04-agy-antigravity.md](variants/04-agy-antigravity.md) |
-| 5 | `redesign/ollama-local` | Me, direction proposed by local `deepseek-r1:8b` | "Confident Architecture" — trust-blue, sharp corners, tight spacing | 🔄 In progress — see [variants/05-ollama-local.md](variants/05-ollama-local.md) |
+| 2 | `redesign/opencode-bigpickle` | `opencode` CLI, free `big-pickle` model | Bold dark-first "Signal" — radar-orange + carbon | ✅ Done (`3506f44`) — see [variants/02-opencode-bigpickle.md](variants/02-opencode-bigpickle.md) |
+| 3 | `redesign/cursor-agent` | `cursor-agent` CLI | Warm editorial/print-magazine — oxblood + Fraunces | ✅ Done (`8f248b9`) — see [variants/03-cursor-agent.md](variants/03-cursor-agent.md) |
+| 4 | `redesign/agy-antigravity` | `agy` (Antigravity) CLI | Dense data-forward "cockpit" — cyan + JetBrains Mono | ✅ Done (`6795ce6`) — see [variants/04-agy-antigravity.md](variants/04-agy-antigravity.md) |
+| 5 | `redesign/ollama-local` | Me, direction proposed by local `deepseek-r1:8b` | "Confident Architecture" — trust-blue, sharp corners | ✅ Done (`4191f12`) — see [variants/05-ollama-local.md](variants/05-ollama-local.md) |
 
-Each variant lives in its own [git worktree](https://git-scm.com/docs/git-worktree) under `../hiresignal-worktrees/<name>/`, isolated from this main checkout and from each other, so 3 tools could run concurrently without touching the same files.
+**All 5 variants complete.** Each lives in its own [git worktree](https://git-scm.com/docs/git-worktree) under `../hiresignal-worktrees/<name>/`, isolated from this main checkout and from each other — 3 tools ran concurrently (safe: they're cloud-backed, no local GPU/CPU load) without touching the same files. Every variant builds cleanly (`npm run build`); the teal and ollama-local ones were also spot-checked live in a browser.
+
+## If you want to compare them
+
+From the main repo (not a worktree), `git log --all --oneline --graph` shows all 5 branch tips. To actually run one: `cd ../hiresignal-worktrees/<name>/frontend && npm run dev` (each worktree already has `node_modules` installed) — or `git worktree list` from the main repo to see all paths. None of the 5 have been merged into `main` or pushed anywhere; that's a decision for you to make once you've looked at them.
 
 ## Why this structure exists
 

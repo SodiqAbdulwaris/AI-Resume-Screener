@@ -11,4 +11,13 @@ Read `PRODUCT.md` and this notes folder for context. Redesign the visual layer o
 
 ## Outcome
 
-Not yet complete at time of writing — will be filled in once the run finishes (or times out / fails, in which case that will be recorded here too, plainly).
+✅ Complete. Commit `3506f44` on `redesign/opencode-bigpickle`: **"bold dark-first 'Signal' redesign (radar-orange + carbon)"**.
+
+- Dark made the default theme (not just available)
+- Accent: radar/signal orange (`#ff6a00` family) against a carbon-dark base
+- Heading font: Space Grotesk (self-hosted, dependency added); body kept Geist
+- Rewrote `global.css` tokens, `designSystem.js`, `constants/colors.js`, and shared `ui/` components (Avatar, Alert dual-mode, heading font wiring)
+- Caught and fixed its own contrast bug mid-run: initial avatar-initials text was white on the `#ff6a00` gradient, illegible — corrected to dark text (`#2b1200`) before finishing, unprompted
+- Ran `npm run build` itself, confirmed it compiled, then committed
+
+No intervention needed from me beyond launching it and pre-installing `node_modules`. Genuinely the smoothest of the three CLI-tool runs.
