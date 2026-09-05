@@ -17,7 +17,7 @@ Built as a school project on the MERN stack with a Python/FastAPI AI microservic
 | Backend | Node.js + Express 4 + MongoDB (Mongoose) |
 | AI service | Python + FastAPI + Uvicorn |
 | Embeddings | `all-MiniLM-L6-v2` via sentence-transformers |
-| Auth | JWT (7-day bearer token) |
+| Auth | JWT access token (15 min) + httpOnly refresh-token cookie (30 days) |
 
 ---
 
@@ -52,8 +52,6 @@ Built as a school project on the MERN stack with a Python/FastAPI AI microservic
 │       ├── lib/             # API wrapper and utilities
 │       ├── pages/           # AuthPage, CandidateDashboard, RecruiterDashboard
 │       └── styles/          # Design system and global CSS
-├── docs/
-├── extras/                  # Planning notes and helper scripts (not deployed)
 ├── .gitignore
 ├── AGENTS.md
 ├── package.json             # Root scripts — installs and runs all services
@@ -89,10 +87,18 @@ Create `ai-service/.env`:
 MONGO_URI=mongodb://localhost:27017/ai-resume-screener
 AI_SERVICE_PORT=8000
 EMBEDDING_MODEL=all-MiniLM-L6-v2
+HF_TOKEN=
 MODEL_CACHE_DIR=app/embedding-models
 MAX_FILE_SIZE_MB=5
+
+# Optional external AI-correction fallback for sparse resume parses — see "How It Works" below.
 PARSER_AI_ENABLED=false
+PARSER_AI_URL=
+PARSER_AI_API_KEY=
+PARSER_AI_TIMEOUT_SECONDS=20.0
 ```
+
+`HF_TOKEN` is only needed if the configured `EMBEDDING_MODEL` requires authentication to download from Hugging Face. See [backend/README.md](backend/README.md) for the full backend environment variable reference.
 
 ### Install
 
@@ -126,6 +132,14 @@ The backend owns all persistence and business logic. The AI service exposes two 
 When a candidate uploads a resume, the backend forwards the file to `/parse/`, stores the structured result as a candidate profile in MongoDB, and keeps the cleaned resume text for later matching. When a recruiter triggers a match, the backend loads all applicants for that job, builds a payload, calls `/match/`, and persists the ranked results.
 
 Matching scores each candidate across four dimensions: skills (40%), experience (30%), semantic similarity (20%), and education level (10%).
+
+Resume parsing always runs a heuristic/regex parser first. If the result is too sparse (missing name, contact info, skills, experience, or education) and `PARSER_AI_ENABLED=true` with a `PARSER_AI_URL` configured, the ai-service calls out to an **externally hosted** AI-correction service — not implemented in this repo — to try to fill the gaps. The default (`PARSER_AI_ENABLED=false`) means parsing is always heuristic-only. Either way, a resume that's still too sparse afterward is flagged for the candidate to review rather than silently treated as a complete profile.
+
+## Known limitations
+
+- **Matching weights are fixed**, not configurable per job or globally. The 40/30/20/10 split above is a hardcoded constant in `ai-service/app/services/matching_service.py`. Making it configurable is planned but not yet built.
+- **No OCR**: scanned/image-only PDF resumes extract no text and are flagged for manual review rather than read.
+- **English-only parsing**: resume section/skill detection is keyword-based and English-only; non-English resumes are flagged for manual review rather than misread.
 
 ---
 
