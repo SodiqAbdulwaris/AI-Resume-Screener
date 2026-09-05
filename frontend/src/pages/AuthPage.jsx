@@ -112,7 +112,7 @@ export default function AuthPage() {
           transform: "translateX(-50%)",
           width: 600,
           height: 400,
-          background: "radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -186,7 +186,7 @@ export default function AuthPage() {
                   style={{
                     background: "transparent",
                     border: "none",
-                    color: "#a5b4fc",
+                    color: "var(--primary)",
                     fontSize: 12,
                     cursor: "pointer",
                     fontFamily: "'Geist Variable', sans-serif",

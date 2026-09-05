@@ -60,8 +60,8 @@ export default function CandidateApplications() {
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <div style={{ width: 38, height: 38, borderRadius: 9, background: COLORS.accentGlow, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <rect x="2" y="1" width="12" height="14" rx="2" stroke="#a5b4fc" strokeWidth="1.25"/>
-                <path d="M5 5h6M5 8h6M5 11h4" stroke="#a5b4fc" strokeWidth="1.25" strokeLinecap="round"/>
+                <rect x="2" y="1" width="12" height="14" rx="2" stroke="var(--primary)" strokeWidth="1.25"/>
+                <path d="M5 5h6M5 8h6M5 11h4" stroke="var(--primary)" strokeWidth="1.25" strokeLinecap="round"/>
               </svg>
             </div>
             <div>

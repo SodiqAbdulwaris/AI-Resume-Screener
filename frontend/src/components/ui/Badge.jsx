@@ -1,10 +1,10 @@
 const VARIANTS = {
-  gray: "bg-white/[0.07] text-muted-foreground",
-  blue: "bg-primary/15 text-[#a5b4fc]",
-  green: "bg-emerald-500/15 text-emerald-400",
-  yellow: "bg-amber-500/15 text-amber-400",
-  red: "bg-red-500/15 text-red-400",
-  teal: "bg-teal-500/15 text-teal-400",
+  gray: "bg-muted text-muted-foreground",
+  blue: "bg-sky-500/15 text-sky-700 dark:text-sky-300",
+  green: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+  yellow: "bg-amber-500/15 text-amber-700 dark:text-amber-300",
+  red: "bg-red-500/15 text-red-700 dark:text-red-300",
+  teal: "bg-primary/15 text-primary",
 };
 
 export default function Badge({ children, variant = "gray", className, style, ...props }) {

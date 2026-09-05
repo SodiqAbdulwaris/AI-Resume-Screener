@@ -1,10 +1,13 @@
+import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants/colors";
 import Avatar from "../ui/Avatar";
 import Btn from "../ui/Btn";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Nav({ onContactClick }) {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const isRecruiter = user?.role === "recruiter";
   const isAdmin = user?.role === "admin";
   const roleLabel = isAdmin ? "Admin" : isRecruiter ? "Recruiter" : "Candidate";
@@ -17,7 +20,7 @@ export default function Nav({ onContactClick }) {
         justifyContent: "space-between",
         padding: "0.9rem 2rem",
         borderBottom: `1px solid ${COLORS.border}`,
-        background: "rgba(9,9,11,0.9)",
+        background: "color-mix(in srgb, var(--background) 90%, transparent)",
         backdropFilter: "blur(12px)",
         position: "sticky",
         top: 0,
@@ -59,7 +62,7 @@ export default function Nav({ onContactClick }) {
               fontSize: 11,
               padding: "2px 8px",
               background: isRecruiter ? "rgba(20,184,166,0.12)" : COLORS.accentGlow,
-              color: isRecruiter ? COLORS.teal : "#a5b4fc",
+              color: isRecruiter ? COLORS.teal : "var(--primary)",
               borderRadius: 20,
               fontWeight: 500,
             }}
@@ -71,6 +74,15 @@ export default function Nav({ onContactClick }) {
 
       {/* Right: Contact Us + user info + sign out */}
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+        <Btn
+          variant="ghost"
+          size="sm"
+          onClick={toggleTheme}
+          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          style={{ paddingLeft: 8, paddingRight: 8 }}
+        >
+          {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+        </Btn>
         <Btn
           id="nav-contact-btn"
           variant="ghost"

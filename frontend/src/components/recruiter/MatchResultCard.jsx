@@ -36,7 +36,7 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
       }}
     >
       {/* Rank watermark */}
-      <div style={{ position: "absolute", top: "0.75rem", right: "1rem", fontFamily: "'Geist Variable', sans-serif", fontSize: "3rem", fontWeight: 700, color: isTop ? `rgba(245,158,11,0.08)` : "rgba(255,255,255,0.03)", userSelect: "none", lineHeight: 1 }}>
+      <div style={{ position: "absolute", top: "0.75rem", right: "1rem", fontFamily: "'Geist Variable', sans-serif", fontSize: "3rem", fontWeight: 700, color: isTop ? "rgba(245,158,11,0.12)" : "color-mix(in srgb, var(--foreground) 4%, transparent)", userSelect: "none", lineHeight: 1 }}>
         #{match.rankedPosition || rank}
       </div>
 
@@ -79,7 +79,7 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
           )}
           {(email || phone) && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 6, fontSize: 12 }}>
-              {email && <a href={`mailto:${email}`} style={{ color: "#a5b4fc", textDecoration: "none" }}>{email}</a>}
+              {email && <a href={`mailto:${email}`} style={{ color: "var(--primary)", textDecoration: "none" }}>{email}</a>}
               {phone && <a href={`tel:${phone}`} style={{ color: COLORS.text2, textDecoration: "none" }}>{phone}</a>}
             </div>
           )}
@@ -114,10 +114,10 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
         <div style={{ fontSize: 11, color: COLORS.text3, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.07em" }}>Skills</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
           {(match.matchedSkills || []).map((sk) => (
-            <span key={sk} style={{ ...s.tag, display: "inline-flex", alignItems: "center", gap: 4, background: "rgba(34,197,94,0.1)", borderColor: "rgba(34,197,94,0.25)", color: "#4ade80", fontSize: 11 }}><CheckIcon width={11} height={11} /> {sk}</span>
+            <Badge key={sk} variant="green"><CheckIcon width={11} height={11} /> {sk}</Badge>
           ))}
           {(match.missingSkills || []).map((sk) => (
-            <span key={sk} style={{ ...s.tag, display: "inline-flex", alignItems: "center", gap: 4, background: "rgba(239,68,68,0.08)", borderColor: "rgba(239,68,68,0.2)", color: "#f87171", fontSize: 11 }}><Cross1Icon width={11} height={11} /> {sk}</span>
+            <Badge key={sk} variant="red"><Cross1Icon width={11} height={11} /> {sk}</Badge>
           ))}
         </div>
       </div>

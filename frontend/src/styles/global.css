@@ -18,8 +18,8 @@
 
 body {
   font-family: 'Geist Variable', sans-serif;
-  background: #09090b;
-  color: #f4f4f6;
+  background: var(--background);
+  color: var(--foreground);
   min-height: 100vh;
   font-size: 14px;
   line-height: 1.6;
@@ -33,16 +33,16 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--border);
   border-radius: 3px;
 }
 
 input, select, textarea {
   font-family: 'Geist Variable', sans-serif;
   font-size: 14px;
-  background: #17171d;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  color: #f4f4f6;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--foreground);
   border-radius: 8px;
   padding: 10px 14px;
   width: 100%;
@@ -50,14 +50,15 @@ input, select, textarea {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 15%, transparent);
 }
 input::placeholder, textarea::placeholder {
-  color: #55556a;
+  color: var(--muted-foreground);
 }
 select option {
-  background: #1a1a22;
+  background: var(--card);
+  color: var(--foreground);
 }
 
 @keyframes fadeUp {
@@ -127,44 +128,85 @@ select option {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Carried forward from the app's existing dark palette (previously
-   frontend/src/constants/colors.js) rather than a new brand identity —
-   this is a component-library swap, not a re-brand. No light/dark
-   toggle exists in this app, so these values live directly on :root
-   instead of behind a .dark class that nothing ever applies. */
+/* Revised mid-session: the user prefers a light theme with a teal accent
+   (closer to the original Claude Design mockup) over the dark-indigo
+   palette carried forward earlier, and asked for a real light/dark toggle
+   — see REDESIGN_LOG.md. Light values below came from the ui-ux-pro-max
+   skill's "Productivity Tool" palette match (teal SaaS/dashboard), with
+   --primary-foreground overridden to white (the source data's black-on-
+   #0D9488 fails contrast) and --border desaturated from its saturated
+   teal source value so borders read as structure, not brand color, across
+   an entire app. Dark values are my own derivation preserving the same
+   teal hue rather than a verified palette match — see log for why. */
 :root {
-  --background: #09090b;
-  --foreground: #f4f4f6;
-  --card: #1a1a22;
-  --card-foreground: #f4f4f6;
-  --popover: #1a1a22;
-  --popover-foreground: #f4f4f6;
-  --primary: #6366f1;
-  --primary-foreground: #f4f4f6;
-  --secondary: #17171d;
-  --secondary-foreground: #f4f4f6;
-  --muted: #17171d;
-  --muted-foreground: #8b8ba0;
-  --accent: #1e1e28;
-  --accent-foreground: #f4f4f6;
-  --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.11);
-  --input: rgba(255, 255, 255, 0.11);
-  --ring: #6366f1;
-  --chart-1: #6366f1;
+  --background: #f0fdfa;
+  --foreground: #134e4a;
+  --card: #ffffff;
+  --card-foreground: #134e4a;
+  --popover: #ffffff;
+  --popover-foreground: #134e4a;
+  --primary: #0d9488;
+  --primary-foreground: #ffffff;
+  --secondary: #e8f1f4;
+  --secondary-foreground: #134e4a;
+  --muted: #e8f1f4;
+  --muted-foreground: #475569;
+  --accent: #ccfbf1;
+  --accent-foreground: #0f766e;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #d3e5e3;
+  --input: #d3e5e3;
+  --ring: #0d9488;
+  --chart-1: #0d9488;
   --chart-2: #14b8a6;
-  --chart-3: #22c55e;
-  --chart-4: #f59e0b;
-  --chart-5: #ef4444;
+  --chart-3: #0369a1;
+  --chart-4: #ea580c;
+  --chart-5: #475569;
   --radius: 0.5rem;
-  --sidebar: #111115;
-  --sidebar-foreground: #f4f4f6;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #f4f4f6;
-  --sidebar-accent: #1e1e28;
-  --sidebar-accent-foreground: #f4f4f6;
-  --sidebar-border: rgba(255, 255, 255, 0.11);
-  --sidebar-ring: #6366f1;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #134e4a;
+  --sidebar-primary: #0d9488;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ccfbf1;
+  --sidebar-accent-foreground: #0f766e;
+  --sidebar-border: #d3e5e3;
+  --sidebar-ring: #0d9488;
+}
+
+.dark {
+  --background: #0a1412;
+  --foreground: #e7f5f3;
+  --card: #10201d;
+  --card-foreground: #e7f5f3;
+  --popover: #10201d;
+  --popover-foreground: #e7f5f3;
+  --primary: #2dd4bf;
+  --primary-foreground: #042f2b;
+  --secondary: #16302b;
+  --secondary-foreground: #e7f5f3;
+  --muted: #16302b;
+  --muted-foreground: #8fb5ae;
+  --accent: #134e4a;
+  --accent-foreground: #5eead4;
+  --destructive: #f87171;
+  --destructive-foreground: #451a1a;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #2dd4bf;
+  --chart-1: #2dd4bf;
+  --chart-2: #5eead4;
+  --chart-3: #38bdf8;
+  --chart-4: #fb923c;
+  --chart-5: #94a3b8;
+  --sidebar: #10201d;
+  --sidebar-foreground: #e7f5f3;
+  --sidebar-primary: #2dd4bf;
+  --sidebar-primary-foreground: #042f2b;
+  --sidebar-accent: #134e4a;
+  --sidebar-accent-foreground: #5eead4;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #2dd4bf;
 }
 
 @layer base {

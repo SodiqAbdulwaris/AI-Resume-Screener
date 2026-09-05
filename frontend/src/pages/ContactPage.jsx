@@ -11,7 +11,7 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api
 
 const inputStyle = {
   width: "100%",
-  background: "rgba(255,255,255,0.04)",
+  background: COLORS.card,
   border: `1px solid ${COLORS.border2}`,
   borderRadius: 8,
   padding: "10px 12px",

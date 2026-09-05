@@ -83,7 +83,7 @@ export default function VerifyEmailPage() {
           transform: "translateX(-50%)",
           width: 600,
           height: 400,
-          background: "radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
