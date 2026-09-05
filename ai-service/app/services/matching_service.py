@@ -25,6 +25,23 @@ EDU_RANK = {k.lower(): v for v, k in enumerate(DEGREE_HIERARCHY.keys(), start=1)
 EDU_RANK["unknown"] = 0
 
 
+def _weights_without_skills(base: dict) -> dict:
+    """`base` with the skills share proportionally redistributed to the rest."""
+    remaining = base["experience"] + base["semantic"] + base["education"]
+    skills_weight = base["skills"]
+    if remaining <= 0:
+        # The base weights put everything on skills with nothing to redistribute
+        # to (e.g. an admin set skills=1.0, everything else=0) — fall back to an
+        # even split rather than dividing by zero.
+        return {"skills": 0.0, "experience": 1 / 3, "semantic": 1 / 3, "education": 1 / 3}
+    return {
+        "skills": 0.0,
+        "experience": base["experience"] + skills_weight * (base["experience"] / remaining),
+        "semantic": base["semantic"] + skills_weight * (base["semantic"] / remaining),
+        "education": base["education"] + skills_weight * (base["education"] / remaining),
+    }
+
+
 # ENTRY
 async def match_candidates_service(
     request: MatchRequest,
@@ -44,6 +61,16 @@ async def match_candidates_service(
 
         required = {s.lower().strip() for s in request.job.required_skills}
         preferred = {s.lower().strip() for s in request.job.preferred_skills}
+
+        # The backend resolves job-level override -> admin global default before
+        # this ever runs; request.job.weights being unset means "use ours."
+        base_weights = request.job.weights.model_dump() if request.job.weights else WEIGHTS
+
+        # A job with no required/preferred skills has nothing to score candidates
+        # against on that dimension — granting everyone a free 1.0 (the old
+        # behaviour) silently inflates every candidate's total. Redistribute the
+        # skills weight across the other three dimensions instead.
+        weights = base_weights if (required or preferred) else _weights_without_skills(base_weights)
 
         candidate_texts = [
             build_candidate_text(c) or " ".join(c.skills or [])
@@ -67,6 +94,7 @@ async def match_candidates_service(
                         preferred,
                         request.job.required_experience_years,
                         request.job.required_education_level,
+                        weights,
                     )
                 )
 
@@ -87,6 +115,7 @@ def score_candidate(
     preferred_skills: set[str],
     required_experience: float,
     required_education: str | None,
+    weights: dict,
 ) -> RankedCandidate:
 
     # SEMANTIC SCORE -> optimized using Dot Product
@@ -113,7 +142,7 @@ def score_candidate(
     if required_experience <= 0:
         exp_score = 1.0
     else:
-        exp_score = min(candidate.years_experience / required_experience, 1.0)
+        exp_score = max(0.0, min(candidate.years_experience / required_experience, 1.0))
 
     # EDUCATION SCORE (Ordinal-safe)
     req_rank = EDU_RANK.get((required_education or "").lower(), 0)
@@ -125,10 +154,10 @@ def score_candidate(
         edu_score = 1.0 if cand_rank >= req_rank else cand_rank / req_rank
 
     total = (
-        skills_score * WEIGHTS["skills"]
-        + exp_score * WEIGHTS["experience"]
-        + semantic * WEIGHTS["semantic"]
-        + edu_score * WEIGHTS["education"]
+        skills_score * weights["skills"]
+        + exp_score * weights["experience"]
+        + semantic * weights["semantic"]
+        + edu_score * weights["education"]
     )
 
     reasons = build_explanations(

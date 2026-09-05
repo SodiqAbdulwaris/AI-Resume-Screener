@@ -29,6 +29,7 @@ export default function MatchView({ onContactClick }) {
   const [nextCursor, setNextCursor] = useState(null);
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [lastMatchedAt, setLastMatchedAt] = useState(null);
 
   // Load the job record first so we can display the title
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function MatchView({ onContactClick }) {
       setResults(prev => cursor ? [...prev, ...r.data.items] : r.data.items);
       setNextCursor(r.data.nextCursor);
       setHasMore(r.data.hasMore);
+      setLastMatchedAt(r.data.lastMatchedAt);
     } else {
       setError(r.message);
     }
@@ -139,7 +141,11 @@ export default function MatchView({ onContactClick }) {
         ) : results.length === 0 ? (
           <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
             <div style={{ fontSize: "2.5rem", opacity: 0.3, marginBottom: "1rem" }}>📊</div>
-            <p style={{ marginBottom: "1.25rem" }}>No match results yet. Run AI matching to rank candidates.</p>
+            <p style={{ marginBottom: "1.25rem" }}>
+              {lastMatchedAt
+                ? "AI matching ran, but no candidates matched — check that anyone has applied to this job yet."
+                : "No match results yet. Run AI matching to rank candidates."}
+            </p>
             <Btn variant="primary" onClick={runMatch} disabled={loading}>
               {loading ? <><Spinner size={16} />Matching…</> : "🤖 Run AI Matching"}
             </Btn>

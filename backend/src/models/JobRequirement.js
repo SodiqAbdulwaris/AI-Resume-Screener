@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { weightsSchema } = require('./Settings');
 
 const jobRequirementSchema = new mongoose.Schema(
   {
@@ -14,6 +15,11 @@ const jobRequirementSchema = new mongoose.Schema(
     },
     requiredExperienceYears: { type: Number, default: 0 },
     isOpen: { type: Boolean, required: true, default: true },
+    // null until "Run AI Match" has been triggered at least once — lets the
+    // frontend tell "never run" apart from "ran, but found 0 results".
+    lastMatchedAt: { type: Date, default: null },
+    // Optional per-job override; undefined means "use Settings.defaultWeights".
+    weights: { type: weightsSchema, default: undefined },
   },
   { timestamps: true }
 );

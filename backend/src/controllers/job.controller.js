@@ -13,7 +13,7 @@ function csvEscape(value) {
 }
 
 async function createJob(req, res) {
-  const { title, description, requiredSkills, preferredSkills, requiredEducationLevel, requiredExperienceYears } =
+  const { title, description, requiredSkills, preferredSkills, requiredEducationLevel, requiredExperienceYears, weights } =
     req.body;
 
   if (!title || !description) {
@@ -28,6 +28,7 @@ async function createJob(req, res) {
     preferredSkills: preferredSkills || [],
     requiredEducationLevel: requiredEducationLevel || 'any',
     requiredExperienceYears: requiredExperienceYears || 0,
+    weights, // undefined means "use the admin-configured global default"
   });
 
   return res.status(201).json({ success: true, message: 'Job requirement created successfully.', data: job });
@@ -83,6 +84,9 @@ async function runJobMatch(req, res, next) {
 
   try {
     await runMatch(job);
+    job.lastMatchedAt = new Date();
+    await job.save();
+
     const results = await MatchResult.find({ job: job._id })
       .sort({ totalScore: -1 })
       .populate('candidate', 'fullName email phone skills yearsExperience educationLevel')
@@ -91,7 +95,7 @@ async function runJobMatch(req, res, next) {
     return res.json({
       success: true,
       message: 'Job matching completed successfully.',
-      data: { matchCount: results.length, results },
+      data: { matchCount: results.length, results, lastMatchedAt: job.lastMatchedAt },
     });
   } catch (err) {
     return next(err);
@@ -100,7 +104,7 @@ async function runJobMatch(req, res, next) {
 
 async function getJobMatches(req, res) {
   const { jobId } = req.params;
-  const job = await JobRequirement.findById(jobId).select('createdBy').lean();
+  const job = await JobRequirement.findById(jobId).select('createdBy lastMatchedAt').lean();
   if (!job) {
     return res.status(404).json({ success: false, message: 'Job not found.', data: null });
   }
@@ -144,6 +148,7 @@ async function getJobMatches(req, res) {
       items,
       nextCursor,
       hasMore,
+      lastMatchedAt: job.lastMatchedAt,
     },
   });
 }

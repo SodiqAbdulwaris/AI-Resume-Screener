@@ -4,6 +4,7 @@ const Application = require('../models/Application');
 const CandidateProfile = require('../models/CandidateProfile');
 const Resume = require('../models/Resume');
 const MatchResult = require('../models/MatchResult');
+const Settings = require('../models/Settings');
 
 async function runMatch(job) {
   // 1. Only match candidates who have applied to this job
@@ -25,7 +26,8 @@ async function runMatch(job) {
   const resumeById = Object.fromEntries(resumes.map((r) => [r._id.toString(), r]));
 
   // 4. Build AI payloads
-  const aiJobInput = jobToAiInput(job);
+  const settings = await Settings.getGlobalSettings();
+  const aiJobInput = jobToAiInput(job, settings.defaultWeights);
   const aiCandidates = profiles.map((profile) => {
     const resume = resumeById[profile.resumeId?.toString()] || null;
     return candidateToAiInput(profile, resume);

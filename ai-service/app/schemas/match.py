@@ -11,6 +11,12 @@ class CandidateInput(BaseModel):
     education_level: Optional[EducationLevel] = None
     raw_text: Optional[str] = None
 
+class WeightsInput(BaseModel):
+    skills: float = Field(ge=0, le=1)
+    experience: float = Field(ge=0, le=1)
+    semantic: float = Field(ge=0, le=1)
+    education: float = Field(ge=0, le=1)
+
 class JobInput(BaseModel):
     job_id: str
     title: str
@@ -19,6 +25,10 @@ class JobInput(BaseModel):
     preferred_skills: list[str] = Field(default_factory=list)
     required_experience_years: float = Field(default=0.0, ge=0)
     required_education_level: Optional[EducationLevel] = None
+    # Optional override of the scoring weights — the backend resolves job-level
+    # override -> admin global default before sending this; None here means
+    # "use this service's own hardcoded fallback" (see matching_service.WEIGHTS).
+    weights: Optional[WeightsInput] = None
 
 class MatchRequest(BaseModel):
     job: JobInput

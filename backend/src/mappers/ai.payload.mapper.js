@@ -31,7 +31,12 @@ function normalizeSkills(skills = []) {
   return [...new Set(skills.map((s) => s.toLowerCase().trim()).filter(Boolean))];
 }
 
-function jobToAiInput(job) {
+// `fallbackWeights` is the admin-configured global default (Settings.defaultWeights),
+// resolved by the caller since fetching it requires a DB read this function shouldn't
+// own. Resolution order: job-level override -> admin global default -> ai-service's
+// own hardcoded fallback (used when this is undefined too).
+function jobToAiInput(job, fallbackWeights) {
+  const weights = job.weights || fallbackWeights || undefined;
   return {
     job_id: job._id.toString(),
     title: job.title,
@@ -40,6 +45,14 @@ function jobToAiInput(job) {
     preferred_skills: normalizeSkills(job.preferredSkills),
     required_experience_years: job.requiredExperienceYears ?? 0,
     required_education_level: backendEducationToAi(job.requiredEducationLevel),
+    ...(weights && {
+      weights: {
+        skills: weights.skills,
+        experience: weights.experience,
+        semantic: weights.semantic,
+        education: weights.education,
+      },
+    }),
   };
 }
 
@@ -58,6 +71,10 @@ function candidateToAiInput(profile, resume) {
 function parsedCandidateToBackend(parsed) {
   const resumeFields = {
     rawText: parsed.raw_text ?? null,
+    needsReview: parsed.needs_review ?? false,
+    fallbackReasons: parsed.fallback_reasons || [],
+    extractionMethod: parsed.extraction_method || 'text',
+    ocrConfidence: parsed.ocr_confidence ?? null,
   };
 
   const profileFields = {
