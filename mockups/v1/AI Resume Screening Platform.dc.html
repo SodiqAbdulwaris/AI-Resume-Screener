@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="stylesheet" href="_ds/industry-4df1e7eb-5e97-43d0-9874-82bff5cbadb8/styles.css">
+  <script src="_ds/industry-4df1e7eb-5e97-43d0-9874-82bff5cbadb8/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; }
+    :root {
+      --color-bg: #f8fafc;
+      --color-surface: #eef2f6;
+      --color-text: #0f172a;
+      --color-accent: #0d9488;
+      --color-accent-2: #0d9488;
+      --color-neutral-100: #f1f5f9; --color-neutral-200: #e2e8f0; --color-neutral-300: #cbd5e1;
+      --color-neutral-400: #94a3b8; --color-neutral-500: #64748b; --color-neutral-600: #475569;
+      --color-neutral-700: #334155; --color-neutral-800: #1e293b; --color-neutral-900: #0f172a;
+      --color-accent-100: #f0fdfa; --color-accent-200: #ccfbf1; --color-accent-300: #99f6e4;
+      --color-accent-400: #5eead4; --color-accent-500: #2dd4bf; --color-accent-600: #0d9488;
+      --color-accent-700: #0f766e; --color-accent-800: #115e59; --color-accent-900: #134e4a;
+      --color-accent-2-100: #f0fdfa; --color-accent-2-200: #ccfbf1; --color-accent-2-300: #99f6e4;
+      --color-accent-2-400: #5eead4; --color-accent-2-500: #2dd4bf; --color-accent-2-600: #0d9488;
+      --color-accent-2-700: #0f766e; --color-accent-2-800: #115e59; --color-accent-2-900: #134e4a;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap');
+    .text-muted, .card-meta { color: var(--color-neutral-700) !important; }
+    .blueprint > .corner { display: none !important; }
+    .measure > .corner { display: block !important; }
+    .card, .btn, .input, .tag, .seg, .seg-opt, .dialog, .blueprint { border-radius: var(--radius-lg) !important; }
+    .tag { border-radius: 999px !important; }
+    .seg { overflow: hidden; }
+    .seg-opt { white-space: nowrap; }
+    .shortlistBtn, .btn { white-space: nowrap; }
+    input[type="range"] { accent-color: var(--color-accent); }
+    .dialog { background: var(--color-bg) !important; border: 1px solid var(--color-divider) !important; }
+    .job-selector {
+      min-width: 240px; min-height: 36px; padding: 6px 32px 6px 12px; border-radius: var(--radius-md) !important;
+      border: 1px solid var(--color-neutral-300) !important; background-color: var(--color-bg);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center; appearance: none; -webkit-appearance: none; font-weight: 500; cursor: pointer;
+    }
+    .job-selector:hover { border-color: var(--color-neutral-500) !important; }
+    .pipeline-col { max-height: 480px; overflow-y: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); }
+    .pipeline-row { display: flex; flex-direction: column; gap: 4px; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-divider); }
+    .pipeline-row:last-child { border-bottom: none; }
+    .nav-drawer-toggle { display: none; }
+    @media (max-width: 760px) {
+      .nav-tabs-inline { display: none !important; }
+      .workspace-inline { display: none !important; }
+      .nav-drawer-toggle { display: block; }
+    }
+    .nav-drawer-toggle summary { list-style: none; cursor: pointer; }
+    .nav-drawer-toggle summary::-webkit-details-marker { display: none; }
+    .nav-drawer-toggle[open] .nav-drawer-panel { display: flex; }
+    .nav-drawer-toggle { position: relative; }
+    .nav-drawer-panel { display: none; flex-direction: column; gap: 2px; position: absolute; top: 100%; left: 0; margin-top: 8px; background: var(--color-bg); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: var(--space-2); min-width: 190px; z-index: 20; box-shadow: 0 8px 24px rgba(15,23,42,0.1); }
+    .nav-drawer-panel a { display: block; padding: 8px 10px; border-radius: 6px; }
+    .nav-drawer-panel a:hover { background: var(--color-neutral-100); }
+    .account-menu { position: relative; }
+    .account-menu summary { list-style: none; cursor: pointer; }
+    .account-menu summary::-webkit-details-marker { display: none; }
+    .account-menu-panel { display: none; flex-direction: column; gap: 2px; position: absolute; top: 100%; right: 0; margin-top: 6px; background: var(--color-bg); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: var(--space-2); min-width: 210px; z-index: 20; box-shadow: 0 8px 24px rgba(15,23,42,0.1); }
+    .account-menu[open] .account-menu-panel { display: flex; }
+    .account-menu-panel a, .account-menu-panel .amp-btn { display: block; padding: 8px 10px; border-radius: 6px; color: var(--color-neutral-800); font-size: 13px; text-decoration: none; cursor: pointer; border: none; background: transparent; text-align: left; width: 100%; }
+    .account-menu-panel a:hover, .account-menu-panel .amp-btn:hover { background: var(--color-neutral-100); color: var(--color-neutral-900) !important; }
+    .account-menu-panel .amp-label { padding: 6px 10px 2px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-neutral-500); }
+    .account-menu-panel .amp-divider { height: 1px; background: var(--color-divider); margin: 4px 2px; }
+    .hide-accents .measure > .corner { display: none !important; }
+    .compact-density { --space-3: 6px; --space-4: 9px; --space-6: 14px; --space-8: 18px; }
+    h1, h2, h3, .nav-brand { font-family: 'Source Serif 4', serif !important; letter-spacing: 0 !important; }
+    .btn-primary { background: var(--color-neutral-900) !important; border-color: var(--color-neutral-900) !important; color: #fff !important; }
+    .btn-primary:hover { background: var(--color-neutral-800) !important; }
+    .btn-primary:active { background: var(--color-neutral-700) !important; }
+    .btn-secondary { border-color: var(--color-neutral-300) !important; color: var(--color-neutral-900) !important; }
+    .nav a { color: var(--color-neutral-600); }
+    .nav a:hover { color: var(--color-neutral-900) !important; }
+    .nav-tabs-inline a, .nav-drawer-panel a { padding: 6px 10px; border-radius: 6px; }
+    .seg-opt:has(input:checked) { background: var(--color-neutral-900) !important; color: #fff !important; }
+    :root { --color-danger-700: #b91c1c; }
+    .tag-warning { background: #fef3c7; color: #92400e; }
+    .tag-danger { background: #fee2e2; color: #b91c1c; }
+    a { color: var(--color-accent-700); }
+    a:hover { color: var(--color-accent-900); }
+  </style>
+</helmet>
+<div style="{{ rootStyle }}" class="{{ rootClass }}">
+
+  <!-- ============ AUTH ============ -->
+  <sc-if value="{{ isAuth }}" hint-placeholder-val="{{ true }}">
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--space-6);">
+      <div style="width:100%;max-width:420px;">
+        <div style="text-align:center;margin-bottom:var(--space-6);">
+          <h1 style="margin-bottom:4px;">HireSignal</h1>
+          <p class="text-muted" style="margin:0;">AI-powered resume screening &amp; candidate matching</p>
+        </div>
+        <div class="seg" style="width:100%;margin-bottom:var(--space-4);" role="radiogroup" aria-label="Auth mode">
+          <label class="seg-opt" style="flex:1;justify-content:center;"><input type="radio" name="authtab" checked="{{ isLoginTab }}" onChange="{{ setAuthTabLogin }}"></input>Sign in</label>
+          <label class="seg-opt" style="flex:1;justify-content:center;"><input type="radio" name="authtab" checked="{{ isRegisterTab }}" onChange="{{ setAuthTabRegister }}"></input>Create account</label>
+        </div>
+        <div class="card blueprint elev-sm"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <sc-if value="{{ isRegisterTab }}" hint-placeholder-val="{{ false }}">
+            <div class="field"><label>Full name</label><input class="input" placeholder="Jane Smith"></input></div>
+            <div class="field">
+              <label>Create account as</label>
+              <div class="seg" style="width:100%;" role="radiogroup" aria-label="Account type">
+                <label class="seg-opt" style="flex:1;justify-content:center;"><input type="radio" name="signuprole" checked="{{ isSignupCandidate }}" onChange="{{ setSignupRoleCandidate }}"></input>Candidate</label>
+                <label class="seg-opt" style="flex:1;justify-content:center;"><input type="radio" name="signuprole" checked="{{ isSignupRecruiter }}" onChange="{{ setSignupRoleRecruiter }}"></input>Recruiter</label>
+              </div>
+            </div>
+          </sc-if>
+          <div class="field"><label>Email</label><input class="input" type="email" placeholder="you@example.com"></input></div>
+          <div class="field"><label>Password</label><input class="input" type="password" placeholder="••••••••"></input></div>
+          <button type="button" class="btn btn-primary btn-block blueprint" onClick="{{ submitAuth }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ authSubmitLabel }}</button>
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin:var(--space-3) 0;">
+            <div style="flex:1;height:1px;background:var(--color-divider);"></div><span class="text-muted" style="font-size:12px;">or</span><div style="flex:1;height:1px;background:var(--color-divider);"></div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-block blueprint" onClick="{{ submitAuth }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.67-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09a6.94 6.94 0 0 1 0-4.18V7.07H2.18a11 11 0 0 0 0 9.86z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Continue with Google
+          </button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ ROLE CHOICE ============ -->
+  <sc-if value="{{ isRoleChoice }}" hint-placeholder-val="{{ false }}">
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--space-6);">
+      <div style="max-width:640px;width:100%;">
+        <div style="text-align:center;margin-bottom:var(--space-6);">
+          <h1 style="margin-bottom:4px;">Continue as</h1>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+          <sc-for list="{{ roleChoices }}" as="rc" hint-placeholder-count="2">
+            <div class="card blueprint elev-sm" style="cursor:pointer;align-items:center;justify-content:center;position:relative;text-align:center;padding:var(--space-6);" onClick="{{ rc.select }}">
+              <span style="position:absolute;top:-10px;right:-10px;background:var(--color-accent);color:#fff;border-radius:999px;min-width:22px;height:22px;padding:0 5px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">{{ rc.notifCount }}</span>
+              <div class="card-title">{{ rc.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ APP SHELL ============ -->
+  <sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <nav class="nav" style="border-bottom:1px solid var(--color-divider);padding:var(--space-3) var(--space-6);position:sticky;top:0;background:var(--color-bg);z-index:5;flex-wrap:wrap;gap:var(--space-6);">
+        <div style="display:flex;align-items:center;gap:var(--space-4);">
+          <span class="nav-brand">HireSignal</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-4);flex:1;position:relative;">
+          <div class="nav-tabs-inline" style="display:flex;align-items:center;gap:var(--space-4);">
+            <sc-for list="{{ navTabs }}" as="t" hint-placeholder-count="4">
+              <a href="#" style="{{ t.style }}" onClick="{{ t.onClick }}">{{ t.label }}</a>
+            </sc-for>
+          </div>
+          <details class="nav-drawer-toggle">
+            <summary class="btn btn-secondary" style="display:flex;align-items:center;gap:7px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+              Menu
+            </summary>
+            <div class="nav-drawer-panel">
+              <sc-for list="{{ navTabs }}" as="t" hint-placeholder-count="4">
+                <a href="#" style="{{ t.style }}" onClick="{{ t.onClick }}">{{ t.label }}</a>
+              </sc-for>
+            </div>
+          </details>
+          <sc-if value="{{ showJobSelector }}" hint-placeholder-val="{{ false }}">
+            <select class="input job-selector" value="{{ selectedJobId }}" onChange="{{ setSelectedJobId }}">
+              <sc-for list="{{ jobOptions }}" as="jo" hint-placeholder-count="3">
+                <option value="{{ jo.id }}">{{ jo.title }}</option>
+              </sc-for>
+            </select>
+          </sc-if>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-3);">
+          <details class="account-menu">
+            <summary class="btn btn-secondary" style="display:flex;align-items:center;gap:7px;">
+              <span style="width:22px;height:22px;border-radius:999px;background:var(--color-neutral-200);color:var(--color-neutral-700);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none;">{{ accountInitials }}</span>
+              {{ accountName }}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </summary>
+            <div class="account-menu-panel">
+              <a href="#" onClick="{{ openSettings }}">Settings</a>
+              <a href="#" onClick="{{ signOut }}">Sign out</a>
+            </div>
+          </details>
+        </div>
+      </nav>
+
+      <main style="padding:var(--space-8) var(--space-6) var(--space-8);max-width:1280px;margin:0 auto;">
+
+        <!-- ---------- SETTINGS (shared) ---------- -->
+        <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px;">
+            <button type="button" class="btn btn-ghost" style="margin-bottom:var(--space-4);padding-inline:0;" onClick="{{ closeSettings }}">&larr; Back</button>
+            <h1 style="margin-bottom:var(--space-6);">Account settings</h1>
+            <div class="card blueprint" style="margin-bottom:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="card-kicker">Account</div>
+              <div class="field"><label>Name</label><input class="input" value="{{ settingsName }}" readonly="{{ true }}"></input></div>
+              <div class="field"><label>Email</label><input class="input" value="{{ settingsEmail }}" readonly="{{ true }}"></input></div>
+            </div>
+            <sc-if value="{{ isDualRole }}" hint-placeholder-val="{{ true }}">
+              <div class="card blueprint" style="margin-bottom:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">Workspace</div>
+                <p class="card-meta" style="margin:0 0 6px;">Switch which side of the platform you're using. Your data stays separate per workspace.</p>
+                <div class="seg" role="radiogroup" aria-label="Workspace" style="width:fit-content;">
+                  <label class="seg-opt"><input type="radio" name="roleswitchsettings" checked="{{ isRoleCandidateActive }}" onChange="{{ switchToCandidate }}"></input>Candidate</label>
+                  <label class="seg-opt"><input type="radio" name="roleswitchsettings" checked="{{ isRoleRecruiterActive }}" onChange="{{ switchToRecruiter }}"></input>Recruiter</label>
+                </div>
+              </div>
+            </sc-if>
+            <div class="card blueprint" style="margin-bottom:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="card-kicker">Connected accounts</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-2) 0;">
+                <div>
+                  <div style="font-family:var(--font-heading);font-weight:600;">Google</div>
+                  <div class="card-meta">{{ googleStatusLabel }}</div>
+                </div>
+                <button type="button" class="{{ googleBtnClass }}" onClick="{{ toggleGoogle }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ googleBtnLabel }}</button>
+              </div>
+            </div>
+            <div class="card blueprint" style="margin-bottom:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="card-kicker">Notifications</div>
+              <sc-for list="{{ notifRows }}" as="n" hint-placeholder-count="2">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider);">
+                  <span style="font-size:14px;">{{ n.label }}</span>
+                  <div class="seg" role="radiogroup">
+                    <label class="seg-opt"><input type="radio" checked="{{ n.onChecked }}" onChange="{{ n.onOn }}"></input>On</label>
+                    <label class="seg-opt"><input type="radio" checked="{{ n.offChecked }}" onChange="{{ n.onOff }}"></input>Off</label>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ isRoleRecruiter }}" hint-placeholder-val="{{ false }}">
+              <div class="card blueprint" style="margin-bottom:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">Shortlist score cutoff</div>
+                <p class="card-meta" style="margin:2px 0 6px;">Minimum AI match score before a candidate auto-suggests for shortlisting.</p>
+                <div class="seg" role="radiogroup" style="margin-top:var(--space-2);">
+                  <sc-for list="{{ sensitivityOptions }}" as="o" hint-placeholder-count="3">
+                    <label class="seg-opt" style="flex:1;justify-content:center;"><input type="radio" checked="{{ o.checked }}" onChange="{{ o.onSelect }}"></input>{{ o.label }}</label>
+                  </sc-for>
+                </div>
+              </div>
+              <div class="card blueprint" style="margin-bottom:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">Integrations</div>
+                <div style="display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-2);">
+                  <sc-for list="{{ integrations }}" as="ig" hint-placeholder-count="3">
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider);">
+                      <div>
+                        <div style="font-family:var(--font-heading);font-weight:600;">{{ ig.name }}</div>
+                        <div class="card-meta">{{ ig.desc }}</div>
+                      </div>
+                      <button type="button" class="{{ ig.btnClass }}" onClick="{{ ig.onToggle }}">{{ ig.btnLabel }}</button>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="card-kicker">Privacy &amp; data</div>
+              <p class="card-body">Download a copy of your profile data, or permanently delete your account.</p>
+              <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                <button type="button" class="btn btn-secondary blueprint" onClick="{{ downloadData }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Download my data</button>
+                <button type="button" class="btn btn-secondary blueprint" onClick="{{ openDeleteConfirm }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Delete account</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDeleteConfirmOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="dialog-backdrop" onClick="{{ closeDeleteConfirm }}">
+            <div class="dialog blueprint elev-lg" onClick="{{ stopClick }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="dialog-title">Delete your account?</div>
+              <p class="dialog-body">This permanently removes your profile, applications and job postings. This can't be undone.</p>
+              <div class="dialog-actions">
+                <button type="button" class="btn btn-secondary blueprint" onClick="{{ closeDeleteConfirm }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Cancel</button>
+                <button type="button" class="btn btn-primary blueprint" onClick="{{ confirmDelete }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Delete account</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- CANDIDATE: BROWSE JOBS ---------- -->
+        <sc-if value="{{ isCJobs }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;margin:0 auto;">
+            <h1 style="margin-bottom:2px;">Browse open roles</h1>
+            <p class="text-muted" style="margin-bottom:var(--space-8);">{{ openJobCount }} open positions matched to your profile.</p>
+            <div style="display:flex;flex-direction:column;gap:var(--space-6);">
+              <sc-for list="{{ browseJobs }}" as="job" hint-placeholder-count="4">
+                <div class="card blueprint elev-sm" style="padding:var(--space-6);gap:var(--space-3);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2);">
+                    <div class="card-title" style="font-size:19px;">{{ job.title }}</div>
+                    <span class="tag {{ job.appliedTagClass }}">{{ job.appliedLabel }}</span>
+                  </div>
+                  <p class="card-body" style="margin:0;">{{ job.descriptionShort }}</p>
+                  <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                    <sc-for list="{{ job.skillTags }}" as="s" hint-placeholder-count="3">
+                      <span class="tag tag-neutral">{{ s }}</span>
+                    </sc-for>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-2);">
+                    <span class="card-meta">{{ job.metaLabel }}</span>
+                    <div style="display:flex;gap:var(--space-2);">
+                      <button type="button" class="btn btn-secondary blueprint" onClick="{{ job.viewDetail }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Details</button>
+                      <sc-if value="{{ job.canApply }}" hint-placeholder-val="{{ true }}">
+                        <button type="button" class="btn btn-primary blueprint" onClick="{{ job.openApply }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Apply now</button>
+                      </sc-if>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- CANDIDATE: JOB DETAIL PAGE ---------- -->
+        <sc-if value="{{ isCJobDetail }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:680px;">
+            <button type="button" class="btn btn-ghost" style="margin-bottom:var(--space-4);padding-inline:0;" onClick="{{ backToBrowse }}">&larr; Back to browse</button>
+            <h1 style="margin-bottom:4px;">{{ detailJob.title }}</h1>
+            <p class="card-meta" style="margin-bottom:var(--space-4);">{{ detailJob.metaLabel }}</p>
+            <p style="line-height:1.7;margin-bottom:var(--space-4);">{{ detailJob.description }}</p>
+            <div class="card-kicker">Required skills — must have</div>
+            <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-3);">
+              <sc-for list="{{ detailJob.requiredSkills }}" as="s" hint-placeholder-count="3">
+                <span class="tag" style="border:1.5px solid var(--color-neutral-900);color:var(--color-neutral-900);font-weight:600;">{{ s }}</span>
+              </sc-for>
+            </div>
+            <div class="card-kicker">Preferred skills — nice to have</div>
+            <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-6);">
+              <sc-for list="{{ detailJob.preferredSkills }}" as="s" hint-placeholder-count="2">
+                <span class="tag" style="border:1px dashed var(--color-neutral-400);color:var(--color-neutral-600);">{{ s }}</span>
+              </sc-for>
+            </div>
+            <sc-if value="{{ detailJob.canApply }}" hint-placeholder-val="{{ true }}">
+              <button type="button" class="btn btn-primary blueprint" onClick="{{ detailJob.openApply }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Apply to this role</button>
+            </sc-if>
+            <sc-if value="{{ detailJob.alreadyApplied }}" hint-placeholder-val="{{ false }}">
+              <span class="tag tag-accent">✓ Already applied</span>
+            </sc-if>
+            <sc-if value="{{ detailJob.isOwnPosting }}" hint-placeholder-val="{{ false }}">
+              <span class="card-meta">You can't apply to a job posted by your own recruiter account.</span>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- apply confirmation dialog -->
+        <sc-if value="{{ isApplyConfirmOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="dialog-backdrop" onClick="{{ closeApplyConfirm }}">
+            <div class="dialog blueprint elev-lg" style="max-width:480px;" onClick="{{ stopClick }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="dialog-title">Review before applying</div>
+              <p class="dialog-body">We'll send this parsed resume snapshot with your application to {{ applyConfirmJobTitle }}.</p>
+              <div style="background:var(--color-surface);border:1px solid var(--color-divider);padding:var(--space-3);margin-bottom:var(--space-2);">
+                <div style="font-family:var(--font-heading);font-weight:600;">{{ profile.fullName }}</div>
+                <div class="card-meta">{{ profile.email }} · {{ profile.yearsLabel }} · {{ profile.educationLabel }}</div>
+                <div style="display:flex;gap:var(--space-1);flex-wrap:wrap;margin-top:var(--space-2);">
+                  <sc-for list="{{ profile.skills }}" as="s" hint-placeholder-count="4">
+                    <span class="tag tag-neutral">{{ s.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div class="field"><label>Attach resume</label>
+                <select class="input" value="{{ applyResumeId }}" onChange="{{ setApplyResumeId }}">
+                  <sc-for list="{{ resumeOptions }}" as="ro" hint-placeholder-count="2">
+                    <option value="{{ ro.id }}">{{ ro.label }}</option>
+                  </sc-for>
+                </select>
+              </div>
+              <div class="dialog-actions">
+                <button type="button" class="btn btn-secondary blueprint" onClick="{{ closeApplyConfirm }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Cancel</button>
+                <button type="button" class="btn btn-primary blueprint" onClick="{{ confirmApply }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Submit application</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- CANDIDATE: MY APPLICATIONS ---------- -->
+        <sc-if value="{{ isCApplications }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h1 style="margin-bottom:2px;">My applications</h1>
+            <p class="text-muted" style="margin-bottom:var(--space-6);">{{ myApplications.length }} applications tracked.</p>
+            <table class="table">
+              <thead><tr><th>Role</th><th>Applied</th><th>Status</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ myApplications }}" as="a" hint-placeholder-count="3">
+                  <tr><td>{{ a.jobTitle }}</td><td class="text-muted">{{ a.appliedLabel }}</td><td><span class="tag {{ a.statusTagClass }}">{{ a.statusLabel }}</span></td></tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </sc-if>
+
+        <!-- ---------- CANDIDATE: PROFILE ---------- -->
+        <sc-if value="{{ isCProfile }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h1 style="margin-bottom:var(--space-6);">Your profile</h1>
+            <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:var(--space-6);align-items:start;">
+              <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+                <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;gap:var(--space-3);align-items:center;">
+                    <div style="width:52px;height:52px;flex:none;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:18px;color:var(--color-accent-700);">{{ profile.initials }}</div>
+                    <div>
+                      <div style="font-family:var(--font-heading);font-weight:600;font-size:17px;">{{ profile.fullName }}</div>
+                      <div class="card-meta">{{ profile.email }} · {{ profile.location }}</div>
+                    </div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);margin-top:var(--space-3);">
+                    <div class="card" style="background:var(--color-surface);border:1px solid var(--color-divider);"><div class="card-kicker">Experience</div><div class="card-title">{{ profile.yearsLabel }}</div></div>
+                    <div class="card" style="background:var(--color-surface);border:1px solid var(--color-divider);"><div class="card-kicker">Education</div><div class="card-title">{{ profile.educationLabel }}</div></div>
+                  </div>
+                </div>
+                <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                    <div class="card-kicker">Skills</div>
+                    <button type="button" class="btn btn-ghost" style="padding-inline:0;font-size:12px;" onClick="{{ toggleSkillsEdit }}">{{ skillsEditLabel }}</button>
+                  </div>
+                  <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                    <sc-for list="{{ profile.skills }}" as="s" hint-placeholder-count="5">
+                      <span class="tag tag-outline" style="display:inline-flex;align-items:center;gap:5px;">{{ s.label }}
+                        <sc-if value="{{ s.editable }}" hint-placeholder-val="{{ false }}">
+                          <button type="button" onClick="{{ s.remove }}" style="border:none;background:transparent;cursor:pointer;color:var(--color-neutral-600);font-weight:700;padding:0;">×</button>
+                        </sc-if>
+                      </span>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ skillsEditing }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:var(--space-2);margin-top:var(--space-2);">
+                      <input class="input" placeholder="Type a skill, press Enter" value="{{ skillDraft }}" onChange="{{ setSkillDraft }}" onKeyDown="{{ onSkillDraftKeyDown }}"></input>
+                      <button type="button" class="btn btn-secondary blueprint" onClick="{{ addSkill }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Add</button>
+                    </div>
+                  </sc-if>
+                </div>
+                <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                    <div class="card-kicker">Certifications</div>
+                    <button type="button" class="btn btn-ghost" style="padding-inline:0;font-size:12px;" onClick="{{ toggleCertsEdit }}">{{ certsEditLabel }}</button>
+                  </div>
+                  <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                    <sc-for list="{{ profile.certifications }}" as="c" hint-placeholder-count="2">
+                      <span class="tag tag-outline" style="display:inline-flex;align-items:center;gap:5px;">{{ c.label }}
+                        <sc-if value="{{ c.editable }}" hint-placeholder-val="{{ false }}">
+                          <button type="button" onClick="{{ c.remove }}" style="border:none;background:transparent;cursor:pointer;color:var(--color-neutral-600);font-weight:700;padding:0;">×</button>
+                        </sc-if>
+                      </span>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ certsEditing }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:var(--space-2);margin-top:var(--space-2);">
+                      <input class="input" placeholder="Type a certification, press Enter" value="{{ certDraft }}" onChange="{{ setCertDraft }}" onKeyDown="{{ onCertDraftKeyDown }}"></input>
+                      <button type="button" class="btn btn-secondary blueprint" onClick="{{ addCert }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Add</button>
+                    </div>
+                  </sc-if>
+                </div>
+                <button type="button" class="btn btn-primary btn-block blueprint" onClick="{{ goResumeBuilder }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Generate resume</button>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+                <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div class="card-kicker">Experience</div>
+                  <sc-for list="{{ profile.experience }}" as="e" hint-placeholder-count="2">
+                    <div style="background:var(--color-surface);border:1px solid var(--color-divider);padding:var(--space-3);margin-bottom:var(--space-2);">
+                      <div style="font-family:var(--font-heading);font-weight:600;font-size:14px;">{{ e.role }}</div>
+                      <div class="card-meta">{{ e.company }} · {{ e.years }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div class="card-kicker">Education</div>
+                  <sc-for list="{{ profile.education }}" as="e" hint-placeholder-count="1">
+                    <div style="background:var(--color-surface);border:1px solid var(--color-divider);padding:var(--space-3);">
+                      <div style="font-family:var(--font-heading);font-weight:600;font-size:14px;">{{ e.degree }}</div>
+                      <div class="card-meta">{{ e.institution }} · {{ e.years }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- CANDIDATE: RESUME BUILDER (live split view) ---------- -->
+        <sc-if value="{{ isCResumeBuilder }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <button type="button" class="btn btn-ghost" style="margin-bottom:var(--space-4);padding-inline:0;" onClick="{{ backToProfile }}">&larr; Back to profile</button>
+            <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:var(--space-6);align-items:start;">
+              <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+                <h1 style="margin-bottom:0;">Edit &amp; build</h1>
+                <div class="card blueprint">
+                  <div class="card-kicker">Template</div>
+                  <div class="seg" role="radiogroup" style="margin-top:4px;">
+                    <sc-for list="{{ resumeTemplates }}" as="t" hint-placeholder-count="3">
+                      <label class="seg-opt" style="flex:1;justify-content:center;"><input type="radio" name="resumetemplate" checked="{{ t.checked }}" onChange="{{ t.select }}"></input>{{ t.label }}</label>
+                    </sc-for>
+                  </div>
+                </div>
+                <div class="card blueprint">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                    <div class="card-kicker">Skills</div>
+                    <button type="button" class="btn btn-ghost" style="padding-inline:0;font-size:12px;" onClick="{{ toggleSkillsEdit }}">{{ skillsEditLabel }}</button>
+                  </div>
+                  <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                    <sc-for list="{{ profile.skills }}" as="s" hint-placeholder-count="5">
+                      <span class="tag tag-outline" style="display:inline-flex;align-items:center;gap:5px;">{{ s.label }}
+                        <sc-if value="{{ s.editable }}" hint-placeholder-val="{{ false }}">
+                          <button type="button" onClick="{{ s.remove }}" style="border:none;background:transparent;cursor:pointer;color:var(--color-neutral-600);font-weight:700;padding:0;">×</button>
+                        </sc-if>
+                      </span>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ skillsEditing }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:var(--space-2);margin-top:var(--space-2);">
+                      <input class="input" placeholder="Type a skill, press Enter" value="{{ skillDraft }}" onChange="{{ setSkillDraft }}" onKeyDown="{{ onSkillDraftKeyDown }}"></input>
+                      <button type="button" class="btn btn-secondary blueprint" onClick="{{ addSkill }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Add</button>
+                    </div>
+                  </sc-if>
+                </div>
+                <button type="button" class="btn btn-primary btn-block blueprint" onClick="{{ downloadResume }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ downloadLabel }}</button>
+              </div>
+              <div>
+                <h3 style="margin-bottom:var(--space-3);">Live preview</h3>
+                <div class="card blueprint elev-md" style="{{ resumePreviewStyle }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <sc-if value="{{ isTemplateModern }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:var(--space-6);">
+                      <div>
+                        <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;">{{ profile.fullName }}</div>
+                        <div class="card-meta">{{ profile.email }}</div>
+                        <div class="card-meta">{{ profile.location }}</div>
+                        <div class="card-kicker" style="margin-top:var(--space-3);">Skills</div>
+                        <div style="display:flex;flex-direction:column;gap:4px;">
+                          <sc-for list="{{ profile.skills }}" as="s" hint-placeholder-count="5">
+                            <span class="tag tag-neutral" style="width:fit-content;">{{ s.label }}</span>
+                          </sc-for>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="card-kicker">Experience</div>
+                        <sc-for list="{{ profile.experience }}" as="e" hint-placeholder-count="2">
+                          <p class="card-body" style="margin:0 0 6px;"><strong>{{ e.role }}</strong> — {{ e.company }} ({{ e.years }})</p>
+                        </sc-for>
+                        <div class="card-kicker" style="margin-top:var(--space-2);">Education</div>
+                        <sc-for list="{{ profile.education }}" as="e" hint-placeholder-count="1">
+                          <p class="card-body" style="margin:0;"><strong>{{ e.degree }}</strong> — {{ e.institution }} ({{ e.years }})</p>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ isTemplateClassic }}" hint-placeholder-val="{{ false }}">
+                    <div style="text-align:center;border-bottom:1px solid var(--color-divider);padding-bottom:var(--space-3);margin-bottom:var(--space-3);">
+                      <div style="font-family:var(--font-heading);font-weight:700;font-size:28px;">{{ profile.fullName }}</div>
+                      <div class="card-meta" style="justify-content:center;">{{ profile.email }} · {{ profile.location }}</div>
+                    </div>
+                    <div class="card-kicker" style="text-align:center;">Experience</div>
+                    <sc-for list="{{ profile.experience }}" as="e" hint-placeholder-count="2">
+                      <p class="card-body" style="margin:0 0 6px;text-align:center;"><strong>{{ e.role }}</strong>, {{ e.company }} — {{ e.years }}</p>
+                    </sc-for>
+                    <div class="card-kicker" style="margin-top:var(--space-2);text-align:center;">Education</div>
+                    <sc-for list="{{ profile.education }}" as="e" hint-placeholder-count="1">
+                      <p class="card-body" style="margin:0;text-align:center;"><strong>{{ e.degree }}</strong>, {{ e.institution }} — {{ e.years }}</p>
+                    </sc-for>
+                    <div class="card-kicker" style="margin-top:var(--space-2);text-align:center;">Skills</div>
+                    <p class="card-body" style="margin:0;text-align:center;">
+                      <sc-for list="{{ profile.skills }}" as="s" hint-placeholder-count="5">{{ s.label }}, </sc-for>
+                    </p>
+                  </sc-if>
+                  <sc-if value="{{ isTemplateCompact }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-family:var(--font-heading);font-weight:600;font-size:16px;">{{ profile.fullName }} — {{ profile.email }} — {{ profile.location }}</div>
+                    <p class="card-body" style="margin:6px 0 4px;font-size:12px;"><strong>SKILLS:</strong> <sc-for list="{{ profile.skills }}" as="s" hint-placeholder-count="5">{{ s.label }} · </sc-for></p>
+                    <p class="card-body" style="margin:0 0 2px;font-size:12px;"><strong>EXPERIENCE:</strong></p>
+                    <sc-for list="{{ profile.experience }}" as="e" hint-placeholder-count="2">
+                      <p class="card-body" style="margin:0;font-size:12px;">{{ e.role }}, {{ e.company }} ({{ e.years }})</p>
+                    </sc-for>
+                    <p class="card-body" style="margin:6px 0 2px;font-size:12px;"><strong>EDUCATION:</strong></p>
+                    <sc-for list="{{ profile.education }}" as="e" hint-placeholder-count="1">
+                      <p class="card-body" style="margin:0;font-size:12px;">{{ e.degree }}, {{ e.institution }} ({{ e.years }})</p>
+                    </sc-for>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- CANDIDATE: RESUME UPLOAD ---------- -->
+        <sc-if value="{{ isCResume }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">
+              <h1 style="margin-bottom:0;">Resumes</h1>
+              <span class="card-meta">{{ resumeLibraryCountLabel }}</span>
+            </div>
+            <p class="text-muted" style="margin-bottom:var(--space-6);">Keep up to 5 saved resumes. Each keeps its own cached parsed data — reusing one never re-triggers parsing.</p>
+
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-5);">
+              <sc-for list="{{ resumeLibrary }}" as="r" hint-placeholder-count="2">
+                <div class="card blueprint elev-sm" style="flex-direction:row;align-items:center;gap:var(--space-3);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="flex:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                      <span style="font-family:var(--font-heading);font-weight:600;">{{ r.fileName }}</span>
+                      <sc-if value="{{ r.isDefault }}" hint-placeholder-val="{{ false }}"><span class="tag tag-accent" style="font-size:10px;">Default</span></sc-if>
+                    </div>
+                    <div class="card-meta">{{ r.metaLabel }}</div>
+                  </div>
+                  <div style="display:flex;gap:var(--space-2);">
+                    <sc-if value="{{ r.canSetDefault }}" hint-placeholder-val="{{ false }}">
+                      <button type="button" class="btn btn-ghost" style="font-size:12px;" onClick="{{ r.setDefault }}">Set default</button>
+                    </sc-if>
+                    <button type="button" class="btn btn-secondary blueprint" style="font-size:12px;" onClick="{{ r.delete }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Delete</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ isUploadIdle }}" hint-placeholder-val="{{ true }}">
+              <div class="card blueprint" style="border-style:dashed;align-items:center;text-align:center;padding:var(--space-6);gap:var(--space-3);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-accent);"><path d="M12 3v12"></path><path d="m7 8 5-5 5 5"></path><path d="M5 21h14"></path></svg>
+                <div class="card-title">Drag &amp; drop a resume, or add from a source</div>
+                <div style="display:flex;gap:var(--space-2);">
+                  <button type="button" class="btn btn-primary blueprint" onClick="{{ startUploadLocal }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Browse files</button>
+                  <button type="button" class="btn btn-secondary blueprint" onClick="{{ startUploadDrive }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Google Drive</button>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isUploadAtCap }}" hint-placeholder-val="{{ false }}">
+              <div class="card blueprint" style="padding:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <p class="card-body">You have 5 saved resumes — delete one above before adding another.</p>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isUploadParsing }}" hint-placeholder-val="{{ false }}">
+              <div class="card blueprint elev-sm" style="gap:var(--space-3);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">Parsing {{ uploadingFileName }}</div>
+                <div class="card-title">Extracting skills, experience and education&hellip;</div>
+                <div style="height:6px;background:var(--color-neutral-200);position:relative;"><div style="position:absolute;inset:0 auto 0 0;height:100%;width:70%;background:var(--color-accent);"></div></div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: DASHBOARD ---------- -->
+        <sc-if value="{{ isRDashboard }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h1 style="margin-bottom:2px;">Dashboard</h1>
+            <p class="text-muted" style="margin-bottom:var(--space-5);">Here's what needs your attention today.</p>
+            <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;padding:var(--space-4) 0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);margin-bottom:var(--space-8);">
+              <sc-for list="{{ todayItems }}" as="t" hint-placeholder-count="3">
+                <div style="display:flex;align-items:baseline;gap:8px;">
+                  <span style="font-family:var(--font-heading);font-weight:700;font-size:28px;color:{{ t.color }};">{{ t.value }}</span>
+                  <span style="font-size:14px;color:var(--color-neutral-700);">{{ t.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:var(--space-6);align-items:start;">
+              <div>
+                <h3 style="margin-bottom:var(--space-3);">Review queue</h3>
+                <table class="table">
+                  <thead><tr><th>Candidate</th><th>Role</th><th>Match</th><th>Missing evidence</th><th>Recommended action</th></tr></thead>
+                  <tbody>
+                    <sc-for list="{{ reviewQueue }}" as="r" hint-placeholder-count="3">
+                      <tr style="cursor:pointer;" onClick="{{ r.open }}">
+                        <td style="font-weight:600;">{{ r.name }}</td>
+                        <td class="text-muted">{{ r.role }}</td>
+                        <td><span style="font-family:var(--font-heading);font-weight:700;color:{{ r.matchColor }};">{{ r.matchLabel }}</span> <span class="card-meta">{{ r.bandLabel }}</span></td>
+                        <td class="text-muted">{{ r.missingLabel }}</td>
+                        <td><span class="tag {{ r.actionTagClass }}">{{ r.action }}</span></td>
+                      </tr>
+                    </sc-for>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h3 style="margin-bottom:var(--space-3);">Role health</h3>
+                <div style="border:1px solid var(--color-divider);border-radius:var(--radius-md);overflow:hidden;">
+                  <sc-for list="{{ roleHealth }}" as="rh" hint-placeholder-count="4">
+                    <div style="padding:var(--space-3);border-bottom:1px solid var(--color-divider);cursor:pointer;" onClick="{{ rh.view }}">
+                      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2);">
+                        <span style="font-weight:600;font-size:14px;">{{ rh.title }}</span>
+                        <span class="card-meta">{{ rh.applicantLabel }}</span>
+                      </div>
+                      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
+                        <span class="tag {{ rh.strongTagClass }}">{{ rh.strongLabel }}</span>
+                        <sc-if value="{{ rh.hasAging }}" hint-placeholder-val="{{ false }}">
+                          <span class="tag tag-warning">{{ rh.agingLabel }}</span>
+                        </sc-if>
+                        <sc-if value="{{ rh.noShortlist }}" hint-placeholder-val="{{ false }}">
+                          <span class="tag tag-danger">No shortlist yet</span>
+                        </sc-if>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: MY JOBS ---------- -->
+        <sc-if value="{{ isRJobs }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-2);">
+              <div><h1 style="margin-bottom:2px;">My jobs</h1><p class="text-muted" style="margin:0;">{{ jobStatsLabel }}</p></div>
+              <div style="display:flex;gap:var(--space-2);">
+                <button type="button" class="btn btn-secondary blueprint" onClick="{{ goBatchUpload }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Batch upload resumes</button>
+                <button type="button" class="btn btn-primary blueprint" onClick="{{ goPost }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Post a job</button>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);">
+              <sc-for list="{{ recruiterJobs }}" as="job" hint-placeholder-count="4">
+                <div class="card blueprint elev-sm"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;justify-content:space-between;gap:var(--space-2);">
+                    <div class="card-title">{{ job.title }}</div>
+                    <span class="tag {{ job.statusTagClass }}">{{ job.statusLabel }}</span>
+                  </div>
+                  <p class="card-body">{{ job.descriptionShort }}</p>
+                  <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                    <sc-for list="{{ job.skillTags }}" as="s" hint-placeholder-count="3">
+                      <span class="tag tag-neutral">{{ s }}</span>
+                    </sc-for>
+                  </div>
+                  <div class="card-meta">{{ job.metaLabel }}</div>
+                  <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-1);">
+                    <button type="button" class="btn btn-secondary blueprint" onClick="{{ job.viewMatches }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>View matches</button>
+                    <button type="button" class="btn btn-primary blueprint" onClick="{{ job.runMatch }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ job.runMatchLabel }}</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: BATCH UPLOAD ---------- -->
+        <sc-if value="{{ isRBatchUpload }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px;">
+            <button type="button" class="btn btn-ghost" style="margin-bottom:var(--space-4);padding-inline:0;" onClick="{{ goJobsList }}">&larr; Back to my jobs</button>
+            <h1 style="margin-bottom:2px;">Batch upload resumes</h1>
+            <p class="text-muted" style="margin-bottom:var(--space-4);">Source candidates in bulk — target an existing posting or freeform criteria.</p>
+            <div class="seg" style="margin-bottom:var(--space-3);width:fit-content;" role="radiogroup" aria-label="Batch target">
+              <label class="seg-opt"><input type="radio" name="batchtarget" checked="{{ isBatchTargetJob }}" onChange="{{ setBatchTargetJob }}"></input>Existing job</label>
+              <label class="seg-opt"><input type="radio" name="batchtarget" checked="{{ isBatchTargetCriteria }}" onChange="{{ setBatchTargetCriteria }}"></input>New criteria</label>
+            </div>
+            <sc-if value="{{ isBatchTargetJob }}" hint-placeholder-val="{{ true }}">
+              <div class="field"><label>Job</label>
+                <select class="input" value="{{ batchJobId }}" onChange="{{ setBatchJobId }}">
+                  <sc-for list="{{ jobOptions }}" as="jo" hint-placeholder-count="3">
+                    <option value="{{ jo.id }}">{{ jo.title }}</option>
+                  </sc-for>
+                </select>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isBatchTargetCriteria }}" hint-placeholder-val="{{ false }}">
+              <div class="field"><label>Criteria title</label><input class="input" placeholder="e.g. Contract React developers" value="{{ criteriaForm.title }}" onChange="{{ criteriaForm.setTitle }}"></input></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);">
+                <div class="field"><label>Min. education</label>
+                  <select class="input" value="{{ criteriaForm.education }}" onChange="{{ criteriaForm.setEducation }}">
+                    <option value="any">Any</option><option value="bachelor">Bachelor's</option><option value="master">Master's</option><option value="phd">PhD</option>
+                  </select>
+                </div>
+                <div class="field"><label>Min. years experience</label><input class="input" type="number" min="0" value="{{ criteriaForm.years }}" onChange="{{ criteriaForm.setYears }}"></input></div>
+              </div>
+              <div class="field"><label>Required skills</label>
+                <div style="display:flex;gap:var(--space-1);flex-wrap:wrap;margin-bottom:6px;">
+                  <sc-for list="{{ criteriaForm.skillChips }}" as="c" hint-placeholder-count="2">
+                    <span class="tag" style="border:1.5px solid var(--color-neutral-900);display:inline-flex;align-items:center;gap:5px;">{{ c.label }}<button type="button" onClick="{{ c.remove }}" style="border:none;background:transparent;cursor:pointer;color:var(--color-neutral-600);font-weight:700;padding:0;">×</button></span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:var(--space-2);">
+                  <input class="input" placeholder="Type a skill, press Enter" value="{{ criteriaForm.draft }}" onChange="{{ criteriaForm.setDraft }}" onKeyDown="{{ criteriaForm.onKeyDown }}"></input>
+                  <button type="button" class="btn btn-secondary blueprint" onClick="{{ criteriaForm.addSkill }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Add</button>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isBatchIdle }}" hint-placeholder-val="{{ true }}">
+              <div class="card blueprint" style="border-style:dashed;align-items:center;text-align:center;padding:var(--space-8);gap:var(--space-3);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-accent);"><path d="M12 3v12"></path><path d="m7 8 5-5 5 5"></path><path d="M5 21h14"></path></svg>
+                <div class="card-title">Drop multiple resumes here, or browse</div>
+                <button type="button" class="btn btn-primary blueprint" onClick="{{ startBatch }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Select files</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isBatchProcessing }}" hint-placeholder-val="{{ false }}">
+              <div class="card blueprint elev-sm" style="gap:var(--space-2);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">Uploading &amp; parsing 3 resumes&hellip;</div>
+                <div style="height:6px;background:var(--color-neutral-200);position:relative;"><div style="position:absolute;inset:0 auto 0 0;height:100%;width:65%;background:var(--color-accent);"></div></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isBatchDone }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+                <sc-for list="{{ batchFiles }}" as="f" hint-placeholder-count="3">
+                  <div class="card blueprint elev-sm" style="flex-direction:row;justify-content:space-between;align-items:center;"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                    <span style="font-size:13px;">{{ f.name }}</span>
+                    <span class="tag tag-accent">Parsed ✓</span>
+                  </div>
+                </sc-for>
+              </div>
+              <p class="card-meta" style="margin-top:var(--space-3);">Added as sourced candidates — tagged distinctly from applicants since they never created an account. Run AI match to rank them.</p>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: POST A JOB ---------- -->
+        <sc-if value="{{ isRPost }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h1 style="margin-bottom:var(--space-6);">Post a new role</h1>
+            <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:var(--space-6);align-items:start;">
+            <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="field"><label>Job title</label><input class="input" placeholder="e.g. Senior Backend Engineer" value="{{ postForm.title }}" onChange="{{ postForm.setTitle }}"></input></div>
+              <div class="field"><label>Description</label><textarea class="input" rows="4" placeholder="Describe the role, responsibilities and expectations..." value="{{ postForm.description }}" onChange="{{ postForm.setDescription }}"></textarea></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);">
+                <div class="field"><label>Min. education</label>
+                  <select class="input" value="{{ postForm.education }}" onChange="{{ postForm.setEducation }}">
+                    <option value="any">Any</option><option value="bachelor">Bachelor's</option><option value="master">Master's</option><option value="phd">PhD</option>
+                  </select>
+                </div>
+                <div class="field"><label>Min. years experience</label><input class="input" type="number" min="0" value="{{ postForm.years }}" onChange="{{ postForm.setYears }}"></input></div>
+              </div>
+              <div class="field"><label>Required skills</label>
+                <div style="display:flex;gap:var(--space-1);flex-wrap:wrap;margin-bottom:6px;">
+                  <sc-for list="{{ postForm.reqSkillChips }}" as="c" hint-placeholder-count="2">
+                    <span class="tag tag-outline" style="display:inline-flex;align-items:center;gap:5px;">{{ c.label }}<button type="button" onClick="{{ c.remove }}" style="border:none;background:transparent;cursor:pointer;color:var(--color-neutral-600);font-weight:700;padding:0;">×</button></span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:var(--space-2);">
+                  <input class="input" placeholder="Type a skill, press Enter" value="{{ postForm.reqDraft }}" onChange="{{ postForm.setReqDraft }}" onKeyDown="{{ postForm.onReqKeyDown }}"></input>
+                  <button type="button" class="btn btn-secondary blueprint" onClick="{{ postForm.addReqSkill }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Add</button>
+                </div>
+              </div>
+              <div class="field"><label>Preferred skills</label>
+                <div style="display:flex;gap:var(--space-1);flex-wrap:wrap;margin-bottom:6px;">
+                  <sc-for list="{{ postForm.prefSkillChips }}" as="c" hint-placeholder-count="2">
+                    <span class="tag tag-outline" style="display:inline-flex;align-items:center;gap:5px;">{{ c.label }}<button type="button" onClick="{{ c.remove }}" style="border:none;background:transparent;cursor:pointer;font-weight:700;padding:0;">×</button></span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:var(--space-2);">
+                  <input class="input" placeholder="Type a skill, press Enter" value="{{ postForm.prefDraft }}" onChange="{{ postForm.setPrefDraft }}" onKeyDown="{{ postForm.onPrefKeyDown }}"></input>
+                  <button type="button" class="btn btn-secondary blueprint" onClick="{{ postForm.addPrefSkill }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Add</button>
+                </div>
+              </div>
+              <div class="field">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                  <label>Match score weighting</label>
+                  <button type="button" class="btn btn-ghost" style="padding-inline:0;font-size:12px;" onClick="{{ postForm.resetWeights }}">Reset to default</button>
+                </div>
+                <p class="card-meta" style="margin:2px 0 0;">Sliders are linked — they always redistribute to sum to 100%. "Semantic" measures how closely a resume's overall language matches this job description, beyond exact keyword hits.</p>
+                <div style="display:flex;flex-direction:column;gap:var(--space-2);margin-top:4px;">
+                  <sc-for list="{{ postForm.weightRows }}" as="w" hint-placeholder-count="4">
+                    <div style="display:grid;grid-template-columns:110px 1fr 50px auto;align-items:center;gap:var(--space-2);">
+                      <span style="font-size:13px;">{{ w.label }}</span>
+                      <input type="range" min="0" max="100" value="{{ w.value }}" disabled="{{ w.pinned }}" onChange="{{ w.onChange }}" style="width:100%;accent-color:{{ w.sliderColor }};"></input>
+                      <span class="card-meta" style="justify-content:flex-end;">{{ w.valueLabel }}</span>
+                      <button type="button" class="btn btn-ghost" style="font-size:11px;padding-inline:4px;" onClick="{{ w.togglePin }}">{{ w.pinLabel }}</button>
+                    </div>
+                  </sc-for>
+                </div>
+                <p class="card-meta" style="margin-top:4px;">{{ postForm.weightSumLabel }}</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-block blueprint" onClick="{{ postForm.submit }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Post job</button>
+            </div>
+            <div>
+              <h3 style="margin-bottom:var(--space-3);">Recent postings</h3>
+              <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+                <sc-for list="{{ recentPostings }}" as="rp" hint-placeholder-count="3">
+                  <div class="card blueprint elev-sm" style="padding:var(--space-3);gap:6px;"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                    <div style="font-family:var(--font-heading);font-weight:600;font-size:14px;">{{ rp.title }}</div>
+                    <div class="card-meta">{{ rp.metaLabel }}</div>
+                    <button type="button" class="btn btn-secondary blueprint" style="align-self:flex-start;font-size:12px;" onClick="{{ rp.repost }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Repost</button>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: MATCHES FOR A JOB ---------- -->
+        <sc-if value="{{ isRMatches }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <button type="button" class="btn btn-ghost" style="margin-bottom:var(--space-4);padding-inline:0;" onClick="{{ goJobsList }}">&larr; Back to my jobs</button>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--space-4);">
+              <div><h1 style="margin-bottom:2px;">{{ matchJob.title }}</h1><p class="text-muted" style="margin:0;">AI match results</p></div>
+              <button type="button" class="btn btn-primary blueprint" onClick="{{ rerunMatch }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Run AI match</button>
+            </div>
+            <sc-if value="{{ hasMatches }}" hint-placeholder-val="{{ true }}">
+              <div class="seg" style="margin-bottom:var(--space-4);width:fit-content;" role="radiogroup" aria-label="Result filter">
+                <label class="seg-opt"><input type="radio" name="matchtab" checked="{{ isQualifiedTab }}" onChange="{{ setQualifiedTab }}"></input>Qualified · {{ qualifiedCount }}</label>
+                <label class="seg-opt"><input type="radio" name="matchtab" checked="{{ isUnqualifiedTab }}" onChange="{{ setUnqualifiedTab }}"></input>Unqualified · {{ unqualifiedCount }}</label>
+              </div>
+            </sc-if>
+            <sc-if value="{{ showQualifiedList }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+                <sc-for list="{{ matchResults }}" as="m" hint-placeholder-count="3">
+                  <div class="card measure elev-sm" style="cursor:pointer;" onClick="{{ m.open }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                    <div style="display:flex;gap:var(--space-3);align-items:center;">
+                      <div style="width:44px;height:44px;flex:none;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;color:var(--color-neutral-700);">{{ m.initials }}</div>
+                      <div style="flex:1;min-width:0;">
+                        <div style="display:flex;justify-content:space-between;gap:var(--space-2);align-items:baseline;">
+                          <span style="font-family:var(--font-heading);font-weight:600;font-size:16px;">#{{ m.rank }} {{ m.name }}</span>
+                          <span style="font-family:var(--font-heading);font-weight:600;color:{{ m.barColor }};font-size:18px;">{{ m.scoreLabel }}</span>
+                        </div>
+                        <div class="card-meta">{{ m.metaLabel }}</div>
+                        <div style="height:5px;background:var(--color-neutral-200);margin-top:8px;position:relative;">
+                          <div style="position:absolute;inset:0 auto 0 0;height:100%;width:{{ m.scoreWidth }};background:{{ m.barColor }};"></div>
+                        </div>
+                        <div style="font-size:12px;margin-top:6px;color:var(--color-neutral-700);">{{ m.reason }}</div>
+                      </div>
+                      <button type="button" class="{{ m.shortlistBtnClass }} shortlistBtn" onClick="{{ m.toggleShortlist }}">{{ m.shortlistLabel }}</button>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ showUnqualifiedList }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+                <sc-for list="{{ unqualifiedResults }}" as="u" hint-placeholder-count="3">
+                  <div class="card" style="flex-direction:row;align-items:center;gap:var(--space-3);border:1px solid var(--color-divider);background:var(--color-surface);cursor:pointer;" onClick="{{ u.open }}">
+                    <div style="width:40px;height:40px;flex:none;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;color:var(--color-neutral-500);">{{ u.initials }}</div>
+                    <div style="flex:1;min-width:0;">
+                      <div style="font-family:var(--font-heading);font-weight:600;font-size:15px;">{{ u.name }}</div>
+                      <div style="font-size:13px;color:var(--color-danger-700);margin-top:2px;">{{ u.disqualifyReason }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noMatchesYet }}" hint-placeholder-val="{{ false }}">
+              <div class="card blueprint" style="align-items:center;text-align:center;padding:var(--space-8);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <p class="card-body">No match results yet. Run AI matching to rank applicants against this role.</p>
+              </div>
+            </sc-if>
+            <sc-if value="{{ isMatching }}" hint-placeholder-val="{{ false }}">
+              <div class="card blueprint elev-sm"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">Scoring applicants against this posting&hellip;</div>
+                <div style="height:6px;background:var(--color-neutral-200);position:relative;"><div style="position:absolute;inset:0 auto 0 0;height:100%;width:60%;background:var(--color-accent);"></div></div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: CANDIDATE DETAIL / GLASS BOX ---------- -->
+        <sc-if value="{{ isRCandidateDetail }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <button type="button" class="btn btn-ghost" style="margin-bottom:var(--space-4);padding-inline:0;" onClick="{{ backToMatches }}">&larr; Back to matches</button>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-4);margin-bottom:var(--space-6);">
+              <div style="display:flex;gap:var(--space-3);align-items:center;">
+                <div style="width:60px;height:60px;flex:none;border:1px solid var(--color-divider);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:20px;color:var(--color-accent-700);">{{ candDetail.initials }}</div>
+                <div>
+                  <h1 style="margin-bottom:2px;">{{ candDetail.name }}</h1>
+                  <p class="text-muted" style="margin:0;">{{ candDetail.metaLabel }}</p>
+                </div>
+              </div>
+              <button type="button" class="{{ candDetail.shortlistBtnClass }} shortlistBtn" onClick="{{ candDetail.toggleShortlist }}">{{ candDetail.shortlistLabel }}</button>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:var(--space-6);align-items:start;">
+              <div class="card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">Parsed resume data</div>
+                <p class="card-body" style="flex:none;">{{ candDetail.email }} · {{ candDetail.phone }}</p>
+                <p class="card-body" style="flex:none;">{{ candDetail.yearsExperience }} yrs experience · {{ candDetail.educationLevel }}</p>
+                <div class="card-kicker" style="margin-top:var(--space-2);">Matched skills</div>
+                <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                  <sc-for list="{{ candDetail.matchedSkills }}" as="s" hint-placeholder-count="3">
+                    <span class="tag tag-accent">✓ {{ s }}</span>
+                  </sc-for>
+                </div>
+                <div class="card-kicker" style="margin-top:var(--space-2);">Missing skills</div>
+                <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+                  <sc-for list="{{ candDetail.missingSkills }}" as="s" hint-placeholder-count="2">
+                    <span class="tag tag-outline">{{ s }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div class="card measure elev-sm"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <div class="card-kicker">AI match score — {{ candDetail.scoreLabel }}</div>
+                <sc-for list="{{ candDetail.reasons }}" as="r0" hint-placeholder-count="1">
+                  <div style="font-size:13px;font-weight:600;margin-bottom:2px;">{{ r0 }}</div>
+                </sc-for>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2);text-align:center;margin:var(--space-2) 0;">
+                  <sc-for list="{{ candDetail.breakdown }}" as="b" hint-placeholder-count="4">
+                    <div>
+                      <svg width="72" height="72" viewBox="0 0 72 72">
+                        <circle cx="36" cy="36" r="30" fill="none" stroke="var(--color-neutral-200)" stroke-width="7"></circle>
+                        <circle cx="36" cy="36" r="30" fill="none" stroke="var(--color-accent-600)" stroke-width="7" stroke-linecap="round" stroke-dasharray="{{ b.dashArray }}" transform="rotate(-90 36 36)"></circle>
+                        <text x="36" y="41" text-anchor="middle" font-size="15" font-family="var(--font-heading)" fill="var(--color-text)">{{ b.valueLabel }}</text>
+                      </svg>
+                      <div style="font-size:12px;margin-top:4px;">{{ b.label }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div class="card-kicker" style="margin-top:var(--space-3);">AI reasoning</div>
+                <sc-for list="{{ candDetail.reasons }}" as="r" hint-placeholder-count="2">
+                  <div style="font-size:13px;opacity:0.85;margin-bottom:4px;">— {{ r }}</div>
+                </sc-for>
+                <p class="card-body" style="flex:none;margin-top:var(--space-2);border-left:2px solid var(--color-divider);padding-left:var(--space-2);">{{ candDetail.explanation }}</p>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: PIPELINE ---------- -->
+        <sc-if value="{{ isRPipeline }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;flex-wrap:wrap;gap:var(--space-2);">
+              <h1 style="margin-bottom:0;">Pipeline</h1>
+              <div class="seg" role="radiogroup" aria-label="Pipeline view">
+                <label class="seg-opt"><input type="radio" name="pipelineview" checked="{{ isPipelineBoard }}" onChange="{{ setPipelineBoard }}"></input>Board</label>
+                <label class="seg-opt"><input type="radio" name="pipelineview" checked="{{ isPipelineTable }}" onChange="{{ setPipelineTable }}"></input>Table</label>
+              </div>
+            </div>
+            <p class="text-muted" style="margin-bottom:var(--space-6);">{{ pipelineJobLabel }} — {{ pipelineTotalLabel }}.</p>
+
+            <sc-if value="{{ isPipelineBoard }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);">
+                <sc-for list="{{ pipelineColumns }}" as="col" hint-placeholder-count="4">
+                  <div>
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--space-2);">
+                      <span class="card-kicker">{{ col.label }}</span>
+                      <span class="card-meta">{{ col.count }}</span>
+                    </div>
+                    <div class="pipeline-col">
+                      <sc-for list="{{ col.cards }}" as="card" hint-placeholder-count="2">
+                        <div class="pipeline-row">
+                          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-2);">
+                            <span style="font-size:13px;font-weight:600;">{{ card.name }}<sc-if value="{{ card.sourced }}" hint-placeholder-val="{{ false }}"><span class="tag tag-outline" style="margin-left:6px;font-size:9px;padding:1px 5px;">Sourced</span></sc-if></span>
+                            <span class="card-meta">{{ card.scoreLabel }}</span>
+                          </div>
+                          <div style="height:4px;background:var(--color-neutral-200);position:relative;"><div style="position:absolute;inset:0 auto 0 0;height:100%;width:{{ card.scoreWidth }};background:{{ card.barColor }};"></div></div>
+                          <sc-if value="{{ card.canAdvance }}" hint-placeholder-val="{{ true }}">
+                            <button type="button" class="btn btn-ghost" style="font-size:11px;padding-inline:0;justify-content:flex-start;" onClick="{{ card.advance }}">Move to {{ card.nextLabel }} →</button>
+                          </sc-if>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isPipelineTable }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:var(--space-3);align-items:center;margin-bottom:var(--space-3);flex-wrap:wrap;">
+                <select class="input" style="max-width:180px;" value="{{ tableStageFilter }}" onChange="{{ setTableStageFilter }}">
+                  <option value="all">All stages</option>
+                  <option value="pending">Pending</option>
+                  <option value="reviewed">Reviewed</option>
+                  <option value="shortlisted">Shortlisted</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;">
+                  <input type="checkbox" checked="{{ tableSourcedOnly }}" onChange="{{ toggleTableSourcedOnly }}"></input>Sourced only
+                </label>
+                <button type="button" class="btn btn-ghost" style="font-size:12px;" onClick="{{ toggleTableSort }}">Sort by score: {{ tableSortLabel }}</button>
+                <sc-if value="{{ hasTableSelection }}" hint-placeholder-val="{{ false }}">
+                  <button type="button" class="btn btn-primary blueprint" style="margin-left:auto;" onClick="{{ bulkAdvance }}"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Advance {{ selectedCount }} selected</button>
+                </sc-if>
+              </div>
+              <table class="table">
+                <thead><tr><th><input type="checkbox" checked="{{ allSelected }}" onChange="{{ toggleSelectAll }}"></input></th><th>Name</th><th>Score</th><th>Stage</th><th></th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ tableRows }}" as="row" hint-placeholder-count="5">
+                    <tr>
+                      <td><input type="checkbox" checked="{{ row.selected }}" onChange="{{ row.toggleSelect }}"></input></td>
+                      <td>{{ row.name }}<sc-if value="{{ row.sourced }}" hint-placeholder-val="{{ false }}"><span class="tag tag-outline" style="margin-left:6px;font-size:9px;padding:1px 5px;">Sourced</span></sc-if></td>
+                      <td>{{ row.scoreLabel }}</td>
+                      <td><span class="tag {{ row.stageTagClass }}">{{ row.stageLabel }}</span></td>
+                      <td><sc-if value="{{ row.canAdvance }}" hint-placeholder-val="{{ true }}"><button type="button" class="btn btn-ghost" style="font-size:12px;" onClick="{{ row.advance }}">Advance →</button></sc-if></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ---------- RECRUITER: ANALYTICS ---------- -->
+        <sc-if value="{{ isRAnalytics }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <h1 style="margin-bottom:var(--space-6);">Analytics</h1>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-8);">
+              <sc-for list="{{ analyticsStats }}" as="stat" hint-placeholder-count="3">
+                <div class="card blueprint elev-sm"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div class="card-kicker">{{ stat.label }}</div>
+                  <div class="card-title" style="font-size:30px;">{{ stat.value }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <h3 style="margin-bottom:var(--space-3);">{{ analyticsJobLabel }} — applicant funnel</h3>
+            <div class="card blueprint" style="margin-bottom:var(--space-6);padding:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div style="display:flex;flex-direction:column;gap:var(--space-2);">
+                <sc-for list="{{ jobBars }}" as="jb" hint-placeholder-count="5">
+                  <div style="display:grid;grid-template-columns:180px 1fr 40px;align-items:center;gap:var(--space-2);">
+                    <span style="font-size:13px;">{{ jb.label }}</span>
+                    <div style="height:10px;background:var(--color-neutral-200);position:relative;"><div style="position:absolute;inset:0 auto 0 0;height:100%;width:{{ jb.width }};background:var(--color-accent);"></div></div>
+                    <span class="text-muted" style="font-size:12px;text-align:right;">{{ jb.count }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <h3 style="margin-bottom:var(--space-3);">Match score distribution</h3>
+            <div class="card blueprint" style="padding:var(--space-4);"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);text-align:center;">
+                <sc-for list="{{ scoreBuckets }}" as="sb" hint-placeholder-count="4">
+                  <div>
+                    <div style="height:80px;display:flex;align-items:flex-end;justify-content:center;">
+                      <div style="width:36px;background:var(--color-accent);height:{{ sb.barHeight }};"></div>
+                    </div>
+                    <div style="font-size:11px;color:var(--color-text);margin-top:6px;">{{ sb.label }}</div>
+                    <div class="card-meta" style="justify-content:center;">{{ sb.count }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;layoutDensity&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;comfortable&quot;, &quot;options&quot;: [&quot;comfortable&quot;, &quot;compact&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Layout&quot;},
+  &quot;showScoreAccents&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot;}
+}">
+
+function fmtDaysAgo(n) { return n === 0 ? 'Today' : n === 1 ? '1 day ago' : n + ' days ago'; }
+function pct(v) { return Math.round(v * 100) + '%'; }
+function initialsOf(name) { return name.split(' ').filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase(); }
+function tierBarColor(v) { return v >= 0.8 ? 'var(--color-accent-600)' : v >= 0.6 ? 'var(--color-accent-300)' : 'var(--color-neutral-400)'; }
+function ringDash(v) { const c = 2 * Math.PI * 30; return (v * c).toFixed(1) + ' ' + c.toFixed(1); }
+const EDU_RANK = { any: 0, bachelor: 1, master: 2, phd: 3 };
+function isHardDisqualified(m, job) {
+  if (m.missingSkills.length > 0) return true;
+  if (m.yearsExperience < job.requiredExperienceYears) return true;
+  if ((EDU_RANK[m.educationLevel] ?? 0) < (EDU_RANK[job.requiredEducationLevel] ?? 0)) return true;
+  return false;
+}
+function disqualifyReason(m, job) {
+  const reasons = [];
+  if (m.missingSkills.length > 0) reasons.push('Missing: ' + m.missingSkills.join(', '));
+  if (m.yearsExperience < job.requiredExperienceYears) reasons.push('Below ' + job.requiredExperienceYears + '+ yrs experience requirement');
+  if ((EDU_RANK[m.educationLevel] ?? 0) < (EDU_RANK[job.requiredEducationLevel] ?? 0)) reasons.push('Below ' + job.requiredEducationLevel + "'s requirement");
+  return reasons.join(' · ');
+}
+
+const JOBS = [
+  { id: 'j1', title: 'Senior Frontend Engineer', description: 'Own the candidate-facing product surface: a React/TypeScript codebase, a GraphQL API, and a design system shared with three other teams.', requiredSkills: ['React', 'TypeScript', 'GraphQL'], preferredSkills: ['Next.js', 'Testing'], requiredEducationLevel: 'bachelor', requiredExperienceYears: 5, isOpen: true, postedDaysAgo: 9, applicantCount: 14 },
+  { id: 'j2', title: 'Backend Engineer (Node.js)', description: 'Build and maintain the REST APIs powering job postings, applications, and the AI matching pipeline.', requiredSkills: ['Node.js', 'MongoDB', 'REST APIs'], preferredSkills: ['Docker', 'AWS'], requiredEducationLevel: 'bachelor', requiredExperienceYears: 3, isOpen: true, postedDaysAgo: 4, applicantCount: 21 },
+  { id: 'j3', title: 'Data Scientist, ML', description: 'Improve the embedding and scoring models behind candidate-job matching.', requiredSkills: ['Python', 'NLP', 'PyTorch'], preferredSkills: ['FastAPI'], requiredEducationLevel: 'master', requiredExperienceYears: 4, isOpen: true, postedDaysAgo: 15, applicantCount: 9 },
+  { id: 'j4', title: 'Product Designer', description: 'Lead end-to-end design for the screening workflow, from discovery through shipped UI.', requiredSkills: ['Figma', 'Prototyping', 'User research'], preferredSkills: ['Design systems'], requiredEducationLevel: 'any', requiredExperienceYears: 3, isOpen: false, postedDaysAgo: 30, applicantCount: 17 },
+  { id: 'j5', title: 'DevOps Engineer', description: 'Harden the deployment pipeline and on-call rotation as we scale to enterprise customers.', requiredSkills: ['AWS', 'Kubernetes', 'Terraform'], preferredSkills: ['CI/CD'], requiredEducationLevel: 'any', requiredExperienceYears: 4, isOpen: true, postedDaysAgo: 2, applicantCount: 6 },
+];
+
+const MATCHES = {
+  j1: [
+    { id: 'm1', name: 'Maya Chen', email: 'maya.chen@email.com', phone: '(206) 555-0148', educationLevel: 'bachelor', yearsExperience: 7, skills: ['React', 'TypeScript', 'GraphQL'], totalScore: 0.94, breakdown: { skills: 0.97, experience: 0.92, semantic: 0.9, education: 0.88 }, matchedSkills: ['React', 'TypeScript', 'GraphQL'], missingSkills: [], reasons: ['7 years of frontend experience exceeds the 5-year requirement.', 'All required skills present with hands-on project evidence.'], explanation: 'Strong all-around fit: seniority, stack, and semantic similarity to the job description are all above the shortlist threshold.', shortlisted: true, stage: 'shortlisted' },
+    { id: 'm2', name: 'Diego Ramirez', email: 'diego.ramirez@email.com', phone: '(512) 555-0173', educationLevel: 'bachelor', yearsExperience: 5, skills: ['React'], totalScore: 0.87, breakdown: { skills: 0.84, experience: 0.85, semantic: 0.88, education: 0.9 }, matchedSkills: ['React'], missingSkills: ['GraphQL'], reasons: ['Meets the seniority bar with 5 years of relevant experience.', 'Strong accessibility focus not required but adds value.'], explanation: 'Solid core fit with one notable skill gap (GraphQL) that is coachable given strong JavaScript fundamentals.', shortlisted: false, stage: 'reviewed' },
+    { id: 'm3', name: 'Priya Nair', email: 'priya.nair@email.com', phone: '+91 98765 43210', educationLevel: 'master', yearsExperience: 6, skills: ['TypeScript'], totalScore: 0.81, breakdown: { skills: 0.82, experience: 0.8, semantic: 0.79, education: 0.9 }, matchedSkills: ['TypeScript'], missingSkills: ['GraphQL', 'React'], reasons: ['Deep TypeScript expertise and recent large-scale migration experience.', 'Limited overlap with required React and GraphQL usage.'], explanation: 'Strong technical fundamentals; reduced overlap with two required technologies for this posting.', shortlisted: false, stage: 'reviewed' },
+    { id: 'm4', name: 'Jordan Lee', email: 'jordan.lee@email.com', phone: '(480) 555-0122', educationLevel: 'bachelor', yearsExperience: 4, skills: ['React'], totalScore: 0.68, breakdown: { skills: 0.62, experience: 0.55, semantic: 0.7, education: 0.8 }, matchedSkills: ['React'], missingSkills: ['TypeScript', 'GraphQL'], reasons: ['Under the 5-year seniority bar for this posting.', 'Missing two of three required technologies.'], explanation: 'Below the shortlist threshold; better aligned with a mid-level opening if one becomes available.', shortlisted: false, stage: 'pending' },
+  ],
+};
+const PIPELINE_UNSCORED = { j1: [{ name: 'Sam Okafor' }, { name: 'Lin Zhao' }] };
+
+let myProfile = {
+  fullName: 'Maya Chen', email: 'maya.chen@email.com', location: 'Remote (US)',
+  yearsExperience: 7, educationLevel: 'bachelor',
+  skills: ['React', 'TypeScript', 'GraphQL', 'Node.js', 'Testing', 'CSS'],
+  certifications: ['AWS Certified Developer — Associate'],
+  experience: [{ role: 'Senior Frontend Engineer', company: 'Loopline', startYear: 2022, endYear: null }, { role: 'Frontend Engineer', company: 'Basecamp Labs', startYear: 2019, endYear: 2022 }],
+  education: [{ degree: 'B.S. Computer Science', institution: 'University of Washington', startYear: 2015, endYear: 2019 }],
+};
+let myApplications = [
+  { jobTitle: 'Senior Frontend Engineer', appliedDaysAgo: 6, status: 'shortlisted' },
+  { jobTitle: 'DevOps Engineer', appliedDaysAgo: 3, status: 'pending' },
+  { jobTitle: 'Product Designer', appliedDaysAgo: 12, status: 'rejected' },
+];
+let resumeLibrary = [
+  { id: 'r1', fileName: 'Maya_Chen_Resume.pdf', sizeKb: 180, uploadedDaysAgo: 6, isDefault: true },
+];
+let resumeIdSeq = 2;
+const ACTIVITY = [
+  { event: 'AI scored 6 new applicants', role: 'Backend Engineer (Node.js)', when: '12 min ago' },
+  { event: 'Candidate shortlisted', role: 'Senior Frontend Engineer', when: '1 hr ago' },
+  { event: 'New job posting published', role: 'DevOps Engineer', when: '2 days ago' },
+  { event: 'AI flagged a skills gap', role: 'Senior Frontend Engineer', when: '3 days ago' },
+];
+const RESUME_TEMPLATES = [
+  { id: 'modern', label: 'Modern', desc: 'Bold heading, skills as tags.' },
+  { id: 'classic', label: 'Classic', desc: 'Traditional serif-style headings.' },
+  { id: 'compact', label: 'Compact', desc: 'Dense, single-page layout.' },
+];
+const BATCH_NAME_POOL = ['Nia Thompson', 'Marcus Webb', 'Aisha Rahman'];
+
+function generateMatches(job) {
+  const pool = [
+    { name: 'Sam Okafor', educationLevel: 'bachelor', yearsExperience: 4, skills: job.requiredSkills.slice(0, 1) },
+    { name: 'Lin Zhao', educationLevel: 'master', yearsExperience: 6, skills: job.requiredSkills },
+    { name: 'Ola Bello', educationLevel: 'bachelor', yearsExperience: 2, skills: job.preferredSkills.length ? job.preferredSkills : job.requiredSkills.slice(0, 1) },
+  ];
+  return pool.map((p, i) => {
+    const matched = p.skills.filter(sk => job.requiredSkills.includes(sk));
+    const missing = job.requiredSkills.filter(sk => !matched.includes(sk));
+    const skillsScore = job.requiredSkills.length ? matched.length / job.requiredSkills.length : 0.5;
+    const expScore = Math.min(1, p.yearsExperience / (job.requiredExperienceYears || 1));
+    const total = Math.min(0.96, Math.max(0.35, skillsScore * 0.4 + expScore * 0.3 + 0.7 * 0.2 + 0.8 * 0.1));
+    return { id: job.id + '-gen' + i, name: p.name, email: p.name.toLowerCase().replace(' ', '.') + '@email.com', phone: '(555) 555-01' + (20 + i), educationLevel: p.educationLevel, yearsExperience: p.yearsExperience, skills: p.skills, totalScore: total, breakdown: { skills: skillsScore, experience: Math.min(1, expScore), semantic: 0.7, education: 0.8 }, matchedSkills: matched, missingSkills: missing, reasons: [matched.length + ' of ' + job.requiredSkills.length + ' required skills matched.', p.yearsExperience + ' years of experience vs. ' + (job.requiredExperienceYears || 0) + ' required.'], explanation: 'Auto-generated ranking based on skills overlap, experience, and semantic similarity to the posting.', shortlisted: false, stage: 'pending' };
+  }).sort((a, b) => b.totalScore - a.totalScore);
+}
+
+class Component extends DCLogic {
+  state = {
+    stage: 'auth', authTab: 'login', role: 'candidate', lastRole: null, signupRole: 'candidate',
+    screen: 'jobs', settingsOpen: false, deleteConfirmOpen: false,
+    detailJobId: null, applyConfirmJobId: null, applyResumeId: null,
+    appliedJobIds: [],
+    resumeUploadStep: 'idle', uploadingFileName: '',
+    skillsEditing: false, skillDraft: '',
+    certsEditing: false, certDraft: '',
+    pipelineView: 'board', tableStageFilter: 'all', tableSourcedOnly: false, tableSortDesc: true, tableSelected: [],
+    resumeBuilderStep: 'template', resumeTemplate: 'modern', resumeDownloaded: false,
+    selectedJobId: 'j1', selectedMatchId: null,
+    matchingJobIds: [],
+    batchJobId: 'j1', batchStep: 'idle',
+    notifApplicant: true, notifDigest: false,
+    sensitivity: 'Balanced', googleConnected: false,
+    integrations: { Slack: false, 'Google Calendar': true, 'ATS Webhook': false },
+    postForm: { title: '', description: '', education: 'any', years: '', reqSkills: [], reqDraft: '', prefSkills: [], prefDraft: '', weights: { skills: 40, experience: 30, semantic: 20, education: 10 } },
+    matchTab: 'qualified', batchTarget: 'job',
+    criteriaForm: { title: '', education: 'any', years: '', skills: [], draft: '' },
+    version: 0,
+  };
+
+  bump = () => this.setState(s => ({ version: s.version + 1 }));
+
+  setAuthTabLogin = () => this.setState({ authTab: 'login' });
+  setAuthTabRegister = () => this.setState({ authTab: 'register' });
+  setSignupRoleCandidate = () => this.setState({ signupRole: 'candidate' });
+  setSignupRoleRecruiter = () => this.setState({ signupRole: 'recruiter' });
+  submitAuth = (e) => {
+    e && e.preventDefault();
+    if (this.state.authTab === 'register') { const r = this.state.signupRole; this.setState({ stage: 'app', role: r, lastRole: r, screen: r === 'candidate' ? 'jobs' : 'dashboard', settingsOpen: false }); return; }
+    if (this.state.lastRole) this.setState({ stage: 'app', role: this.state.lastRole, screen: this.state.lastRole === 'candidate' ? 'jobs' : 'dashboard', settingsOpen: false });
+    else this.setState({ stage: 'roleChoice' });
+  };
+  chooseRole = (role) => (e) => { e && e.preventDefault(); this.setState({ stage: 'app', role, lastRole: role, screen: role === 'candidate' ? 'jobs' : 'dashboard', settingsOpen: false }); };
+  goRoleChoice = (e) => { e && e.preventDefault(); this.setState({ stage: 'roleChoice' }); };
+  switchRole = (role) => (e) => { e && e.preventDefault(); this.setState(s => (s.role === role ? {} : { role, lastRole: role, screen: role === 'candidate' ? 'jobs' : 'dashboard', settingsOpen: false })); };
+  signOut = (e) => { e && e.preventDefault(); this.setState({ stage: 'auth' }); };
+  openSettings = (e) => { e && e.preventDefault(); this.setState({ settingsOpen: true }); };
+  closeSettings = (e) => { e && e.preventDefault(); this.setState({ settingsOpen: false }); };
+  setScreen = (key) => (e) => { e && e.preventDefault(); this.setState({ screen: key, settingsOpen: false }); };
+  stopClick = (e) => e && e.stopPropagation();
+
+  openDeleteConfirm = (e) => { e && e.preventDefault(); this.setState({ deleteConfirmOpen: true }); };
+  closeDeleteConfirm = (e) => { e && e.preventDefault(); this.setState({ deleteConfirmOpen: false }); };
+  confirmDelete = (e) => { e && e.preventDefault(); this.setState({ deleteConfirmOpen: false, stage: 'auth', lastRole: null }); };
+  downloadData = (e) => {
+    e && e.preventDefault();
+    const blob = new Blob([JSON.stringify({ profile: myProfile, applications: myApplications }, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'hiresignal-data.json'; document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  };
+  toggleGoogle = (e) => { e && e.preventDefault(); this.setState(s => ({ googleConnected: !s.googleConnected })); };
+
+  openJobDetail = (id) => (e) => { e && e.preventDefault(); this.setState({ screen: 'jobDetail', detailJobId: id }); };
+  backToBrowse = (e) => { e && e.preventDefault(); this.setState({ screen: 'jobs' }); };
+  openApplyConfirm = (id) => (e) => {
+    e && e.preventDefault(); e && e.stopPropagation();
+    const def = resumeLibrary.find(r => r.isDefault) || resumeLibrary[0];
+    this.setState({ applyConfirmJobId: id, applyResumeId: def ? def.id : null });
+  };
+  closeApplyConfirm = (e) => { e && e.preventDefault(); this.setState({ applyConfirmJobId: null }); };
+  setApplyResumeId = (e) => this.setState({ applyResumeId: e.target.value });
+  confirmApply = (e) => {
+    e && e.preventDefault();
+    const job = JOBS.find(j => j.id === this.state.applyConfirmJobId);
+    if (job && !this.state.appliedJobIds.includes(job.id)) {
+      myApplications = [{ jobTitle: job.title, appliedDaysAgo: 0, status: 'pending' }, ...myApplications];
+      this.setState(s => ({ appliedJobIds: [...s.appliedJobIds, job.id], applyConfirmJobId: null }));
+    } else this.setState({ applyConfirmJobId: null });
+  };
+
+  toggleSkillsEdit = (e) => { e && e.preventDefault(); this.setState(s => ({ skillsEditing: !s.skillsEditing })); };
+  setSkillDraft = (e) => this.setState({ skillDraft: e.target.value });
+  addSkill = (e) => {
+    e && e.preventDefault();
+    const v = this.state.skillDraft.trim();
+    if (v && !myProfile.skills.includes(v)) myProfile.skills = [...myProfile.skills, v];
+    this.setState({ skillDraft: '' });
+  };
+  onSkillDraftKeyDown = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.addSkill(e); } };
+  removeSkill = (skill) => (e) => { e && e.preventDefault(); myProfile.skills = myProfile.skills.filter(s => s !== skill); this.bump(); };
+
+  toggleCertsEdit = (e) => { e && e.preventDefault(); this.setState(s => ({ certsEditing: !s.certsEditing })); };
+  setCertDraft = (e) => this.setState({ certDraft: e.target.value });
+  addCert = (e) => {
+    e && e.preventDefault();
+    const v = this.state.certDraft.trim();
+    if (v && !myProfile.certifications.includes(v)) myProfile.certifications = [...myProfile.certifications, v];
+    this.setState({ certDraft: '' });
+  };
+  onCertDraftKeyDown = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.addCert(e); } };
+  removeCert = (c) => (e) => { e && e.preventDefault(); myProfile.certifications = myProfile.certifications.filter(x => x !== c); this.bump(); };
+
+  goResumeBuilder = (e) => { e && e.preventDefault(); this.setState({ screen: 'resumeBuilder', resumeBuilderStep: 'template', resumeDownloaded: false }); };
+  backToProfile = (e) => { e && e.preventDefault(); this.setState({ screen: 'profile' }); };
+  selectTemplate = (id) => (e) => { if (e.target.checked) this.setState({ resumeTemplate: id }); };
+  downloadResume = (e) => { e && e.preventDefault(); this.setState({ resumeDownloaded: true }); };
+
+  startUpload = (source) => (e) => {
+    e && e.preventDefault();
+    if (resumeLibrary.length >= 5) return;
+    const fileName = source === 'drive' ? 'Drive_Resume.pdf' : 'New_Resume.pdf';
+    this.setState({ resumeUploadStep: 'parsing', uploadingFileName: fileName });
+    setTimeout(() => {
+      const id = 'r' + (resumeIdSeq++);
+      resumeLibrary = [...resumeLibrary, { id, fileName, sizeKb: 150 + Math.round(Math.random() * 80), uploadedDaysAgo: 0, isDefault: resumeLibrary.length === 0 }];
+      this.setState({ resumeUploadStep: 'idle' });
+    }, 1200);
+  };
+  setResumeDefault = (id) => (e) => { e && e.preventDefault(); resumeLibrary = resumeLibrary.map(r => ({ ...r, isDefault: r.id === id })); this.bump(); };
+  deleteResume = (id) => (e) => {
+    e && e.preventDefault();
+    resumeLibrary = resumeLibrary.filter(r => r.id !== id);
+    if (resumeLibrary.length && !resumeLibrary.some(r => r.isDefault)) resumeLibrary[0].isDefault = true;
+    this.bump();
+  };
+
+  goPost = (e) => { e && e.preventDefault(); this.setState({ screen: 'post' }); };
+  goJobsList = (e) => { e && e.preventDefault(); this.setState({ screen: 'jobs' }); };
+  goBatchUpload = (e) => { e && e.preventDefault(); this.setState({ screen: 'batchUpload', batchStep: 'idle' }); };
+  setBatchJobId = (e) => this.setState({ batchJobId: e.target.value });
+  startBatch = (e) => {
+    e && e.preventDefault(); this.setState({ batchStep: 'processing' });
+    setTimeout(() => {
+      const jobId = this.state.batchJobId;
+      PIPELINE_UNSCORED[jobId] = [...(PIPELINE_UNSCORED[jobId] || []), ...BATCH_NAME_POOL.map(n => ({ name: n }))];
+      this.setState({ batchStep: 'done' });
+    }, 1300);
+  };
+
+  viewMatches = (jobId) => (e) => { e && e.preventDefault(); this.setState({ screen: 'matches', selectedJobId: jobId }); };
+  runMatch = (jobId) => (e) => {
+    e && e.preventDefault();
+    if (MATCHES[jobId]) { this.setState({ screen: 'matches', selectedJobId: jobId }); return; }
+    this.setState(s => ({ matchingJobIds: [...s.matchingJobIds, jobId], screen: 'matches', selectedJobId: jobId }));
+    setTimeout(() => {
+      const job = JOBS.find(j => j.id === jobId);
+      MATCHES[jobId] = generateMatches(job);
+      this.setState(s => ({ matchingJobIds: s.matchingJobIds.filter(id => id !== jobId) }));
+    }, 1300);
+  };
+  rerunMatch = (e) => { e && e.preventDefault(); this.runMatch(this.state.selectedJobId)(e); };
+  openCandidateDetail = (jobId, matchId) => (e) => { e && e.preventDefault(); this.setState({ screen: 'candidateDetail', selectedJobId: jobId, selectedMatchId: matchId }); };
+  backToMatches = (e) => { e && e.preventDefault(); this.setState({ screen: 'matches' }); };
+  toggleShortlist = (jobId, matchId) => (e) => {
+    e && e.preventDefault(); e && e.stopPropagation();
+    const list = MATCHES[jobId] || [];
+    const m = list.find(x => x.id === matchId);
+    if (m) { m.shortlisted = !m.shortlisted; m.stage = m.shortlisted ? 'shortlisted' : 'reviewed'; }
+    this.bump();
+  };
+  advanceStage = (jobId, matchId) => (e) => {
+    e && e.preventDefault();
+    const order = ['pending', 'reviewed', 'shortlisted', 'rejected'];
+    const list = MATCHES[jobId] || [];
+    const m = list.find(x => x.id === matchId);
+    if (m) { const i = order.indexOf(m.stage); m.stage = order[Math.min(i + 1, order.length - 1)]; m.shortlisted = m.stage === 'shortlisted'; }
+    this.bump();
+  };
+  setPipelineBoard = () => this.setState({ pipelineView: 'board' });
+  setPipelineTable = () => this.setState({ pipelineView: 'table' });
+  setTableStageFilter = (e) => this.setState({ tableStageFilter: e.target.value });
+  toggleTableSourcedOnly = (e) => this.setState({ tableSourcedOnly: e.target.checked });
+  toggleTableSort = (e) => { e && e.preventDefault(); this.setState(s => ({ tableSortDesc: !s.tableSortDesc })); };
+  toggleRowSelect = (rowId) => (e) => { e && e.preventDefault(); this.setState(s => ({ tableSelected: s.tableSelected.includes(rowId) ? s.tableSelected.filter(x => x !== rowId) : [...s.tableSelected, rowId] })); };
+  toggleSelectAll = (e) => {
+    e && e.preventDefault();
+    this.setState(s => {
+      const allIds = this._lastTableRowIds || [];
+      return { tableSelected: s.tableSelected.length === allIds.length ? [] : allIds };
+    });
+  };
+  bulkAdvance = (e) => {
+    e && e.preventDefault();
+    this.state.tableSelected.forEach(id => {
+      if (typeof id === 'string' && id.startsWith('m')) this.advanceStage(this.state.selectedJobId, id)();
+    });
+    this.setState({ tableSelected: [] });
+  };
+  setSelectedJobId = (e) => this.setState({ selectedJobId: e.target.value });
+
+  setPostField = (field) => (e) => this.setState(s => ({ postForm: { ...s.postForm, [field]: e.target.value } }));
+  addReqSkill = (e) => {
+    e && e.preventDefault();
+    const v = this.state.postForm.reqDraft.trim();
+    if (v) this.setState(s => ({ postForm: { ...s.postForm, reqSkills: [...s.postForm.reqSkills, v], reqDraft: '' } }));
+  };
+  onReqKeyDown = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.addReqSkill(e); } };
+  removeReqSkill = (v) => (e) => { e && e.preventDefault(); this.setState(s => ({ postForm: { ...s.postForm, reqSkills: s.postForm.reqSkills.filter(x => x !== v) } })); };
+  addPrefSkill = (e) => {
+    e && e.preventDefault();
+    const v = this.state.postForm.prefDraft.trim();
+    if (v) this.setState(s => ({ postForm: { ...s.postForm, prefSkills: [...s.postForm.prefSkills, v], prefDraft: '' } }));
+  };
+  onPrefKeyDown = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.addPrefSkill(e); } };
+  removePrefSkill = (v) => (e) => { e && e.preventDefault(); this.setState(s => ({ postForm: { ...s.postForm, prefSkills: s.postForm.prefSkills.filter(x => x !== v) } })); };
+  setWeight = (key) => (e) => {
+    const newVal = Math.max(0, Math.min(100, parseInt(e.target.value)));
+    this.setState(s => {
+      const w = s.postForm.weights;
+      const pinned = s.postForm.pinned || {};
+      const pinnedKeys = Object.keys(w).filter(k => pinned[k] && k !== key);
+      const unpinnedKeys = Object.keys(w).filter(k => !pinned[k] && k !== key);
+      const pinnedSum = pinnedKeys.reduce((a, k) => a + w[k], 0);
+      let remainder = 100 - newVal - pinnedSum;
+      if (remainder < 0) remainder = 0;
+      const next = { ...w, [key]: newVal };
+      if (unpinnedKeys.length === 0) {
+        next[key] = 100 - pinnedSum;
+      } else {
+        const unpinnedOldSum = unpinnedKeys.reduce((a, k) => a + w[k], 0);
+        let assigned = 0;
+        unpinnedKeys.forEach(k => {
+          const share = unpinnedOldSum > 0 ? Math.round((w[k] / unpinnedOldSum) * remainder) : Math.round(remainder / unpinnedKeys.length);
+          next[k] = share; assigned += share;
+        });
+        const diff = remainder - assigned;
+        if (diff !== 0) next[unpinnedKeys[unpinnedKeys.length - 1]] += diff;
+      }
+      return { postForm: { ...s.postForm, weights: next } };
+    });
+  };
+  togglePinWeight = (key) => (e) => { e && e.preventDefault(); this.setState(s => ({ postForm: { ...s.postForm, pinned: { ...(s.postForm.pinned || {}), [key]: !(s.postForm.pinned || {})[key] } } })); };
+  resetWeights = (e) => { e && e.preventDefault(); this.setState(s => ({ postForm: { ...s.postForm, weights: { skills: 40, experience: 30, semantic: 20, education: 10 }, pinned: {} } })); };
+  repostJob = (job) => (e) => {
+    e && e.preventDefault();
+    this.setState(s => ({ postForm: { ...s.postForm, title: job.title, description: job.description, education: job.requiredEducationLevel, years: String(job.requiredExperienceYears), reqSkills: [...job.requiredSkills], prefSkills: [...job.preferredSkills] } }));
+  };
+  setQualifiedTab = () => this.setState({ matchTab: 'qualified' });
+  setUnqualifiedTab = () => this.setState({ matchTab: 'unqualified' });
+  submitPost = (e) => {
+    e && e.preventDefault();
+    const f = this.state.postForm;
+    if (!f.title.trim() || !f.description.trim()) return;
+    const id = 'j' + (JOBS.length + 1);
+    JOBS.push({ id, title: f.title.trim(), description: f.description.trim(), requiredSkills: f.reqSkills, preferredSkills: f.prefSkills, requiredEducationLevel: f.education, requiredExperienceYears: parseInt(f.years || '0'), isOpen: true, postedDaysAgo: 0, applicantCount: 0 });
+    JOBS[JOBS.length - 1].ownPosting = true;
+    this.setState({ screen: 'jobs', postForm: { title: '', description: '', education: 'any', years: '', reqSkills: [], reqDraft: '', prefSkills: [], prefDraft: '', weights: { skills: 40, experience: 30, semantic: 20, education: 10 } } });
+  };
+  setBatchTargetJob = () => this.setState({ batchTarget: 'job' });
+  setBatchTargetCriteria = () => this.setState({ batchTarget: 'criteria' });
+  setCriteriaField = (field) => (e) => this.setState(s => ({ criteriaForm: { ...s.criteriaForm, [field]: e.target.value } }));
+  addCriteriaSkill = (e) => {
+    e && e.preventDefault();
+    const v = this.state.criteriaForm.draft.trim();
+    if (v) this.setState(s => ({ criteriaForm: { ...s.criteriaForm, skills: [...s.criteriaForm.skills, v], draft: '' } }));
+  };
+  onCriteriaKeyDown = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.addCriteriaSkill(e); } };
+  removeCriteriaSkill = (v) => (e) => { e && e.preventDefault(); this.setState(s => ({ criteriaForm: { ...s.criteriaForm, skills: s.criteriaForm.skills.filter(x => x !== v) } })); };
+
+  setNotif = (field, val) => (e) => { if (e.target.checked) this.setState({ [field]: val }); };
+  setSensitivity = (label) => (e) => { if (e.target.checked) this.setState({ sensitivity: label }); };
+  toggleIntegration = (name) => (e) => { e && e.preventDefault(); this.setState(s => ({ integrations: { ...s.integrations, [name]: !s.integrations[name] } })); };
+
+  renderVals() {
+    const s = this.state;
+    const density = this.props.layoutDensity ?? 'comfortable';
+    const showAccents = this.props.showScoreAccents ?? true;
+    const rootClass = (density === 'compact' ? 'compact-density ' : '') + (showAccents ? '' : 'hide-accents');
+    const rootStyle = 'min-height:100vh;background:var(--color-bg);color:var(--color-text);';
+    const active = { color: 'var(--color-accent-700)', fontWeight: 600, background: 'var(--color-accent-100)' };
+    const inactive = {};
+
+    const candidateTabs = [{ key: 'jobs', label: 'Browse Jobs' }, { key: 'applications', label: 'My Applications' }, { key: 'profile', label: 'Profile' }, { key: 'resume', label: 'Resume' }];
+    const recruiterTabs = [{ key: 'dashboard', label: 'Dashboard' }, { key: 'jobs', label: 'My Jobs' }, { key: 'post', label: 'Post a Job' }, { key: 'pipeline', label: 'Pipeline' }, { key: 'analytics', label: 'Analytics' }];
+    const tabDefs = s.role === 'candidate' ? candidateTabs : recruiterTabs;
+    const topLevelScreens = s.role === 'candidate' ? ['jobs', 'applications', 'profile', 'resume'] : ['dashboard', 'jobs', 'post', 'pipeline', 'analytics'];
+    const activeTopScreen = topLevelScreens.includes(s.screen) ? s.screen : (s.screen === 'jobDetail' || s.screen === 'resumeBuilder' ? (s.screen === 'jobDetail' ? 'jobs' : 'profile') : (s.screen === 'matches' || s.screen === 'candidateDetail' || s.screen === 'batchUpload' ? 'jobs' : s.screen));
+    const navTabs = tabDefs.map(t => ({ label: t.label, style: (activeTopScreen === t.key && !s.settingsOpen) ? active : inactive, onClick: this.setScreen(t.key) }));
+
+    const selectedJob = JOBS.find(j => j.id === s.selectedJobId) || JOBS[0];
+    const detailJobRaw = JOBS.find(j => j.id === s.detailJobId);
+    const applyConfirmJobRaw = JOBS.find(j => j.id === s.applyConfirmJobId);
+    const matchListRaw = MATCHES[s.selectedJobId] || [];
+    const selectedMatch = matchListRaw.find(m => m.id === s.selectedMatchId) || matchListRaw[0];
+    const batchJob = JOBS.find(j => j.id === s.batchJobId) || JOBS[0];
+
+    const bandLabel = (v) => v >= 0.85 ? 'Strong match' : v >= 0.70 ? 'Possible match' : v >= 0.50 ? 'Weak match' : 'Poor match';
+    const j1Matches = MATCHES.j1 || [];
+    const reviewQueueRaw = j1Matches.filter(m => !m.shortlisted);
+    const reviewQueue = reviewQueueRaw.map(m => {
+      const action = m.totalScore >= 0.85 ? 'Shortlist' : (m.missingSkills.length <= 1 ? 'Review & decide' : 'Needs manual review');
+      return {
+        name: m.name, role: 'Senior Frontend Engineer',
+        matchLabel: pct(m.totalScore), matchColor: tierBarColor(m.totalScore), bandLabel: bandLabel(m.totalScore),
+        missingLabel: m.missingSkills.length ? m.missingSkills.join(', ') : 'None',
+        action, actionTagClass: action === 'Shortlist' ? 'tag-accent' : action === 'Review & decide' ? 'tag-warning' : 'tag-danger',
+        open: this.openCandidateDetail('j1', m.id),
+      };
+    });
+    const roleHealth = JOBS.filter(j => j.isOpen).map(j => {
+      const strongMatches = j.id === 'j1' ? j1Matches.filter(m => m.totalScore >= 0.85).length : Math.max(1, Math.round(j.applicantCount * 0.15));
+      const hasShortlist = j.id === 'j1' ? j1Matches.some(m => m.shortlisted) : false;
+      const agingCount = j.postedDaysAgo >= 7 ? Math.max(1, Math.round(j.applicantCount * 0.12)) : 0;
+      return {
+        title: j.title, applicantLabel: j.applicantCount + ' applicants',
+        strongLabel: strongMatches + ' strong match' + (strongMatches === 1 ? '' : 'es'), strongTagClass: strongMatches > 0 ? 'tag-accent' : 'tag-neutral',
+        hasAging: agingCount > 0, agingLabel: agingCount + ' pending 5+ days',
+        noShortlist: !hasShortlist,
+        view: this.viewMatches(j.id),
+      };
+    });
+    const highFitWaiting = j1Matches.filter(m => m.totalScore >= 0.85 && !m.shortlisted).length;
+    const rolesNoShortlist = roleHealth.filter(rh => rh.noShortlist).length;
+
+    return {
+      rootClass, rootStyle,
+      isAuth: s.stage === 'auth', isRoleChoice: s.stage === 'roleChoice', isApp: s.stage === 'app',
+      isLoginTab: s.authTab === 'login', isRegisterTab: s.authTab === 'register',
+      setAuthTabLogin: this.setAuthTabLogin, setAuthTabRegister: this.setAuthTabRegister,
+      isSignupCandidate: s.signupRole === 'candidate', isSignupRecruiter: s.signupRole === 'recruiter',
+      setSignupRoleCandidate: this.setSignupRoleCandidate, setSignupRoleRecruiter: this.setSignupRoleRecruiter,
+      submitAuth: this.submitAuth,
+      authSubmitLabel: s.authTab === 'login' ? 'Sign in' : 'Create account',
+      roleChoices: [
+        { label: 'Candidate', notifCount: 2, select: this.chooseRole('candidate') },
+        { label: 'Recruiter', notifCount: 5, select: this.chooseRole('recruiter') },
+      ],
+      goRoleChoice: this.goRoleChoice,
+      roleLabel: s.role === 'candidate' ? 'Candidate' : 'Recruiter',
+      isRoleCandidateActive: s.role === 'candidate', isRoleRecruiterActive: s.role === 'recruiter',
+      isDualRole: true,
+      switchToCandidate: this.switchRole('candidate'), switchToRecruiter: this.switchRole('recruiter'),
+      accountName: s.role === 'candidate' ? myProfile.fullName.split(' ')[0] : 'Alex',
+      accountInitials: initialsOf(s.role === 'candidate' ? myProfile.fullName : 'Alex Rivera'),
+      navTabs,
+      signOut: this.signOut, openSettings: this.openSettings, closeSettings: this.closeSettings,
+
+      showJobSelector: s.role === 'recruiter' && (s.screen === 'pipeline' || s.screen === 'analytics'),
+      jobOptions: JOBS.map(j => ({ id: j.id, title: j.title })),
+      selectedJobId: s.selectedJobId, setSelectedJobId: this.setSelectedJobId,
+
+      isSettings: s.settingsOpen, isRoleRecruiter: s.role === 'recruiter',
+      settingsName: s.role === 'candidate' ? myProfile.fullName : 'Alex Rivera',
+      settingsEmail: s.role === 'candidate' ? myProfile.email : 'alex.rivera@hiresignal.com',
+      googleConnected: s.googleConnected,
+      googleStatusLabel: s.googleConnected ? 'Connected — signing in and calendar sync enabled' : 'Not connected',
+      googleBtnClass: s.googleConnected ? 'btn btn-secondary blueprint' : 'btn btn-primary blueprint',
+      googleBtnLabel: s.googleConnected ? 'Disconnect' : 'Connect',
+      toggleGoogle: this.toggleGoogle,
+      notifRows: [
+        { label: 'New applicant alerts', onChecked: s.notifApplicant, offChecked: !s.notifApplicant, onOn: this.setNotif('notifApplicant', true), onOff: this.setNotif('notifApplicant', false) },
+        { label: 'Weekly digest email', onChecked: s.notifDigest, offChecked: !s.notifDigest, onOn: this.setNotif('notifDigest', true), onOff: this.setNotif('notifDigest', false) },
+      ],
+      sensitivityOptions: ['Strict', 'Balanced', 'Lenient'].map(label => ({ label, checked: s.sensitivity === label, onSelect: this.setSensitivity(label) })),
+      integrations: ['Slack', 'Google Calendar', 'ATS Webhook'].map(name => ({
+        name, desc: name === 'Slack' ? 'Post new applicants to a channel' : name === 'Google Calendar' ? 'Sync interview schedules' : 'Push match results to your ATS',
+        btnLabel: s.integrations[name] ? 'Disconnect' : 'Connect',
+        btnClass: s.integrations[name] ? 'btn btn-secondary blueprint' : 'btn btn-primary blueprint',
+        onToggle: this.toggleIntegration(name),
+      })),
+      isDeleteConfirmOpen: s.deleteConfirmOpen, openDeleteConfirm: this.openDeleteConfirm, closeDeleteConfirm: this.closeDeleteConfirm, confirmDelete: this.confirmDelete,
+      downloadData: this.downloadData, stopClick: this.stopClick,
+
+      isCJobs: !s.settingsOpen && s.role === 'candidate' && s.screen === 'jobs',
+      openJobCount: JOBS.filter(j => j.isOpen).length,
+      browseJobs: JOBS.filter(j => j.isOpen).map(job => {
+        const applied = s.appliedJobIds.includes(job.id);
+        return {
+          title: job.title, descriptionShort: job.description, skillTags: job.requiredSkills.slice(0, 4),
+          metaLabel: (job.requiredEducationLevel === 'any' ? 'Any education' : job.requiredEducationLevel) + ' · ' + job.requiredExperienceYears + '+ yrs',
+          appliedTagClass: applied ? 'tag-accent' : 'tag-outline', appliedLabel: applied ? 'Applied' : 'Open',
+          canApply: !applied && !job.ownPosting, isOwnPosting: !!job.ownPosting, viewDetail: this.openJobDetail(job.id), openApply: this.openApplyConfirm(job.id),
+        };
+      }),
+
+      isCJobDetail: !s.settingsOpen && s.role === 'candidate' && s.screen === 'jobDetail' && !!detailJobRaw,
+      backToBrowse: this.backToBrowse,
+      detailJob: detailJobRaw ? {
+        title: detailJobRaw.title, description: detailJobRaw.description, requiredSkills: detailJobRaw.requiredSkills, preferredSkills: detailJobRaw.preferredSkills,
+        metaLabel: (detailJobRaw.requiredEducationLevel === 'any' ? 'Any education' : detailJobRaw.requiredEducationLevel) + ' · ' + detailJobRaw.requiredExperienceYears + '+ years · posted ' + fmtDaysAgo(detailJobRaw.postedDaysAgo),
+        canApply: !s.appliedJobIds.includes(detailJobRaw.id) && !detailJobRaw.ownPosting, isOwnPosting: !!detailJobRaw.ownPosting, alreadyApplied: s.appliedJobIds.includes(detailJobRaw.id), openApply: this.openApplyConfirm(detailJobRaw.id),
+      } : { title: '', description: '', requiredSkills: [], preferredSkills: [], metaLabel: '', canApply: false, isOwnPosting: false, alreadyApplied: false, openApply: () => {} },
+
+      isApplyConfirmOpen: !!applyConfirmJobRaw,
+      applyConfirmJobTitle: applyConfirmJobRaw ? applyConfirmJobRaw.title : '',
+      closeApplyConfirm: this.closeApplyConfirm, confirmApply: this.confirmApply,
+
+      isCApplications: !s.settingsOpen && s.role === 'candidate' && s.screen === 'applications',
+      myApplications: myApplications.map(a => ({
+        jobTitle: a.jobTitle, appliedLabel: fmtDaysAgo(a.appliedDaysAgo),
+        statusLabel: a.status.charAt(0).toUpperCase() + a.status.slice(1),
+        statusTagClass: a.status === 'shortlisted' ? 'tag-accent' : a.status === 'reviewed' ? 'tag-outline' : 'tag-neutral',
+      })),
+
+      isCProfile: !s.settingsOpen && s.role === 'candidate' && s.screen === 'profile',
+      skillsEditing: s.skillsEditing, skillsEditLabel: s.skillsEditing ? 'Done' : 'Edit skills',
+      toggleSkillsEdit: this.toggleSkillsEdit, skillDraft: s.skillDraft, setSkillDraft: this.setSkillDraft, addSkill: this.addSkill, onSkillDraftKeyDown: this.onSkillDraftKeyDown,
+      goResumeBuilder: this.goResumeBuilder,
+      profile: {
+        initials: initialsOf(myProfile.fullName), fullName: myProfile.fullName,
+        email: myProfile.email, location: myProfile.location,
+        yearsLabel: myProfile.yearsExperience + ' yrs', educationLabel: myProfile.educationLevel,
+        skills: myProfile.skills.map(sk => ({ label: sk, editable: s.skillsEditing, remove: this.removeSkill(sk) })),
+        certifications: myProfile.certifications.map(c => ({ label: c, editable: s.certsEditing, remove: this.removeCert(c) })),
+        experience: myProfile.experience.map(e => ({ role: e.role, company: e.company, years: e.startYear + ' — ' + (e.endYear || 'Present') })),
+        education: myProfile.education.map(e => ({ degree: e.degree, institution: e.institution, years: e.startYear + ' — ' + (e.endYear || 'Present') })),
+      },
+      certsEditing: s.certsEditing, certsEditLabel: s.certsEditing ? 'Done' : 'Edit certifications',
+      toggleCertsEdit: this.toggleCertsEdit, certDraft: s.certDraft, setCertDraft: this.setCertDraft, addCert: this.addCert, onCertDraftKeyDown: this.onCertDraftKeyDown,
+
+      isCResumeBuilder: !s.settingsOpen && s.role === 'candidate' && s.screen === 'resumeBuilder',
+      backToProfile: this.backToProfile,
+      resumeTemplates: RESUME_TEMPLATES.map(t => ({ label: t.label, checked: s.resumeTemplate === t.id, select: this.selectTemplate(t.id) })),
+      isTemplateModern: s.resumeTemplate === 'modern', isTemplateClassic: s.resumeTemplate === 'classic', isTemplateCompact: s.resumeTemplate === 'compact',
+      resumePreviewStyle: s.resumeTemplate === 'classic' ? 'font-family:var(--font-heading);padding:var(--space-6);' : s.resumeTemplate === 'compact' ? 'padding:var(--space-3);font-size:13px;' : 'padding:var(--space-6);',
+      downloadResume: this.downloadResume, downloadLabel: s.resumeDownloaded ? 'Downloaded ✓' : 'Download PDF',
+
+      isCResume: !s.settingsOpen && s.role === 'candidate' && s.screen === 'resume',
+      isUploadIdle: s.resumeUploadStep === 'idle' && resumeLibrary.length < 5, isUploadAtCap: s.resumeUploadStep === 'idle' && resumeLibrary.length >= 5, isUploadParsing: s.resumeUploadStep === 'parsing',
+      uploadingFileName: s.uploadingFileName,
+      startUploadLocal: this.startUpload('local'), startUploadDrive: this.startUpload('drive'),
+      resumeLibraryCountLabel: resumeLibrary.length + ' / 5 saved',
+      resumeLibrary: resumeLibrary.map(r => ({
+        fileName: r.fileName, isDefault: r.isDefault, canSetDefault: !r.isDefault,
+        metaLabel: r.sizeKb + ' KB · uploaded ' + fmtDaysAgo(r.uploadedDaysAgo) + ' · Parsed ✓',
+        setDefault: this.setResumeDefault(r.id), delete: this.deleteResume(r.id),
+      })),
+      resumeOptions: resumeLibrary.map(r => ({ id: r.id, label: r.fileName + (r.isDefault ? ' (default)' : '') })),
+      applyResumeId: s.applyResumeId, setApplyResumeId: this.setApplyResumeId,
+
+      isRDashboard: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'dashboard',
+      todayItems: [
+        { value: String(reviewQueue.length), label: reviewQueue.length === 1 ? 'candidate needs review' : 'candidates need review', color: 'var(--color-neutral-900)' },
+        { value: String(highFitWaiting), label: highFitWaiting === 1 ? 'high-fit candidate is waiting' : 'high-fit candidates are waiting', color: 'var(--color-accent-700)' },
+        { value: String(rolesNoShortlist), label: rolesNoShortlist === 1 ? 'role has no shortlist' : 'roles have no shortlist', color: '#b45309' },
+      ],
+      reviewQueue, roleHealth,
+
+      isRJobs: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'jobs',
+      jobStatsLabel: JOBS.filter(j => j.isOpen).length + ' open · ' + JOBS.filter(j => !j.isOpen).length + ' closed',
+      goPost: this.goPost, goBatchUpload: this.goBatchUpload,
+      recruiterJobs: JOBS.map(job => ({
+        title: job.title, descriptionShort: job.description, skillTags: job.requiredSkills.slice(0, 4),
+        statusLabel: job.isOpen ? 'Open' : 'Closed', statusTagClass: job.isOpen ? 'tag-accent' : 'tag-neutral',
+        metaLabel: job.applicantCount + ' applicants · posted ' + fmtDaysAgo(job.postedDaysAgo),
+        viewMatches: this.viewMatches(job.id), runMatch: this.runMatch(job.id),
+        runMatchLabel: MATCHES[job.id] ? 'View AI matches' : 'Run AI match',
+      })),
+
+      isRBatchUpload: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'batchUpload',
+      isBatchTargetJob: s.batchTarget === 'job', isBatchTargetCriteria: s.batchTarget === 'criteria',
+      setBatchTargetJob: this.setBatchTargetJob, setBatchTargetCriteria: this.setBatchTargetCriteria,
+      criteriaForm: {
+        title: s.criteriaForm.title, education: s.criteriaForm.education, years: s.criteriaForm.years, draft: s.criteriaForm.draft,
+        skillChips: s.criteriaForm.skills.map(v => ({ label: v, remove: this.removeCriteriaSkill(v) })),
+        setTitle: this.setCriteriaField('title'), setEducation: this.setCriteriaField('education'), setYears: this.setCriteriaField('years'), setDraft: this.setCriteriaField('draft'),
+        addSkill: this.addCriteriaSkill, onKeyDown: this.onCriteriaKeyDown,
+      },
+      batchJobId: s.batchJobId, setBatchJobId: this.setBatchJobId,
+      isBatchIdle: s.batchStep === 'idle', isBatchProcessing: s.batchStep === 'processing', isBatchDone: s.batchStep === 'done',
+      startBatch: this.startBatch,
+      batchFiles: BATCH_NAME_POOL.map(n => ({ name: n.toLowerCase().replace(' ', '_') + '_resume.pdf' })),
+
+      isRPost: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'post',
+      postForm: {
+        title: s.postForm.title, description: s.postForm.description, education: s.postForm.education, years: s.postForm.years,
+        reqDraft: s.postForm.reqDraft, prefDraft: s.postForm.prefDraft,
+        reqSkillChips: s.postForm.reqSkills.map(v => ({ label: v, remove: this.removeReqSkill(v) })),
+        prefSkillChips: s.postForm.prefSkills.map(v => ({ label: v, remove: this.removePrefSkill(v) })),
+        setTitle: this.setPostField('title'), setDescription: this.setPostField('description'), setEducation: this.setPostField('education'), setYears: this.setPostField('years'),
+        setReqDraft: this.setPostField('reqDraft'), setPrefDraft: this.setPostField('prefDraft'),
+        addReqSkill: this.addReqSkill, onReqKeyDown: this.onReqKeyDown, addPrefSkill: this.addPrefSkill, onPrefKeyDown: this.onPrefKeyDown,
+        submit: this.submitPost, resetWeights: this.resetWeights,
+        weightRows: [
+          { key: 'skills', label: 'Skills' }, { key: 'experience', label: 'Experience' },
+          { key: 'semantic', label: 'Semantic' }, { key: 'education', label: 'Education' },
+        ].map(w => ({ label: w.label, value: s.postForm.weights[w.key], valueLabel: s.postForm.weights[w.key] + '%', pinned: !!(s.postForm.pinned || {})[w.key], pinLabel: (s.postForm.pinned || {})[w.key] ? 'Unpin' : 'Pin', sliderColor: (s.postForm.pinned || {})[w.key] ? 'var(--color-accent-900)' : 'var(--color-accent-500)', onChange: this.setWeight(w.key), togglePin: this.togglePinWeight(w.key) })),
+        weightSumLabel: 'Total: ' + Object.values(s.postForm.weights).reduce((a, b) => a + b, 0) + '%',
+      },
+      recentPostings: JOBS.slice(0, 3).map(j => ({ title: j.title, metaLabel: (j.isOpen ? 'Open' : 'Closed') + ' · posted ' + fmtDaysAgo(j.postedDaysAgo), repost: this.repostJob(j) })),
+
+      isRMatches: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'matches',
+      matchJob: { title: selectedJob.title },
+      hasMatches: matchListRaw.length > 0,
+      noMatchesYet: matchListRaw.length === 0 && !s.matchingJobIds.includes(s.selectedJobId),
+      isMatching: s.matchingJobIds.includes(s.selectedJobId),
+      rerunMatch: this.rerunMatch, goJobsList: this.goJobsList,
+      isQualifiedTab: s.matchTab === 'qualified', isUnqualifiedTab: s.matchTab === 'unqualified',
+      setQualifiedTab: this.setQualifiedTab, setUnqualifiedTab: this.setUnqualifiedTab,
+      showQualifiedList: matchListRaw.length > 0 && s.matchTab === 'qualified',
+      showUnqualifiedList: matchListRaw.length > 0 && s.matchTab === 'unqualified',
+      qualifiedCount: matchListRaw.filter(m => !isHardDisqualified(m, selectedJob)).length,
+      unqualifiedCount: matchListRaw.filter(m => isHardDisqualified(m, selectedJob)).length,
+      matchResults: matchListRaw.filter(m => !isHardDisqualified(m, selectedJob)).map((m, i) => ({
+        rank: i + 1, initials: initialsOf(m.name), name: m.name, scoreLabel: pct(m.totalScore), scoreWidth: pct(m.totalScore), barColor: tierBarColor(m.totalScore),
+        metaLabel: m.educationLevel + ' · ' + m.yearsExperience + ' yrs exp', reason: m.reasons[0],
+        shortlistBtnClass: m.shortlisted ? 'btn btn-primary blueprint' : 'btn btn-secondary blueprint',
+        shortlistLabel: m.shortlisted ? '★ Shortlisted' : 'Shortlist',
+        toggleShortlist: this.toggleShortlist(s.selectedJobId, m.id),
+        open: this.openCandidateDetail(s.selectedJobId, m.id),
+      })),
+      unqualifiedResults: matchListRaw.filter(m => isHardDisqualified(m, selectedJob)).map(m => ({
+        initials: initialsOf(m.name), name: m.name,
+        disqualifyReason: disqualifyReason(m, selectedJob),
+        open: this.openCandidateDetail(s.selectedJobId, m.id),
+      })),
+
+      isRCandidateDetail: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'candidateDetail' && !!selectedMatch,
+      backToMatches: this.backToMatches,
+      candDetail: selectedMatch ? {
+        initials: initialsOf(selectedMatch.name), name: selectedMatch.name,
+        metaLabel: selectedMatch.educationLevel + ' · ' + selectedMatch.yearsExperience + ' yrs exp applying to ' + selectedJob.title,
+        email: selectedMatch.email, phone: selectedMatch.phone, yearsExperience: selectedMatch.yearsExperience, educationLevel: selectedMatch.educationLevel,
+        matchedSkills: selectedMatch.matchedSkills, missingSkills: selectedMatch.missingSkills,
+        scoreLabel: pct(selectedMatch.totalScore),
+        breakdown: Object.entries(selectedMatch.breakdown).map(([k, v]) => ({ label: k.charAt(0).toUpperCase() + k.slice(1), valueLabel: pct(v), ringColor: tierBarColor(v), dashArray: ringDash(v) })),
+        reasons: selectedMatch.reasons, explanation: selectedMatch.explanation,
+        shortlistBtnClass: selectedMatch.shortlisted ? 'btn btn-primary blueprint' : 'btn btn-secondary blueprint',
+        shortlistLabel: selectedMatch.shortlisted ? '★ Shortlisted' : 'Shortlist candidate',
+        toggleShortlist: this.toggleShortlist(s.selectedJobId, selectedMatch.id),
+      } : { initials: '', name: '', metaLabel: '', email: '', phone: '', yearsExperience: '', educationLevel: '', matchedSkills: [], missingSkills: [], scoreLabel: '', breakdown: [], reasons: [], explanation: '', shortlistBtnClass: 'btn btn-secondary blueprint', shortlistLabel: '', toggleShortlist: () => {} },
+
+      isRPipeline: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'pipeline',
+      pipelineJobLabel: selectedJob.title,
+      isPipelineBoard: s.pipelineView === 'board', isPipelineTable: s.pipelineView === 'table',
+      setPipelineBoard: this.setPipelineBoard, setPipelineTable: this.setPipelineTable,
+      pipelineColumns: (() => {
+        const stages = [{ key: 'pending', label: 'Pending' }, { key: 'reviewed', label: 'Reviewed' }, { key: 'shortlisted', label: 'Shortlisted' }, { key: 'rejected', label: 'Rejected' }];
+        const order = stages.map(x => x.key);
+        const scored = matchListRaw.map(m => ({ name: m.name, score: m.totalScore, stage: m.stage, id: m.id, sourced: false }));
+        const unscored = (PIPELINE_UNSCORED[s.selectedJobId] || []).map(p => ({ name: p.name, score: 0, stage: 'pending', id: null, sourced: true }));
+        const all = [...scored, ...unscored];
+        return stages.map(st => ({
+          label: st.label, count: all.filter(c => c.stage === st.key).length,
+          cards: all.filter(c => c.stage === st.key).map(c => ({
+            name: c.name, sourced: c.sourced, scoreLabel: c.id ? pct(c.score) + ' match' : 'Not yet scored', scoreWidth: c.id ? pct(c.score) : '0%', barColor: c.id ? tierBarColor(c.score) : 'var(--color-neutral-300)',
+            canAdvance: !!c.id && st.key !== 'rejected',
+            nextLabel: order[Math.min(order.indexOf(st.key) + 1, order.length - 1)],
+            advance: c.id ? this.advanceStage(s.selectedJobId, c.id) : () => {},
+          })),
+        }));
+      })(),
+      pipelineTotalLabel: (() => {
+        const n = matchListRaw.length + (PIPELINE_UNSCORED[s.selectedJobId] || []).length;
+        return n + ' candidate' + (n === 1 ? '' : 's') + ' in pipeline';
+      })(),
+      tableStageFilter: s.tableStageFilter, setTableStageFilter: this.setTableStageFilter,
+      tableSourcedOnly: s.tableSourcedOnly, toggleTableSourcedOnly: this.toggleTableSourcedOnly,
+      tableSortLabel: s.tableSortDesc ? 'High to low' : 'Low to high', toggleTableSort: this.toggleTableSort,
+      tableRows: (() => {
+        const order = ['pending', 'reviewed', 'shortlisted', 'rejected'];
+        const stageLabels = { pending: 'Pending', reviewed: 'Reviewed', shortlisted: 'Shortlisted', rejected: 'Rejected' };
+        const stageTagClasses = { pending: 'tag-outline', reviewed: 'tag-outline', shortlisted: 'tag-accent', rejected: 'tag-neutral' };
+        let rows = [
+          ...matchListRaw.map(m => ({ id: m.id, name: m.name, score: m.totalScore, stage: m.stage, sourced: false })),
+          ...(PIPELINE_UNSCORED[s.selectedJobId] || []).map((p, i) => ({ id: 'u' + i, name: p.name, score: -1, stage: 'pending', sourced: true })),
+        ];
+        if (s.tableStageFilter !== 'all') rows = rows.filter(r => r.stage === s.tableStageFilter);
+        if (s.tableSourcedOnly) rows = rows.filter(r => r.sourced);
+        rows.sort((a, b) => s.tableSortDesc ? b.score - a.score : a.score - b.score);
+        this._lastTableRowIds = rows.map(r => r.id);
+        return rows.map(r => ({
+          name: r.name, sourced: r.sourced, scoreLabel: r.score < 0 ? 'Not scored' : pct(r.score),
+          stageLabel: stageLabels[r.stage], stageTagClass: stageTagClasses[r.stage],
+          canAdvance: !r.sourced && r.stage !== 'rejected',
+          advance: r.sourced ? () => {} : this.advanceStage(s.selectedJobId, r.id),
+          selected: s.tableSelected.includes(r.id), toggleSelect: this.toggleRowSelect(r.id),
+        }));
+      })(),
+      hasTableSelection: s.tableSelected.length > 0, selectedCount: s.tableSelected.length,
+      allSelected: (this._lastTableRowIds || []).length > 0 && s.tableSelected.length === (this._lastTableRowIds || []).length,
+      toggleSelectAll: this.toggleSelectAll, bulkAdvance: this.bulkAdvance,
+
+      isRAnalytics: !s.settingsOpen && s.role === 'recruiter' && s.screen === 'analytics',
+      analyticsJobLabel: selectedJob.title,
+      analyticsStats: [
+        { label: 'Total jobs', value: String(JOBS.length) },
+        { label: 'Applicants this month', value: String(JOBS.reduce((a, j) => a + j.applicantCount, 0)) },
+        { label: 'Avg. time to shortlist', value: '6.2 hrs' },
+        { label: 'Avg. match score', value: '83%' },
+      ],
+      jobBars: (() => {
+        const max = Math.max(...JOBS.map(j => j.applicantCount), 1);
+        return JOBS.map(j => ({ label: j.title, count: j.applicantCount, width: pct(j.applicantCount / max) }));
+      })(),
+      scoreBuckets: [
+        { label: '0–40%', count: 2, barHeight: '20%' }, { label: '40–70%', count: 6, barHeight: '55%' },
+        { label: '70–90%', count: 11, barHeight: '85%' }, { label: '90–100%', count: 4, barHeight: '45%' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>
