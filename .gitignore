@@ -10,6 +10,7 @@ extras/
 .agents/
 .codex/
 .qodo/
+.claude/
 __pycache__/
 *.pyc
 ai-service/env/
