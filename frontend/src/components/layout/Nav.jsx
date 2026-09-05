@@ -6,6 +6,8 @@ import { useAuth } from "../../context/AuthContext";
 export default function Nav({ onContactClick }) {
   const { user, logout } = useAuth();
   const isRecruiter = user?.role === "recruiter";
+  const isAdmin = user?.role === "admin";
+  const roleLabel = isAdmin ? "Admin" : isRecruiter ? "Recruiter" : "Candidate";
 
   return (
     <nav
@@ -61,7 +63,7 @@ export default function Nav({ onContactClick }) {
               fontWeight: 500,
             }}
           >
-            {isRecruiter ? "Recruiter" : "Candidate"}
+            {roleLabel}
           </span>
         )}
       </div>

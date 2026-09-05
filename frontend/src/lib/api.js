@@ -87,6 +87,9 @@ export async function apiCall(method, path, body = null, token = null, isForm = 
             if (logoutCallback) {
               logoutCallback();
             }
+            // Wake up every request that queued behind this refresh — otherwise
+            // their promises never resolve and the UI hangs on a spinner forever.
+            onRefreshed(null);
             return { success: false, status: 401, message: "Session expired. Please log in again." };
           }
         } catch (refreshErr) {
@@ -94,12 +97,17 @@ export async function apiCall(method, path, body = null, token = null, isForm = 
           if (logoutCallback) {
             logoutCallback();
           }
+          onRefreshed(null);
           return { success: false, status: 401, message: "Network error during token refresh." };
         }
       }
 
       return new Promise((resolve) => {
         subscribeTokenRefresh((newToken) => {
+          if (!newToken) {
+            resolve({ success: false, status: 401, message: "Session expired. Please log in again." });
+            return;
+          }
           const retryHeaders = { ...headers, Authorization: `Bearer ${newToken}` };
           resolve(
             fetch(API_BASE + path, {
@@ -142,6 +150,17 @@ export const toggleShortlist = (jobId, matchId, shortlisted, token) =>
   apiCall("PATCH", `/jobs/${jobId}/matches/${matchId}`, { shortlisted }, token);
 export const closeJob = (jobId, isOpen, token) =>
   apiCall("PATCH", `/jobs/${jobId}`, { isOpen }, token);
+
+export const getAdminUsers = (token, cursor = null) =>
+  apiCall("GET", `/admin/users` + (cursor ? `?cursor=${cursor}` : ""), null, token);
+export const deactivateAdminUser = (userId, isDeleted, token) =>
+  apiCall("PATCH", `/admin/users/${userId}/deactivate`, { isDeleted }, token);
+export const getAdminJobs = (token, cursor = null) =>
+  apiCall("GET", `/admin/jobs` + (cursor ? `?cursor=${cursor}` : ""), null, token);
+export const getAdminStats = (token) => apiCall("GET", "/admin/stats", null, token);
+export const getAdminSettings = (token) => apiCall("GET", "/admin/settings", null, token);
+export const updateAdminSettings = (defaultWeights, token) =>
+  apiCall("PATCH", "/admin/settings", { defaultWeights }, token);
 
 export const verifyEmail = (token) => apiCall("GET", `/auth/verify-email?token=${token}`);
 export const resendVerification = (email) => apiCall("POST", "/auth/resend-verification", { email });

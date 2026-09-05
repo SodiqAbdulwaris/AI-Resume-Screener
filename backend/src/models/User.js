@@ -21,9 +21,11 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['candidate', 'recruiter'],
+      enum: ['candidate', 'recruiter', 'admin'],
       required: true,
     },
+    // Set true by an admin deactivating an account (POST /admin/users/:id/deactivate).
+    // Deliberately not self-assignable — no route lets a user set this on themselves.
     isDeleted: {
       type: Boolean,
       default: false,

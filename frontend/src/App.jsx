@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import AuthPage from "./pages/AuthPage";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import ContactPage from "./pages/ContactPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
@@ -78,6 +79,15 @@ function AppRoutes() {
         </Routes>
         {showContact && <ContactPage onClose={() => setShowContact(false)} />}
       </>
+    );
+  }
+
+  // ── Admin ──────────────────────────────────────────────────────────────────
+  if (user.role === "admin") {
+    return (
+      <Routes>
+        <Route path="*" element={<AdminDashboard onContactClick={() => setShowContact(true)} />} />
+      </Routes>
     );
   }
 
