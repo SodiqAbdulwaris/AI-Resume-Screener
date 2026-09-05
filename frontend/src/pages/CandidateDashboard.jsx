@@ -1,7 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
-import { COLORS } from "../constants/colors";
-import { s } from "../styles/designSystem";
 import { useAuth } from "../context/AuthContext";
 import { acceptParsedName, cancelApplication, getJobs, getMyApplications, getCandidateProfile, getResume } from "../lib/api";
 import Nav from "../components/layout/Nav";
@@ -98,16 +96,18 @@ export default function CandidateDashboard({ onContactClick }) {
   return (
     <div>
       <Nav onContactClick={onContactClick} />
-      <div style={{ padding: "2rem 2rem 4rem" }}>
+      <div className="px-4 pb-16 pt-6 sm:px-8">
         <PageHeader
           title={`Good to see you, ${user.fullName.split(" ")[0]}.`}
           subtitle="Browse open roles and track your applications."
         />
-        <Tabs tabs={tabDefs} active={activeTab} onChange={handleTabChange} />
+        <div className="overflow-x-auto">
+          <Tabs tabs={tabDefs} active={activeTab} onChange={handleTabChange} />
+        </div>
         {loadingData ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: "1rem" }}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
             {[1, 2, 3].map(i => (
-              <div key={i} style={{ ...s.card, display: "flex", flexDirection: "column", gap: 12 }}>
+              <div key={i} className="flex flex-col gap-3 rounded-[14px] border border-border bg-card p-6">
                 <SkeletonBlock height={18} width="60%" />
                 <SkeletonBlock height={12} />
                 <SkeletonBlock height={12} width="80%" />

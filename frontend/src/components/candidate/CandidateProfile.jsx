@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { PersonIcon, SewingPinIcon } from "@radix-ui/react-icons";
-import { COLORS } from "../../constants/colors";
-import { s } from "../../styles/designSystem";
 import Avatar from "../ui/Avatar";
 import Alert from "../ui/Alert";
 import Btn from "../ui/Btn";
@@ -18,8 +16,8 @@ export default function CandidateProfile() {
 
   if (!profile) {
     return (
-      <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
-        <PersonIcon width={40} height={40} style={{ opacity: 0.3, marginBottom: "1rem" }} />
+      <div className="py-16 text-center text-muted-foreground">
+        <PersonIcon width={40} height={40} className="mx-auto mb-4 opacity-30" />
         <p>Upload your resume to auto-generate your profile.</p>
       </div>
     );
@@ -46,25 +44,25 @@ export default function CandidateProfile() {
   }
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1rem" }}>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {/* Left */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <div style={s.card} className="fade-up">
+      <div className="flex flex-col gap-4">
+        <div className="fade-up rounded-[14px] border border-border bg-card p-6">
           <Alert message={nameError} variant="error" />
           <Alert message={nameMessage} variant="success" />
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.25rem" }}>
+          <div className="mb-5 flex flex-wrap items-center gap-4">
             <Avatar name={accountName} size={52} />
             <div>
-              <div style={{ fontSize: "1rem", fontWeight: 500 }}>{accountName}</div>
-              {showParsedName && <div style={{ fontSize: 12, color: COLORS.text3 }}>Resume name: {parsedName}</div>}
-              <div style={{ fontSize: 13, color: COLORS.text2 }}>{profile.email}</div>
-              {profile.phone && <div style={{ fontSize: 12, color: COLORS.text3 }}>{profile.phone}</div>}
-              {profile.location && <div style={{ fontSize: 12, color: COLORS.text3, display: "flex", alignItems: "center", gap: 4 }}><SewingPinIcon /> {profile.location}</div>}
+              <div className="text-base font-medium">{accountName}</div>
+              {showParsedName && <div className="text-xs text-muted-foreground">Resume name: {parsedName}</div>}
+              <div className="text-[13px] text-muted-foreground">{profile.email}</div>
+              {profile.phone && <div className="text-xs text-muted-foreground">{profile.phone}</div>}
+              {profile.location && <div className="flex items-center gap-1 text-xs text-muted-foreground"><SewingPinIcon /> {profile.location}</div>}
             </div>
           </div>
           {showParsedName && (
-            <div style={{ background: COLORS.bg3, borderRadius: 9, padding: "0.85rem 1rem", marginBottom: "1rem" }}>
-              <div style={{ fontSize: 13, color: COLORS.text2, marginBottom: "0.75rem" }}>
+            <div className="mb-4 rounded-[9px] bg-secondary p-4">
+              <div className="mb-3 text-[13px] text-muted-foreground">
                 Your resume uses a different name. Accept it to update your account name.
               </div>
               <Btn variant="secondary" size="sm" onClick={handleAcceptParsedName} disabled={acceptingName}>
@@ -72,56 +70,60 @@ export default function CandidateProfile() {
               </Btn>
             </div>
           )}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+          <div className="grid grid-cols-2 gap-3">
             <StatCard label="Experience" value={`${profile.yearsExperience || 0} yrs`} />
             <StatCard label="Education" value={profile.educationLevel || "—"} />
           </div>
         </div>
-        <div style={s.card} className="fade-up-2">
-          <div style={s.sectionLabel}>Skills</div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        <div className="fade-up-2 rounded-[14px] border border-border bg-card p-6">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Skills</div>
+          <div className="flex flex-wrap gap-1.5">
             {(profile.skills || []).length
-              ? profile.skills.map((sk) => <span key={sk} style={s.tag}>{sk}</span>)
-              : <span style={{ color: COLORS.text3, fontSize: 13 }}>No skills detected</span>}
+              ? profile.skills.map((sk) => (
+                  <span key={sk} className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">{sk}</span>
+                ))
+              : <span className="text-[13px] text-muted-foreground">No skills detected</span>}
           </div>
         </div>
         {profile.certifications?.length > 0 && (
-          <div style={s.card} className="fade-up-3">
-            <div style={s.sectionLabel}>Certifications</div>
-            {profile.certifications.map((c, i) => <div key={i} style={{ fontSize: 13, color: COLORS.text2, padding: "4px 0" }}>{c}</div>)}
+          <div className="fade-up-3 rounded-[14px] border border-border bg-card p-6">
+            <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Certifications</div>
+            {profile.certifications.map((c, i) => <div key={i} className="py-1 text-[13px] text-muted-foreground">{c}</div>)}
           </div>
         )}
       </div>
       {/* Right */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <div style={s.card} className="fade-up">
-          <div style={s.sectionLabel}>Experience</div>
+      <div className="flex flex-col gap-4">
+        <div className="fade-up rounded-[14px] border border-border bg-card p-6">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Experience</div>
           {(profile.experience || []).length ? profile.experience.map((e, i) => (
-            <div key={i} style={{ background: COLORS.bg3, borderRadius: 9, padding: "0.75rem 1rem", marginBottom: "0.5rem" }}>
-              <div style={{ fontWeight: 500, fontSize: 13 }}>{e.role}</div>
-              <div style={{ fontSize: 12, color: COLORS.text2 }}>{e.company}</div>
-              <div style={{ fontSize: 11, color: COLORS.text3, marginTop: 2 }}>{e.startYear} — {e.endYear || "Present"}</div>
+            <div key={i} className="mb-2 rounded-[9px] bg-secondary p-3">
+              <div className="text-[13px] font-medium">{e.role}</div>
+              <div className="text-xs text-muted-foreground">{e.company}</div>
+              <div className="mt-0.5 text-[11px] text-muted-foreground">{e.startYear} — {e.endYear || "Present"}</div>
             </div>
-          )) : <p style={{ color: COLORS.text3, fontSize: 13 }}>No experience parsed</p>}
+          )) : <p className="text-[13px] text-muted-foreground">No experience parsed</p>}
         </div>
-        <div style={s.card} className="fade-up-2">
-          <div style={s.sectionLabel}>Education</div>
+        <div className="fade-up-2 rounded-[14px] border border-border bg-card p-6">
+          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Education</div>
           {(profile.education || []).length ? profile.education.map((e, i) => (
-            <div key={i} style={{ background: COLORS.bg3, borderRadius: 9, padding: "0.75rem 1rem", marginBottom: "0.5rem" }}>
-              <div style={{ fontWeight: 500, fontSize: 13 }}>{e.degree}</div>
-              <div style={{ fontSize: 12, color: COLORS.text2 }}>{e.institution}</div>
-              <div style={{ fontSize: 11, color: COLORS.text3, marginTop: 2 }}>{e.startYear} — {e.endYear || "Present"}</div>
+            <div key={i} className="mb-2 rounded-[9px] bg-secondary p-3">
+              <div className="text-[13px] font-medium">{e.degree}</div>
+              <div className="text-xs text-muted-foreground">{e.institution}</div>
+              <div className="mt-0.5 text-[11px] text-muted-foreground">{e.startYear} — {e.endYear || "Present"}</div>
             </div>
-          )) : <p style={{ color: COLORS.text3, fontSize: 13 }}>No education parsed</p>}
+          )) : <p className="text-[13px] text-muted-foreground">No education parsed</p>}
         </div>
         {profile.projects?.length > 0 && (
-          <div style={s.card} className="fade-up-3">
-            <div style={s.sectionLabel}>Projects</div>
+          <div className="fade-up-3 rounded-[14px] border border-border bg-card p-6">
+            <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Projects</div>
             {profile.projects.map((p, i) => (
-              <div key={i} style={{ marginBottom: "0.75rem" }}>
-                <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 4 }}>{p.name}</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-                  {(p.technologies || []).map((t) => <span key={t} style={{ ...s.tag, fontSize: 11 }}>{t}</span>)}
+              <div key={i} className="mb-3">
+                <div className="mb-1 text-[13px] font-medium">{p.name}</div>
+                <div className="flex flex-wrap gap-1">
+                  {(p.technologies || []).map((t) => (
+                    <span key={t} className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground">{t}</span>
+                  ))}
                 </div>
               </div>
             ))}

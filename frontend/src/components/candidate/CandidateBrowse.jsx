@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { COLORS } from "../../constants/colors";
 import { applyToJob } from "../../lib/api";
 import JobCard from "./JobCard";
 import JobDetailModal from "./JobDetailModal";
@@ -46,12 +45,12 @@ export default function CandidateBrowse() {
   return (
     <div>
       {!jobs.length ? (
-        <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
-          <MagnifyingGlassIcon width={40} height={40} style={{ marginBottom: "1rem", opacity: 0.3 }} />
+        <div className="py-16 text-center text-muted-foreground">
+          <MagnifyingGlassIcon width={40} height={40} className="mx-auto mb-4 opacity-30" />
           <p>No open jobs right now. Check back soon.</p>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1rem" }}>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
           {jobs.map((j) => (
             <div key={j._id} className="fade-up">
               <JobCard
@@ -65,7 +64,7 @@ export default function CandidateBrowse() {
         </div>
       )}
       {hasMore && (
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+        <div className="mt-8 flex justify-center">
           <Btn variant="secondary" onClick={onLoadMore} disabled={loadingMore}>
             {loadingMore ? "Loading..." : "Load More Roles"}
           </Btn>
