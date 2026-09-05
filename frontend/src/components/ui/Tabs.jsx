@@ -26,7 +26,7 @@ export default function Tabs({ tabs, active, onChange }) {
             fontWeight: 500,
             cursor: "pointer",
             border: "none",
-            fontFamily: "'Geist', sans-serif",
+            fontFamily: "'Geist Variable', sans-serif",
             transition: "all 0.18s",
             boxShadow: active === t.key ? "0 1px 4px rgba(0,0,0,0.3)" : "none",
           }}

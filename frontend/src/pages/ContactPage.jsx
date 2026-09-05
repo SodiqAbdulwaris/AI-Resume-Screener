@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Cross2Icon } from "@radix-ui/react-icons";
 import { COLORS } from "../constants/colors";
 import { s } from "../styles/designSystem";
 import Alert from "../components/ui/Alert";
@@ -16,7 +17,7 @@ const inputStyle = {
   padding: "10px 12px",
   color: COLORS.text,
   fontSize: 14,
-  fontFamily: "'Geist', sans-serif",
+  fontFamily: "'Geist Variable', sans-serif",
   outline: "none",
   boxSizing: "border-box",
 };
@@ -95,9 +96,10 @@ export default function ContactPage({ onClose }) {
           <div>
             <h2
               style={{
-                fontFamily: "'Instrument Serif', serif",
+                fontFamily: "'Geist Variable', sans-serif",
                 fontSize: "1.5rem",
-                fontWeight: 400,
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
                 color: COLORS.text,
                 margin: 0,
               }}
@@ -119,11 +121,11 @@ export default function ContactPage({ onClose }) {
               cursor: "pointer",
               padding: 4,
               lineHeight: 1,
-              fontSize: 20,
               marginLeft: 12,
+              display: "flex",
             }}
           >
-            ✕
+            <Cross2Icon width={18} height={18} />
           </button>
         </div>
 

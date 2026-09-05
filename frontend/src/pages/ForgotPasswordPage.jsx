@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { forgotPassword } from "../lib/api";
 import { COLORS } from "../constants/colors";
 import { s } from "../styles/designSystem";
@@ -60,7 +61,7 @@ export default function ForgotPasswordPage() {
       />
       <div style={{ width: "100%", maxWidth: 400, position: "relative" }} className="fade-up">
         <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-          <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "2.2rem", fontWeight: 400, color: COLORS.text }}>
+          <h1 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "2.2rem", fontWeight: 700, letterSpacing: "-0.02em", color: COLORS.text }}>
             Forgot Password
           </h1>
           <p style={{ color: COLORS.text3, fontSize: 14, marginTop: "0.35rem" }}>Enter your email to reset password</p>
@@ -89,7 +90,7 @@ export default function ForgotPasswordPage() {
 
           <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
             <Btn variant="ghost" size="sm" onClick={() => navigate("/")}>
-              ← Back to Sign In
+              <ArrowLeftIcon /> Back to Sign In
             </Btn>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ListBulletIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import { fmtDate } from "../../lib/utils";
@@ -35,7 +36,7 @@ export default function CandidateApplications() {
   if (!applications.length) {
     return (
       <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
-        <div style={{ fontSize: "2.5rem", opacity: 0.3, marginBottom: "1rem" }}>📋</div>
+        <ListBulletIcon width={40} height={40} style={{ opacity: 0.3, marginBottom: "1rem" }} />
         <p>No applications yet. Browse open jobs and apply!</p>
       </div>
     );

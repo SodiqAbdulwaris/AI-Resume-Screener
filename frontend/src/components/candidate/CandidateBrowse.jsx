@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants/colors";
 import { applyToJob } from "../../lib/api";
 import JobCard from "./JobCard";
@@ -46,7 +47,7 @@ export default function CandidateBrowse() {
     <div>
       {!jobs.length ? (
         <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
-          <div style={{ fontSize: "2.5rem", marginBottom: "1rem", opacity: 0.3 }}>🔍</div>
+          <MagnifyingGlassIcon width={40} height={40} style={{ marginBottom: "1rem", opacity: 0.3 }} />
           <p>No open jobs right now. Check back soon.</p>
         </div>
       ) : (

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CheckIcon, Cross1Icon, ChevronUpIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import Avatar from "../ui/Avatar";
@@ -35,7 +36,7 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
       }}
     >
       {/* Rank watermark */}
-      <div style={{ position: "absolute", top: "0.75rem", right: "1rem", fontFamily: "'Instrument Serif', serif", fontSize: "3rem", fontWeight: 400, color: isTop ? `rgba(245,158,11,0.08)` : "rgba(255,255,255,0.03)", userSelect: "none", lineHeight: 1 }}>
+      <div style={{ position: "absolute", top: "0.75rem", right: "1rem", fontFamily: "'Geist Variable', sans-serif", fontSize: "3rem", fontWeight: 700, color: isTop ? `rgba(245,158,11,0.08)` : "rgba(255,255,255,0.03)", userSelect: "none", lineHeight: 1 }}>
         #{match.rankedPosition || rank}
       </div>
 
@@ -89,7 +90,7 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
           </div>
         </div>
         <div style={{ textAlign: "right", flexShrink: 0 }}>
-          <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: "2rem", color, lineHeight: 1 }}>{score}</div>
+          <div style={{ fontFamily: "'Geist Variable', sans-serif", fontWeight: 700, fontSize: "2rem", color, lineHeight: 1 }}>{score}</div>
           <div style={{ fontSize: 10, color: COLORS.text3, textTransform: "uppercase", letterSpacing: "0.06em" }}>% match</div>
           {match.shortlisted && <Badge variant="green" style={{ marginTop: 4 }}>Shortlisted</Badge>}
         </div>
@@ -113,10 +114,10 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
         <div style={{ fontSize: 11, color: COLORS.text3, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.07em" }}>Skills</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
           {(match.matchedSkills || []).map((sk) => (
-            <span key={sk} style={{ ...s.tag, background: "rgba(34,197,94,0.1)", borderColor: "rgba(34,197,94,0.25)", color: "#4ade80", fontSize: 11 }}>✓ {sk}</span>
+            <span key={sk} style={{ ...s.tag, display: "inline-flex", alignItems: "center", gap: 4, background: "rgba(34,197,94,0.1)", borderColor: "rgba(34,197,94,0.25)", color: "#4ade80", fontSize: 11 }}><CheckIcon width={11} height={11} /> {sk}</span>
           ))}
           {(match.missingSkills || []).map((sk) => (
-            <span key={sk} style={{ ...s.tag, background: "rgba(239,68,68,0.08)", borderColor: "rgba(239,68,68,0.2)", color: "#f87171", fontSize: 11 }}>✗ {sk}</span>
+            <span key={sk} style={{ ...s.tag, display: "inline-flex", alignItems: "center", gap: 4, background: "rgba(239,68,68,0.08)", borderColor: "rgba(239,68,68,0.2)", color: "#f87171", fontSize: 11 }}><Cross1Icon width={11} height={11} /> {sk}</span>
           ))}
         </div>
       </div>
@@ -127,9 +128,9 @@ export default function MatchResultCard({ match, rank, onToggleShortlist }) {
           <Divider />
           <button
             onClick={() => setExpanded(!expanded)}
-            style={{ background: "none", border: "none", color: COLORS.text3, fontSize: 12, cursor: "pointer", padding: 0, fontFamily: "'Geist', sans-serif", display: "flex", alignItems: "center", gap: 4 }}
+            style={{ background: "none", border: "none", color: COLORS.text3, fontSize: 12, cursor: "pointer", padding: 0, fontFamily: "'Geist Variable', sans-serif", display: "flex", alignItems: "center", gap: 4 }}
           >
-            {expanded ? "▲ Hide" : "▼ Show"} AI reasoning
+            {expanded ? <ChevronUpIcon /> : <ChevronDownIcon />} {expanded ? "Hide" : "Show"} AI reasoning
           </button>
           {expanded && (
             <div style={{ marginTop: "0.75rem" }}>

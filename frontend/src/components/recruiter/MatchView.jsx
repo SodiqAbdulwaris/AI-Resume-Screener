@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { ArrowLeftIcon, RocketIcon, BarChartIcon } from "@radix-ui/react-icons";
 import { useAuth } from "../../context/AuthContext";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
@@ -111,9 +112,9 @@ export default function MatchView({ onContactClick }) {
       <Nav onContactClick={onContactClick} />
       <div style={{ padding: "2rem 2rem 4rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }} className="fade-up">
-          <Btn variant="secondary" size="sm" onClick={() => navigate("/recruiter/jobs")}>← Back</Btn>
+          <Btn variant="secondary" size="sm" onClick={() => navigate("/recruiter/jobs")}><ArrowLeftIcon /> Back</Btn>
           <div>
-            <h3 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "1.2rem", fontWeight: 400 }}>{title}</h3>
+            <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.2rem", fontWeight: 700 }}>{title}</h3>
             <div style={{ fontSize: 12, color: COLORS.text3 }}>AI Match Results</div>
           </div>
           <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.75rem" }}>
@@ -124,7 +125,7 @@ export default function MatchView({ onContactClick }) {
               </Btn>
             )}
             <Btn variant="primary" size="sm" onClick={runMatch} disabled={loading}>
-              {loading ? <><Spinner size={14} />Running…</> : "🤖 Run AI Match"}
+              {loading ? <><Spinner size={14} />Running…</> : <><RocketIcon /> Run AI Match</>}
             </Btn>
           </div>
         </div>
@@ -140,14 +141,14 @@ export default function MatchView({ onContactClick }) {
           </div>
         ) : results.length === 0 ? (
           <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
-            <div style={{ fontSize: "2.5rem", opacity: 0.3, marginBottom: "1rem" }}>📊</div>
+            <BarChartIcon width={40} height={40} style={{ opacity: 0.3, marginBottom: "1rem" }} />
             <p style={{ marginBottom: "1.25rem" }}>
               {lastMatchedAt
                 ? "AI matching ran, but no candidates matched — check that anyone has applied to this job yet."
                 : "No match results yet. Run AI matching to rank candidates."}
             </p>
             <Btn variant="primary" onClick={runMatch} disabled={loading}>
-              {loading ? <><Spinner size={16} />Matching…</> : "🤖 Run AI Matching"}
+              {loading ? <><Spinner size={16} />Matching…</> : <><RocketIcon /> Run AI Matching</>}
             </Btn>
           </div>
         ) : (

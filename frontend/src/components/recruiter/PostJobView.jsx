@@ -62,7 +62,7 @@ export default function PostJobView() {
   return (
     <div style={{ maxWidth: 600 }}>
       <div style={s.card} className="fade-up">
-        <h3 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "1.3rem", fontWeight: 400, marginBottom: "1.25rem" }}>Post a new role</h3>
+        <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: "1.25rem" }}>Post a new role</h3>
         <Alert message={error} variant="error" />
         <Alert message={success} variant="success" />
         <div>

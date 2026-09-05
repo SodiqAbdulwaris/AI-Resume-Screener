@@ -1,3 +1,4 @@
+import { UploadIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants/colors";
 import Modal from "../ui/Modal";
 import Btn from "../ui/Btn";
@@ -8,8 +9,8 @@ export default function ApplyModal({ job, onConfirm, onClose, loading, error }) 
   return (
     <Modal onClose={onClose} maxWidth={360}>
       <div style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>📤</div>
-        <h3 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "1.3rem", fontWeight: 400, marginBottom: "0.75rem" }}>
+        <UploadIcon width={40} height={40} style={{ marginBottom: "1rem" }} />
+        <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.75rem" }}>
           Apply to {job.title}?
         </h3>
         <p style={{ color: COLORS.text2, fontSize: 13, marginBottom: "1.5rem", lineHeight: 1.6 }}>

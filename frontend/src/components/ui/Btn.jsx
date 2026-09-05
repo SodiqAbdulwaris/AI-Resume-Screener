@@ -2,7 +2,7 @@ import { COLORS } from "../../constants/colors";
 
 export default function Btn({ children, variant = "primary", size = "md", type = "button", onClick, disabled, fullWidth, style: extra }) {
   const base = {
-    fontFamily: "'Geist', sans-serif",
+    fontFamily: "'Geist Variable', sans-serif",
     fontWeight: 500,
     cursor: disabled ? "not-allowed" : "pointer",
     border: "none",

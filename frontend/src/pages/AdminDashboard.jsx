@@ -35,7 +35,7 @@ function StatsGrid({ stats }) {
       {cards.map((c) => (
         <div key={c.label} style={s.card}>
           <div style={{ fontSize: 12, color: COLORS.text2, marginBottom: 4 }}>{c.label}</div>
-          <div style={{ fontSize: 22, fontFamily: "'Instrument Serif', serif" }}>{c.value}</div>
+          <div style={{ fontSize: 22, fontFamily: "'Geist Variable', sans-serif", fontWeight: 700 }}>{c.value}</div>
         </div>
       ))}
     </div>

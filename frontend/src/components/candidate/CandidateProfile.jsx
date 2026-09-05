@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PersonIcon, SewingPinIcon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import Avatar from "../ui/Avatar";
@@ -18,7 +19,7 @@ export default function CandidateProfile() {
   if (!profile) {
     return (
       <div style={{ textAlign: "center", padding: "4rem", color: COLORS.text2 }}>
-        <div style={{ fontSize: "2.5rem", opacity: 0.3, marginBottom: "1rem" }}>👤</div>
+        <PersonIcon width={40} height={40} style={{ opacity: 0.3, marginBottom: "1rem" }} />
         <p>Upload your resume to auto-generate your profile.</p>
       </div>
     );
@@ -58,7 +59,7 @@ export default function CandidateProfile() {
               {showParsedName && <div style={{ fontSize: 12, color: COLORS.text3 }}>Resume name: {parsedName}</div>}
               <div style={{ fontSize: 13, color: COLORS.text2 }}>{profile.email}</div>
               {profile.phone && <div style={{ fontSize: 12, color: COLORS.text3 }}>{profile.phone}</div>}
-              {profile.location && <div style={{ fontSize: 12, color: COLORS.text3 }}>📍 {profile.location}</div>}
+              {profile.location && <div style={{ fontSize: 12, color: COLORS.text3, display: "flex", alignItems: "center", gap: 4 }}><SewingPinIcon /> {profile.location}</div>}
             </div>
           </div>
           {showParsedName && (

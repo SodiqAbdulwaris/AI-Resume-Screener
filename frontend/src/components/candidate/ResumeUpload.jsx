@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { CheckIcon, UploadIcon, FileTextIcon, Cross2Icon } from "@radix-ui/react-icons";
 import { COLORS } from "../../constants/colors";
 import { s } from "../../styles/designSystem";
 import { fmtDate } from "../../lib/utils";
@@ -12,14 +13,14 @@ import { useOutletContext } from "react-router-dom";
 
 function ParseStatusBadge({ status }) {
   const byStatus = {
-    done: { variant: "green", label: "Parsed ✓" },
+    done: { variant: "green", label: "Parsed", icon: <CheckIcon /> },
     needs_review: { variant: "yellow", label: "Needs review" },
     failed: { variant: "red", label: "Parse failed" },
     processing: { variant: "blue", label: "Processing…" },
     pending: { variant: "gray", label: "Pending" },
   };
-  const { variant, label } = byStatus[status] || byStatus.pending;
-  return <Badge variant={variant}>{label}</Badge>;
+  const { variant, label, icon } = byStatus[status] || byStatus.pending;
+  return <Badge variant={variant} style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{icon}{label}</Badge>;
 }
 
 export default function ResumeUpload() {
@@ -58,7 +59,7 @@ export default function ResumeUpload() {
   return (
     <div style={{ maxWidth: 540 }}>
       <div style={s.card} className="fade-up">
-        <h3 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "1.3rem", fontWeight: 400, marginBottom: "0.5rem" }}>Upload Resume</h3>
+        <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.5rem" }}>Upload Resume</h3>
         <p style={{ color: COLORS.text2, fontSize: 13, marginBottom: "1.5rem" }}>
           PDF or DOCX only, max 5MB. Uploading replaces your current active resume automatically.
         </p>
@@ -81,7 +82,7 @@ export default function ResumeUpload() {
             marginBottom: file ? "1rem" : 0,
           }}
         >
-          <div style={{ fontSize: "2.5rem", marginBottom: "0.75rem" }}>📎</div>
+          <UploadIcon width={36} height={36} style={{ marginBottom: "0.75rem" }} />
           <div style={{ fontWeight: 500, marginBottom: "0.3rem" }}>Drop your resume here</div>
           <div style={{ fontSize: 13, color: COLORS.text2 }}>or click to browse</div>
           <input ref={inputRef} type="file" accept=".pdf,.docx" style={{ display: "none" }} onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
@@ -89,11 +90,11 @@ export default function ResumeUpload() {
         {file && (
           <div style={{ background: COLORS.bg3, padding: "0.75rem 1rem", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 500 }}>📄 {file.name}</div>
+              <div style={{ fontSize: 13, fontWeight: 500, display: "flex", alignItems: "center", gap: 6 }}><FileTextIcon /> {file.name}</div>
               <div style={{ fontSize: 11, color: COLORS.text3 }}>{(file.size / 1024).toFixed(0)} KB</div>
             </div>
             <div style={{ display: "flex", gap: 8 }}>
-              <Btn variant="ghost" size="sm" onClick={() => setFile(null)}>✕</Btn>
+              <Btn variant="ghost" size="sm" onClick={() => setFile(null)}><Cross2Icon /></Btn>
               <Btn variant="primary" size="sm" onClick={doUpload} disabled={loading}>
                 {loading ? <Spinner size={14} /> : "Upload"}
               </Btn>

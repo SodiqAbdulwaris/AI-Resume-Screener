@@ -5,9 +5,10 @@ export default function PageHeader({ title, subtitle }) {
     <div style={{ marginBottom: "2rem" }} className="fade-up">
       <h2
         style={{
-          fontFamily: "'Instrument Serif', serif",
+          fontFamily: "'Geist Variable', sans-serif",
           fontSize: "2rem",
-          fontWeight: 400,
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
           color: COLORS.text,
           marginBottom: "0.3rem",
           lineHeight: 1.15,

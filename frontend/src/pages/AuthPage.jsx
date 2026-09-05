@@ -135,7 +135,7 @@ export default function AuthPage() {
               <path d="M3 6h16M3 11h11M3 16h7" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
-          <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "2.2rem", fontWeight: 400, color: COLORS.text }}>
+          <h1 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "2.2rem", fontWeight: 700, letterSpacing: "-0.02em", color: COLORS.text }}>
             HireSignal
           </h1>
           <p style={{ color: COLORS.text3, fontSize: 14, marginTop: "0.35rem" }}>AI-powered resume screening</p>
@@ -157,7 +157,7 @@ export default function AuthPage() {
                 fontWeight: 500,
                 cursor: "pointer",
                 border: "none",
-                fontFamily: "'Geist', sans-serif",
+                fontFamily: "'Geist Variable', sans-serif",
                 transition: "all 0.18s",
               }}
             >
@@ -189,7 +189,7 @@ export default function AuthPage() {
                     color: "#a5b4fc",
                     fontSize: 12,
                     cursor: "pointer",
-                    fontFamily: "'Geist', sans-serif",
+                    fontFamily: "'Geist Variable', sans-serif",
                   }}
                 >
                   Forgot password?
@@ -212,7 +212,7 @@ export default function AuthPage() {
                       fontSize: 13,
                       fontWeight: 500,
                       cursor: "pointer",
-                      fontFamily: "'Geist', sans-serif",
+                      fontFamily: "'Geist Variable', sans-serif",
                       textDecoration: "underline",
                     }}
                   >

@@ -38,7 +38,7 @@ export default class ErrorBoundary extends React.Component {
             background: COLORS.bg,
             color: COLORS.text,
             padding: "2rem",
-            fontFamily: "'Geist', sans-serif",
+            fontFamily: "'Geist Variable', sans-serif",
           }}
         >
           <div

@@ -76,7 +76,7 @@ export default function ResetPasswordPage() {
       />
       <div style={{ width: "100%", maxWidth: 400, position: "relative" }} className="fade-up">
         <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-          <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "2.2rem", fontWeight: 400, color: COLORS.text }}>
+          <h1 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "2.2rem", fontWeight: 700, letterSpacing: "-0.02em", color: COLORS.text }}>
             Reset Password
           </h1>
           <p style={{ color: COLORS.text3, fontSize: 14, marginTop: "0.35rem" }}>Enter your new secure password</p>

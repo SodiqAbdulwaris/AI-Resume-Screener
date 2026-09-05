@@ -43,10 +43,11 @@ export default function Nav({ onContactClick }) {
         </div>
         <span
           style={{
-            fontFamily: "'Instrument Serif', serif",
+            fontFamily: "'Geist Variable', sans-serif",
             fontSize: "1.25rem",
+            fontWeight: 700,
             color: COLORS.text,
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.02em",
           }}
         >
           HireSignal

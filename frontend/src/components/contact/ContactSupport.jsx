@@ -44,7 +44,7 @@ export default function ContactSupport() {
   return (
     <div style={{ maxWidth: 620 }}>
       <div style={s.card} className="fade-up">
-        <h3 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "1.3rem", fontWeight: 400, marginBottom: "0.5rem" }}>
+        <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.5rem" }}>
           Contact us
         </h3>
         <p style={{ color: COLORS.text2, fontSize: 13, marginBottom: "1.5rem" }}>
