@@ -1,12 +1,9 @@
 import re
+from functools import lru_cache
 
 from app.config.parser_config import SKILL_STOP_WORDS as STOP_WORDS
 from app.config.parser_config import SKILL_SKIP_TOKENS as SKIP_TOKENS
-
-SKILL_SECTION_HEADER_PATTERN = re.compile(
-    r"^(skills|technical skills|core competencies|technologies|areas of expertise)\s*:?\s*$",
-    re.IGNORECASE,
-)
+from app.config.parser_config import get_lang_config
 
 INLINE_LABEL_PATTERN = re.compile(
     r"^([A-Za-z0-9&/()\-\s]{1,40}?)\s*:\s*",
@@ -14,51 +11,45 @@ INLINE_LABEL_PATTERN = re.compile(
 
 BULLET_PREFIX_PATTERN = re.compile(r"^\s*[•\-*▪·]\s*")
 
-LABEL_PREFIXES = {
-    "languages", "programming languages", "other", "tools", "frameworks", "libraries",
-    "frameworks & libraries", "libraries/frameworks", "architecture", "design",
-    "architecture & design",
-    "frontend", "backend", "databases", "database",
-    "web", "mobile",
-    "devops", "cloud", "cloud platforms", "platforms", "containers & orchestration",
-    "containers", "orchestration", "infrastructure as code",
-    "ci/cd", "monitoring & observability", "monitoring", "observability",
-    "networking", "security",
-    "primary", "secondary", "tertiary",
-    "testing", "test",
-    "scripting", "scripting languages",
-    "ml frameworks", "ml/dl", "ml / dl",
-    "data tools", "data", "big data",
-    "nlp", "mlops",
-    "offensive security", "defensive / soc", "defensive",
-    "cloud security", "devsecops", "forensics",
-    "soft skills", "concepts", "version control",
-    "ios frameworks", "cross-platform", "tooling",
-    "observability tools",
-    "tools & devops", "tools & technologies",
-}
 
-KNOWN_LABEL_PATTERN = re.compile(
-    "|".join(
-        rf"\b{re.escape(label)}\s*:"
-        for label in sorted(LABEL_PREFIXES, key=len, reverse=True)
-    ),
-    re.IGNORECASE,
-)
+@lru_cache(maxsize=None)
+def _label_prefixes(lang: str) -> frozenset[str]:
+    return frozenset(get_lang_config(lang)["skill_label_prefixes"])
 
 
-def parse_skills(section_text: str) -> list[str]:
+@lru_cache(maxsize=None)
+def _skill_section_header_pattern(lang: str) -> re.Pattern:
+    # The canonical "skills" section-header words for this language double as
+    # the in-body header pattern (a stray repeated "Skills:" line inside the
+    # section itself, which section-splitting already isolated).
+    aliases = get_lang_config(lang)["section_aliases"]
+    headers = [alias for alias, canonical in aliases.items() if canonical == "skills"]
+    pattern = "|".join(re.escape(h) for h in sorted(headers, key=len, reverse=True))
+    return re.compile(rf"^({pattern})\s*:?\s*$", re.IGNORECASE)
+
+
+@lru_cache(maxsize=None)
+def _known_label_pattern(lang: str) -> re.Pattern:
+    labels = _label_prefixes(lang)
+    return re.compile(
+        "|".join(rf"\b{re.escape(label)}\s*:" for label in sorted(labels, key=len, reverse=True)),
+        re.IGNORECASE,
+    )
+
+
+def parse_skills(section_text: str, lang: str = "en") -> list[str]:
     raw_skills: list[str] = []
     seen: set[str] = set()
+    header_pattern = _skill_section_header_pattern(lang)
 
-    for line in merge_wrapped_lines(section_text.splitlines()):
+    for line in merge_wrapped_lines(section_text.splitlines(), lang):
         stripped = line.strip()
         if not stripped:
             continue
-        if SKILL_SECTION_HEADER_PATTERN.match(stripped):
+        if header_pattern.match(stripped):
             continue
 
-        for segment in split_skill_segments(stripped):
+        for segment in split_skill_segments(stripped, lang):
             for token in split_skill_tokens(segment):
                 normalized = normalize_skill_token(token)
                 if normalized and normalized not in seen:
@@ -68,7 +59,7 @@ def parse_skills(section_text: str) -> list[str]:
     return sorted(raw_skills)
 
 
-def merge_wrapped_lines(lines: list[str]) -> list[str]:
+def merge_wrapped_lines(lines: list[str], lang: str = "en") -> list[str]:
     merged: list[str] = []
 
     for raw_line in lines:
@@ -80,7 +71,7 @@ def merge_wrapped_lines(lines: list[str]) -> list[str]:
             merged.append(line)
             continue
 
-        if should_merge_skill_line(merged[-1], line):
+        if should_merge_skill_line(merged[-1], line, lang):
             merged[-1] = f"{merged[-1]} {line}".strip()
         else:
             merged.append(line)
@@ -88,14 +79,14 @@ def merge_wrapped_lines(lines: list[str]) -> list[str]:
     return merged
 
 
-def should_merge_skill_line(previous: str, current: str) -> bool:
+def should_merge_skill_line(previous: str, current: str, lang: str = "en") -> bool:
     if BULLET_PREFIX_PATTERN.match(current):
         return False
-    if SKILL_SECTION_HEADER_PATTERN.match(current):
+    if _skill_section_header_pattern(lang).match(current):
         return False
-    if is_labeled_line(current):
+    if is_labeled_line(current, lang):
         return False
-    if is_table_row(current):
+    if is_table_row(current, lang):
         return False
     if previous.rstrip().endswith(","):
         return True
@@ -108,37 +99,38 @@ def should_merge_skill_line(previous: str, current: str) -> bool:
     return False
 
 
-def split_skill_segments(line: str) -> list[str]:
+def split_skill_segments(line: str, lang: str = "en") -> list[str]:
+    label_prefixes = _label_prefixes(lang)
     stripped = BULLET_PREFIX_PATTERN.sub("", line).strip()
     if not stripped:
         return []
-    if stripped.lower() in LABEL_PREFIXES or stripped.lower() in SKIP_TOKENS:
+    if stripped.lower() in label_prefixes or stripped.lower() in SKIP_TOKENS:
         return []
 
-    if is_table_row(stripped):
+    if is_table_row(stripped, lang):
         label, value = split_table_row(stripped)
-        if label and normalize_label(label) in LABEL_PREFIXES:
+        if label and normalize_label(label) in label_prefixes:
             return [value]
 
-    parts = split_collapsed_categories(stripped)
+    parts = split_collapsed_categories(stripped, lang)
     segments: list[str] = []
     for part in parts:
-        cleaned = strip_leading_label(part)
+        cleaned = strip_leading_label(part, lang)
         if cleaned:
             segments.append(cleaned)
     return segments
 
 
-def is_labeled_line(line: str) -> bool:
+def is_labeled_line(line: str, lang: str = "en") -> bool:
     match = INLINE_LABEL_PATTERN.match(line)
     if not match:
         return False
-    return normalize_label(match.group(1)) in LABEL_PREFIXES
+    return normalize_label(match.group(1)) in _label_prefixes(lang)
 
 
-def is_table_row(line: str) -> bool:
+def is_table_row(line: str, lang: str = "en") -> bool:
     label, value = split_table_row(line)
-    return bool(label and value and normalize_label(label) in LABEL_PREFIXES)
+    return bool(label and value and normalize_label(label) in _label_prefixes(lang))
 
 
 def split_table_row(line: str) -> tuple[str | None, str]:
@@ -150,8 +142,8 @@ def split_table_row(line: str) -> tuple[str | None, str]:
     return label, value
 
 
-def split_collapsed_categories(line: str) -> list[str]:
-    matches = list(KNOWN_LABEL_PATTERN.finditer(line))
+def split_collapsed_categories(line: str, lang: str = "en") -> list[str]:
+    matches = list(_known_label_pattern(lang).finditer(line))
     if not matches:
         return [line.strip()]
 
@@ -194,13 +186,13 @@ def split_skill_tokens(text: str) -> list[str]:
     return [part for part in parts if part]
 
 
-def strip_leading_label(value: str) -> str:
+def strip_leading_label(value: str, lang: str = "en") -> str:
     match = INLINE_LABEL_PATTERN.match(value)
     if not match:
         return value
 
     prefix = normalize_label(match.group(1))
-    if prefix in LABEL_PREFIXES:
+    if prefix in _label_prefixes(lang):
         return value[match.end():].strip()
 
     return value

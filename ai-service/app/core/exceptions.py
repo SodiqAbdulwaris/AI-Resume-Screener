@@ -14,6 +14,20 @@ class UnsupportedFileTypeError(AppException):
             error_code="UNSUPPORTED_FILE_TYPE"
         )
 
+class EmptyFileError(AppException):
+    def __init__(self):
+        super().__init__(
+            message="The uploaded file is empty",
+            error_code="EMPTY_FILE"
+        )
+
+class PasswordProtectedFileError(AppException):
+    def __init__(self):
+        super().__init__(
+            message="This PDF is password-protected — please upload an unprotected version",
+            error_code="PASSWORD_PROTECTED_FILE"
+        )
+
 class FileTooLargeError(AppException):
     def __init__(self, filename: str, size_mb: float, max_mb: float):
         super().__init__(

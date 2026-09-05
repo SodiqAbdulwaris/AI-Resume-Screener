@@ -4,7 +4,7 @@ import re
 import unicodedata
 from rapidfuzz import fuzz
 
-from app.config.parser_config import SECTION_ALIASES
+from app.config.parser_config import get_lang_config
 
 # Sections
 _INLINE_SPLIT_SECTIONS = {"skills", "experience", "education", "projects", "certifications", "summary"}
@@ -37,7 +37,8 @@ _MAX_HEADING_LENGTH = 60
 # - Normalise whitespace
 # - Strip trailing colons from short lines
 # - Split inline section labels onto separate lines
-def clean(text: str) -> list[str]:
+def clean(text: str, lang: str = "en") -> list[str]:
+    section_aliases = get_lang_config(lang)["section_aliases"]
     text = _ZERO_WIDTH.sub("", text)
     text = unicodedata.normalize("NFC", text)
 
@@ -53,7 +54,7 @@ def clean(text: str) -> list[str]:
             label = inline_match.group(1).strip()
             content = inline_match.group(2).strip()
             normalized_label = re.sub(r"\s+", " ", label.lower()).strip()
-            if SECTION_ALIASES.get(normalized_label) in _INLINE_SPLIT_SECTIONS:
+            if section_aliases.get(normalized_label) in _INLINE_SPLIT_SECTIONS:
                 lines.append(label)
                 lines.append(content)
                 continue
@@ -89,27 +90,28 @@ def is_body(line: str) -> bool:
         return True
     return False
 
-# Attempt exact then fuzzy match against SECTION_ALIASES.
+# Attempt exact then fuzzy match against the language's section aliases.
 # Returns the canonical section name or None.
-def alias_match(line: str) -> str | None:
+def alias_match(line: str, lang: str = "en") -> str | None:
+    section_aliases = get_lang_config(lang)["section_aliases"]
     normalized = re.sub(r"\s+", " ", line.lower()).strip()
     normalized = re.sub(r"\s*\(.*?\)\s*$", "", normalized).strip()
 
     # Exact match
-    if normalized in SECTION_ALIASES:
-        return SECTION_ALIASES[normalized]
+    if normalized in section_aliases:
+        return section_aliases[normalized]
 
     # Fuzzy match — only run if line is short enough to be a heading
     if len(line) <= _MAX_HEADING_LENGTH:
         best_score = 0
         best_match = None
-        for alias in SECTION_ALIASES:
+        for alias in section_aliases:
             score = fuzz.ratio(normalized, alias)
             if score > best_score:
                 best_score = score
                 best_match = alias
         if best_score >= FUZZY_MATCH_THRESHOLD:
-            return SECTION_ALIASES[best_match]
+            return section_aliases[best_match]
 
     return None
 
@@ -117,11 +119,11 @@ def alias_match(line: str) -> str | None:
 # Classify a single line.
 # Returns tag, canonical_section | None
 # Tags can either be heading_strong, heading_weak or body
-def classify_line(line: str) -> tuple[str, str | None]:
+def classify_line(line: str, lang: str = "en") -> tuple[str, str | None]:
     if is_body(line):
         return ("body", None)
 
-    canonical = alias_match(line)
+    canonical = alias_match(line, lang)
     if canonical:
         return ("heading_strong", canonical)
 
@@ -140,8 +142,8 @@ def classify_line(line: str) -> tuple[str, str | None]:
 #   - heading_strong confirmed when followed by at least one non-strong line
 #   - Everything before the first heading_strong is the contact section
 #   - Unresolvable blocks are marked as UNKNOWN
-def infer_sections(lines: list[str]) -> list[tuple[str, list[str]]]:
-    classified = [classify_line(line) for line in lines]
+def infer_sections(lines: list[str], lang: str = "en") -> list[tuple[str, list[str]]]:
+    classified = [classify_line(line, lang) for line in lines]
 
     sections: list[tuple[str, list[str]]] = []
     current_label: str | None = None
@@ -200,11 +202,11 @@ def inject_markers(sections: list[tuple[str, list[str]]]) -> str:
 # Public API
 # Preprocess raw extracted resume text to return 
 # marked_text with section markers and clean_text without section markers
-def preprocess(text: str) -> tuple[str, str]:
-    lines = clean(text)
+def preprocess(text: str, lang: str = "en") -> tuple[str, str]:
+    lines = clean(text, lang)
     clean_text = "\n".join(lines)
 
-    sections = infer_sections(lines)
+    sections = infer_sections(lines, lang)
     marked_text = inject_markers(sections)
 
     return marked_text, clean_text

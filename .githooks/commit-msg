@@ -1,0 +1,33 @@
+#!/bin/sh
+commit_message_file="$1"
+commit_message=$(sed -n '1p' "$commit_message_file")
+
+case "$commit_message" in
+  feat:*|fix:*|docs:*|style:*|refactor:*|perf:*|test:*|build:*|ci:*|chore:*|revert:*)
+    exit 0
+    ;;
+  feat\(*\):*|fix\(*\):*|docs\(*\):*|style\(*\):*|refactor\(*\):*|perf\(*\):*|test\(*\):*|build\(*\):*|ci\(*\):*|chore\(*\):*|revert\(*\):*)
+    exit 0
+    ;;
+  *)
+    printf '%s\n' "Commit message must follow Conventional Commits: type: description" >&2
+    printf '%s\n' "" >&2
+    printf '%s\n' "Allowed types:" >&2
+    printf '%s\n' "  feat      A new user-facing feature" >&2
+    printf '%s\n' "  fix       A bug fix" >&2
+    printf '%s\n' "  docs      Documentation-only changes" >&2
+    printf '%s\n' "  style     Formatting or whitespace changes" >&2
+    printf '%s\n' "  refactor  Code changes without changing behavior" >&2
+    printf '%s\n' "  perf      Performance improvements" >&2
+    printf '%s\n' "  test      Adding or updating tests" >&2
+    printf '%s\n' "  build     Build system or dependency changes" >&2
+    printf '%s\n' "  ci        Continuous integration or automation changes" >&2
+    printf '%s\n' "  chore     Maintenance that does not fit another type" >&2
+    printf '%s\n' "  revert    Revert an earlier commit" >&2
+    printf '%s\n' "" >&2
+    printf '%s\n' "Examples:" >&2
+    printf '%s\n' "  feat: add pipeline stage-advance endpoint" >&2
+    printf '%s\n' "  fix(auth): handle expired refresh token" >&2
+    exit 1
+    ;;
+esac

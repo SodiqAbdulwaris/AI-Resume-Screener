@@ -49,3 +49,15 @@ class ParsedCandidate(BaseModel):
     certifications: list[str] = Field(default_factory=list)
 
     raw_text: Optional[str] = None
+
+    # True when parsing extracted too little to trust — the caller got a 200
+    # response, but the resume should be flagged for the candidate to review
+    # rather than silently treated as a clean, complete profile.
+    needs_review: bool = False
+    fallback_reasons: list[str] = Field(default_factory=list)
+
+    # "ocr" means the PDF had no extractable text layer and was rasterized +
+    # OCR'd instead (see app.utils.extractor). ocr_confidence is Tesseract's
+    # mean per-word confidence (0-100), None when extraction_method is "text".
+    extraction_method: str = "text"
+    ocr_confidence: Optional[float] = None

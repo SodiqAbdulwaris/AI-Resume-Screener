@@ -1,0 +1,5 @@
+# Tesseract is a system binary, not a Python package — pytesseract just shells
+# out to it. Nixpacks needs this to make `tesseract` available on PATH in the
+# deployed container; without it, OCR silently fails at runtime.
+[phases.setup]
+nixPkgs = ["...", "tesseract"]

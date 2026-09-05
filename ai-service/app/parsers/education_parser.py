@@ -1,6 +1,6 @@
 import re
 
-from app.config.parser_config import DEGREE_PATTERNS, DEGREE_HIERARCHY
+from app.config.parser_config import DEGREE_HIERARCHY, get_lang_config
 
 
 DATE_RANGE_PATTERN = re.compile(
@@ -53,17 +53,17 @@ LOCATION_ONLY_PATTERN = re.compile(
 )
 
 
-def parse_education(section_text: str) -> dict:
+def parse_education(section_text: str, lang: str = "en") -> dict:
     lines = [line.strip() for line in section_text.splitlines() if line.strip()]
 
-    blocks = split_into_blocks(lines)
+    blocks = split_into_blocks(lines, lang)
 
     entries = []
     highest_rank = -1
     highest_raw = None
 
     for block in blocks:
-        entry = parse_block(block)
+        entry = parse_block(block, lang)
         if entry is None:
             continue
 
@@ -82,17 +82,17 @@ def parse_education(section_text: str) -> dict:
     }
 
 
-def split_into_blocks(lines: list[str]) -> list[list[str]]:
+def split_into_blocks(lines: list[str], lang: str = "en") -> list[list[str]]:
     blocks: list[list[str]] = []
     current: list[str] = []
 
     for line in lines:
-        is_degree = is_degree_line(line)
-        is_institution = is_institution_line(line)
+        is_degree = is_degree_line(line, lang)
+        is_institution = is_institution_line(line, lang)
 
         if current and (is_degree or is_institution):
-            current_has_degree = any(is_degree_line(l) for l in current)
-            current_has_institution = any(is_institution_line(l) for l in current)
+            current_has_degree = any(is_degree_line(l, lang) for l in current)
+            current_has_institution = any(is_institution_line(l, lang) for l in current)
 
             if is_degree and current_has_degree:
                 blocks.append(current)
@@ -109,7 +109,7 @@ def split_into_blocks(lines: list[str]) -> list[list[str]]:
     return blocks
 
 
-def parse_block(lines: list[str]) -> dict | None:
+def parse_block(lines: list[str], lang: str = "en") -> dict | None:
     degree_line: str | None = None
     institution_line: str | None = None
     start_year: int | None = None
@@ -117,8 +117,8 @@ def parse_block(lines: list[str]) -> dict | None:
     gpa: str | None = None
 
     for line in lines:
-        degree_candidate = is_degree_line(line)
-        institution_candidate = is_institution_line(line)
+        degree_candidate = is_degree_line(line, lang)
+        institution_candidate = is_institution_line(line, lang)
 
         if is_noise_line(line) and not degree_candidate and not institution_candidate:
             continue
@@ -213,14 +213,14 @@ def is_noise_line(line: str) -> bool:
     return False
 
 
-def is_degree_line(line: str) -> bool:
-    return degree_level(line) is not None
+def is_degree_line(line: str, lang: str = "en") -> bool:
+    return degree_level(line, lang) is not None
 
 
-def is_institution_line(line: str) -> bool:
+def is_institution_line(line: str, lang: str = "en") -> bool:
     if is_noise_line(line):
         return False
-    if is_degree_line(line):
+    if is_degree_line(line, lang):
         return False
     if DATE_RANGE_PATTERN.search(line):
         return False
@@ -265,9 +265,9 @@ def extract_edu_degree_label(line: str) -> str:
         cleaned = cleaned.lstrip("(").strip()
     return cleaned
 
-def degree_level(line: str) -> str | None:
+def degree_level(line: str, lang: str = "en") -> str | None:
     lowered = line.lower()
-    for degree_name, pattern in DEGREE_PATTERNS:
+    for degree_name, pattern in get_lang_config(lang)["degree_patterns"]:
         if re.search(pattern, lowered, re.IGNORECASE):
             return degree_name
     return None
