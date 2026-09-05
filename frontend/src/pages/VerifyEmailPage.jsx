@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { verifyEmail, resendVerification } from "../lib/api";
-import { COLORS } from "../constants/colors";
-import { s } from "../styles/designSystem";
+import AuthLayout from "../components/layout/AuthLayout";
 import Btn from "../components/ui/Btn";
 import Spinner from "../components/ui/Spinner";
 import Alert from "../components/ui/Alert";
@@ -63,90 +62,45 @@ export default function VerifyEmailPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem 1rem",
-        background: COLORS.bg,
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 600,
-          height: 400,
-          background: "radial-gradient(ellipse, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-      <div style={{ width: "100%", maxWidth: 400, position: "relative" }} className="fade-up">
-        <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-          <h1 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "2.2rem", fontWeight: 700, letterSpacing: "-0.02em", color: COLORS.text }}>
-            Email Verification
-          </h1>
+    <AuthLayout title="Email Verification">
+      {loading ? (
+        <div className="flex flex-col items-center gap-4 py-8">
+          <Spinner size={32} />
+          <p className="text-sm text-muted-foreground">Verifying your email address...</p>
         </div>
+      ) : (
+        <div>
+          <Alert message={error} variant="error" />
+          <Alert message={success} variant="success" />
 
-        <div style={{ ...s.card, border: `1px solid ${COLORS.border2}` }}>
-          {loading ? (
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", padding: "2rem 0" }}>
-              <Spinner size={32} />
-              <p style={{ color: COLORS.text2, fontSize: 14 }}>Verifying your email address...</p>
+          {success && (
+            <div className="mt-4 text-center">
+              <Btn variant="primary" onClick={() => navigate("/")}>Go to Sign In</Btn>
             </div>
-          ) : (
-            <div>
-              <Alert message={error} variant="error" />
-              <Alert message={success} variant="success" />
+          )}
 
-              {success && (
-                <div style={{ textAlign: "center", marginTop: "1rem" }}>
-                  <Btn variant="primary" onClick={() => navigate("/")}>Go to Sign In</Btn>
+          {error && (
+            <div className="mt-6 border-t border-border pt-6">
+              <h3 className="mb-3 text-sm font-medium text-foreground">Resend Verification Email</h3>
+              <Alert message={resendError} variant="error" />
+              <Alert message={resendMsg} variant="success" />
+              <form onSubmit={handleResend}>
+                <div className="mb-4">
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
-              )}
-
-              {error && (
-                <div style={{ marginTop: "1.5rem", borderTop: `1px solid ${COLORS.border}`, paddingTop: "1.5rem" }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 500, marginBottom: "0.75rem", color: COLORS.text }}>
-                    Resend Verification Email
-                  </h3>
-                  <Alert message={resendError} variant="error" />
-                  <Alert message={resendMsg} variant="success" />
-                  <form onSubmit={handleResend}>
-                    <div style={{ marginBottom: "1rem" }}>
-                      <input
-                        type="email"
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        style={{
-                          width: "100%",
-                          padding: "10px 12px",
-                          borderRadius: 8,
-                          background: COLORS.bg,
-                          border: `1px solid ${COLORS.border}`,
-                          color: COLORS.text,
-                          fontSize: 14,
-                          boxSizing: "border-box",
-                        }}
-                      />
-                    </div>
-                    <Btn variant="secondary" fullWidth type="submit" disabled={resending}>
-                      {resending ? <Spinner size={16} /> : "Resend Link"}
-                    </Btn>
-                  </form>
-                </div>
-              )}
+                <Btn variant="secondary" fullWidth type="submit" disabled={resending}>
+                  {resending ? <Spinner size={16} /> : "Resend Link"}
+                </Btn>
+              </form>
             </div>
           )}
         </div>
-      </div>
-    </div>
+      )}
+    </AuthLayout>
   );
 }

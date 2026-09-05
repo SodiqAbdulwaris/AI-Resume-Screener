@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { COLORS } from "../constants/colors";
 import { s } from "../styles/designSystem";
+import { sendContactFeedback } from "../lib/api";
 import Alert from "../components/ui/Alert";
 import Btn from "../components/ui/Btn";
 import FormField from "../components/ui/FormField";
 import Spinner from "../components/ui/Spinner";
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api/v1";
 
 const inputStyle = {
   width: "100%",
@@ -39,23 +38,13 @@ export default function ContactPage({ onClose }) {
     setError(null);
     setSuccess(null);
 
-    try {
-      const res = await fetch(`${API_BASE}/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setSuccess("Message sent successfully.");
-        setForm(EMPTY_FORM);
-      } else {
-        setError(data.message || "Something went wrong. Please try again.");
-      }
-    } catch {
-      setError("Network error — please check your connection and try again.");
-    } finally {
-      setLoading(false);
+    const r = await sendContactFeedback(form);
+    setLoading(false);
+    if (r.success) {
+      setSuccess("Message sent successfully.");
+      setForm(EMPTY_FORM);
+    } else {
+      setError(r.message || "Something went wrong. Please try again.");
     }
   }
 

@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { forgotPassword } from "../lib/api";
-import { COLORS } from "../constants/colors";
-import { s } from "../styles/designSystem";
+import AuthLayout from "../components/layout/AuthLayout";
 import Btn from "../components/ui/Btn";
 import Spinner from "../components/ui/Spinner";
 import Alert from "../components/ui/Alert";
@@ -35,66 +34,32 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem 1rem",
-        background: COLORS.bg,
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 600,
-          height: 400,
-          background: "radial-gradient(ellipse, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-      <div style={{ width: "100%", maxWidth: 400, position: "relative" }} className="fade-up">
-        <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-          <h1 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "2.2rem", fontWeight: 700, letterSpacing: "-0.02em", color: COLORS.text }}>
-            Forgot Password
-          </h1>
-          <p style={{ color: COLORS.text3, fontSize: 14, marginTop: "0.35rem" }}>Enter your email to reset password</p>
-        </div>
+    <AuthLayout title="Forgot Password" subtitle="Enter your email to reset password">
+      <Alert message={error} variant="error" />
+      <Alert message={message} variant="success" />
 
-        <div style={{ ...s.card, border: `1px solid ${COLORS.border2}` }}>
-          <Alert message={error} variant="error" />
-          <Alert message={message} variant="success" />
+      {!message && (
+        <form onSubmit={handleSubmit}>
+          <FormField label="Email address">
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </FormField>
+          <Btn variant="primary" fullWidth type="submit" disabled={loading} style={{ marginTop: 8 }}>
+            {loading ? <Spinner size={16} /> : "Send Reset Link"}
+          </Btn>
+        </form>
+      )}
 
-          {!message ? (
-            <form onSubmit={handleSubmit}>
-              <FormField label="Email address">
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </FormField>
-              <Btn variant="primary" fullWidth type="submit" disabled={loading} style={{ marginTop: 8 }}>
-                {loading ? <Spinner size={16} /> : "Send Reset Link"}
-              </Btn>
-            </form>
-          ) : null}
-
-          <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-            <Btn variant="ghost" size="sm" onClick={() => navigate("/")}>
-              <ArrowLeftIcon /> Back to Sign In
-            </Btn>
-          </div>
-        </div>
+      <div className="mt-6 text-center">
+        <Btn variant="ghost" size="sm" onClick={() => navigate("/")}>
+          <ArrowLeftIcon /> Back to Sign In
+        </Btn>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
