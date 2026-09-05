@@ -16,7 +16,10 @@ const validate = (schemas) => (req, res, next) => {
     return next();
   } catch (err) {
     if (err.name === 'ZodError') {
-      const errors = err.errors.map(e => `${e.path.join('.')}: ${e.message}`);
+      // Zod v4 renamed ZodError.errors -> ZodError.issues; this was silently
+      // crashing every validation failure into a generic 500 instead of the
+      // intended 400 with field-level detail.
+      const errors = err.issues.map(e => `${e.path.join('.')}: ${e.message}`);
       return res.status(400).json({
         success: false,
         message: 'Request validation failed.',

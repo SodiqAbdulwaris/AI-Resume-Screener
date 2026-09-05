@@ -38,6 +38,34 @@ const forgotPasswordLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+const registerLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 10,
+  message: {
+    success: false,
+    message: 'Too many accounts created from this IP. Please try again in an hour.',
+    data: null,
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  keyGenerator: (req) => {
+    const email = req.body.email ? req.body.email.toLowerCase().trim() : '';
+    return `${ipKeyGenerator(req)}:${email}`;
+  },
+  message: {
+    success: false,
+    message: 'Too many login attempts. Please try again in 15 minutes.',
+    data: null,
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 /**
  * @swagger
  * tags:
@@ -78,7 +106,7 @@ const forgotPasswordLimiter = rateLimit({
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/register', validate(registerSchema), authController.register);
+router.post('/register', registerLimiter, validate(registerSchema), authController.register);
 
 /**
  * @swagger
@@ -117,7 +145,7 @@ router.post('/register', validate(registerSchema), authController.register);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/login', validate(loginSchema), authController.login);
+router.post('/login', loginLimiter, validate(loginSchema), authController.login);
 
 /**
  * @swagger

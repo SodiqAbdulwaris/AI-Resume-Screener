@@ -66,7 +66,13 @@ export default function AuthPage() {
     });
     setLoading(false);
     if (r.success) {
-      login(r.data.token, r.data.user);
+      if (r.data?.needsVerification) {
+        setTab("login");
+        setSuccessMsg(r.message);
+        setShowResend(true);
+      } else {
+        login(r.data.token, r.data.user);
+      }
     } else {
       setError(r.message);
     }
@@ -223,7 +229,7 @@ export default function AuthPage() {
               <FormField label="Email">
                 <input type="email" placeholder="you@example.com" value={form.email} onChange={update("email")} required />
               </FormField>
-              <FormField label="Password" hint="(8+ chars, 1 uppercase, 1 number)">
+              <FormField label="Password" hint="(8+ characters)">
                 <input type="password" placeholder="••••••••" value={form.password} onChange={update("password")} required />
               </FormField>
               <FormField label="I am a">

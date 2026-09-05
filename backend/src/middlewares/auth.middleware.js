@@ -26,6 +26,13 @@ async function authenticate(req, res, next) {
       });
     }
 
+    if (user.isDeleted) {
+      return res.status(401).json({
+        success: false,
+        message: 'This account has been deactivated.',
+      });
+    }
+
     // Attach user context to the request
     req.user = user;
     next();
@@ -81,7 +88,7 @@ async function optionalAuthenticate(req, res, next) {
     const decoded = jwt.verify(token, config.jwtSecret);
 
     const user = await User.findById(decoded.userId).select('-password');
-    if (user) {
+    if (user && !user.isDeleted) {
       req.user = user;
     }
     next();

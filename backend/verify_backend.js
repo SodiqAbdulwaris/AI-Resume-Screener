@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:5000';
 
 async function runTests() {
   console.log('--- Starting Backend Integration Verification Tests ---');

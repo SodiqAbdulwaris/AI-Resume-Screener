@@ -21,4 +21,8 @@ const refreshTokenSchema = new mongoose.Schema({
   },
 });
 
+// TTL index: Mongo removes a token document once its own expiresAt has passed,
+// so abandoned sessions don't accumulate forever between reactive deletes.
+refreshTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+
 module.exports = mongoose.model('RefreshToken', refreshTokenSchema);
