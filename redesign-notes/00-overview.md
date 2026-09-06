@@ -8,7 +8,7 @@ The HireSignal frontend is being redesigned in **5 parallel visual directions**,
 
 | # | Branch | Built by | Direction | Status |
 |---|--------|----------|-----------|--------|
-| 1 | `redesign/claude-teal` | Me (this session, earlier) | Light-default, teal accent, real dark mode toggle | ✅ Done — see [variants/01-claude-teal.md](variants/01-claude-teal.md) |
+| 1 | `redesign/claude-teal` | Me (this session) | Light-default, teal accent, real dark mode toggle | ✅ Done, on `main`, all screens converted + responsive — see [variants/01-claude-teal.md](variants/01-claude-teal.md) |
 | 2 | `redesign/opencode-bigpickle` | `opencode` CLI, free `big-pickle` model | Bold dark-first "Signal" — radar-orange + carbon | ✅ Done (`3506f44`) — see [variants/02-opencode-bigpickle.md](variants/02-opencode-bigpickle.md) |
 | 3 | `redesign/cursor-agent` | `cursor-agent` CLI | Warm editorial/print-magazine — oxblood + Fraunces | ✅ Done (`8f248b9`) — see [variants/03-cursor-agent.md](variants/03-cursor-agent.md) |
 | 4 | `redesign/agy-antigravity` | `agy` (Antigravity) CLI | Dense data-forward "cockpit" — cyan + JetBrains Mono | ✅ Done (`6795ce6`) — see [variants/04-agy-antigravity.md](variants/04-agy-antigravity.md) |
