@@ -1,11 +1,12 @@
-import { useOutletContext } from "react-router-dom";
-import { ListBulletIcon, ClockIcon, ReaderIcon, RocketIcon } from "@radix-ui/react-icons";
+import { useOutletContext, useNavigate } from "react-router-dom";
+import { ListBulletIcon, ClockIcon, ReaderIcon, RocketIcon, ViewGridIcon } from "@radix-ui/react-icons";
 import StatCard from "../ui/StatCard";
 import Btn from "../ui/Btn";
 import Badge from "../ui/Badge";
 
 export default function RecruiterJobs() {
   const { jobs, onViewMatch, onPost, onToggleJobStatus, hasMore, loadingMore, onLoadMore } = useOutletContext();
+  const navigate = useNavigate();
   const openJobs = jobs.filter((j) => j.isOpen);
   return (
     <div>
@@ -40,6 +41,7 @@ export default function RecruiterJobs() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Btn variant="secondary" size="sm" onClick={() => onViewMatch(j, false)}>View Matches</Btn>
+                  <Btn variant="secondary" size="sm" onClick={() => navigate(`/recruiter/jobs/${j._id}/pipeline`)}><ViewGridIcon /> Pipeline</Btn>
                   <Btn variant="primary" size="sm" onClick={() => onViewMatch(j, true)}><RocketIcon /> Run Match</Btn>
                   <Btn
                     variant={j.isOpen ? "danger" : "secondary"}

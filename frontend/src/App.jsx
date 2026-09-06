@@ -22,6 +22,8 @@ import ResumeUpload from "./components/candidate/ResumeUpload";
 import RecruiterJobs from "./components/recruiter/RecruiterJobs";
 import PostJobView from "./components/recruiter/PostJobView";
 import MatchView from "./components/recruiter/MatchView";
+import Pipeline from "./components/recruiter/Pipeline";
+import Analytics from "./components/recruiter/Analytics";
 
 // Shared contact tab (used inside both dashboard layouts)
 import ContactSupport from "./components/contact/ContactSupport";
@@ -97,10 +99,14 @@ function AppRoutes() {
   return (
     <>
       <Routes>
-        {/* Standalone match-view page — has its own Nav, rendered outside the layout */}
+        {/* Standalone match-view and pipeline pages — have their own Nav, rendered outside the layout */}
         <Route
           path="/recruiter/jobs/:jobId/matches"
           element={<MatchView onContactClick={() => setShowContact(true)} />}
+        />
+        <Route
+          path="/recruiter/jobs/:jobId/pipeline"
+          element={<Pipeline onContactClick={() => setShowContact(true)} />}
         />
 
         {/* Layout wrapper for all other recruiter tabs */}
@@ -111,6 +117,7 @@ function AppRoutes() {
           <Route index element={<Navigate to="/recruiter/jobs" replace />} />
           <Route path="jobs" element={<RecruiterJobs />} />
           <Route path="post" element={<PostJobView />} />
+          <Route path="analytics" element={<Analytics />} />
           <Route path="contact" element={<ContactSupport />} />
         </Route>
 

@@ -21,6 +21,7 @@ export default function RecruiterDashboard({ onContactClick }) {
   // Determine active tab from URL path
   let activeTab = "jobs";
   if (location.pathname === "/recruiter/post") activeTab = "post";
+  else if (location.pathname === "/recruiter/analytics") activeTab = "analytics";
   else if (location.pathname === "/recruiter/contact") activeTab = "contact";
 
   const handleTabChange = (key) => {
@@ -64,6 +65,7 @@ export default function RecruiterDashboard({ onContactClick }) {
   const tabDefs = [
     { key: "jobs", label: "My Jobs", count: jobs.length },
     { key: "post", label: "Post a Job" },
+    { key: "analytics", label: "Analytics" },
     { key: "contact", label: "Contact" },
   ];
 
