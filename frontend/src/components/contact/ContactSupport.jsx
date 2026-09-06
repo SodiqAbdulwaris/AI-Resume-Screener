@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { COLORS } from "../../constants/colors";
-import { s } from "../../styles/designSystem";
 import { sendContactFeedback } from "../../lib/api";
 import Alert from "../ui/Alert";
 import Btn from "../ui/Btn";
@@ -42,18 +40,16 @@ export default function ContactSupport() {
   }
 
   return (
-    <div style={{ maxWidth: 620 }}>
-      <div style={s.card} className="fade-up">
-        <h3 style={{ fontFamily: "'Geist Variable', sans-serif", fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.5rem" }}>
-          Contact us
-        </h3>
-        <p style={{ color: COLORS.text2, fontSize: 13, marginBottom: "1.5rem" }}>
+    <div className="max-w-[620px]">
+      <div className="fade-up rounded-[14px] border border-border bg-card p-6">
+        <h3 className="mb-1.5 text-xl font-bold text-foreground">Contact us</h3>
+        <p className="mb-6 text-[13px] text-muted-foreground">
           Send feedback, report an issue, or ask for help with HireSignal.
         </p>
         <Alert message={error} variant="error" />
         <Alert message={success} variant="success" />
         <form onSubmit={submitFeedback}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.75rem" }}>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
             <FormField label="Name">
               <input value={form.name} onChange={update("name")} required />
             </FormField>
@@ -71,10 +67,10 @@ export default function ContactSupport() {
               value={form.message}
               onChange={update("message")}
               required
-              style={{ resize: "vertical" }}
+              className="resize-y"
             />
           </FormField>
-          <Btn variant="primary" type="submit" disabled={loading} style={{ marginTop: 6 }}>
+          <Btn variant="primary" type="submit" disabled={loading} className="mt-1.5">
             {loading ? <Spinner size={16} /> : "Send feedback"}
           </Btn>
         </form>

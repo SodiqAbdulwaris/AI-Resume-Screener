@@ -1,6 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import { COLORS } from "../constants/colors";
-import { s } from "../styles/designSystem";
 import { fmtDate } from "../lib/utils";
 import {
   getAdminUsers,
@@ -19,7 +17,7 @@ import Badge from "../components/ui/Badge";
 import Alert from "../components/ui/Alert";
 import SkeletonBlock from "../components/ui/SkeletonBlock";
 
-const TABLE_CELL = { padding: "10px 12px", fontSize: 13, borderBottom: `1px solid ${COLORS.border2}` };
+const TD = "whitespace-nowrap border-b border-border px-3 py-2.5 text-[13px]";
 
 function StatsGrid({ stats }) {
   const cards = [
@@ -31,11 +29,11 @@ function StatsGrid({ stats }) {
     { label: "Match results", value: stats.totalMatches },
   ];
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr))", gap: "0.75rem", marginBottom: "2rem" }}>
+    <div className="mb-8 grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-3">
       {cards.map((c) => (
-        <div key={c.label} style={s.card}>
-          <div style={{ fontSize: 12, color: COLORS.text2, marginBottom: 4 }}>{c.label}</div>
-          <div style={{ fontSize: 22, fontFamily: "'Geist Variable', sans-serif", fontWeight: 700 }}>{c.value}</div>
+        <div key={c.label} className="rounded-[14px] border border-border bg-card p-5">
+          <div className="mb-1 text-xs text-muted-foreground">{c.label}</div>
+          <div className="text-[22px] font-bold text-foreground">{c.value}</div>
         </div>
       ))}
     </div>
@@ -72,26 +70,26 @@ function UsersTab({ token }) {
   if (loading) return <SkeletonBlock height={200} />;
 
   return (
-    <div style={s.card}>
+    <div className="rounded-[14px] border border-border bg-card p-6">
       <Alert message={error} variant="error" />
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
               {["Name", "Email", "Role", "Status", "Joined", ""].map((h) => (
-                <th key={h} style={{ ...TABLE_CELL, textAlign: "left", color: COLORS.text2, fontWeight: 500 }}>{h}</th>
+                <th key={h} className={`${TD} text-left font-medium text-muted-foreground`}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {users.map((u) => (
               <tr key={u._id}>
-                <td style={TABLE_CELL}>{u.fullName}</td>
-                <td style={TABLE_CELL}>{u.email}</td>
-                <td style={TABLE_CELL}><Badge variant={u.role === "admin" ? "blue" : u.role === "recruiter" ? "teal" : "gray"}>{u.role}</Badge></td>
-                <td style={TABLE_CELL}>{u.isDeleted ? <Badge variant="red">Deactivated</Badge> : <Badge variant="green">Active</Badge>}</td>
-                <td style={TABLE_CELL}>{fmtDate(u.createdAt)}</td>
-                <td style={TABLE_CELL}>
+                <td className={TD}>{u.fullName}</td>
+                <td className={TD}>{u.email}</td>
+                <td className={TD}><Badge variant={u.role === "admin" ? "blue" : u.role === "recruiter" ? "teal" : "gray"}>{u.role}</Badge></td>
+                <td className={TD}>{u.isDeleted ? <Badge variant="red">Deactivated</Badge> : <Badge variant="green">Active</Badge>}</td>
+                <td className={TD}>{fmtDate(u.createdAt)}</td>
+                <td className={TD}>
                   {u.role !== "admin" && (
                     <Btn variant={u.isDeleted ? "secondary" : "danger"} size="sm" onClick={() => toggle(u)}>
                       {u.isDeleted ? "Reactivate" : "Deactivate"}
@@ -104,7 +102,7 @@ function UsersTab({ token }) {
         </table>
       </div>
       {hasMore && (
-        <div style={{ textAlign: "center", marginTop: "1rem" }}>
+        <div className="mt-4 text-center">
           <Btn variant="secondary" size="sm" onClick={() => load(nextCursor)}>Load more</Btn>
         </div>
       )}
@@ -134,31 +132,31 @@ function JobsTab({ token }) {
   if (loading) return <SkeletonBlock height={200} />;
 
   return (
-    <div style={s.card}>
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <div className="rounded-[14px] border border-border bg-card p-6">
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
               {["Title", "Recruiter", "Status", "Last matched", "Posted"].map((h) => (
-                <th key={h} style={{ ...TABLE_CELL, textAlign: "left", color: COLORS.text2, fontWeight: 500 }}>{h}</th>
+                <th key={h} className={`${TD} text-left font-medium text-muted-foreground`}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {jobs.map((j) => (
               <tr key={j._id}>
-                <td style={TABLE_CELL}>{j.title}</td>
-                <td style={TABLE_CELL}>{j.createdBy?.fullName || "—"}</td>
-                <td style={TABLE_CELL}>{j.isOpen ? <Badge variant="green">Open</Badge> : <Badge variant="gray">Closed</Badge>}</td>
-                <td style={TABLE_CELL}>{j.lastMatchedAt ? fmtDate(j.lastMatchedAt) : "Never run"}</td>
-                <td style={TABLE_CELL}>{fmtDate(j.createdAt)}</td>
+                <td className={TD}>{j.title}</td>
+                <td className={TD}>{j.createdBy?.fullName || "—"}</td>
+                <td className={TD}>{j.isOpen ? <Badge variant="green">Open</Badge> : <Badge variant="gray">Closed</Badge>}</td>
+                <td className={TD}>{j.lastMatchedAt ? fmtDate(j.lastMatchedAt) : "Never run"}</td>
+                <td className={TD}>{fmtDate(j.createdAt)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       {hasMore && (
-        <div style={{ textAlign: "center", marginTop: "1rem" }}>
+        <div className="mt-4 text-center">
           <Btn variant="secondary" size="sm" onClick={() => load(nextCursor)}>Load more</Btn>
         </div>
       )}
@@ -203,16 +201,16 @@ function SettingsTab({ token }) {
   if (loading) return <SkeletonBlock height={200} />;
 
   return (
-    <div style={{ ...s.card, maxWidth: 480 }}>
-      <div style={s.sectionLabel}>Default matching weights</div>
-      <p style={{ fontSize: 12, color: COLORS.text2, marginBottom: "1rem" }}>
+    <div className="max-w-[480px] rounded-[14px] border border-border bg-card p-6">
+      <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Default matching weights</div>
+      <p className="mb-4 text-xs text-muted-foreground">
         Used for any job that doesn't set its own weight override. Must sum to 1.0.
       </p>
       <Alert message={error} variant="error" />
       <Alert message={success} variant="success" />
       {WEIGHT_FIELDS.map((f) => (
-        <div key={f.key} style={{ marginBottom: "0.75rem" }}>
-          <label style={{ fontSize: 12, color: COLORS.text2, display: "block", marginBottom: 4 }}>{f.label}</label>
+        <div key={f.key} className="mb-3">
+          <label className="mb-1 block text-xs text-muted-foreground">{f.label}</label>
           <input
             type="number" step="0.05" min="0" max="1"
             value={weights[f.key]}
@@ -220,7 +218,7 @@ function SettingsTab({ token }) {
           />
         </div>
       ))}
-      <div style={{ fontSize: 12, color: sumOk ? COLORS.text2 : "#f87171", marginBottom: "1rem" }}>
+      <div className={`mb-4 text-xs ${sumOk ? "text-muted-foreground" : "text-red-500"}`}>
         Sum: {sum.toFixed(2)} {!sumOk && "— must equal 1.00"}
       </div>
       <Btn variant="primary" onClick={save} disabled={saving || !sumOk}>
@@ -252,9 +250,11 @@ export default function AdminDashboard({ onContactClick }) {
   return (
     <div>
       <Nav onContactClick={onContactClick} />
-      <div style={{ padding: "2rem 2rem 4rem" }}>
+      <div className="px-4 pb-16 pt-6 sm:px-8">
         <PageHeader title="Admin Dashboard" subtitle="Platform-wide users, jobs, and matching defaults." />
-        <Tabs tabs={tabDefs} active={tab} onChange={setTab} />
+        <div className="overflow-x-auto">
+          <Tabs tabs={tabDefs} active={tab} onChange={setTab} />
+        </div>
         {tab === "overview" && (stats ? <StatsGrid stats={stats} /> : <SkeletonBlock height={100} />)}
         {tab === "users" && <UsersTab token={token} />}
         {tab === "jobs" && <JobsTab token={token} />}

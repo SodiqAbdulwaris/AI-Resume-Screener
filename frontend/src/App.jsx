@@ -11,7 +11,6 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import Spinner from "./components/ui/Spinner";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
-import { COLORS } from "./constants/colors";
 
 // Candidate tab pages (routed children of CandidateDashboard layout)
 import CandidateBrowse from "./components/candidate/CandidateBrowse";
@@ -29,34 +28,13 @@ import ContactSupport from "./components/contact/ContactSupport";
 
 function LoadingScreen() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: COLORS.bg,
-      }}
-    >
-      <div
-        style={{
-          width: 48,
-          height: 48,
-          background: COLORS.accent,
-          borderRadius: 14,
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: "1rem",
-          animation: "pulse 1.5s infinite ease-in-out",
-        }}
-      >
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background">
+      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-[14px] bg-primary" style={{ animation: "pulse 1.5s infinite ease-in-out" }}>
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <path d="M3 6h16M3 11h11M3 16h7" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+          <path d="M3 6h16M3 11h11M3 16h7" stroke="var(--primary-foreground)" strokeWidth="2" strokeLinecap="round" />
         </svg>
       </div>
-      <Spinner size={24} color={COLORS.accent} />
+      <Spinner size={24} color="var(--primary)" />
     </div>
   );
 }
