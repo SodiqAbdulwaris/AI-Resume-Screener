@@ -28,6 +28,16 @@ The user explicitly asked for everything logged and documented (they're not avai
 - **`variants/`** — one file per UI variant, updated as each build completes: brief given, what the tool actually produced, how it was verified, any issues found.
 - **`research/`** — any external research consulted (web searches, the `ui-ux-pro-max` skill's data lookups) that informed a decision, kept separate from the decisions themselves so a decision file stays short and a research trail stays inspectable.
 
+## New-feature phases (F1-F4) — 2026-09-06
+
+With the visual redesign (R1-R5) done on the `claude-teal` variant now
+living on `main`, the session moved to the new-features track from the
+original redesign plan: resume library, pipeline stage-advance,
+recruiter analytics, and self-service account deletion. All four
+built, tested (backend Jest + frontend Vitest), and verified live
+against a real MongoDB. Full writeup:
+[decisions/2026-09-06-phases-f1-f4-features.md](decisions/2026-09-06-phases-f1-f4-features.md).
+
 ## Hardware safety (standing constraint for this whole session)
 
 Checked before touching any local tool: AMD Ryzen AI 9 365 (10c/20t), 32GB RAM (11.6GB free at session start), NVIDIA RTX 5060 Laptop (8GB VRAM). Rule adopted and followed throughout: **only one local (GPU-resident) model loaded at a time, ever** — cloud-backed CLI tools (opencode, cursor-agent, agy) may run concurrently since their inference happens on remote servers, not this laptop. Full reasoning in [decisions/2026-09-05-five-variant-plan.md](decisions/2026-09-05-five-variant-plan.md).
