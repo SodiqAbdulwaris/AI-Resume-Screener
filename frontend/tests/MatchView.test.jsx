@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { ThemeProvider } from "../src/context/ThemeContext";
 
 vi.mock("../src/context/AuthContext", () => ({
   useAuth: () => ({ token: "fake-token" }),
@@ -21,11 +22,13 @@ import MatchView from "../src/components/recruiter/MatchView";
 
 function renderAt(jobId) {
   return render(
-    <MemoryRouter initialEntries={[`/recruiter/jobs/${jobId}/matches`]}>
-      <Routes>
-        <Route path="/recruiter/jobs/:jobId/matches" element={<MatchView />} />
-      </Routes>
-    </MemoryRouter>
+    <ThemeProvider>
+      <MemoryRouter initialEntries={[`/recruiter/jobs/${jobId}/matches`]}>
+        <Routes>
+          <Route path="/recruiter/jobs/:jobId/matches" element={<MatchView />} />
+        </Routes>
+      </MemoryRouter>
+    </ThemeProvider>
   );
 }
 

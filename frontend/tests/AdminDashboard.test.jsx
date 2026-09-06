@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { ThemeProvider } from "../src/context/ThemeContext";
 
 vi.mock("../src/context/AuthContext", () => ({
   useAuth: () => ({ token: "fake-token", user: { fullName: "Admin User", email: "admin@example.com", role: "admin" }, logout: vi.fn() }),
@@ -31,9 +32,11 @@ describe("AdminDashboard (Phase 5)", () => {
     });
 
     render(
-      <MemoryRouter>
-        <AdminDashboard />
-      </MemoryRouter>
+      <ThemeProvider>
+        <MemoryRouter>
+          <AdminDashboard />
+        </MemoryRouter>
+      </ThemeProvider>
     );
 
     await waitFor(() => expect(screen.getByText("4")).toBeInTheDocument()); // candidates
