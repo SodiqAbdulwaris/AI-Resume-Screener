@@ -130,6 +130,7 @@ export async function apiCall(method, path, body = null, token = null, isForm = 
 export const authRegister = (body) => apiCall("POST", "/auth/register", body);
 export const authLogin = (body) => apiCall("POST", "/auth/login", body);
 export const getMe = (token) => apiCall("GET", "/auth/me", null, token);
+export const deleteMyAccount = (token) => apiCall("DELETE", "/auth/me", null, token);
 export const silentRefresh = () => apiCall("POST", "/auth/refresh");
 export const getJobs = (token, cursor = null, limit = 20) =>
   apiCall("GET", `/jobs?limit=${limit}` + (cursor ? `&cursor=${cursor}` : ""), null, token);
@@ -139,6 +140,9 @@ export const getMyApplications = (token) => apiCall("GET", "/jobs/my-application
 export const getCandidateProfile = (token) => apiCall("GET", "/candidates/me", null, token);
 export const acceptParsedName = (token) => apiCall("POST", "/candidates/me/accept-parsed-name", null, token);
 export const uploadResume = (formData, token) => apiCall("POST", "/resumes", formData, token, true);
+export const getMyResumes = (token) => apiCall("GET", "/resumes/mine", null, token);
+export const setDefaultResume = (resumeId, token) => apiCall("PATCH", `/resumes/${resumeId}/default`, null, token);
+export const deleteResume = (resumeId, token) => apiCall("DELETE", `/resumes/${resumeId}`, null, token);
 export const createJob = (body, token) => apiCall("POST", "/jobs", body, token);
 export const triggerMatch = (jobId, token) => apiCall("POST", `/jobs/${jobId}/match`, null, token);
 export const getMatchResults = (jobId, token, cursor = null, limit = 20) =>
@@ -150,6 +154,13 @@ export const toggleShortlist = (jobId, matchId, shortlisted, token) =>
   apiCall("PATCH", `/jobs/${jobId}/matches/${matchId}`, { shortlisted }, token);
 export const closeJob = (jobId, isOpen, token) =>
   apiCall("PATCH", `/jobs/${jobId}`, { isOpen }, token);
+
+export const getJobApplications = (jobId, token) => apiCall("GET", `/jobs/${jobId}/applications`, null, token);
+export const advanceApplicationStage = (jobId, applicationId, status, token) =>
+  apiCall("PATCH", `/jobs/${jobId}/applications/${applicationId}/stage`, { status }, token);
+export const bulkAdvanceApplicationStage = (jobId, applicationIds, status, token) =>
+  apiCall("PATCH", `/jobs/${jobId}/applications/bulk-stage`, { applicationIds, status }, token);
+export const getRecruiterAnalytics = (token) => apiCall("GET", "/jobs/analytics", null, token);
 
 export const getAdminUsers = (token, cursor = null) =>
   apiCall("GET", `/admin/users` + (cursor ? `?cursor=${cursor}` : ""), null, token);

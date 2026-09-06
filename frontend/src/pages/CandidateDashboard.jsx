@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState } from "react";
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { acceptParsedName, cancelApplication, getJobs, getMyApplications, getCandidateProfile, getResume } from "../lib/api";
+import { acceptParsedName, cancelApplication, getJobs, getMyApplications, getCandidateProfile } from "../lib/api";
 import Nav from "../components/layout/Nav";
 import PageHeader from "../components/layout/PageHeader";
 import Tabs from "../components/ui/Tabs";
@@ -15,7 +15,6 @@ export default function CandidateDashboard({ onContactClick }) {
   const [jobs, setJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [profile, setProfile] = useState(null);
-  const [resumeInfo, setResumeInfo] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
   const [nextCursor, setNextCursor] = useState(null);
   const [hasMore, setHasMore] = useState(false);
@@ -52,11 +51,6 @@ export default function CandidateDashboard({ onContactClick }) {
     ]);
     setApplications(ar.success ? ar.data : []);
     setProfile(pr.success ? pr.data : null);
-
-    if (pr.success && pr.data?.resumeId) {
-      const rr = await getResume(pr.data.resumeId, token);
-      if (rr.success) setResumeInfo(rr.data);
-    }
     await loadJobsData();
     setLoadingData(false);
   }, [token, loadJobsData]);
@@ -120,7 +114,6 @@ export default function CandidateDashboard({ onContactClick }) {
               jobs,
               applications,
               profile,
-              resumeInfo,
               token,
               loadAll,
               loadingJobs,

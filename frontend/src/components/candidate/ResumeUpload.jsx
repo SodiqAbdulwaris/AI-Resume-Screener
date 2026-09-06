@@ -1,13 +1,15 @@
-import { useState, useRef } from "react";
-import { CheckIcon, UploadIcon, FileTextIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { CheckIcon, UploadIcon, FileTextIcon, Cross2Icon, StarIcon, StarFilledIcon, TrashIcon } from "@radix-ui/react-icons";
 import { fmtDate } from "../../lib/utils";
-import { uploadResume } from "../../lib/api";
+import { uploadResume, getMyResumes, setDefaultResume, deleteResume } from "../../lib/api";
 import Alert from "../ui/Alert";
 import Spinner from "../ui/Spinner";
 import Btn from "../ui/Btn";
 import Badge from "../ui/Badge";
 
 import { useOutletContext } from "react-router-dom";
+
+const MAX_RESUMES = 5;
 
 function ParseStatusBadge({ status }) {
   const byStatus = {
@@ -22,14 +24,25 @@ function ParseStatusBadge({ status }) {
 }
 
 export default function ResumeUpload() {
-  const { token, loadAll: onUploaded, resumeInfo } = useOutletContext();
+  const { token, loadAll: onUploaded } = useOutletContext();
+  const [resumes, setResumes] = useState([]);
+  const [loadingList, setLoadingList] = useState(true);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [warning, setWarning] = useState(null);
   const [dragging, setDragging] = useState(false);
+  const [busyId, setBusyId] = useState(null);
   const inputRef = useRef(null);
+
+  const loadResumes = useCallback(async () => {
+    const r = await getMyResumes(token);
+    if (r.success) setResumes(r.data);
+    setLoadingList(false);
+  }, [token]);
+
+  useEffect(() => { loadResumes(); }, [loadResumes]);
 
   function handleFile(f) {
     setError(null); setSuccess(null); setWarning(null);
@@ -50,34 +63,64 @@ export default function ResumeUpload() {
       setFile(null);
       if (r.data?.parseStatus === "needs_review") setWarning(r.message);
       else setSuccess(r.message || "Resume uploaded and parsed successfully!");
+      await loadResumes();
       onUploaded();
     } else setError(r.message);
   }
 
+  async function handleSetDefault(resumeId) {
+    setBusyId(resumeId); setError(null);
+    const r = await setDefaultResume(resumeId, token);
+    setBusyId(null);
+    if (r.success) { await loadResumes(); onUploaded(); }
+    else setError(r.message);
+  }
+
+  async function handleDelete(resumeId) {
+    setBusyId(resumeId); setError(null);
+    const r = await deleteResume(resumeId, token);
+    setBusyId(null);
+    if (r.success) { await loadResumes(); onUploaded(); }
+    else setError(r.message);
+  }
+
+  const atCap = resumes.length >= MAX_RESUMES;
+
   return (
-    <div className="max-w-[540px]">
+    <div className="max-w-[640px]">
       <div className="fade-up rounded-[14px] border border-border bg-card p-6">
-        <h3 className="mb-1.5 text-xl font-bold text-foreground">Upload Resume</h3>
-        <p className="mb-6 text-[13px] text-muted-foreground">
-          PDF or DOCX only, max 5MB. Uploading replaces your current active resume automatically.
-        </p>
+        <div className="mb-5 flex items-start justify-between gap-2">
+          <div>
+            <h3 className="mb-1.5 text-xl font-bold text-foreground">Resume Library</h3>
+            <p className="text-[13px] text-muted-foreground">
+              PDF or DOCX, max 5MB each. Keep up to {MAX_RESUMES} resumes and mark one as default.
+            </p>
+          </div>
+        </div>
         <Alert message={error} variant="error" />
         <Alert message={success} variant="success" />
         <Alert message={warning} variant="warning" />
-        <div
-          onClick={() => inputRef.current?.click()}
-          onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
-          onDragLeave={() => setDragging(false)}
-          onDrop={(e) => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleFile(f); }}
-          className={`cursor-pointer rounded-xl border-2 border-dashed px-4 py-10 text-center transition-all ${
-            dragging ? "border-primary bg-accent" : "border-border bg-transparent"
-          } ${file ? "mb-4" : ""}`}
-        >
-          <UploadIcon width={36} height={36} className="mx-auto mb-3 text-muted-foreground" />
-          <div className="mb-1 font-medium">Drop your resume here</div>
-          <div className="text-[13px] text-muted-foreground">or click to browse</div>
-          <input ref={inputRef} type="file" accept=".pdf,.docx" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
-        </div>
+
+        {atCap ? (
+          <div className="rounded-xl border border-dashed border-border px-4 py-6 text-center text-[13px] text-muted-foreground">
+            You've reached the {MAX_RESUMES}-resume limit. Delete one below to upload another.
+          </div>
+        ) : (
+          <div
+            onClick={() => inputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={(e) => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleFile(f); }}
+            className={`cursor-pointer rounded-xl border-2 border-dashed px-4 py-8 text-center transition-all ${
+              dragging ? "border-primary bg-accent" : "border-border bg-transparent"
+            } ${file ? "mb-4" : ""}`}
+          >
+            <UploadIcon width={32} height={32} className="mx-auto mb-2.5 text-muted-foreground" />
+            <div className="mb-1 font-medium">Drop your resume here</div>
+            <div className="text-[13px] text-muted-foreground">or click to browse</div>
+            <input ref={inputRef} type="file" accept=".pdf,.docx" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
+          </div>
+        )}
         {file && (
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-[9px] bg-secondary px-4 py-3">
             <div>
@@ -93,26 +136,61 @@ export default function ResumeUpload() {
           </div>
         )}
       </div>
-      {resumeInfo && (
-        <div className="fade-up-2 mt-4 rounded-[14px] border border-border bg-card p-6">
-          <div className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Current resume</div>
-          <div className="mb-1 text-sm font-medium">{resumeInfo.originalFileName}</div>
-          <div className="mb-3 text-xs text-muted-foreground">
-            {(resumeInfo.fileSize / 1024).toFixed(0)} KB · Uploaded {fmtDate(resumeInfo.createdAt)}
-          </div>
-          <ParseStatusBadge status={resumeInfo.parseStatus} />
-          {resumeInfo.parseStatus === "needs_review" && (
-            <div className="mt-2.5 text-xs text-muted-foreground">
-              {resumeInfo.extractionMethod === "ocr"
-                ? "This resume was scanned — please verify the extracted details in your profile."
-                : "We couldn't extract much from this resume — please review your profile and fill in any missing details."}
+
+      <div className="fade-up-2 mt-4 flex flex-col gap-3">
+        {loadingList ? null : resumes.length === 0 ? (
+          <p className="text-[13px] text-muted-foreground">No resumes uploaded yet.</p>
+        ) : (
+          resumes.map((r) => (
+            <div key={r._id} className="flex flex-wrap items-center justify-between gap-3 rounded-[14px] border border-border bg-card p-5">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <FileTextIcon className="shrink-0" />
+                  <span className="truncate">{r.originalFileName}</span>
+                  {r.isDefault && <Badge variant="teal">Default</Badge>}
+                </div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  {(r.fileSize / 1024).toFixed(0)} KB · Uploaded {fmtDate(r.createdAt)}
+                </div>
+                <div className="mt-2">
+                  <ParseStatusBadge status={r.parseStatus} />
+                </div>
+                {r.parseStatus === "needs_review" && (
+                  <div className="mt-2 text-xs text-muted-foreground">
+                    {r.extractionMethod === "ocr"
+                      ? "This resume was scanned — please verify the extracted details in your profile."
+                      : "We couldn't extract much from this resume — please review your profile and fill in any missing details."}
+                  </div>
+                )}
+                {r.parseStatus === "failed" && r.parseError && (
+                  <div className="mt-2 text-xs text-muted-foreground">{r.parseError}</div>
+                )}
+              </div>
+              <div className="flex shrink-0 gap-2">
+                {!r.isDefault && (
+                  <Btn variant="secondary" size="sm" onClick={() => handleSetDefault(r._id)} disabled={busyId === r._id}>
+                    {busyId === r._id ? <Spinner size={14} /> : <><StarIcon /> Make default</>}
+                  </Btn>
+                )}
+                {r.isDefault && (
+                  <Btn variant="ghost" size="sm" disabled className="text-primary">
+                    <StarFilledIcon /> Default
+                  </Btn>
+                )}
+                <Btn
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDelete(r._id)}
+                  disabled={busyId === r._id || resumes.length <= 1}
+                  title={resumes.length <= 1 ? "You must keep at least one resume" : undefined}
+                >
+                  <TrashIcon />
+                </Btn>
+              </div>
             </div>
-          )}
-          {resumeInfo.parseStatus === "failed" && resumeInfo.parseError && (
-            <div className="mt-2.5 text-xs text-muted-foreground">{resumeInfo.parseError}</div>
-          )}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 }
