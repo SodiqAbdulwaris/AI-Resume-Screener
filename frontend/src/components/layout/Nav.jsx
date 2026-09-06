@@ -1,12 +1,53 @@
-import { SunIcon, MoonIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import { SunIcon, MoonIcon, TrashIcon } from "@radix-ui/react-icons";
 import Avatar from "../ui/Avatar";
 import Btn from "../ui/Btn";
+import Alert from "../ui/Alert";
+import Modal from "../ui/Modal";
+import Spinner from "../ui/Spinner";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
+import { deleteMyAccount } from "../../lib/api";
+
+function DeleteAccountDialog({ onClose }) {
+  const { token, logout } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  async function handleDelete() {
+    setLoading(true);
+    setError(null);
+    const r = await deleteMyAccount(token);
+    if (r.success) {
+      await logout();
+    } else {
+      setLoading(false);
+      setError(r.message || "Could not delete your account. Please try again.");
+    }
+  }
+
+  return (
+    <Modal onClose={onClose} maxWidth={420}>
+      <h3 className="mb-3 text-xl font-bold text-foreground">Delete your account?</h3>
+      <p className="mb-5 text-[13px] leading-relaxed text-muted-foreground">
+        This deactivates your account immediately and signs you out everywhere. This can't be undone from the app —
+        contact support if you need it reversed.
+      </p>
+      <Alert message={error} variant="error" />
+      <div className="flex gap-2.5">
+        <Btn variant="secondary" fullWidth onClick={onClose} disabled={loading}>Cancel</Btn>
+        <Btn variant="danger" fullWidth onClick={handleDelete} disabled={loading}>
+          {loading ? <Spinner size={16} /> : "Delete account"}
+        </Btn>
+      </div>
+    </Modal>
+  );
+}
 
 export default function Nav({ onContactClick }) {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const [showDelete, setShowDelete] = useState(false);
   const isRecruiter = user?.role === "recruiter";
   const isAdmin = user?.role === "admin";
   const roleLabel = isAdmin ? "Admin" : isRecruiter ? "Recruiter" : "Candidate";
@@ -51,10 +92,22 @@ export default function Nav({ onContactClick }) {
               <div className="text-sm font-medium">{user.fullName}</div>
               <div className="text-xs text-muted-foreground">{user.email}</div>
             </div>
+            <Btn
+              variant="ghost"
+              size="sm"
+              className="px-2 text-muted-foreground hover:text-red-500"
+              onClick={() => setShowDelete(true)}
+              aria-label="Delete account"
+              title="Delete account"
+            >
+              <TrashIcon />
+            </Btn>
             <Btn variant="secondary" size="sm" onClick={logout}>Sign out</Btn>
           </>
         )}
       </div>
+
+      {showDelete && <DeleteAccountDialog onClose={() => setShowDelete(false)} />}
     </nav>
   );
 }
