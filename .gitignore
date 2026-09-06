@@ -11,6 +11,7 @@ extras/
 .codex/
 .qodo/
 .claude/
+.impeccable/
 
 frontend/dist/
 __pycache__/

@@ -13,11 +13,11 @@ export default function Nav({ onContactClick }) {
 
   return (
     <nav
-      className="sticky top-0 z-[200] flex items-center justify-between border-b border-border px-8 py-3.5 backdrop-blur-md"
+      className="sticky top-0 z-[200] flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-border px-4 py-3 backdrop-blur-md sm:px-8 sm:py-3.5"
       style={{ background: "color-mix(in srgb, var(--background) 90%, transparent)" }}
     >
       <div className="flex items-center gap-2.5">
-        <div className="flex h-7 w-7 items-center justify-center rounded-[7px] bg-primary">
+        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[7px] bg-primary">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 4h10M2 7h7M2 10h5" stroke="var(--primary-foreground)" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
@@ -30,7 +30,7 @@ export default function Nav({ onContactClick }) {
         )}
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         <Btn
           variant="ghost"
           size="sm"
@@ -40,14 +40,14 @@ export default function Nav({ onContactClick }) {
         >
           {theme === "dark" ? <SunIcon /> : <MoonIcon />}
         </Btn>
-        <Btn id="nav-contact-btn" variant="ghost" size="sm" onClick={onContactClick}>
+        <Btn id="nav-contact-btn" variant="ghost" size="sm" onClick={onContactClick} className="hidden sm:inline-flex">
           Contact Us
         </Btn>
 
         {user && (
           <>
             <Avatar name={user.fullName} size={32} />
-            <div className="leading-tight">
+            <div className="hidden leading-tight md:block">
               <div className="text-sm font-medium">{user.fullName}</div>
               <div className="text-xs text-muted-foreground">{user.email}</div>
             </div>
