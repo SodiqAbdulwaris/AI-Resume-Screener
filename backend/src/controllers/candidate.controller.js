@@ -6,14 +6,14 @@ async function findOwnProfile(user) {
   let profile = await CandidateProfile.findOne({ user: user._id });
   if (profile) return profile;
 
-  const activeResume = await Resume.findOne({ uploadedBy: user._id, isActive: true })
+  const defaultResume = await Resume.findOne({ uploadedBy: user._id, isDefault: true })
     .sort({ createdAt: -1 })
     .select('_id')
     .lean();
 
-  if (!activeResume) return null;
+  if (!defaultResume) return null;
 
-  profile = await CandidateProfile.findOne({ resumeId: activeResume._id });
+  profile = await CandidateProfile.findOne({ resumeId: defaultResume._id });
   if (profile && profile.user?.toString() !== user._id.toString()) {
     profile.user = user._id;
     await profile.save();

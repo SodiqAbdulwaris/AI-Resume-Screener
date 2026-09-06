@@ -94,7 +94,87 @@ describe('POST /api/v1/resumes', () => {
     const results = await Promise.all(uploads);
     expect(results.every((r) => r.status === 201)).toBe(true);
 
-    const activeCount = await Resume.countDocuments({ uploadedBy: user._id, isActive: true });
+    const activeCount = await Resume.countDocuments({ uploadedBy: user._id, isDefault: true });
     expect(activeCount).toBe(1);
+  });
+
+  it('refuses a 6th resume once the candidate is at the cap (Phase F1)', async () => {
+    const { user, token } = await makeCandidate('capped@example.com');
+    for (let i = 0; i < 5; i++) {
+      await Resume.create({
+        uploadedBy: user._id,
+        originalFileName: `r${i}.pdf`,
+        mimeType: 'application/pdf',
+        fileSize: 10,
+        isDefault: i === 0,
+        parseStatus: 'done',
+      });
+    }
+
+    const res = await request(app)
+      .post('/api/v1/resumes')
+      .set('Authorization', `Bearer ${token}`)
+      .attach('file', Buffer.from('%PDF-1.4 fake'), { filename: 'resume.pdf', contentType: 'application/pdf' });
+
+    expect(res.status).toBe(400);
+    expect(res.body.message).toMatch(/at most 5 resumes/i);
+  });
+});
+
+describe('resume library (Phase F1)', () => {
+  it('lists a candidate\'s own resumes newest first', async () => {
+    const { user, token } = await makeCandidate('lib@example.com');
+    const older = await Resume.create({ uploadedBy: user._id, originalFileName: 'old.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: false, parseStatus: 'done' });
+    await new Promise((r) => setTimeout(r, 5));
+    const newer = await Resume.create({ uploadedBy: user._id, originalFileName: 'new.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: true, parseStatus: 'done' });
+
+    const res = await request(app).get('/api/v1/resumes/mine').set('Authorization', `Bearer ${token}`);
+    expect(res.status).toBe(200);
+    expect(res.body.data.map((r) => r._id)).toEqual([newer._id.toString(), older._id.toString()]);
+  });
+
+  it('switches the default resume and repoints the candidate profile without touching another candidate\'s resumes', async () => {
+    const { user, token } = await makeCandidate('switch@example.com');
+    const other = await makeCandidate('other@example.com');
+
+    const first = await Resume.create({ uploadedBy: user._id, originalFileName: 'a.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: true, parseStatus: 'done' });
+    const second = await Resume.create({ uploadedBy: user._id, originalFileName: 'b.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: false, parseStatus: 'done' });
+    const CandidateProfile = require('../src/models/CandidateProfile');
+    await CandidateProfile.create({ user: user._id, resumeId: first._id, fullName: 'Cand' });
+    const otherResume = await Resume.create({ uploadedBy: other.user._id, originalFileName: 'c.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: true, parseStatus: 'done' });
+
+    const res = await request(app).patch(`/api/v1/resumes/${second._id}/default`).set('Authorization', `Bearer ${token}`);
+    expect(res.status).toBe(200);
+
+    expect((await Resume.findById(first._id)).isDefault).toBe(false);
+    expect((await Resume.findById(second._id)).isDefault).toBe(true);
+    expect((await CandidateProfile.findOne({ user: user._id })).resumeId.toString()).toBe(second._id.toString());
+    // Untouched
+    expect((await Resume.findById(otherResume._id)).isDefault).toBe(true);
+  });
+
+  it('refuses to delete a candidate\'s only remaining resume', async () => {
+    const { user, token } = await makeCandidate('only@example.com');
+    const resume = await Resume.create({ uploadedBy: user._id, originalFileName: 'a.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: true, parseStatus: 'done' });
+
+    const res = await request(app).delete(`/api/v1/resumes/${resume._id}`).set('Authorization', `Bearer ${token}`);
+    expect(res.status).toBe(400);
+    expect(await Resume.findById(resume._id)).not.toBeNull();
+  });
+
+  it('promotes the next most recent resume to default when the default is deleted', async () => {
+    const { user, token } = await makeCandidate('promote@example.com');
+    const older = await Resume.create({ uploadedBy: user._id, originalFileName: 'old.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: false, parseStatus: 'done' });
+    await new Promise((r) => setTimeout(r, 5));
+    const newer = await Resume.create({ uploadedBy: user._id, originalFileName: 'new.pdf', mimeType: 'application/pdf', fileSize: 10, isDefault: true, parseStatus: 'done' });
+    const CandidateProfile = require('../src/models/CandidateProfile');
+    await CandidateProfile.create({ user: user._id, resumeId: newer._id, fullName: 'Cand' });
+
+    const res = await request(app).delete(`/api/v1/resumes/${newer._id}`).set('Authorization', `Bearer ${token}`);
+    expect(res.status).toBe(200);
+
+    const reloadedOlder = await Resume.findById(older._id);
+    expect(reloadedOlder.isDefault).toBe(true);
+    expect((await CandidateProfile.findOne({ user: user._id })).resumeId.toString()).toBe(older._id.toString());
   });
 });

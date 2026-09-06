@@ -20,9 +20,9 @@ async function runMatch(job) {
     return [];
   }
 
-  // 3. Fetch active resumes for raw_text
+  // 3. Fetch the candidates' default resumes for raw_text
   const resumeIds = profiles.map((p) => p.resumeId);
-  const resumes = await Resume.find({ _id: { $in: resumeIds }, isActive: true });
+  const resumes = await Resume.find({ _id: { $in: resumeIds }, isDefault: true });
   const resumeById = Object.fromEntries(resumes.map((r) => [r._id.toString(), r]));
 
   // 4. Build AI payloads
