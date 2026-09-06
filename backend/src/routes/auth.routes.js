@@ -322,4 +322,20 @@ router.post('/reset-password', validate(resetPasswordSchema), authController.res
  */
 router.get('/me', authenticate, authController.getMe);
 
+/**
+ * @swagger
+ * /auth/me:
+ *   delete:
+ *     summary: Delete the currently logged-in user's own account (self-service)
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Account deleted
+ *       401:
+ *         description: Unauthenticated
+ */
+router.delete('/me', authenticate, authController.deleteMyAccount);
+
 module.exports = router;

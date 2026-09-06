@@ -113,3 +113,27 @@ describe('GET /api/v1/auth/me', () => {
     expect(res.status).toBe(401);
   });
 });
+
+describe('DELETE /api/v1/auth/me (Phase F4)', () => {
+  it('soft-deletes the caller\'s own account and revokes their refresh tokens', async () => {
+    const RefreshToken = require('../src/models/RefreshToken');
+    const user = await User.create({ fullName: 'X', email: 'selfdelete@example.com', password: 'password123', role: 'candidate', isVerified: true });
+    const token = jwt.sign({ userId: user._id, role: user.role }, config.jwtSecret, { expiresIn: '15m' });
+    await RefreshToken.create({ token: 'hashed-token-value', userId: user._id, expiresAt: new Date(Date.now() + 86400000) });
+
+    const res = await request(app).delete('/api/v1/auth/me').set('Authorization', `Bearer ${token}`);
+    expect(res.status).toBe(200);
+
+    expect((await User.findById(user._id)).isDeleted).toBe(true);
+    expect(await RefreshToken.countDocuments({ userId: user._id })).toBe(0);
+
+    // The now-deleted account's own token stops working immediately.
+    const meRes = await request(app).get('/api/v1/auth/me').set('Authorization', `Bearer ${token}`);
+    expect(meRes.status).toBe(401);
+  });
+
+  it('requires authentication', async () => {
+    const res = await request(app).delete('/api/v1/auth/me');
+    expect(res.status).toBe(401);
+  });
+});

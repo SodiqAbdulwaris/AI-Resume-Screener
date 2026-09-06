@@ -300,6 +300,32 @@ async function getMe(req, res) {
 }
 
 /**
+ * DELETE /api/v1/auth/me
+ * Self-service account deletion — soft-deletes the caller's own account
+ * (same isDeleted flag admin.controller's deactivateUser uses) and revokes
+ * every refresh token for it so existing sessions stop working immediately.
+ */
+async function deleteMyAccount(req, res, next) {
+  try {
+    await User.findByIdAndUpdate(req.user._id, { isDeleted: true });
+    await RefreshToken.deleteMany({ userId: req.user._id });
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+    });
+
+    return res.json({
+      success: true,
+      message: 'Your account has been deleted.',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
  * GET /api/v1/auth/verify-email
  * Verify verification token and update user's verification status.
  */
@@ -489,6 +515,7 @@ module.exports = {
   login,
   logout,
   getMe,
+  deleteMyAccount,
   refresh,
   verifyEmail,
   resendVerification,
