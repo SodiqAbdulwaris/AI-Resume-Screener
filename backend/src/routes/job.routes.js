@@ -11,12 +11,22 @@ const {
   applyToJob,
   cancelApplication,
   getMyApplications,
+  getRecruiterAnalytics,
+  getJobApplications,
+  advanceApplicationStage,
+  bulkAdvanceApplicationStage,
   toggleShortlist,
 } = require('../controllers/job.controller');
 const { authenticate, authorise, optionalAuthenticate } = require('../middlewares/auth.middleware');
 const validateObjectId = require('../middlewares/validateObjectId.middleware');
 const { validate } = require('../middlewares/validate.middleware');
-const { createJobSchema, closeJobSchema, toggleShortlistSchema } = require('../validations/job.validation');
+const {
+  createJobSchema,
+  closeJobSchema,
+  toggleShortlistSchema,
+  updateApplicationStageSchema,
+  bulkUpdateApplicationStageSchema,
+} = require('../validations/job.validation');
 
 /**
  * @swagger
@@ -131,6 +141,20 @@ router.get('/my-applications', authenticate, authorise('candidate'), getMyApplic
 
 /**
  * @swagger
+ * /jobs/analytics:
+ *   get:
+ *     summary: Recruiter-scoped applicant funnel and match-score distribution (Recruiter only)
+ *     tags: [Jobs]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Analytics retrieved
+ */
+router.get('/analytics', authenticate, authorise('recruiter'), getRecruiterAnalytics);
+
+/**
+ * @swagger
  * /jobs/{jobId}:
  *   get:
  *     summary: Get job details by ID
@@ -185,6 +209,106 @@ router.get('/:jobId', authenticate, validateObjectId('jobId'), getJobById);
  *         description: Job not found
  */
 router.patch('/:jobId', authenticate, authorise('recruiter'), validateObjectId('jobId'), validate(closeJobSchema), closeJob);
+
+/**
+ * @swagger
+ * /jobs/{jobId}/applications:
+ *   get:
+ *     summary: List applications to a job (Recruiter only, own jobs)
+ *     tags: [Jobs]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: jobId
+ *         required: true
+ *         schema: { type: string }
+ *     responses:
+ *       200:
+ *         description: Applications retrieved
+ *       403:
+ *         description: Forbidden — not your job
+ *       404:
+ *         description: Job not found
+ */
+router.get('/:jobId/applications', authenticate, authorise('recruiter'), validateObjectId('jobId'), getJobApplications);
+
+/**
+ * @swagger
+ * /jobs/{jobId}/applications/bulk-stage:
+ *   patch:
+ *     summary: Advance multiple applications to a new pipeline stage (Recruiter only)
+ *     tags: [Jobs]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: jobId
+ *         required: true
+ *         schema: { type: string }
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [applicationIds, status]
+ *             properties:
+ *               applicationIds: { type: array, items: { type: string } }
+ *               status: { type: string, enum: [pending, reviewed, shortlisted, rejected] }
+ *     responses:
+ *       200:
+ *         description: Applications updated
+ */
+router.patch(
+  '/:jobId/applications/bulk-stage',
+  authenticate,
+  authorise('recruiter'),
+  validateObjectId('jobId'),
+  validate(bulkUpdateApplicationStageSchema),
+  bulkAdvanceApplicationStage
+);
+
+/**
+ * @swagger
+ * /jobs/{jobId}/applications/{applicationId}/stage:
+ *   patch:
+ *     summary: Advance one application to a new pipeline stage (Recruiter only)
+ *     tags: [Jobs]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: jobId
+ *         required: true
+ *         schema: { type: string }
+ *       - in: path
+ *         name: applicationId
+ *         required: true
+ *         schema: { type: string }
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [status]
+ *             properties:
+ *               status: { type: string, enum: [pending, reviewed, shortlisted, rejected] }
+ *     responses:
+ *       200:
+ *         description: Application updated
+ *       404:
+ *         description: Application not found
+ */
+router.patch(
+  '/:jobId/applications/:applicationId/stage',
+  authenticate,
+  authorise('recruiter'),
+  validateObjectId('jobId'),
+  validate(updateApplicationStageSchema),
+  advanceApplicationStage
+);
 
 /**
  * @swagger

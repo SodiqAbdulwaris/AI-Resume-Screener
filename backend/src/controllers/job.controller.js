@@ -295,6 +295,116 @@ async function closeJob(req, res) {
   });
 }
 
+const SCORE_BUCKETS = [
+  { label: '0-25%', min: 0, max: 0.25 },
+  { label: '25-50%', min: 0.25, max: 0.5 },
+  { label: '50-75%', min: 0.5, max: 0.75 },
+  { label: '75-100%', min: 0.75, max: 1.01 }, // 1.01 so a perfect 1.0 score lands in the top bucket
+];
+
+// Recruiter-scoped counterpart to admin.controller's getStats — same shape of
+// aggregation (counts + a funnel), filtered to this recruiter's own jobs
+// instead of the whole platform.
+async function getRecruiterAnalytics(req, res) {
+  const jobs = await JobRequirement.find({ createdBy: req.user._id }).select('_id isOpen').lean();
+  const jobIds = jobs.map((j) => j._id);
+
+  const [statusCounts, matchResults] = await Promise.all([
+    Application.aggregate([
+      { $match: { job: { $in: jobIds } } },
+      { $group: { _id: '$status', count: { $sum: 1 } } },
+    ]),
+    MatchResult.find({ job: { $in: jobIds } }).select('totalScore').lean(),
+  ]);
+
+  const funnel = { pending: 0, reviewed: 0, shortlisted: 0, rejected: 0 };
+  for (const row of statusCounts) funnel[row._id] = row.count;
+
+  const scoreDistribution = SCORE_BUCKETS.map(({ label, min, max }) => ({
+    label,
+    count: matchResults.filter((m) => m.totalScore >= min && m.totalScore < max).length,
+  }));
+
+  return res.json({
+    success: true,
+    message: 'Analytics retrieved successfully.',
+    data: {
+      totalJobs: jobs.length,
+      openJobs: jobs.filter((j) => j.isOpen).length,
+      totalApplications: Object.values(funnel).reduce((a, b) => a + b, 0),
+      funnel,
+      scoreDistribution,
+    },
+  });
+}
+
+async function getJobApplications(req, res) {
+  const { jobId } = req.params;
+  const job = await JobRequirement.findById(jobId).select('createdBy').lean();
+  if (!job) {
+    return res.status(404).json({ success: false, message: 'Job not found.', data: null });
+  }
+  if (job.createdBy.toString() !== req.user._id.toString()) {
+    return res.status(403).json({ success: false, message: 'You can only view applications for your own jobs.', data: null });
+  }
+
+  const applications = await Application.find({ job: jobId })
+    .populate('candidateProfile', 'fullName email phone skills yearsExperience educationLevel')
+    .sort({ appliedAt: -1 })
+    .lean();
+
+  return res.json({ success: true, message: 'Applications retrieved successfully.', data: applications });
+}
+
+async function advanceApplicationStage(req, res) {
+  const { jobId, applicationId } = req.params;
+  const { status } = req.body;
+
+  const job = await JobRequirement.findById(jobId).select('createdBy').lean();
+  if (!job) {
+    return res.status(404).json({ success: false, message: 'Job not found.', data: null });
+  }
+  if (job.createdBy.toString() !== req.user._id.toString()) {
+    return res.status(403).json({ success: false, message: 'You can only update applications for your own jobs.', data: null });
+  }
+
+  const application = await Application.findOneAndUpdate(
+    { _id: applicationId, job: jobId },
+    { status },
+    { new: true }
+  ).lean();
+
+  if (!application) {
+    return res.status(404).json({ success: false, message: 'Application not found.', data: null });
+  }
+
+  return res.json({ success: true, message: 'Application stage updated.', data: application });
+}
+
+async function bulkAdvanceApplicationStage(req, res) {
+  const { jobId } = req.params;
+  const { applicationIds, status } = req.body;
+
+  const job = await JobRequirement.findById(jobId).select('createdBy').lean();
+  if (!job) {
+    return res.status(404).json({ success: false, message: 'Job not found.', data: null });
+  }
+  if (job.createdBy.toString() !== req.user._id.toString()) {
+    return res.status(403).json({ success: false, message: 'You can only update applications for your own jobs.', data: null });
+  }
+
+  const result = await Application.updateMany(
+    { _id: { $in: applicationIds }, job: jobId },
+    { status }
+  );
+
+  return res.json({
+    success: true,
+    message: `${result.modifiedCount} application(s) updated.`,
+    data: { matched: result.matchedCount, modified: result.modifiedCount },
+  });
+}
+
 async function toggleShortlist(req, res) {
   const { jobId, matchId } = req.params;
 
@@ -336,6 +446,10 @@ module.exports = {
   applyToJob,
   cancelApplication,
   getMyApplications,
+  getRecruiterAnalytics,
+  getJobApplications,
+  advanceApplicationStage,
+  bulkAdvanceApplicationStage,
   runJobMatch,
   getJobMatches,
   exportJobMatchesCsv,

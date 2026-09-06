@@ -27,8 +27,25 @@ const toggleShortlistSchema = {
   })
 };
 
+const APPLICATION_STATUSES = ['pending', 'reviewed', 'shortlisted', 'rejected'];
+
+const updateApplicationStageSchema = {
+  body: z.object({
+    status: z.enum(APPLICATION_STATUSES, { required_error: 'status is required.' }),
+  })
+};
+
+const bulkUpdateApplicationStageSchema = {
+  body: z.object({
+    applicationIds: z.array(z.string()).min(1, 'At least one applicationId is required.'),
+    status: z.enum(APPLICATION_STATUSES, { required_error: 'status is required.' }),
+  })
+};
+
 module.exports = {
   createJobSchema,
   closeJobSchema,
   toggleShortlistSchema,
+  updateApplicationStageSchema,
+  bulkUpdateApplicationStageSchema,
 };
